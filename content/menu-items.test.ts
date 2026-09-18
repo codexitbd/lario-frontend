@@ -41,7 +41,13 @@ describe('menu-items fixture', () => {
       for (const locale of LOCALES) {
         expect(item.translations[locale].name.length).toBeGreaterThan(0)
       }
-      expect(item.translations.ar.name).toMatch(/[؀-ۿ]/)
+      // Presence is not purity: a bare "contains Arabic" test passes on a
+      // half-transliterated name like "Fettuccine \u0623\u0644\u0641\u0631\u064a\u062f\u0648" — exactly the defect
+      // class this guard exists for. Assert BOTH that Arabic is present and that
+      // no Latin letter survives. Digits, parentheses and punctuation stay legal,
+      // since names like "(4 \u0623\u0634\u062e\u0627\u0635)" are legitimate.
+      expect(item.translations.ar.name).toMatch(/[\u0600-\u06FF]/)
+      expect(item.translations.ar.name).not.toMatch(/[A-Za-z]/)
     }
   })
 
@@ -52,9 +58,21 @@ describe('menu-items fixture', () => {
     }
   })
 
-  it('features exactly 6 dishes spanning at least 4 categories', () => {
+  it('features exactly the six dishes the homepage fixture names', () => {
     const featured = items.filter((i) => i.is_featured)
-    expect(featured).toHaveLength(6)
+    // Identity, not just count: swapping one featured dish for another keeps the
+    // count at 6 and the spread at 4+, so a count-only assertion would pass while
+    // the homepage silently rendered the wrong six cards.
+    expect(new Set(featured.map((i) => i.slug))).toEqual(
+      new Set([
+        'assado-argentina-style',
+        'fettuccine-alfredo-on-the-parmesan-wheel',
+        'urfa-kebab',
+        'pizza-la-rio-signature',
+        'burrata-salad',
+        'ribeye-steak',
+      ]),
+    )
     expect(new Set(featured.map((i) => i.category_slug)).size).toBeGreaterThanOrEqual(4)
   })
 })

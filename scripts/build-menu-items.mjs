@@ -64,6 +64,23 @@ for (const cuisine of readdirSync(ROOT)) {
 }
 
 items.sort((a, b) => a.slug.localeCompare(b.slug))
+
+// Curated entries are keyed by the slug stored in the previous file, but matched
+// against a slug recomputed from the current filename. If toSlug's output changes
+// or an image is renamed, the old entry matches nothing and is dropped — taking
+// its price, calories, allergens and Arabic copy with it. toSlug HAS been changed
+// once already in this repo, so this is a real path, not a theoretical one. Say so
+// loudly at generation time rather than leaving it to be noticed in a git diff.
+const produced = new Set(items.map((i) => i.slug))
+const orphaned = [...existing.keys()].filter((slug) => !produced.has(slug))
+if (orphaned.length > 0) {
+  console.warn(
+    `WARNING: ${orphaned.length} previously curated slug(s) matched no file this run and have been DROPPED:`,
+  )
+  for (const slug of orphaned) console.warn(`  - ${slug}`)
+  console.warn('Recover with: git checkout content/menu-items.json')
+}
+
 writeFileSync(OUT, `${JSON.stringify(items, null, 2)}\n`)
 console.log(`${items.length} items written to ${OUT}`)
 const gaps = items.filter((i) => !i.translations.ar.name || i.price === '0.00')
