@@ -3,6 +3,7 @@ import { buildSeo } from '@/content/seo-defaults'
 import { getBranches } from '@/lib/api/branches.impl'
 import { getFeaturedItems } from '@/lib/api/menu.impl'
 import { resolveTranslation } from '@/lib/api/resolve'
+import { getTestimonials } from '@/lib/api/testimonials.impl'
 import type { Locale } from '@/lib/i18n/config'
 import type { Branch, Home, PageSection } from '@/lib/schemas'
 
@@ -43,6 +44,25 @@ function toSection(locale: Locale, section: SourceSection): PageSection {
       sort_order: section.sort_order,
       payload: section.payload,
       content: { ...content, branches: cards },
+    }
+  }
+
+  if (section.type === 'testimonials') {
+    // The section had copy but no data path at all — content/testimonials.json
+    // had no fetcher, so `payload.testimonial_limit` selected from nothing.
+    // Resolved here for the same reason branch_cards is: the contract makes
+    // /home ONE request carrying everything its sections need.
+    const { testimonial_limit } = section.payload as {
+      testimonial_limit: number
+    }
+    return {
+      type: section.type,
+      sort_order: section.sort_order,
+      payload: section.payload,
+      content: {
+        ...content,
+        testimonials: getTestimonials(locale, testimonial_limit),
+      },
     }
   }
 

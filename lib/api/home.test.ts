@@ -24,6 +24,16 @@ describe('getHome', () => {
     expect(branches.map((b) => b.slug)).toEqual(['narjis', 'al-yasmin'])
   })
 
+  it('resolves the testimonials section through getTestimonials, honouring testimonial_limit', () => {
+    const home = getHome('en')
+    const section = home.sections.find((s) => s.type === 'testimonials')
+    const reviews = section?.content.testimonials as { body: string }[]
+    const limit = section?.payload.testimonial_limit as number
+    expect(limit).toBeGreaterThan(0)
+    expect(reviews).toHaveLength(limit)
+    expect(reviews[0].body.length).toBeGreaterThan(0)
+  })
+
   it('maps translations.{locale} into a resolved content field', () => {
     const home = getHome('en')
     const hero = home.sections.find((s) => s.type === 'hero')

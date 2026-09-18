@@ -25,6 +25,7 @@ const { getBranches, getBranch } = await import('@/lib/api/branches')
 const { getHome } = await import('@/lib/api/home')
 const { getPage } = await import('@/lib/api/pages')
 const { getSettings } = await import('@/lib/api/settings')
+const { getTestimonials } = await import('@/lib/api/testimonials')
 
 beforeEach(() => {
   cacheTagCalls.length = 0
@@ -43,6 +44,7 @@ describe('cacheLife', () => {
     await getHome('en')
     await getPage('en', 'contact')
     await getSettings('en')
+    await getTestimonials('en')
 
     expect(cacheLifeCalls.length).toBeGreaterThan(0)
     for (const call of cacheLifeCalls) {
@@ -87,9 +89,14 @@ describe('cacheTag wiring matches the contract', () => {
     expect(cacheTagCalls).toEqual([['branch:narjis', 'menu']])
   })
 
-  it('getHome tags BOTH "home" and "menu" — branch cards and featured dishes embed menu data', async () => {
+  it('getHome tags "home", "menu" AND "testimonials" — it embeds all three', async () => {
     await getHome('en')
-    expect(cacheTagCalls).toEqual([['home', 'menu']])
+    expect(cacheTagCalls).toEqual([['home', 'menu', 'testimonials']])
+  })
+
+  it('getTestimonials tags "testimonials"', async () => {
+    await getTestimonials('en')
+    expect(cacheTagCalls).toEqual([['testimonials']])
   })
 
   it('getPage tags "page:{slug}"', async () => {

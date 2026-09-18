@@ -13,7 +13,11 @@ export async function getHome(locale: Locale): Promise<Home> {
   // renamed category invalidates the homepage through `home` alone. The
   // contract cascades `home` only for is_featured dishes and branch saves;
   // everything else about this page arrives under `menu`.
-  cacheTag(tags.home(), tags.menu())
+  //
+  // `testimonials` for the same reason: the testimonials section now resolves
+  // real reviews into its content, and a testimonial save emits `testimonials`
+  // and nothing else per the contract's cascade table.
+  cacheTag(tags.home(), tags.menu(), tags.testimonials())
   cacheLife('max')
 
   return getHomeImpl(locale)
