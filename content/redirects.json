@@ -1,3 +1,3 @@
 [
-  { "from_path": "/our-menu/4", "to_path": "/menu/pizza", "status_code": 301, "is_active": true }
+  { "from": "/our-menu/4", "to": "/menu/pizza", "status": 301, "is_active": true }
 ]

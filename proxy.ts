@@ -40,10 +40,18 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains',
 }
 
+// Field names are the CONTRACT's (`from` / `to` / `status`), not the database
+// column names (`from_path` / `to_path` / `status_code`). content/redirects.json
+// stands in for GET /redirects, and the contract defines the wire shape; column
+// names stay in the database where they belong.
+//
+// `is_active` has no contract equivalent because it is a real filter applied
+// before the rows are serialised — it is documented in the contract as
+// optionally present so a fixture layer can carry it.
 interface RedirectRow {
-  from_path: string
-  to_path: string
-  status_code: number
+  from: string
+  to: string
+  status: number
   is_active: boolean
 }
 
@@ -52,23 +60,23 @@ interface RedirectRow {
 // one. Nothing downstream would catch it: the browser just returns
 // ERR_TOO_MANY_REDIRECTS. Drop bad rows at build time rather than serving them.
 export function buildRedirectMap(rows: RedirectRow[]): Map<string, RedirectRow> {
-  const active = rows.filter((r) => r.is_active && r.from_path !== r.to_path)
+  const active = rows.filter((r) => r.is_active && r.from !== r.to)
 
   const safe = active.filter((r) => {
     // Follow the chain from this row's target; if it leads back here, drop it.
-    const seen = new Set<string>([r.from_path])
-    let next = r.to_path
+    const seen = new Set<string>([r.from])
+    let next = r.to
     for (let hop = 0; hop < 10; hop += 1) {
       if (seen.has(next)) return false
       seen.add(next)
-      const onward = active.find((c) => c.from_path === next)
+      const onward = active.find((c) => c.from === next)
       if (!onward) return true
-      next = onward.to_path
+      next = onward.to
     }
     return false
   })
 
-  return new Map(safe.map((r) => [r.from_path, r] as const))
+  return new Map(safe.map((r) => [r.from, r] as const))
 }
 
 const REDIRECT_MAP = buildRedirectMap(redirects as RedirectRow[])
@@ -79,8 +87,8 @@ export function proxy(request: NextRequest): NextResponse {
   const redirect = REDIRECT_MAP.get(pathname)
   if (redirect) {
     const url = request.nextUrl.clone()
-    url.pathname = redirect.to_path
-    return withHeaders(NextResponse.redirect(url, redirect.status_code))
+    url.pathname = redirect.to
+    return withHeaders(NextResponse.redirect(url, redirect.status))
   }
 
   const segment = pathname.split('/')[1] ?? ''

@@ -68,15 +68,22 @@ describe('redirects', () => {
 describe('redirect loop protection', () => {
   it('drops a self-redirect (from === to)', () => {
     const map = buildRedirectMap([
-      { from_path: '/a', to_path: '/a', status_code: 301, is_active: true },
+      { from: '/a', to: '/a', status: 301, is_active: true },
+    ])
+    expect(map.has('/a')).toBe(false)
+  })
+
+  it('drops an inactive row', () => {
+    const map = buildRedirectMap([
+      { from: '/a', to: '/b', status: 301, is_active: false },
     ])
     expect(map.has('/a')).toBe(false)
   })
 
   it('drops both rows in a two-hop cycle', () => {
     const map = buildRedirectMap([
-      { from_path: '/a', to_path: '/b', status_code: 301, is_active: true },
-      { from_path: '/b', to_path: '/a', status_code: 301, is_active: true },
+      { from: '/a', to: '/b', status: 301, is_active: true },
+      { from: '/b', to: '/a', status: 301, is_active: true },
     ])
     expect(map.has('/a')).toBe(false)
     expect(map.has('/b')).toBe(false)
