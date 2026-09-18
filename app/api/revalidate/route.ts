@@ -33,18 +33,37 @@ export async function POST(request: Request): Promise<Response> {
     return unauthorized()
   }
 
-  let body: { tags?: unknown }
+  let body: unknown
   try {
     body = JSON.parse(raw)
   } catch {
     return Response.json({ message: 'Malformed body.' }, { status: 422 })
   }
 
-  const tags = Array.isArray(body.tags)
-    ? body.tags.filter((tag): tag is string => typeof tag === 'string')
+  // JSON.parse('null') SUCCEEDS and returns null — the try/catch above does not
+  // catch it, and reading .tags off null throws a TypeError that escapes as an
+  // unhandled 500. A valid signature proves who sent this, not that what they
+  // sent is well-formed: this boundary validates, it does not merely authenticate.
+  const rawTags =
+    body !== null && typeof body === 'object'
+      ? (body as { tags?: unknown }).tags
+      : undefined
+
+  // Cap on the RAW array length, before non-strings are filtered out. Capping
+  // after the filter would let a payload of 500 junk entries plus 3 valid ones
+  // slip past a "max 50" rule.
+  if (Array.isArray(rawTags) && rawTags.length > MAX_TAGS) {
+    return Response.json(
+      { message: `Provide between 1 and ${MAX_TAGS} tags.` },
+      { status: 422 },
+    )
+  }
+
+  const tags = Array.isArray(rawTags)
+    ? rawTags.filter((tag): tag is string => typeof tag === 'string')
     : []
 
-  if (tags.length === 0 || tags.length > MAX_TAGS) {
+  if (tags.length === 0) {
     return Response.json(
       { message: `Provide between 1 and ${MAX_TAGS} tags.` },
       { status: 422 },

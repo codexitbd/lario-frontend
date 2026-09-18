@@ -63,4 +63,26 @@ describe('POST /api/revalidate', () => {
     const { POST } = await import('@/app/api/revalidate/route')
     expect((await POST(signed({ tags: ['menu'] }))).status).toBe(401)
   })
+
+  it('rejects a validly-signed null body with 422, not a 500', async () => {
+    const { POST } = await import('@/app/api/revalidate/route')
+    // JSON.parse('null') succeeds and returns null, so a correctly-signed
+    // request whose raw body is the four characters "null" must not crash
+    // when the handler reads .tags off it.
+    const raw = 'null'
+    const timestamp = Math.floor(Date.now() / 1000)
+    const signature = createHmac('sha256', SECRET)
+      .update(`${timestamp}.${raw}`)
+      .digest('hex')
+    const request = new Request('https://lario.sa/api/revalidate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Lario-Timestamp': String(timestamp),
+        'X-Lario-Signature': `sha256=${signature}`,
+      },
+      body: raw,
+    })
+    expect((await POST(request)).status).toBe(422)
+  })
 })
