@@ -6,7 +6,14 @@ import type { Home } from '@/lib/schemas'
 
 export async function getHome(locale: Locale): Promise<Home> {
   'use cache'
-  cacheTag(tags.home())
+  // Both tags. The `menu` cascade fires for any dish or category change, and
+  // this payload embeds both: branch_cards inlines whole Branch objects
+  // (popular_dishes included) and featured_dishes cards carry category.name
+  // read from the categories fixture — so neither a repriced dish nor a
+  // renamed category invalidates the homepage through `home` alone. The
+  // contract cascades `home` only for is_featured dishes and branch saves;
+  // everything else about this page arrives under `menu`.
+  cacheTag(tags.home(), tags.menu())
   cacheLife('max')
 
   return getHomeImpl(locale)

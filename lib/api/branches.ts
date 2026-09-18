@@ -8,7 +8,12 @@ export { toSchemaOpeningHours } from '@/lib/api/branches.impl'
 
 export async function getBranches(locale: Locale): Promise<Branch[]> {
   'use cache'
-  cacheTag(tags.branches())
+  // Both tags, for the same reason getBranch carries both: toBranch ALWAYS
+  // populates popular_dishes, so every row in this list renders dish cards,
+  // and a dish edit emits `menu` — never `branches`. Tagging only `branches`
+  // leaves a repriced dish showing its old price on every branch card, with
+  // nothing erroring.
+  cacheTag(tags.branches(), tags.menu())
   cacheLife('max')
 
   return impl.getBranches(locale)
