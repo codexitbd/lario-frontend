@@ -1,0 +1,372 @@
+{
+  "seo_path": "/",
+  "sections": [
+    {
+      "type": "hero",
+      "sort_order": 0,
+      "payload": {
+        "background_image": "/images/home/hero.jpg",
+        "video": null,
+        "locations": ["Al Narjis", "Al Yasmin", "Riyadh, Saudi Arabia"]
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "A Dining Story Beyond Borders",
+          "heading": "Italian, Turkish and Argentinian Dining in Riyadh",
+          "subheading": "La Rio brings bold Argentinian fire, timeless Italian recipes and warm Turkish hospitality to one table.",
+          "cta_label": "Reserve a Table",
+          "secondary_cta_label": "Explore Our Menu"
+        },
+        "ar": {
+          "eyebrow": "حكاية طعام تتجاوز الحدود",
+          "heading": "مطبخ إيطالي وتركي وأرجنتيني في الرياض",
+          "subheading": "يجمع لا ريو نار الأرجنتين الجريئة ووصفات إيطاليا الخالدة وكرم الضيافة التركية على مائدة واحدة.",
+          "cta_label": "احجز طاولتك",
+          "secondary_cta_label": "تصفح القائمة"
+        }
+      }
+    },
+    {
+      "type": "intro",
+      "sort_order": 1,
+      "payload": {
+        "cuisines": {
+          "italian": { "image": "/images/home/cuisine-italian.jpg" },
+          "turkish": { "image": "/images/home/cuisine-turkish.jpg" },
+          "argentine": { "image": "/images/home/cuisine-argentine.jpg" }
+        }
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "Three Kitchens, One Table",
+          "heading": "One Menu, Three Traditions",
+          "subheading": "Every plate at La Rio comes from one of three kitchens working side by side around our open charcoal grill.",
+          "cards": [
+            {
+              "key": "italian",
+              "title": "Italian",
+              "body": "Wood-fired pizza, hand-rolled pasta and risotto, made the way northern Italy has always made them."
+            },
+            {
+              "key": "turkish",
+              "title": "Turkish",
+              "body": "Charcoal kebabs, mezze and slow-simmered stews, carried straight from the grill to your table."
+            },
+            {
+              "key": "argentine",
+              "title": "Argentine",
+              "body": "Prime cuts and whole-animal asado, cooked low and slow over open coals in the Argentine style."
+            }
+          ]
+        },
+        "ar": {
+          "eyebrow": "ثلاثة مطابخ على مائدة واحدة",
+          "heading": "قائمة واحدة، ثلاث ثقافات",
+          "subheading": "يأتي كل طبق في لا ريو من أحد المطابخ الثلاثة التي تعمل جنباً إلى جنب حول شوايتنا المفتوحة على الفحم.",
+          "cards": [
+            {
+              "key": "italian",
+              "title": "إيطالي",
+              "body": "بيتزا مخبوزة على الحطب، وباستا وريزوتو معدة يدوياً، على الطريقة التي عُرفت بها شمال إيطاليا دائماً."
+            },
+            {
+              "key": "turkish",
+              "title": "تركي",
+              "body": "كباب على الفحم، ومقبلات باردة، وأطباق مطهوة ببطء، تصل من الشواية إلى مائدتك مباشرة."
+            },
+            {
+              "key": "argentine",
+              "title": "أرجنتيني",
+              "body": "قطع لحم فاخرة وأسادو كامل، يُطهى ببطء فوق جمر مفتوح على الطريقة الأرجنتينية."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "featured_dishes",
+      "sort_order": 2,
+      "payload": {
+        "item_slugs": [
+          "assado-argentina-style",
+          "fettuccine-alfredo-on-the-parmesan-wheel",
+          "urfa-kebab",
+          "pizza-la-rio-signature",
+          "burrata-salad",
+          "ribeye-steak"
+        ]
+      },
+      "translations": {
+        "en": {
+          "heading": "Signature Favourites",
+          "eyebrow": "From the Menu",
+          "subheading": "The dishes guests come back for.",
+          "cta_label": "View Full Menu"
+        },
+        "ar": {
+          "heading": "أطباقنا المميزة",
+          "eyebrow": "من القائمة",
+          "subheading": "الأطباق التي يعود إليها ضيوفنا.",
+          "cta_label": "عرض القائمة كاملة"
+        }
+      }
+    },
+    {
+      "type": "why_lario",
+      "sort_order": 3,
+      "payload": {
+        "image": "/images/home/why-lario.jpg"
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "Why La Rio",
+          "heading": "What Sets Our Table Apart",
+          "subheading": "Three cuisines rarely share a kitchen. At La Rio, they share a grill.",
+          "points": [
+            { "icon": "flame", "label": "An open charcoal grill tended all night" },
+            { "icon": "globe", "label": "Three cuisines, one shared kitchen" },
+            { "icon": "map-pin", "label": "Two branches across Riyadh" },
+            { "icon": "users", "label": "Family tables and private dining alike" }
+          ],
+          "cta_label": "Reserve a Table"
+        },
+        "ar": {
+          "eyebrow": "لماذا لا ريو",
+          "heading": "ما يميز مائدتنا",
+          "subheading": "نادراً ما تشترك ثلاثة مطابخ في مطبخ واحد. في لا ريو، تشترك في شواية واحدة.",
+          "points": [
+            { "icon": "flame", "label": "شواية فحم مفتوحة تُدار طوال الليل" },
+            { "icon": "globe", "label": "ثلاثة مطابخ في مطبخ واحد مشترك" },
+            { "icon": "map-pin", "label": "فرعان في أنحاء الرياض" },
+            { "icon": "users", "label": "طاولات عائلية وجلسات خاصة على حد سواء" }
+          ],
+          "cta_label": "احجز طاولتك"
+        }
+      }
+    },
+    {
+      "type": "chef_story",
+      "sort_order": 4,
+      "payload": {
+        "image": "/images/home/chef-story.jpg"
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "Our Story",
+          "heading": "Built Around the Fire",
+          "subheading": "Al Narjis opened first; Al Yasmin followed four years later, built for longer, slower dinners.",
+          "body": "La Rio started with a simple idea: put the grill at the centre of the room instead of hiding it in the back. Our kitchens draw on Argentine asado technique, Italian pasta and pizza craft, and Turkish charcoal cooking, and our cooks move between all three rather than staying fenced into one. The result is a menu that shares a fire more than it shares a single country's habits.",
+          "cta_label": "Meet Us at Al Narjis",
+          "secondary_cta_label": "Meet Us at Al Yasmin"
+        },
+        "ar": {
+          "eyebrow": "قصتنا",
+          "heading": "بُنيت حول النار",
+          "subheading": "افتُتح فرع النرجس أولاً، ثم تبعه فرع الياسمين بعد أربع سنوات، وصُمم لعشاءات أطول وأكثر تمهلاً.",
+          "body": "بدأ لا ريو بفكرة بسيطة: وضع الشواية في قلب الصالة بدلاً من إخفائها في الخلف. تعتمد مطابخنا على تقنية الأسادو الأرجنتينية، وحرفية الباستا والبيتزا الإيطالية، وطهي الفحم التركي، وينتقل طهاتنا بين المطابخ الثلاثة بدل الالتزام بواحد فقط. والنتيجة قائمة تشترك في نار واحدة أكثر مما تشترك في عادات بلد واحد.",
+          "cta_label": "زورونا في النرجس",
+          "secondary_cta_label": "زورونا في الياسمين"
+        }
+      }
+    },
+    {
+      "type": "branch_cards",
+      "sort_order": 5,
+      "payload": { "branch_slugs": ["narjis", "al-yasmin"] },
+      "translations": {
+        "en": {
+          "heading": "Find Your La Rio",
+          "eyebrow": "Across Riyadh",
+          "subheading": "Two settings, one approach to food and hospitality."
+        },
+        "ar": {
+          "heading": "اعثر على لا ريو الأقرب",
+          "eyebrow": "في أنحاء الرياض",
+          "subheading": "موقعان مختلفان، ونهج واحد في الطعام والضيافة."
+        }
+      }
+    },
+    {
+      "type": "private_events",
+      "sort_order": 6,
+      "payload": {
+        "cta_href": "/reservation",
+        "stats": [
+          { "key": "private_room_seats", "value": "12" },
+          { "key": "branches_available", "value": "2" },
+          { "key": "advance_notice_days", "value": "3" }
+        ]
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "Celebrate With Us",
+          "heading": "Private Dining & Events",
+          "subheading": "A private room and a flexible table plan for gatherings large and small.",
+          "cards": [
+            {
+              "title": "Private Dining Room",
+              "body": "Our twelve-seat private room at Al Narjis sits beside the open grill and suits birthdays, engagements and small business dinners."
+            },
+            {
+              "title": "Combined Tables",
+              "body": "At Al Yasmin, two dining bays can be joined for groups of twenty or more — mention it when you reserve."
+            },
+            {
+              "title": "Shared Menus",
+              "body": "Tell us your guest count and preferences a few days ahead, and our kitchen will plan a shared menu across all three cuisines."
+            }
+          ],
+          "cta_label": "Enquire About Your Event"
+        },
+        "ar": {
+          "eyebrow": "احتفلوا معنا",
+          "heading": "الجلسات الخاصة والمناسبات",
+          "subheading": "غرفة خاصة وترتيب طاولات مرن للتجمعات الكبيرة والصغيرة.",
+          "cards": [
+            {
+              "title": "غرفة الطعام الخاصة",
+              "body": "تتسع غرفتنا الخاصة في فرع النرجس لاثني عشر ضيفاً بجانب الشواية المفتوحة، وتناسب أعياد الميلاد والخطوبة والعشاءات الخاصة بالعمل."
+            },
+            {
+              "title": "دمج الطاولات",
+              "body": "في فرع الياسمين، يمكن دمج جلستين للمجموعات من عشرين ضيفاً فأكثر — يُرجى ذكر ذلك عند الحجز."
+            },
+            {
+              "title": "قوائم مشتركة",
+              "body": "أخبرونا بعدد الضيوف وتفضيلاتهم قبل بضعة أيام، وسيعد مطبخنا قائمة مشتركة من المطابخ الثلاثة."
+            }
+          ],
+          "cta_label": "استفسر عن مناسبتك"
+        }
+      }
+    },
+    {
+      "type": "gallery_strip",
+      "sort_order": 7,
+      "payload": {
+        "cta_href": "/branches",
+        "images": [
+          "/images/home/gallery-charcoal-grill.jpg",
+          "/images/home/gallery-dining-room.jpg",
+          "/images/home/gallery-pizza-oven.jpg",
+          "/images/home/gallery-courtyard.jpg",
+          "/images/home/gallery-plating.jpg",
+          "/images/home/gallery-private-room.jpg"
+        ]
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "A Look Inside",
+          "heading": "Inside La Rio",
+          "subheading": "The grill, the dining rooms and the details in between.",
+          "cta_label": "See Both Branches"
+        },
+        "ar": {
+          "eyebrow": "لمحة من الداخل",
+          "heading": "داخل لا ريو",
+          "subheading": "الشواية، وصالات الطعام، والتفاصيل بينهما.",
+          "cta_label": "تعرف على الفرعين"
+        }
+      }
+    },
+    {
+      "type": "testimonials",
+      "sort_order": 8,
+      "payload": {
+        "testimonial_limit": 6
+      },
+      "translations": {
+        "en": {
+          "eyebrow": "Guest Reviews",
+          "heading": "What Our Guests Say",
+          "subheading": "Notes from tables at Al Narjis and Al Yasmin."
+        },
+        "ar": {
+          "eyebrow": "آراء ضيوفنا",
+          "heading": "ماذا يقول ضيوفنا",
+          "subheading": "ملاحظات من طاولات النرجس والياسمين."
+        }
+      }
+    },
+    {
+      "type": "faq",
+      "sort_order": 9,
+      "payload": {},
+      "translations": {
+        "en": {
+          "eyebrow": "Good to Know",
+          "heading": "Frequently Asked Questions",
+          "subheading": "Answers to what guests ask us most before their first visit.",
+          "items": [
+            {
+              "q": "Is the food at La Rio halal?",
+              "a": "Yes. All meat served at both branches is halal."
+            },
+            {
+              "q": "Do you take reservations, or can we walk in?",
+              "a": "Both are welcome, though we recommend reserving ahead for weekend evenings, when tables fill quickly."
+            },
+            {
+              "q": "Do you offer vegetarian options across all three cuisines?",
+              "a": "Yes, each kitchen — Italian, Turkish and Argentine — keeps vegetarian dishes on the menu, from mezze to wood-fired pizza."
+            },
+            {
+              "q": "Is valet parking available?",
+              "a": "Yes, at both Al Narjis and Al Yasmin, with valet service running into the evening."
+            },
+            {
+              "q": "Can you seat large groups or families?",
+              "a": "Yes. Both branches have family seating, and Al Yasmin can combine tables for groups of twenty or more with advance notice."
+            }
+          ]
+        },
+        "ar": {
+          "eyebrow": "معلومات مفيدة",
+          "heading": "الأسئلة الشائعة",
+          "subheading": "إجابات عن الأسئلة الأكثر تكراراً من ضيوفنا قبل زيارتهم الأولى.",
+          "items": [
+            {
+              "q": "هل الطعام في لا ريو حلال؟",
+              "a": "نعم، جميع اللحوم المقدمة في الفرعين حلال."
+            },
+            {
+              "q": "هل تقبلون الحجز، أم يمكن الحضور مباشرة؟",
+              "a": "كلاهما مرحب به، لكننا ننصح بالحجز المسبق في أمسيات نهاية الأسبوع، إذ تمتلئ الطاولات سريعاً."
+            },
+            {
+              "q": "هل تتوفر خيارات نباتية في المطابخ الثلاثة؟",
+              "a": "نعم، يحتفظ كل مطبخ — الإيطالي والتركي والأرجنتيني — بأطباق نباتية ضمن القائمة، من المقبلات الباردة إلى البيتزا المخبوزة على الحطب."
+            },
+            {
+              "q": "هل تتوفر خدمة صف السيارات؟",
+              "a": "نعم، في فرعي النرجس والياسمين، وتستمر الخدمة حتى ساعات المساء."
+            },
+            {
+              "q": "هل يمكن استقبال مجموعات كبيرة أو عائلات؟",
+              "a": "نعم، يتوفر قسم عائلي في الفرعين، ويمكن لفرع الياسمين دمج الطاولات لمجموعات من عشرين ضيفاً فأكثر بإشعار مسبق."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "reservation_cta",
+      "sort_order": 10,
+      "payload": {
+        "default_branch": null
+      },
+      "translations": {
+        "en": {
+          "heading": "Reserve Your Table",
+          "subheading": "Choose Al Narjis or Al Yasmin, tell us when, and we'll hold your table by the fire.",
+          "cta_label": "Book Now"
+        },
+        "ar": {
+          "heading": "احجز طاولتك",
+          "subheading": "اختر فرع النرجس أو الياسمين، وأخبرنا بالموعد، وسنحجز لك طاولة قرب النار.",
+          "cta_label": "احجز الآن"
+        }
+      }
+    }
+  ]
+}
