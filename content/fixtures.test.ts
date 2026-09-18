@@ -48,6 +48,43 @@ describe('branches fixture', () => {
       expect(branch.longitude).toBeLessThan(47.1)
     }
   })
+
+  // branchSchema wants facilities as {slug, label}[], but the fixture stores a
+  // slug array plus a per-locale label map. A slug with no label in one locale
+  // produces an undefined label at map time — a failure that surfaces in the
+  // fetcher, two tasks away from the fixture that caused it.
+  it('has a label for every facility slug, in both locales, and no orphan labels', () => {
+    for (const branch of branches) {
+      for (const locale of LOCALES) {
+        const labels = branch.translations[locale].facilities_labels as Record<
+          string,
+          string
+        >
+        for (const slug of branch.facilities) {
+          expect(
+            labels[slug],
+            `${branch.slug}/${locale}: no label for facility "${slug}"`,
+          ).toBeTruthy()
+        }
+        expect(Object.keys(labels).sort()).toEqual([...branch.facilities].sort())
+      }
+    }
+  })
+
+  it('carries tagline, directions and a populated FAQ per locale', () => {
+    for (const branch of branches) {
+      for (const locale of LOCALES) {
+        const t = branch.translations[locale]
+        expect(t.tagline.length).toBeGreaterThan(0)
+        expect(t.directions_note.length).toBeGreaterThan(0)
+        expect(t.faq.length).toBeGreaterThanOrEqual(2)
+        for (const pair of t.faq) {
+          expect(pair.q.length).toBeGreaterThan(0)
+          expect(pair.a.length).toBeGreaterThan(0)
+        }
+      }
+    }
+  })
 })
 
 describe('testimonials fixture', () => {
