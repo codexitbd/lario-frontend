@@ -60,10 +60,14 @@ export async function POST(request: Request): Promise<Response> {
   const data = parsed.data
   const branch = branches.find((b) => b.slug === data.branch_slug)
   if (!branch) {
+    // Localised like every other 422 — data.locale is validated and in hand,
+    // so there is no reason for this one path to answer an Arabic form in
+    // English. Reachable only if the fixture and reservationSchema's slug enum
+    // disagree, which is exactly when a clear message matters.
     return Response.json(
       {
-        message: 'The given data was invalid.',
-        errors: { branch_slug: ['Unknown branch.'] },
+        message: VALIDATION_MESSAGES[data.locale].form,
+        errors: { branch_slug: [VALIDATION_MESSAGES[data.locale].branch_slug] },
       },
       { status: 422 },
     )

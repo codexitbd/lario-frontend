@@ -36,7 +36,11 @@ describe('security headers', () => {
     expect(response.headers.get('Referrer-Policy')).toBe(
       'strict-origin-when-cross-origin',
     )
-    expect(response.headers.get('X-Frame-Options')).toBe('SAMEORIGIN')
+    // DENY, matching the CSP's frame-ancestors 'none' beside it.
+    expect(response.headers.get('X-Frame-Options')).toBe('DENY')
+    expect(response.headers.get('Content-Security-Policy')).toContain(
+      "frame-ancestors 'none'",
+    )
   })
 
   it('sets CSP and Permissions-Policy per ADR-004', () => {

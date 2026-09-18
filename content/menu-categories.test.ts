@@ -17,6 +17,15 @@ describe('absoluteImage', () => {
     )
   })
 
+  it('recognises an uppercase scheme — schemes are case-insensitive', () => {
+    // A case-sensitive test prefixed this into
+    // "https://lario.saHTTPS://api.lario.sa/..." — the exact corruption the
+    // conditional prefix exists to prevent, and new URL() parses it happily.
+    expect(absoluteImage('HTTPS://api.lario.sa/storage/og/asado.jpg')).toBe(
+      'HTTPS://api.lario.sa/storage/og/asado.jpg',
+    )
+  })
+
   it('returns null when there is no image', () => {
     expect(absoluteImage(null)).toBeNull()
     expect(absoluteImage(undefined)).toBeNull()

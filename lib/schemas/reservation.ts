@@ -55,6 +55,12 @@ export const contactSchema = z.object({
 })
 export type ContactInput = z.infer<typeof contactSchema>
 
+// Numerals in the Arabic strings are LATIN (1, 20, 1000), not Arabic-Indic
+// (١, ٢٠, ١٠٠٠). Decision D16 and lib/format.ts's NUMERAL_SYSTEM = 'latn' make
+// Latin digits the sitewide rule for Arabic; a validation message rendering
+// "١ و٢٠" next to a form that displays "1" and "20" is the same inconsistency
+// D16 exists to avoid. Flip both together if the client chooses Arabic-Indic.
+//
 // 03-api-contract.md: 422 responses carry "messages already localised to the
 // request locale". The payload carries `locale` and the handler already uses it
 // for the branch name, so there is no excuse for English-only errors in a
@@ -90,14 +96,14 @@ export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
     guest_email: 'أدخل بريداً إلكترونياً صحيحاً.',
     guest_phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة، مثل ‎+966512345678.',
     whatsapp: 'أدخل رقم واتساب صحيحاً مع رمز الدولة.',
-    party_size: 'اختر عدد ضيوف بين ١ و٢٠.',
+    party_size: 'اختر عدد ضيوف بين 1 و20.',
     reserved_for: 'اختر تاريخاً ووقتاً خلال التسعين يوماً القادمة، مع تحديد المنطقة الزمنية.',
     occasion: 'اختر إحدى المناسبات المتاحة.',
     seating_preference: 'اختر أحد خيارات الجلوس المتاحة.',
-    notes: 'يجب ألا تتجاوز الملاحظات ١٠٠٠ حرف.',
+    notes: 'يجب ألا تتجاوز الملاحظات 1000 حرف.',
     consent: 'يرجى الموافقة على التواصل معك بخصوص هذا الطلب.',
-    message: 'أدخل رسالة بين ١٠ و٢٠٠٠ حرف.',
-    subject: 'يجب ألا يتجاوز الموضوع ٢٠٠ حرف.',
+    message: 'أدخل رسالة بين 10 و2000 حرف.',
+    subject: 'يجب ألا يتجاوز الموضوع 200 حرف.',
     name: 'أدخل اسمك الكامل.',
     email: 'أدخل بريداً إلكترونياً صحيحاً.',
     phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة.',

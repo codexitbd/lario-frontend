@@ -78,6 +78,12 @@ describe('imageUrlSchema', () => {
     expect(() => imageUrlSchema.parse('storage/app/x.jpg')).toThrow()
     expect(() => imageUrlSchema.parse('images/menu/x.jpg')).toThrow()
   })
+
+  it('rejects a protocol-relative URL — it is not a root-relative path', () => {
+    // Starts with a slash, so the root-relative branch used to take it; the
+    // browser would then load it from evil.example over the page's scheme.
+    expect(() => imageUrlSchema.parse('//evil.example/x.jpg')).toThrow()
+  })
 })
 
 describe('menuItemCardSchema', () => {

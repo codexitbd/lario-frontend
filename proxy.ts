@@ -34,7 +34,11 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Content-Security-Policy': CSP,
   'Permissions-Policy': 'camera=(), microphone=(), payment=(), geolocation=()',
   'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'SAMEORIGIN',
+  // DENY, not SAMEORIGIN: the CSP set beside this declares
+  // `frame-ancestors 'none'`, and a legacy header that permits same-origin
+  // framing while the modern one forbids all framing is a contradiction a
+  // reader has to resolve. Nothing on this site frames itself.
+  'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'X-DNS-Prefetch-Control': 'on',
   'Strict-Transport-Security': 'max-age=63072000; includeSubDomains',

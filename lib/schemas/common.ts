@@ -30,9 +30,19 @@ export const priceSchema = z
 // live API returns absolute URLs; the static fixture layer serves from public/
 // at root-relative paths. Both are usable as-is; a bare storage path such as
 // "storage/app/foo.jpg" is the failure this guards against.
+// The `(?!\/)` matters: "//evil.example/x.jpg" is a PROTOCOL-RELATIVE URL, not
+// a root-relative path. It starts with a slash, so a bare /^\/…/ accepted it,
+// and a browser resolves it against the page's scheme and loads it from
+// evil.example — a third-party origin smuggled in through a field whose whole
+// job is to be safe to render verbatim.
 export const imageUrlSchema = z.union([
   z.url(),
-  z.string().regex(/^\/[^\s]*$/, 'image must be an absolute URL or a root-relative path'),
+  z
+    .string()
+    .regex(
+      /^\/(?!\/)[^\s]*$/,
+      'image must be an absolute URL or a root-relative path',
+    ),
 ])
 
 export const categoryRefSchema = z.object({
