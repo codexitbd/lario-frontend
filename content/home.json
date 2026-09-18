@@ -15,7 +15,7 @@
       "type": "hero",
       "sort_order": 0,
       "payload": {
-        "background_image": "/images/home/hero.jpg",
+        "background_image": null,
         "video": null,
         "locations": ["Al Narjis", "Al Yasmin", "Riyadh, Saudi Arabia"]
       },
@@ -41,9 +41,9 @@
       "sort_order": 1,
       "payload": {
         "cuisines": {
-          "italian": { "image": "/images/home/cuisine-italian.jpg" },
-          "turkish": { "image": "/images/home/cuisine-turkish.jpg" },
-          "argentine": { "image": "/images/home/cuisine-argentine.jpg" }
+          "italian": { "image": null },
+          "turkish": { "image": null },
+          "argentine": { "image": null }
         }
       },
       "translations": {
@@ -125,7 +125,7 @@
       "type": "why_lario",
       "sort_order": 3,
       "payload": {
-        "image": "/images/home/why-lario.jpg"
+        "image": null
       },
       "translations": {
         "en": {
@@ -158,7 +158,7 @@
       "type": "chef_story",
       "sort_order": 4,
       "payload": {
-        "image": "/images/home/chef-story.jpg"
+        "image": null
       },
       "translations": {
         "en": {
@@ -255,14 +255,7 @@
       "sort_order": 7,
       "payload": {
         "cta_href": "/branches",
-        "images": [
-          "/images/home/gallery-charcoal-grill.jpg",
-          "/images/home/gallery-dining-room.jpg",
-          "/images/home/gallery-pizza-oven.jpg",
-          "/images/home/gallery-courtyard.jpg",
-          "/images/home/gallery-plating.jpg",
-          "/images/home/gallery-private-room.jpg"
-        ]
+        "images": [null, null, null, null, null, null]
       },
       "translations": {
         "en": {
