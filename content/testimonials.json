@@ -1,0 +1,146 @@
+[
+  {
+    "author_name": "Nouf A.",
+    "rating": 5,
+    "source": "google",
+    "branch_slug": "narjis",
+    "is_featured": true,
+    "sort_order": 0,
+    "translations": {
+      "en": { "author_title": "Visited in March", "body": "The asado is worth the wait. We sat near the grill and watched most of it happen." },
+      "ar": { "author_title": "زارت في مارس", "body": "الأسادو يستحق الانتظار. جلسنا قرب الشواية وشاهدنا معظم التحضير أمامنا." }
+    }
+  },
+  {
+    "author_name": "Yousef Al-Otaibi",
+    "rating": 5,
+    "source": "tripadvisor",
+    "branch_slug": "al-yasmin",
+    "is_featured": true,
+    "sort_order": 1,
+    "translations": {
+      "en": { "author_title": "Visited in April", "body": "We booked the courtyard for a Thursday dinner and stayed three hours without anyone rushing us. The pasta station alone is worth the trip." },
+      "ar": { "author_title": "زار في أبريل", "body": "حجزنا طاولة في الفناء لعشاء يوم خميس، وبقينا ثلاث ساعات دون أن يستعجلنا أحد. محطة الباستا وحدها تستحق الزيارة." }
+    }
+  },
+  {
+    "author_name": "Sara Al-Qahtani",
+    "rating": 4,
+    "source": "google",
+    "branch_slug": "narjis",
+    "is_featured": false,
+    "sort_order": 2,
+    "translations": {
+      "en": { "author_title": "Family dinner, February", "body": "Good food and the family section is properly separated, which made it easy with the kids. Would have liked a bit more variety for children." },
+      "ar": { "author_title": "عشاء عائلي، فبراير", "body": "الطعام جيد وقسم العائلات منفصل فعلاً عن الصالة الرئيسية، ما سهّل الأمر مع الأطفال. كنت أتمنى تنوعاً أكبر في خيارات الأطفال." }
+    }
+  },
+  {
+    "author_name": "Abdullah Al-Harbi",
+    "rating": 5,
+    "source": "direct",
+    "branch_slug": "al-yasmin",
+    "is_featured": false,
+    "sort_order": 3,
+    "translations": {
+      "en": { "author_title": "Anniversary dinner", "body": "We asked for a quiet corner for our anniversary and got exactly that. The smaller bays really do keep the room calm." },
+      "ar": { "author_title": "عشاء ذكرى الزواج", "body": "طلبنا ركناً هادئاً لمناسبة ذكرى زواجنا وحصلنا على ذلك تماماً. الجلسات الصغيرة تبقي الأجواء هادئة فعلاً." }
+    }
+  },
+  {
+    "author_name": "Reem S.",
+    "rating": 3,
+    "source": "google",
+    "branch_slug": "narjis",
+    "is_featured": false,
+    "sort_order": 4,
+    "translations": {
+      "en": { "author_title": "Saturday night", "body": "Food was excellent as always, but we waited almost forty minutes past our reservation time. Worth knowing before a busy weekend visit." },
+      "ar": { "author_title": "ليلة السبت", "body": "الطعام ممتاز كالعادة، لكننا انتظرنا نحو أربعين دقيقة بعد موعد الحجز. من المفيد معرفة ذلك قبل زيارة نهاية أسبوع مزدحمة." }
+    }
+  },
+  {
+    "author_name": "Khalid Al-Mutairi",
+    "rating": 5,
+    "source": "tripadvisor",
+    "branch_slug": "narjis",
+    "is_featured": false,
+    "sort_order": 5,
+    "translations": {
+      "en": { "author_title": "First visit", "body": "Ordered the kebab and sat facing the grill — half the meal is watching it get made. Coming back with the whole family next time." },
+      "ar": { "author_title": "الزيارة الأولى", "body": "طلبت الكباب وجلست مقابل الشواية — نصف المتعة في مشاهدة التحضير. سأعود مع العائلة كاملة في المرة القادمة." }
+    }
+  },
+  {
+    "author_name": "Maha Al-Zahrani",
+    "rating": 4,
+    "source": "direct",
+    "branch_slug": "al-yasmin",
+    "is_featured": false,
+    "sort_order": 6,
+    "translations": {
+      "en": { "author_title": "Small work gathering", "body": "Booked two bays together for a work dinner of fourteen. Staff combined the tables without any fuss, just wish the shared menu had more options for large groups." },
+      "ar": { "author_title": "تجمع عمل صغير", "body": "حجزنا جلستين معاً لعشاء عمل لأربعة عشر شخصاً، ودمج الفريق الطاولات دون أي تعقيد. كنت أتمنى فقط خيارات أكثر في قائمة المجموعات الكبيرة." }
+    }
+  },
+  {
+    "author_name": "Faisal Al-Dossari",
+    "rating": 5,
+    "source": "google",
+    "branch_slug": "al-yasmin",
+    "is_featured": true,
+    "sort_order": 7,
+    "translations": {
+      "en": { "author_title": "Business dinner", "body": "Took a client here for the ribeye and the quiet rooms made it easy to actually talk business. Already planning the next one." },
+      "ar": { "author_title": "عشاء عمل", "body": "اصطحبت أحد العملاء لتناول الريب آي، والقاعات الهادئة سهّلت الحديث في العمل فعلاً. أخطط بالفعل لعشاء آخر قريباً." }
+    }
+  },
+  {
+    "author_name": "Lama F.",
+    "rating": 4,
+    "source": "google",
+    "branch_slug": "narjis",
+    "is_featured": false,
+    "sort_order": 8,
+    "translations": {
+      "en": { "author_title": "Sunday lunch", "body": "Easy visit with a toddler — valet took the car, a high chair was ready before we sat down. Small things that make a difference." },
+      "ar": { "author_title": "غداء الأحد", "body": "زيارة سهلة مع طفل صغير — استلم موظف صف السيارات سيارتنا، وكان كرسي الأطفال جاهزاً قبل أن نجلس. تفاصيل بسيطة لكنها تصنع فرقاً." }
+    }
+  },
+  {
+    "author_name": "Omar Al-Ghamdi",
+    "rating": 5,
+    "source": "tripadvisor",
+    "branch_slug": "al-yasmin",
+    "is_featured": false,
+    "sort_order": 9,
+    "translations": {
+      "en": { "author_title": "First time trying the fettuccine", "body": "They finish the fettuccine alfredo tableside in a parmesan wheel — my kids still talk about it weeks later." },
+      "ar": { "author_title": "أول تجربة للفيتوتشيني", "body": "يُنهون تحضير الفيتوتشيني ألفريدو أمام الطاولة داخل عجلة الجبن مباشرة — أطفالي ما زالوا يتحدثون عنها بعد أسابيع." }
+    }
+  },
+  {
+    "author_name": "Haya R.",
+    "rating": 2,
+    "source": "google",
+    "branch_slug": "narjis",
+    "is_featured": false,
+    "sort_order": 10,
+    "translations": {
+      "en": { "author_title": "Friday evening", "body": "Had a reservation for eight and were told the table wasn't ready for over half an hour with no update in between. The food itself was fine, but the wait was frustrating." },
+      "ar": { "author_title": "مساء الجمعة", "body": "كان لدينا حجز للساعة الثامنة، وأُبلغنا أن الطاولة غير جاهزة لأكثر من نصف ساعة دون أي تحديث خلال الانتظار. الطعام نفسه كان جيداً لكن الانتظار كان محبطاً." }
+    }
+  },
+  {
+    "author_name": "Tariq Al-Shehri",
+    "rating": 5,
+    "source": "direct",
+    "branch_slug": "al-yasmin",
+    "is_featured": true,
+    "sort_order": 11,
+    "translations": {
+      "en": { "author_title": "Group dinner", "body": "Ordered the adana kebab for the table and it disappeared in minutes. Great spot for a group that wants something livelier than a quiet dinner." },
+      "ar": { "author_title": "عشاء جماعي", "body": "طلبنا كباب أضنة للطاولة كاملة واختفى خلال دقائق. مكان رائع لمجموعة تبحث عن أجواء أكثر حيوية من عشاء هادئ." }
+    }
+  }
+]

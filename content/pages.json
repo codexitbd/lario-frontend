@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "contact",
+    "template": "contact",
+    "translations": {
+      "en": { "title": "Contact La Rio", "heading": "Get in touch", "body": "<p>Call either branch directly, send a message, or reach us on WhatsApp. We reply within one working day.</p>" },
+      "ar": { "title": "تواصل مع لا ريو", "heading": "كيف نصل إليك", "body": "<p>اتصل بأي من الفرعين مباشرة، أو أرسل رسالة، أو تواصل معنا عبر واتساب. نرد خلال يوم عمل واحد.</p>" }
+    }
+  },
+  {
+    "slug": "privacy-policy",
+    "template": "legal",
+    "translations": {
+      "en": { "title": "Privacy Policy", "heading": "Privacy Policy", "body": "<p>Placeholder pending client-supplied copy. See docs/content-gaps.md item 7.</p>" },
+      "ar": { "title": "سياسة الخصوصية", "heading": "سياسة الخصوصية", "body": "<p>نص مؤقت بانتظار المحتوى من العميل. راجع docs/content-gaps.md البند 7.</p>" }
+    }
+  },
+  {
+    "slug": "terms-and-conditions",
+    "template": "legal",
+    "translations": {
+      "en": { "title": "Terms & Conditions", "heading": "Terms & Conditions", "body": "<p>Placeholder pending client-supplied copy. See docs/content-gaps.md item 7.</p>" },
+      "ar": { "title": "الشروط والأحكام", "heading": "الشروط والأحكام", "body": "<p>نص مؤقت بانتظار المحتوى من العميل. راجع docs/content-gaps.md البند 7.</p>" }
+    }
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "narjis",
+    "phone": "+966112345678",
+    "whatsapp": "+966512345678",
+    "email": "narjis@lario.sa",
+    "latitude": 24.8305,
+    "longitude": 46.6362,
+    "google_maps_url": "https://maps.google.com/?q=La+Rio+Al+Narjis+Riyadh",
+    "google_place_id": null,
+    "hero_image": "/images/branches/narjis/hero.jpg",
+    "gallery": [],
+    "facilities": ["valet", "outdoor-seating", "family-section", "private-room", "wheelchair-access"],
+    "popular_dish_slugs": ["assado-argentina-style", "pizza-la-rio-signature", "urfa-kebab"],
+    "is_active": true,
+    "sort_order": 0,
+    "opening_hours": [
+      { "day_of_week": 0, "opens_at": "12:00", "closes_at": "23:30", "is_closed": false },
+      { "day_of_week": 1, "opens_at": "12:00", "closes_at": "23:30", "is_closed": false },
+      { "day_of_week": 2, "opens_at": "12:00", "closes_at": "23:30", "is_closed": false },
+      { "day_of_week": 3, "opens_at": "12:00", "closes_at": "23:30", "is_closed": false },
+      { "day_of_week": 4, "opens_at": "12:00", "closes_at": "23:30", "is_closed": false },
+      { "day_of_week": 5, "opens_at": "13:00", "closes_at": "01:00", "is_closed": false },
+      { "day_of_week": 6, "opens_at": "13:00", "closes_at": "01:00", "is_closed": false }
+    ],
+    "translations": {
+      "en": {
+        "name": "La Rio Al Narjis",
+        "tagline": "Our first table in Riyadh",
+        "address": "Al Narjis District, Riyadh 13327, Saudi Arabia",
+        "city": "Riyadh",
+        "directions_note": "Parking is available on the north side, with valet from 7pm.",
+        "story": "Al Narjis was the first La Rio and still sets the pace for both kitchens. The dining room opens around a central charcoal grill, so the room carries the sound and smell of the fire all evening. It seats ninety across the main floor with a private room for twelve behind the bar, and the terrace stays open through the cooler months.",
+        "facilities_labels": {
+          "valet": "Valet parking",
+          "outdoor-seating": "Terrace seating",
+          "family-section": "Family section",
+          "private-room": "Private dining room",
+          "wheelchair-access": "Step-free access"
+        },
+        "faq": [
+          { "q": "Do you take walk-ins?", "a": "Yes, though weekend evenings fill quickly. A reservation request is the safer route." },
+          { "q": "Is there a family section?", "a": "Yes, the family section seats forty and is separated from the main floor." }
+        ]
+      },
+      "ar": {
+        "name": "لا ريو النرجس",
+        "tagline": "مائدتنا الأولى في الرياض",
+        "address": "حي النرجس، الرياض 13327، المملكة العربية السعودية",
+        "city": "الرياض",
+        "directions_note": "تتوفر مواقف في الجهة الشمالية، وخدمة صف السيارات من الساعة السابعة مساءً.",
+        "story": "كان النرجس أول فرع للا ريو، وما زال يحدد إيقاع المطبخين معاً. تنفتح صالة الطعام حول شواية فحم مركزية، فيحمل المكان صوت النار ورائحتها طوال المساء. تتسع الصالة الرئيسية لتسعين ضيفاً، إضافة إلى غرفة خاصة لاثني عشر شخصاً خلف البار، وتبقى التراس مفتوحة طوال الأشهر المعتدلة.",
+        "facilities_labels": {
+          "valet": "خدمة صف السيارات",
+          "outdoor-seating": "جلسات خارجية",
+          "family-section": "قسم العائلات",
+          "private-room": "غرفة طعام خاصة",
+          "wheelchair-access": "مدخل بدون درج"
+        },
+        "faq": [
+          { "q": "هل تستقبلون الزوار بدون حجز؟", "a": "نعم، لكن أمسيات نهاية الأسبوع تمتلئ سريعاً، ويبقى طلب الحجز الخيار الأضمن." },
+          { "q": "هل يوجد قسم للعائلات؟", "a": "نعم، يتسع قسم العائلات لأربعين ضيفاً وهو منفصل عن الصالة الرئيسية." }
+        ]
+      }
+    }
+  },
+  {
+    "slug": "al-yasmin",
+    "phone": "+966112345679",
+    "whatsapp": "+966512345679",
+    "email": "yasmin@lario.sa",
+    "latitude": 24.8156,
+    "longitude": 46.6389,
+    "google_maps_url": "https://maps.google.com/?q=La+Rio+Al+Yasmin+Riyadh",
+    "google_place_id": null,
+    "hero_image": "/images/branches/al-yasmin/hero.jpg",
+    "gallery": [],
+    "facilities": ["valet", "outdoor-seating", "family-section", "wheelchair-access"],
+    "popular_dish_slugs": ["fettuccine-alfredo-on-the-parmesan-wheel", "ribeye-steak", "adana-spicy-kebab"],
+    "is_active": true,
+    "sort_order": 1,
+    "opening_hours": [
+      { "day_of_week": 0, "opens_at": "13:00", "closes_at": "23:00", "is_closed": false },
+      { "day_of_week": 1, "opens_at": "13:00", "closes_at": "23:00", "is_closed": false },
+      { "day_of_week": 2, "opens_at": "13:00", "closes_at": "23:00", "is_closed": false },
+      { "day_of_week": 3, "opens_at": "13:00", "closes_at": "23:00", "is_closed": false },
+      { "day_of_week": 4, "opens_at": "13:00", "closes_at": "23:00", "is_closed": false },
+      { "day_of_week": 5, "opens_at": "13:00", "closes_at": "01:00", "is_closed": false },
+      { "day_of_week": 6, "opens_at": "13:00", "closes_at": "01:00", "is_closed": false }
+    ],
+    "translations": {
+      "en": {
+        "name": "La Rio Al Yasmin",
+        "tagline": "Quieter rooms, the same fire",
+        "address": "Al Yasmin District, Riyadh 13325, Saudi Arabia",
+        "city": "Riyadh",
+        "directions_note": "Entrance is on the eastern side of the building, behind the courtyard.",
+        "story": "Al Yasmin opened four years after Narjis and was built for longer, slower dinners. The room is divided into smaller bays rather than one open floor, which keeps conversation at the table rather than across it. The pasta station is visible from the dining room, and the courtyard seats thirty under the trees from October through April.",
+        "facilities_labels": {
+          "valet": "Valet parking",
+          "outdoor-seating": "Courtyard seating",
+          "family-section": "Family section",
+          "wheelchair-access": "Step-free access"
+        },
+        "faq": [
+          { "q": "Is the courtyard open year round?", "a": "It opens in October and closes at the end of April, weather permitting." },
+          { "q": "Can you host a group of twenty?", "a": "Yes. Two bays can be combined for larger groups — mention it in your reservation notes." }
+        ]
+      },
+      "ar": {
+        "name": "لا ريو الياسمين",
+        "tagline": "قاعات أهدأ، والنار ذاتها",
+        "address": "حي الياسمين، الرياض 13325، المملكة العربية السعودية",
+        "city": "الرياض",
+        "directions_note": "المدخل من الجهة الشرقية للمبنى، خلف الفناء.",
+        "story": "افتُتح فرع الياسمين بعد النرجس بأربع سنوات، وصُمم لعشاءات أطول وأكثر تمهلاً. تنقسم القاعة إلى جلسات صغيرة بدل صالة مفتوحة واحدة، ما يبقي الحديث داخل الطاولة لا عبرها. محطة الباستا مرئية من صالة الطعام، ويتسع الفناء لثلاثين ضيفاً تحت الأشجار من أكتوبر حتى أبريل.",
+        "facilities_labels": {
+          "valet": "خدمة صف السيارات",
+          "outdoor-seating": "جلسات في الفناء",
+          "family-section": "قسم العائلات",
+          "wheelchair-access": "مدخل بدون درج"
+        },
+        "faq": [
+          { "q": "هل الفناء مفتوح طوال السنة؟", "a": "يفتح في أكتوبر ويغلق نهاية أبريل، حسب أحوال الطقس." },
+          { "q": "هل يمكنكم استضافة مجموعة من عشرين شخصاً؟", "a": "نعم، يمكن دمج جلستين للمجموعات الكبيرة — يُرجى ذكر ذلك في ملاحظات الحجز." }
+        ]
+      }
+    }
+  }
+]

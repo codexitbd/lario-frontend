@@ -1,0 +1,20 @@
+{
+  "site_name": "La Rio",
+  "default_locale": "en",
+  "locales": ["en", "ar"],
+  "contact": {
+    "phone": "+966112345678",
+    "whatsapp": "+966512345678",
+    "email": "hello@lario.sa"
+  },
+  "social": {
+    "instagram": "https://instagram.com/lario.sa",
+    "tiktok": "https://tiktok.com/@lario.sa",
+    "snapchat": "https://snapchat.com/add/lario.sa"
+  },
+  "analytics": { "ga4_id": null, "gtm_id": null },
+  "seo_defaults": {
+    "title_suffix": " | La Rio Riyadh",
+    "og_image": "https://lario.sa/images/og/default.jpg"
+  }
+}
