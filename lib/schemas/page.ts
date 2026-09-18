@@ -39,6 +39,9 @@ export const pageSchema = z.object({
   heading: z.string(),
   body: z.string(),
   template: z.enum(['home', 'contact', 'legal']),
+  // GET /pages/{slug} returns sections "when present" (03-api-contract.md).
+  // Without this field Zod strips them silently and the page renders empty.
+  sections: z.array(pageSectionSchema).optional(),
   seo: seoSchema,
 })
 export type Page = z.infer<typeof pageSchema>

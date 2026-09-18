@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { seoSchema } from '@/lib/schemas/common'
+import { imageUrlSchema, seoSchema } from '@/lib/schemas/common'
 import { menuItemCardSchema } from '@/lib/schemas/menu'
 
 export const openingHourSchema = z.object({
@@ -23,8 +23,8 @@ export const branchSchema = z.object({
   coordinates: z.object({ latitude: z.number(), longitude: z.number() }),
   google_maps_url: z.url(),
   google_place_id: z.string().nullable(),
-  hero_image: z.string().nullable(),
-  gallery: z.array(z.string()),
+  hero_image: imageUrlSchema.nullable(),
+  gallery: z.array(imageUrlSchema),
   facilities: z.array(z.object({ slug: z.string(), label: z.string() })),
   opening_hours: z.array(openingHourSchema).length(7),
   schema_opening_hours: z.array(z.string()),

@@ -25,6 +25,16 @@ export const priceSchema = z
   .string()
   .regex(DECIMAL_STRING, 'price must be a decimal string such as "189.00"')
 
+// The contract (03-api-contract.md §Images) requires every image field to be a
+// resolved URL the frontend can use verbatim — never a raw storage path. The
+// live API returns absolute URLs; the static fixture layer serves from public/
+// at root-relative paths. Both are usable as-is; a bare storage path such as
+// "storage/app/foo.jpg" is the failure this guards against.
+export const imageUrlSchema = z.union([
+  z.url(),
+  z.string().regex(/^\/[^\s]*$/, 'image must be an absolute URL or a root-relative path'),
+])
+
 export const categoryRefSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),

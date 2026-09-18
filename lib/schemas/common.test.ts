@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { menuItemCardSchema, seoSchema } from '@/lib/schemas'
+import {
+  SECTION_TYPES,
+  branchSchema,
+  imageUrlSchema,
+  menuItemCardSchema,
+  seoSchema,
+} from '@/lib/schemas'
 
 const validSeo = {
   title: 'Argentina Style Asado | La Rio Riyadh',
@@ -29,6 +35,48 @@ describe('seoSchema', () => {
 
   it('rejects an empty title — the contract forbids it', () => {
     expect(() => seoSchema.parse({ ...validSeo, title: '' })).toThrow()
+  })
+})
+
+describe('load-bearing constants', () => {
+  it('SECTION_TYPES holds exactly the 11 approved types in order', () => {
+    expect(SECTION_TYPES).toEqual([
+      'hero',
+      'intro',
+      'featured_dishes',
+      'why_lario',
+      'chef_story',
+      'branch_cards',
+      'private_events',
+      'gallery_strip',
+      'testimonials',
+      'faq',
+      'reservation_cta',
+    ])
+  })
+
+  it('branchSchema accepts only the two contracted slugs', () => {
+    const base = {
+      slug: 'narjis',
+      name: 'La Rio Al Narjis',
+    }
+    expect(() => branchSchema.shape.slug.parse('narjis')).not.toThrow()
+    expect(() => branchSchema.shape.slug.parse('al-yasmin')).not.toThrow()
+    expect(() => branchSchema.shape.slug.parse('al-narjis')).toThrow()
+    expect(() => branchSchema.shape.slug.parse('jeddah')).toThrow()
+    void base
+  })
+})
+
+describe('imageUrlSchema', () => {
+  it('accepts an absolute URL and a root-relative path', () => {
+    expect(() => imageUrlSchema.parse('https://lario.sa/x.jpg')).not.toThrow()
+    expect(() => imageUrlSchema.parse('/images/menu/x.jpg')).not.toThrow()
+  })
+
+  it('rejects a bare storage path', () => {
+    expect(() => imageUrlSchema.parse('storage/app/x.jpg')).toThrow()
+    expect(() => imageUrlSchema.parse('images/menu/x.jpg')).toThrow()
   })
 })
 

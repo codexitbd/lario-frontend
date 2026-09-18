@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import {
   categoryRefSchema,
+  imageUrlSchema,
   priceSchema,
   seoSchema,
 } from '@/lib/schemas/common'
@@ -28,8 +29,8 @@ export const menuItemCardSchema = z.object({
   short_description: z.string().nullable(),
   price: priceSchema,
   currency: z.string().length(3),
-  calories: z.number().int().positive().nullable(),
-  image: z.string().nullable(),
+  calories: z.number().int().nonnegative().nullable(),
+  image: imageUrlSchema.nullable(),
   dietary_tags: z.array(z.enum(DIETARY_TAGS)),
   is_available: z.boolean(),
   category: categoryRefSchema,
@@ -52,9 +53,16 @@ export const menuCategorySchema = z.object({
   name: z.string().min(1),
   description: z.string().nullable(),
   intro_content: z.string().min(1, 'category intro copy is the ranking asset'),
-  image: z.string().nullable(),
+  image: imageUrlSchema.nullable(),
   item_count: z.number().int().nonnegative(),
   url: z.string().startsWith('/'),
   seo: seoSchema,
 })
 export type MenuCategory = z.infer<typeof menuCategorySchema>
+
+// GET /menu/categories returns the list shape above (item_count only).
+// GET /menu/categories/{slug} returns the same fields PLUS the dishes.
+export const menuCategoryDetailSchema = menuCategorySchema.extend({
+  items: z.array(menuItemCardSchema),
+})
+export type MenuCategoryDetail = z.infer<typeof menuCategoryDetailSchema>
