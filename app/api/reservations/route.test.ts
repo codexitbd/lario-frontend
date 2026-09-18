@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { POST } from '@/app/api/reservations/route'
 
 function post(body: unknown, headers: Record<string, string> = {}) {
@@ -18,6 +18,15 @@ const valid = {
   reserved_for: new Date(Date.now() + 7 * 86_400_000).toISOString(),
   consent: true,
   locale: 'en',
+}
+
+function inFutureNaive(days: number): string {
+  // No trailing "Z" and no UTC offset — the exact shape Finding 1 guards
+  // against, since Date.parse() on this resolves against the server
+  // process's local timezone rather than Asia/Riyadh.
+  return new Date(Date.now() + days * 86_400_000)
+    .toISOString()
+    .replace(/\.\d{3}Z$/, '')
 }
 
 describe('POST /api/reservations', () => {
@@ -53,4 +62,32 @@ describe('POST /api/reservations', () => {
     )
     expect(response.status).toBe(422)
   })
+
+  it('rejects a naive datetime with no timezone offset', async () => {
+    const response = await POST(
+      post({ ...valid, reserved_for: inFutureNaive(7) }),
+    )
+    expect(response.status).toBe(422)
+    const body = await response.json()
+    expect(body.errors.reserved_for).toBeDefined()
+  })
+
+  it('returns Arabic error text for an invalid ar-locale request', async () => {
+    const response = await POST(
+      post({ ...valid, guest_email: 'nope', locale: 'ar' }),
+    )
+    expect(response.status).toBe(422)
+    const body = await response.json()
+    expect(body.errors.guest_email[0]).toBe('أدخل بريداً إلكترونياً صحيحاً.')
+  })
+
+  it('ignores the simulate header when NODE_ENV is production', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    const response = await POST(post(valid, { 'x-lario-simulate': '429' }))
+    expect(response.status).toBe(201)
+  })
+})
+
+afterEach(() => {
+  vi.unstubAllEnvs()
 })

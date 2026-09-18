@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { localeSchema } from '@/lib/schemas/common'
+import type { Locale } from '@/lib/i18n/config'
 
 const E164 = /^\+[1-9]\d{7,14}$/
 const NINETY_DAYS_MS = 90 * 86_400_000
@@ -20,9 +21,16 @@ export const reservationSchema = z.object({
   guest_phone: z.string().regex(E164, 'phone must be E.164, e.g. +966512345678'),
   whatsapp: z.string().regex(E164).nullish(),
   party_size: z.number().int().min(1).max(20),
+  // An explicit UTC offset is REQUIRED, not optional. Date.parse() on a naive
+  // datetime resolves against the SERVER PROCESS's local timezone — not
+  // Asia/Riyadh and not the guest's device. Verified: "2026-10-04T20:30:00"
+  // parsed under TZ=Asia/Dhaka yields 17:30 Riyadh, a three-hour error.
+  // 02-database-schema.md names this exact failure: "A reservation landing three
+  // hours off is the kind of bug that surfaces in front of the client."
+  // The Laravel Form Request must enforce the same thing — a bare `date` rule
+  // will NOT reproduce this.
   reserved_for: z
-    .string()
-    .refine((value) => !Number.isNaN(Date.parse(value)), 'invalid date')
+    .iso.datetime({ offset: true })
     .refine((value) => Date.parse(value) > Date.now(), 'must be in the future')
     .refine(
       (value) => Date.parse(value) <= Date.now() + NINETY_DAYS_MS,
@@ -46,6 +54,74 @@ export const contactSchema = z.object({
   locale: localeSchema,
 })
 export type ContactInput = z.infer<typeof contactSchema>
+
+// 03-api-contract.md: 422 responses carry "messages already localised to the
+// request locale". The payload carries `locale` and the handler already uses it
+// for the branch name, so there is no excuse for English-only errors in a
+// bilingual product. Keyed by field so this maps 1:1 onto the Laravel Form
+// Request's messages() and lang files — the backend reimplements these, it does
+// not invent its own.
+export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
+  en: {
+    branch_slug: 'Choose one of our branches.',
+    guest_name: 'Enter your full name.',
+    guest_email: 'Enter a valid email address.',
+    guest_phone:
+      'Enter a valid phone number including the country code, for example +966512345678.',
+    whatsapp: 'Enter a valid WhatsApp number including the country code.',
+    party_size: 'Choose a party size between 1 and 20 guests.',
+    reserved_for:
+      'Choose a date and time in the next 90 days, including a timezone offset.',
+    occasion: 'Choose one of the listed occasions.',
+    seating_preference: 'Choose one of the listed seating options.',
+    notes: 'Notes must be under 1000 characters.',
+    consent: 'Please agree to be contacted about this request.',
+    message: 'Enter a message between 10 and 2000 characters.',
+    subject: 'Subject must be under 200 characters.',
+    name: 'Enter your full name.',
+    email: 'Enter a valid email address.',
+    phone: 'Enter a valid phone number including the country code.',
+    locale: 'Unsupported language.',
+    form: 'Please check the highlighted fields.',
+  },
+  ar: {
+    branch_slug: 'اختر أحد فروعنا.',
+    guest_name: 'أدخل اسمك الكامل.',
+    guest_email: 'أدخل بريداً إلكترونياً صحيحاً.',
+    guest_phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة، مثل ‎+966512345678.',
+    whatsapp: 'أدخل رقم واتساب صحيحاً مع رمز الدولة.',
+    party_size: 'اختر عدد ضيوف بين ١ و٢٠.',
+    reserved_for: 'اختر تاريخاً ووقتاً خلال التسعين يوماً القادمة، مع تحديد المنطقة الزمنية.',
+    occasion: 'اختر إحدى المناسبات المتاحة.',
+    seating_preference: 'اختر أحد خيارات الجلوس المتاحة.',
+    notes: 'يجب ألا تتجاوز الملاحظات ١٠٠٠ حرف.',
+    consent: 'يرجى الموافقة على التواصل معك بخصوص هذا الطلب.',
+    message: 'أدخل رسالة بين ١٠ و٢٠٠٠ حرف.',
+    subject: 'يجب ألا يتجاوز الموضوع ٢٠٠ حرف.',
+    name: 'أدخل اسمك الكامل.',
+    email: 'أدخل بريداً إلكترونياً صحيحاً.',
+    phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة.',
+    locale: 'لغة غير مدعومة.',
+    form: 'يرجى مراجعة الحقول المحددة.',
+  },
+}
+
+// The locale is read from the payload being validated, which may itself be
+// invalid — fall back to English rather than throwing while building an error.
+export function localiseIssues(
+  issues: { path: PropertyKey[] }[],
+  locale: Locale,
+): Record<string, string[]> {
+  const table = VALIDATION_MESSAGES[locale] ?? VALIDATION_MESSAGES.en
+  const errors: Record<string, string[]> = {}
+  for (const issue of issues) {
+    const field = String(issue.path[0] ?? 'form')
+    const message = table[field] ?? table.form
+    if (!errors[field]) errors[field] = []
+    if (!errors[field].includes(message)) errors[field].push(message)
+  }
+  return errors
+}
 
 const REFERENCE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 
