@@ -19,9 +19,15 @@ export const branchSchema = z.object({
   directions_note: z.string().nullable(),
   phone: z.string(),
   whatsapp: z.string().nullable(),
+  // Required, deliberately, against 02-database-schema.md's nullable column —
+  // which the contract now says must become NOT NULL. This is the address a
+  // reservation notification is sent to; a null here means a 201 with nobody
+  // told, in the one flow the client is paying for.
   email: z.email(),
   coordinates: z.object({ latitude: z.number(), longitude: z.number() }),
-  google_maps_url: z.url(),
+  // Nullable, matching the column. The branch page hides the directions link
+  // when it is absent rather than constructing a URL from coordinates.
+  google_maps_url: z.url().nullable(),
   google_place_id: z.string().nullable(),
   hero_image: imageUrlSchema.nullable(),
   gallery: z.array(imageUrlSchema),

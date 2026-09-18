@@ -62,7 +62,7 @@ function toBranch(
     whatsapp: branch.whatsapp ?? null,
     email: branch.email,
     coordinates: { latitude: branch.latitude, longitude: branch.longitude },
-    google_maps_url: branch.google_maps_url,
+    google_maps_url: branch.google_maps_url ?? null,
     google_place_id: branch.google_place_id ?? null,
     hero_image: branch.hero_image ?? null,
     gallery: branch.gallery,

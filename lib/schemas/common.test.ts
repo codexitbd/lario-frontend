@@ -66,6 +66,14 @@ describe('load-bearing constants', () => {
     expect(() => branchSchema.shape.slug.parse('jeddah')).toThrow()
     void base
   })
+
+  it('requires branch email but tolerates a missing google_maps_url', () => {
+    // Deliberate asymmetry, documented in 03-api-contract.md GET /branches:
+    // email is where a reservation notification goes, so a null there is a 201
+    // nobody hears about; a missing maps URL just hides a link.
+    expect(() => branchSchema.shape.email.parse(null)).toThrow()
+    expect(() => branchSchema.shape.google_maps_url.parse(null)).not.toThrow()
+  })
 })
 
 describe('imageUrlSchema', () => {
