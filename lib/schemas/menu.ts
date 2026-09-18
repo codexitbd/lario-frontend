@@ -1,0 +1,60 @@
+import { z } from 'zod'
+import {
+  categoryRefSchema,
+  priceSchema,
+  seoSchema,
+} from '@/lib/schemas/common'
+
+export const DIETARY_TAGS = [
+  'vegetarian',
+  'vegan',
+  'gluten_free',
+  'spicy',
+  'halal',
+] as const
+
+export const ALLERGENS = [
+  'gluten',
+  'dairy',
+  'nuts',
+  'shellfish',
+  'egg',
+  'soy',
+] as const
+
+export const menuItemCardSchema = z.object({
+  slug: z.string().min(1),
+  name: z.string().min(1),
+  short_description: z.string().nullable(),
+  price: priceSchema,
+  currency: z.string().length(3),
+  calories: z.number().int().positive().nullable(),
+  image: z.string().nullable(),
+  dietary_tags: z.array(z.enum(DIETARY_TAGS)),
+  is_available: z.boolean(),
+  category: categoryRefSchema,
+  url: z.string().startsWith('/'),
+})
+export type MenuItemCard = z.infer<typeof menuItemCardSchema>
+
+export const menuItemSchema = menuItemCardSchema.extend({
+  description: z.string(),
+  ingredients_note: z.string().nullable(),
+  preparation_note: z.string().nullable(),
+  allergens: z.array(z.enum(ALLERGENS)),
+  seo: seoSchema,
+  related: z.array(menuItemCardSchema),
+})
+export type MenuItem = z.infer<typeof menuItemSchema>
+
+export const menuCategorySchema = z.object({
+  slug: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string().nullable(),
+  intro_content: z.string().min(1, 'category intro copy is the ranking asset'),
+  image: z.string().nullable(),
+  item_count: z.number().int().nonnegative(),
+  url: z.string().startsWith('/'),
+  seo: seoSchema,
+})
+export type MenuCategory = z.infer<typeof menuCategorySchema>
