@@ -47,7 +47,12 @@ export async function getMenuItem(
   slug: string,
 ): Promise<MenuItem | null> {
   'use cache'
-  cacheTag(tags.menuItem(slug))
+  // Both tags: this page renders `related` dishes from the same category, and
+  // editing one of those dishes emits `menu` (never this item's own tag) per
+  // the contract cascade. Tagging only menu-item:{slug} means an edit to a
+  // related dish leaves this page stale — silently, with nothing erroring.
+  // Same failure class as getMenuCategory.
+  cacheTag(tags.menuItem(slug), tags.menu())
   cacheLife('max')
 
   return impl.getMenuItem(locale, slug)

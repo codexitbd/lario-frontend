@@ -1,5 +1,15 @@
 {
   "seo_path": "/",
+  "seo": {
+    "en": {
+      "title": "La Rio Restaurant Riyadh",
+      "description": "Italian, Turkish and Argentine dining in Al Narjis and Al Yasmin. Handmade pasta, wood-fired pizza and charcoal grills. Reserve a table."
+    },
+    "ar": {
+      "title": "مطعم لا ريو الرياض",
+      "description": "مطبخ إيطالي وتركي وأرجنتيني في النرجس والياسمين. معكرونة طازجة وبيتزا على الحطب ومشاوي على الفحم. احجز طاولتك."
+    }
+  },
   "sections": [
     {
       "type": "hero",

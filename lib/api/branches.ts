@@ -19,7 +19,11 @@ export async function getBranch(
   slug: string,
 ): Promise<Branch | null> {
   'use cache'
-  cacheTag(tags.branch(slug))
+  // Both tags: this page renders popular_dishes, and a dish edit emits `menu`
+  // (never `branch:{slug}`) per the contract cascade. Tagging only the branch
+  // means a repriced dish leaves this page serving a stale price — silently,
+  // with nothing erroring. Same failure class as getMenuCategory.
+  cacheTag(tags.branch(slug), tags.menu())
   cacheLife('max')
 
   return impl.getBranch(locale, slug)

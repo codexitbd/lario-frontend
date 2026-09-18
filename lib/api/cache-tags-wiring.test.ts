@@ -62,9 +62,9 @@ describe('cacheTag wiring matches the contract', () => {
     expect(cacheTagCalls).toEqual([['menu']])
   })
 
-  it('getMenuItem tags "menu-item:{slug}"', async () => {
+  it('getMenuItem tags BOTH "menu-item:{slug}" and "menu" — renders related dishes', async () => {
     await getMenuItem('en', 'acili-ezme')
-    expect(cacheTagCalls).toEqual([['menu-item:acili-ezme']])
+    expect(cacheTagCalls).toEqual([['menu-item:acili-ezme', 'menu']])
   })
 
   it('getMenuCategory tags BOTH "menu-category:{slug}" and "menu" — the cascade decision', async () => {
@@ -82,9 +82,9 @@ describe('cacheTag wiring matches the contract', () => {
     expect(cacheTagCalls).toEqual([['branches']])
   })
 
-  it('getBranch tags "branch:{slug}"', async () => {
+  it('getBranch tags BOTH "branch:{slug}" and "menu" — renders popular_dishes', async () => {
     await getBranch('en', 'narjis')
-    expect(cacheTagCalls).toEqual([['branch:narjis']])
+    expect(cacheTagCalls).toEqual([['branch:narjis', 'menu']])
   })
 
   it('getHome tags "home"', async () => {

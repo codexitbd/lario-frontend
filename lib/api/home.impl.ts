@@ -57,13 +57,14 @@ function toSection(locale: Locale, section: SourceSection): PageSection {
 export function getHome(locale: Locale): Home {
   const hero = homeFixture.sections.find((s) => s.type === 'hero')
   if (!hero) throw new Error('home fixture is missing its hero section')
-  const heroContent = resolveTranslation(
-    hero.translations as Partial<
-      Record<Locale, { heading: string; subheading: string }>
-    >,
-    locale,
-  )
   const heroPayload = hero.payload as { background_image: string | null }
+
+  // The homepage's seo comes from the fixture's own top-level seo.{locale}
+  // block, NOT from the hero section's copy. A hero heading is written for
+  // impact on arrival; a <title> is written to be found in search — deriving
+  // one from the other means an editor can't tune either without disturbing
+  // the other. See task-11-report.md fix round 1.
+  const seoContent = resolveTranslation(homeFixture.seo, locale)
 
   const sections = homeFixture.sections
     .slice()
@@ -72,8 +73,8 @@ export function getHome(locale: Locale): Home {
 
   return {
     seo: buildSeo({
-      title: heroContent.heading,
-      description: heroContent.subheading,
+      title: seoContent.title,
+      description: seoContent.description,
       path: homeFixture.seo_path,
       locale,
       image: heroPayload.background_image,

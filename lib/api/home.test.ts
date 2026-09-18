@@ -35,9 +35,17 @@ describe('getHome', () => {
     expect(heroAr?.content.heading).toBe('مطبخ إيطالي وتركي وأرجنتيني في الرياض')
   })
 
-  it('builds seo from the hero section copy', () => {
+  it('builds seo from the fixture top-level seo.{locale} block, not the hero copy', () => {
     const home = getHome('en')
-    expect(home.seo.title).toContain('Italian, Turkish and Argentinian Dining')
+    expect(home.seo.title).toContain('La Rio Restaurant Riyadh')
+    expect(home.seo.title).not.toContain('Italian, Turkish and Argentinian Dining')
+    expect(home.seo.description).toBe(
+      'Italian, Turkish and Argentine dining in Al Narjis and Al Yasmin. Handmade pasta, wood-fired pizza and charcoal grills. Reserve a table.',
+    )
     expect(home.seo.canonical).toBe('https://lario.sa/')
+
+    const homeAr = getHome('ar')
+    expect(homeAr.seo.title).toContain('مطعم لا ريو الرياض')
+    expect(homeAr.seo.canonical).toBe('https://lario.sa/ar')
   })
 })
