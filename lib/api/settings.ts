@@ -9,6 +9,5 @@ export async function getSettings(locale: Locale): Promise<Settings> {
   cacheTag(tags.settings())
   cacheLife('max')
 
-  void locale // no locale-dependent fields yet; kept for signature parity
-  return getSettingsImpl()
+  return getSettingsImpl(locale)
 }

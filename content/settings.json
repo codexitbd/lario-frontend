@@ -14,7 +14,7 @@
   },
   "analytics": { "ga4_id": null, "gtm_id": null },
   "seo_defaults": {
-    "title_suffix": " | La Rio Riyadh",
-    "og_image": "https://lario.sa/images/og/default.jpg"
+    "title_suffix": { "en": " | La Rio Riyadh", "ar": " | لا ريو الرياض" },
+    "og_image": null
   }
 }

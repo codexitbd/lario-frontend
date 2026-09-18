@@ -59,8 +59,12 @@ export const settingsSchema = z.object({
     gtm_id: z.string().nullable(),
   }),
   seo_defaults: z.object({
+    // Wire shape: already resolved for the request locale. The fixture holds
+    // one suffix per locale (source shape) — see content/seo-defaults.ts.
     title_suffix: z.string(),
-    og_image: z.url(),
+    // Nullable: no default social-card asset exists (content-gap item 10).
+    // A URL that 404s is worse than none — crawlers cache the failure.
+    og_image: z.url().nullable(),
   }),
 })
 export type Settings = z.infer<typeof settingsSchema>

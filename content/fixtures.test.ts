@@ -3,12 +3,36 @@ import branches from '@/content/branches.json'
 import settings from '@/content/settings.json'
 import testimonials from '@/content/testimonials.json'
 import pages from '@/content/pages.json'
+// Cached wrapper `@/lib/api/settings` throws under Vitest — see lib/api/menu.test.ts.
+import { getSettings } from '@/lib/api/settings.impl'
 import { settingsSchema, testimonialSchema } from '@/lib/schemas'
 import { LOCALES } from '@/lib/i18n/config'
 
 describe('settings fixture', () => {
-  it('parses against the contract shape', () => {
-    expect(() => settingsSchema.parse(settings)).not.toThrow()
+  // The fixture is SOURCE shape, not wire shape — seo_defaults.title_suffix
+  // holds every locale and the resolver picks one. Parse what getSettings
+  // returns, which is what a consumer actually receives.
+  it('resolves to the contract shape in both locales', () => {
+    for (const locale of LOCALES) {
+      expect(() => settingsSchema.parse(getSettings(locale))).not.toThrow()
+    }
+  })
+
+  it('carries a title suffix per locale, each in its own script', () => {
+    for (const locale of LOCALES) {
+      expect(settings.seo_defaults.title_suffix[locale].length).toBeGreaterThan(0)
+    }
+    // A single Latin suffix put "المقبلات الباردة | La Rio Riyadh" — two
+    // scripts in one <title> — on every Arabic page. D16 and lib/format.ts's
+    // NUMERAL_SYSTEM = 'latn' govern numerals, not brand copy: Arabic pages get
+    // Arabic brand text.
+    expect(settings.seo_defaults.title_suffix.ar).not.toMatch(/[A-Za-z]/)
+  })
+
+  it('advertises no default OG image until one is supplied', () => {
+    // content-gap item 10. A URL that 404s is worse than none: crawlers cache
+    // the failure and the card renders broken.
+    expect(settings.seo_defaults.og_image).toBeNull()
   })
 
   it('declares exactly one GA4 id and one GTM id', () => {

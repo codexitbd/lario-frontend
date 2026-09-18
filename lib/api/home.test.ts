@@ -37,7 +37,14 @@ describe('getHome', () => {
 
   it('builds seo from the fixture top-level seo.{locale} block, not the hero copy', () => {
     const home = getHome('en')
-    expect(home.seo.title).toContain('La Rio Restaurant Riyadh')
+    // EXACT, not `toContain`. A contains-assertion passed happily while the
+    // fixture carried the brand and buildSeo appended it again, emitting
+    // "La Rio Restaurant Riyadh | La Rio Riyadh" on every load. The fixture
+    // supplies the descriptor; the suffix supplies the brand; once each.
+    expect(home.seo.title).toBe(
+      'Italian, Turkish & Argentine Dining | La Rio Riyadh',
+    )
+    expect(home.seo.title.match(/La Rio/g)).toHaveLength(1)
     expect(home.seo.title).not.toContain('Italian, Turkish and Argentinian Dining')
     expect(home.seo.description).toBe(
       'Italian, Turkish and Argentine dining in Al Narjis and Al Yasmin. Handmade pasta, wood-fired pizza and charcoal grills. Reserve a table.',
@@ -45,7 +52,10 @@ describe('getHome', () => {
     expect(home.seo.canonical).toBe('https://lario.sa/')
 
     const homeAr = getHome('ar')
-    expect(homeAr.seo.title).toContain('مطعم لا ريو الرياض')
+    expect(homeAr.seo.title).toBe('مطعم إيطالي وتركي وأرجنتيني | لا ريو الرياض')
+    // The suffix is per-locale precisely so an Arabic <title> does not carry
+    // Latin brand text. Any Latin letter here is the bug coming back.
+    expect(homeAr.seo.title).not.toMatch(/[A-Za-z]/)
     expect(homeAr.seo.canonical).toBe('https://lario.sa/ar')
   })
 })
