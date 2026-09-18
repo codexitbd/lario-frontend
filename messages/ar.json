@@ -1,0 +1,77 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "menu": "قائمة الطعام",
+    "branches": "الفروع",
+    "reservation": "الحجوزات",
+    "contact": "تواصل معنا",
+    "about": "من نحن",
+    "story": "قصتنا",
+    "chef": "طاهينا",
+    "gallery": "معرض الصور",
+    "events": "الفعاليات",
+    "blog": "المجلة",
+    "comingSoon": "قريبًا"
+  },
+  "actions": {
+    "reserve": "احجز طاولة",
+    "exploreMenu": "استكشف قائمتنا",
+    "viewFullMenu": "عرض القائمة الكاملة",
+    "viewDetails": "عرض التفاصيل",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال",
+    "close": "إغلاق",
+    "previous": "السابق",
+    "skipToContent": "تخطَّ إلى المحتوى"
+  },
+  "menu": {
+    "searchPlaceholder": "ابحث عن طبق",
+    "allCategories": "الكل",
+    "dietary": "النظام الغذائي",
+    "priceRange": "نطاق السعر",
+    "noResults": "لا توجد أطباق تطابق هذه الفلاتر.",
+    "clearFilters": "مسح الفلاتر",
+    "calories": "سعرة حرارية",
+    "unavailable": "غير متوفر حاليًا",
+    "allergens": "مسببات الحساسية",
+    "relatedDishes": "قد يعجبك أيضًا"
+  },
+  "reservation": {
+    "stepBranch": "الفرع",
+    "stepWhen": "التاريخ وعدد الضيوف",
+    "stepDetails": "بياناتك",
+    "stepReview": "المراجعة",
+    "name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "whatsapp": "واتساب (اختياري)",
+    "partySize": "عدد الضيوف",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "occasion": "المناسبة",
+    "seating": "تفضيل الجلوس",
+    "notes": "هل هناك ما ينبغي أن نعرفه؟",
+    "consent": "أوافق على التواصل معي بخصوص هذا الطلب.",
+    "successTitle": "تم استلام الطلب",
+    "successBody": "رقم مرجعك هو {reference}. سيتواصل معك الفرع لتأكيد طاولتك.",
+    "errorRequired": "هذا الحقل مطلوب.",
+    "errorEmail": "أدخل بريدًا إلكترونيًا صحيحًا.",
+    "errorPhone": "أدخل رقم هاتف صحيحًا مع رمز الدولة.",
+    "errorRateLimit": "عدد كبير جدًا من الطلبات. يرجى المحاولة مرة أخرى بعد بضع دقائق.",
+    "errorNetwork": "تعذر إرسال الطلب. تحقق من اتصالك وحاول مرة أخرى."
+  },
+  "branch": {
+    "openingHours": "ساعات العمل",
+    "closed": "مغلق",
+    "facilities": "المرافق",
+    "getDirections": "الحصول على الاتجاهات",
+    "popularDishes": "الأطباق الأكثر طلبًا",
+    "callBranch": "اتصل بهذا الفرع"
+  },
+  "footer": {
+    "rights": "جميع الحقوق محفوظة.",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام"
+  }
+}

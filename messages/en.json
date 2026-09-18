@@ -1,0 +1,77 @@
+{
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "branches": "Branches",
+    "reservation": "Reservations",
+    "contact": "Contact",
+    "about": "About",
+    "story": "Our Story",
+    "chef": "Our Chef",
+    "gallery": "Gallery",
+    "events": "Events",
+    "blog": "Journal",
+    "comingSoon": "Coming soon"
+  },
+  "actions": {
+    "reserve": "Reserve a Table",
+    "exploreMenu": "Explore Our Menu",
+    "viewFullMenu": "View Full Menu",
+    "viewDetails": "View Details",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close",
+    "previous": "Previous",
+    "skipToContent": "Skip to content"
+  },
+  "menu": {
+    "searchPlaceholder": "Search dishes",
+    "allCategories": "All",
+    "dietary": "Dietary",
+    "priceRange": "Price range",
+    "noResults": "No dishes match those filters.",
+    "clearFilters": "Clear filters",
+    "calories": "calories",
+    "unavailable": "Currently unavailable",
+    "allergens": "Allergens",
+    "relatedDishes": "You might also like"
+  },
+  "reservation": {
+    "stepBranch": "Branch",
+    "stepWhen": "Date & party",
+    "stepDetails": "Your details",
+    "stepReview": "Review",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp (optional)",
+    "partySize": "Guests",
+    "date": "Date",
+    "time": "Time",
+    "occasion": "Occasion",
+    "seating": "Seating preference",
+    "notes": "Anything we should know?",
+    "consent": "I agree to be contacted about this request.",
+    "successTitle": "Request received",
+    "successBody": "Your reference is {reference}. The branch will contact you to confirm your table.",
+    "errorRequired": "This field is required.",
+    "errorEmail": "Enter a valid email address.",
+    "errorPhone": "Enter a valid phone number, including the country code.",
+    "errorRateLimit": "Too many requests. Please try again in a few minutes.",
+    "errorNetwork": "We could not send that. Check your connection and try again."
+  },
+  "branch": {
+    "openingHours": "Opening hours",
+    "closed": "Closed",
+    "facilities": "Facilities",
+    "getDirections": "Get directions",
+    "popularDishes": "Popular choices",
+    "callBranch": "Call this branch"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions"
+  }
+}
