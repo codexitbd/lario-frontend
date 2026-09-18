@@ -13,7 +13,7 @@ import {
 // invisibles rather than hardcoding them and making the tests brittle across
 // ICU versions.
 const norm = (value: string): string =>
-  value.replace(/ /g, ' ').replace(/[‎‏]/g, '').trim()
+  value.replace(/\u00A0/g, ' ').replace(/[\u200E\u200F]/g, '').trim()
 
 describe('formatPrice', () => {
   it('formats SAR in English', () => {
