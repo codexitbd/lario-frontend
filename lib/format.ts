@@ -20,7 +20,14 @@ export function formatPrice(
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
-  }).format(amount)
+    // `amount` is a decimal string such as "189.00", already validated by
+    // priceSchema. Intl.NumberFormat.format() accepts numeric strings at
+    // runtime and formats them exactly; TypeScript types the parameter as
+    // Intl.StringNumericLiteral, so this assertion states what the schema
+    // already guarantees. It is a type-level cast with no runtime conversion.
+    // NEVER change this to Number(amount) — that reintroduces float drift and
+    // is the precise bug this whole approach exists to prevent.
+  }).format(amount as Intl.StringNumericLiteral)
 }
 
 export function formatCalories(calories: number, locale: Locale): string {
