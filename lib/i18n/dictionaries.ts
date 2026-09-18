@@ -4,7 +4,11 @@ import type { Locale } from '@/lib/i18n/config'
 
 export type Dictionary = typeof en
 
-const DICTIONARIES: Record<Locale, Dictionary> = { en, ar: ar as Dictionary }
+// `satisfies`, never `as`. An `as` cast suppresses the structural check entirely:
+// a key present in en.json but missing from ar.json compiles clean and fails only
+// at runtime. `satisfies` validates both against Dictionary at compile time while
+// keeping their literal types, so a missing Arabic key is a build error.
+const DICTIONARIES = { en, ar } satisfies Record<Locale, Dictionary>
 
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
   return DICTIONARIES[locale]
