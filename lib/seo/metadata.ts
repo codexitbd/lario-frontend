@@ -11,12 +11,17 @@ import type { Seo } from '@/lib/schemas'
 // keep its literals.
 export function buildMetadata(seo: Seo) {
   const directives = seo.robots.split(',').map((d) => d.trim().toLowerCase())
+  // "none" is a standard directive meaning noindex AND nofollow. Matching only
+  // the literal tokens would let it fall through to index:true/follow:true —
+  // actively indexing a page whose robots value says to keep it out, with
+  // nothing erroring anywhere.
+  const none = directives.includes('none')
   return {
     title: seo.title,
     description: seo.description,
     robots: {
-      index: !directives.includes('noindex'),
-      follow: !directives.includes('nofollow'),
+      index: !none && !directives.includes('noindex'),
+      follow: !none && !directives.includes('nofollow'),
     },
     alternates: {
       canonical: seo.canonical,

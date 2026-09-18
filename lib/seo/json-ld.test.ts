@@ -3,6 +3,7 @@ import {
   breadcrumbJsonLd,
   faqJsonLd,
   localBusinessJsonLd,
+  MENU_DATA_IS_VERIFIED,
   menuItemJsonLd,
   restaurantJsonLd,
 } from '@/lib/seo/json-ld'
@@ -107,25 +108,38 @@ describe('faqJsonLd', () => {
 })
 
 describe('menuItemJsonLd', () => {
-  it('maps price, formatted calories and dietary tag; carries no rating fields', () => {
+  it('omits offers and nutrition while MENU_DATA_IS_VERIFIED is false — price and calories are placeholder data', () => {
+    expect(MENU_DATA_IS_VERIFIED).toBe(false)
     const ld = menuItemJsonLd(item, 'en')
     expect(ld['@type']).toBe('MenuItem')
-    expect(ld.offers).toEqual({
-      '@type': 'Offer',
-      price: '42.00',
-      priceCurrency: 'SAR',
-    })
-    expect(ld.nutrition).toEqual({
-      '@type': 'NutritionInformation',
-      calories: '650 calories',
-    })
-    expect(ld.suitableForDiet).toBe('https://schema.org/VegetarianDiet')
+    expect(ld.offers).toBeUndefined()
+    expect(ld.nutrition).toBeUndefined()
     expect(JSON.stringify(ld)).not.toMatch(FORBIDDEN_TERMS)
   })
 
-  it('omits nutrition and suitableForDiet when absent', () => {
-    const ld = menuItemJsonLd({ ...item, calories: null, dietary_tags: [] }, 'en')
-    expect(ld.nutrition).toBeUndefined()
+  it('maps a single dietary tag to its schema.org diet URL', () => {
+    const ld = menuItemJsonLd({ ...item, dietary_tags: ['halal'] }, 'en')
+    expect(ld.suitableForDiet).toBe('https://schema.org/HalalDiet')
+  })
+
+  it('maps several dietary tags to an array of diet URLs, halal included', () => {
+    const ld = menuItemJsonLd(
+      { ...item, dietary_tags: ['vegetarian', 'halal'] },
+      'en',
+    )
+    expect(ld.suitableForDiet).toEqual([
+      'https://schema.org/VegetarianDiet',
+      'https://schema.org/HalalDiet',
+    ])
+  })
+
+  it('omits suitableForDiet when no tag has a schema.org diet equivalent (e.g. spicy alone)', () => {
+    const ld = menuItemJsonLd({ ...item, dietary_tags: ['spicy'] }, 'en')
+    expect(ld.suitableForDiet).toBeUndefined()
+  })
+
+  it('omits suitableForDiet when there are no dietary tags at all', () => {
+    const ld = menuItemJsonLd({ ...item, dietary_tags: [] }, 'en')
     expect(ld.suitableForDiet).toBeUndefined()
   })
 })

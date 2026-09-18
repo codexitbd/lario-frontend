@@ -31,27 +31,53 @@ export function faqJsonLd(items: { q: string; a: string }[]) {
 // Aggregate Rating companion) anywhere in this module: testimonials are
 // CMS-entered, and self-served rating markup is a Google manual-action risk
 // (02-database-schema.md). Testimonials are displayed only, never marked up.
+
+// Every price and calorie value in this project is invented placeholder data —
+// the client has supplied none (content-gap items 2 and 3). JSON-LD is a
+// machine-readable assertion to search engines, not UI copy: a fabricated price
+// can be surfaced in Search and Maps before any human reviews the page, and
+// markup that does not reflect real content violates Google's structured-data
+// policy. So the commercial claims are gated OFF until real data lands. Flip
+// this one constant when the client's menu data is in — nothing else changes.
+export const MENU_DATA_IS_VERIFIED = false
+
+// schema.org diet URLs for the tags the CMS can produce. "spicy" is deliberately
+// absent: it is a preparation style, not a dietary restriction, and has no
+// schema.org RestrictedDiet equivalent.
+const DIET_URLS: Partial<Record<string, string>> = {
+  vegetarian: 'https://schema.org/VegetarianDiet',
+  vegan: 'https://schema.org/VeganDiet',
+  gluten_free: 'https://schema.org/GlutenFreeDiet',
+  halal: 'https://schema.org/HalalDiet',
+}
+
 export function menuItemJsonLd(item: MenuItem, locale: Locale) {
+  // An array when several apply, a bare string when one does, undefined when
+  // none — all three are valid schema.org. The previous single-tag ternary
+  // silently dropped every tag but vegetarian, including halal, which is the
+  // contract's own example and the most common tag on this menu.
+  const diets = item.dietary_tags
+    .map((tag) => DIET_URLS[tag])
+    .filter((url): url is string => Boolean(url))
+
   return {
     '@context': 'https://schema.org',
     '@type': 'MenuItem',
     name: item.name,
     description: item.description,
     image: item.image ?? undefined,
-    offers: {
-      '@type': 'Offer',
-      price: item.price,
-      priceCurrency: item.currency,
-    },
-    nutrition: item.calories
-      ? {
-          '@type': 'NutritionInformation',
-          calories: `${formatCalories(item.calories, locale)} calories`,
-        }
+    offers: MENU_DATA_IS_VERIFIED
+      ? { '@type': 'Offer', price: item.price, priceCurrency: item.currency }
       : undefined,
-    suitableForDiet: item.dietary_tags.includes('vegetarian')
-      ? 'https://schema.org/VegetarianDiet'
-      : undefined,
+    nutrition:
+      MENU_DATA_IS_VERIFIED && item.calories
+        ? {
+            '@type': 'NutritionInformation',
+            calories: `${formatCalories(item.calories, locale)} calories`,
+          }
+        : undefined,
+    suitableForDiet:
+      diets.length === 0 ? undefined : diets.length === 1 ? diets[0] : diets,
   }
 }
 

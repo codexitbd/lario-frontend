@@ -44,6 +44,13 @@ describe('buildMetadata', () => {
     ).toEqual({ index: false, follow: false })
   })
 
+  it('treats the "none" directive as noindex and nofollow together', () => {
+    expect(buildMetadata({ ...seo, robots: 'none' }).robots).toEqual({
+      index: false,
+      follow: false,
+    })
+  })
+
   it('carries openGraph and twitter through', () => {
     const meta = buildMetadata(seo)
     expect(meta.openGraph?.images).toEqual([
