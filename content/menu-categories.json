@@ -1,0 +1,155 @@
+[
+  {
+    "slug": "cold-mezze",
+    "image": "/images/menu/Turkish/humus.jpg",
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Cold Mezze",
+        "description": "Sharing plates to open the table.",
+        "intro_content": "Our cold mezze arrive first and stay on the table throughout the meal. Smoked aubergine, whipped tahini, walnut and pepper pastes and stuffed vine leaves are made fresh each morning and served with bread from our own oven."
+      },
+      "ar": {
+        "name": "المقبلات الباردة",
+        "description": "أطباق للمشاركة تفتتح المائدة.",
+        "intro_content": "تصل مقبلاتنا الباردة أولاً وتبقى على المائدة طوال الوجبة. الباذنجان المدخن والطحينة والمحمرة وورق العنب المحشي تُحضّر طازجة كل صباح وتُقدّم مع الخبز من فرننا الخاص."
+      }
+    }
+  },
+  {
+    "slug": "starters",
+    "image": "/images/menu/Italian/beef-carpaccio-with-truffle-mayo.jpg",
+    "sort_order": 1,
+    "translations": {
+      "en": {
+        "name": "Starters",
+        "description": "Warm openings from three kitchens.",
+        "intro_content": "Hot starters draw on all three of our kitchens at once: Italian carpaccio and seared scallops, Argentine empanadas folded by hand, and baked brie served with fruit. Each is sized to share between two or three guests."
+      },
+      "ar": {
+        "name": "المقبلات الساخنة",
+        "description": "بدايات دافئة من ثلاثة مطابخ.",
+        "intro_content": "تجمع مقبلاتنا الساخنة مطابخنا الثلاثة معاً: الكارباتشيو الإيطالي والإسكالوب المحمّر، والإمبناداس الأرجنتينية المطوية يدوياً، وجبن البري المخبوز مع الفواكه. كل طبق بحجم يكفي لمشاركة ضيفين أو ثلاثة."
+      }
+    }
+  },
+  {
+    "slug": "salads",
+    "image": "/images/menu/Italian/burrata-salad.jpg",
+    "sort_order": 2,
+    "translations": {
+      "en": {
+        "name": "Salads",
+        "description": "Bright plates built on daily produce.",
+        "intro_content": "Twelve salads span the menu, from Italian burrata and panzanella to Turkish gavurdağı and grain tabbouleh. Leaves and vegetables are delivered each morning, and dressings are mixed to order rather than held."
+      },
+      "ar": {
+        "name": "السلطات",
+        "description": "أطباق منعشة من خضار اليوم.",
+        "intro_content": "تضم قائمتنا اثنتي عشرة سلطة، من البوراتا والبانزانيلا الإيطالية إلى الغاوورداغي التركية والتبولة بالحبوب. تصل الخضروات والأوراق كل صباح، وتُحضَّر الصلصات عند الطلب لا قبله."
+      }
+    }
+  },
+  {
+    "slug": "soups",
+    "image": "/images/menu/Turkish/red-lentil-soup.jpg",
+    "sort_order": 3,
+    "translations": {
+      "en": {
+        "name": "Soups",
+        "description": "Slow stocks, finished to order.",
+        "intro_content": "Four soups, each built on a stock simmered overnight: Turkish red lentil and harira, Italian cioppino heavy with seafood, and an Argentine beef rib caldo. Served with bread and a wedge of lemon."
+      },
+      "ar": {
+        "name": "الشوربات",
+        "description": "مرق بطيء يُنهى عند الطلب.",
+        "intro_content": "أربع شوربات، كل منها على مرق يغلي طوال الليل: العدس الأحمر والحريرة التركية، والتشوبينو الإيطالي الغني بالمأكولات البحرية، وشوربة ضلع البقر الأرجنتينية. تُقدّم مع الخبز وشريحة ليمون."
+      }
+    }
+  },
+  {
+    "slug": "pasta-and-risotto",
+    "image": "/images/menu/Italian/fettuccine-alfredo-on-the-parmesan-wheel.jpg",
+    "sort_order": 4,
+    "translations": {
+      "en": {
+        "name": "Pasta & Risotto",
+        "description": "Made by hand, finished at the table.",
+        "intro_content": "Pasta is rolled and cut in our kitchen each day. The fettuccine alfredo is finished inside a hollowed parmesan wheel at your table, and our risottos are started to order, which is why they take a little longer to arrive."
+      },
+      "ar": {
+        "name": "الباستا والريزوتو",
+        "description": "تُصنع يدوياً وتُنهى على الطاولة.",
+        "intro_content": "تُفرد المعكرونة وتُقطع في مطبخنا يومياً. يُنهى الفيتوتشيني ألفريدو داخل عجلة جبن البارميزان المجوّفة أمامك على الطاولة، ويبدأ تحضير الريزوتو عند الطلب، ولهذا يستغرق وقتاً أطول قليلاً."
+      }
+    }
+  },
+  {
+    "slug": "pizza",
+    "image": "/images/menu/Italian/pizza-la-rio-signature.jpg",
+    "sort_order": 5,
+    "translations": {
+      "en": {
+        "name": "Pizza",
+        "description": "Long-fermented dough, wood-fired.",
+        "intro_content": "Our dough proves for forty-eight hours before it ever meets the oven, which is what gives the crust its lightness. Eight pizzas run from a plain margherita to our signature, and every one is fired in under three minutes."
+      },
+      "ar": {
+        "name": "البيتزا",
+        "description": "عجينة طويلة التخمير على الحطب.",
+        "intro_content": "تتخمر عجينتنا ثمانياً وأربعين ساعة قبل أن تدخل الفرن، وهذا سر خفة القشرة. ثماني بيتزا تمتد من المارغريتا البسيطة إلى بيتزا لا ريو المميزة، وكل واحدة تُخبز في أقل من ثلاث دقائق."
+      }
+    }
+  },
+  {
+    "slug": "kebabs-and-skewers",
+    "image": "/images/menu/Turkish/urfa-kebab.jpg",
+    "sort_order": 6,
+    "translations": {
+      "en": {
+        "name": "Kebabs & Skewers",
+        "description": "Charcoal grilling, the Turkish way.",
+        "intro_content": "Twelve kebabs come off a charcoal grill kept at a steady heat all evening. Adana and Urfa are minced and seasoned in-house each morning; the pistachio kebab and beyti rolls are the two guests most often come back for."
+      },
+      "ar": {
+        "name": "الكباب والأسياخ",
+        "description": "شواء على الفحم على الطريقة التركية.",
+        "intro_content": "اثنا عشر نوعاً من الكباب تخرج من شواية فحم تبقى على حرارة ثابتة طوال المساء. يُفرم الأضنة والأورفة ويُتبّلان في مطبخنا كل صباح، وكباب الفستق ولفائف البيتي هما الطبقان اللذان يعود إليهما ضيوفنا أكثر."
+      }
+    }
+  },
+  {
+    "slug": "steaks-and-mains",
+    "image": "/images/menu/Argentine/assado-argentina-style.jpg",
+    "sort_order": 7,
+    "translations": {
+      "en": {
+        "name": "Steaks & Mains",
+        "description": "Open fire, Argentine tradition.",
+        "intro_content": "Nineteen main plates, led by the Argentine asado cooked slowly over open flame. Ribeye, New York striploin and tenderloin are aged before service, and lamb shanks and shoulder are braised for hours rather than grilled."
+      },
+      "ar": {
+        "name": "الستيك والأطباق الرئيسية",
+        "description": "نار مفتوحة وتقاليد أرجنتينية.",
+        "intro_content": "تسعة عشر طبقاً رئيسياً يتصدرها الأسادو الأرجنتيني المطهو ببطء على اللهب المكشوف. تُعتّق قطع الريب آي والستريبلوين والتندرلوين قبل التقديم، بينما تُطهى أوصال الضأن وكتفه ساعات طويلة بدل الشوي."
+      }
+    }
+  },
+  {
+    "slug": "sides",
+    "image": "/images/menu/Argentine/cheesy-loaded-fries.jpg",
+    "sort_order": 8,
+    "translations": {
+      "en": {
+        "name": "Sides",
+        "description": "Plates to round out the table.",
+        "intro_content": "Seven sides designed to sit alongside the grill: loaded fries, roasted sweet potato wedges, charred vegetables, wilted spinach and pickled red onions that cut through the richer cuts of meat."
+      },
+      "ar": {
+        "name": "الأطباق الجانبية",
+        "description": "أطباق تكمل المائدة.",
+        "intro_content": "سبعة أطباق جانبية صُممت لترافق المشاوي: البطاطس المغطاة بالجبن، وأصابع البطاطا الحلوة المحمصة، والخضار المشوية، والسبانخ الذابلة، والبصل الأحمر المخلل الذي يوازن دسم قطع اللحم."
+      }
+    }
+  }
+]
