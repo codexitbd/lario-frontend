@@ -1,0 +1,3033 @@
+[
+  {
+    "slug": "acili-ezme",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/acili-ezme.jpg",
+    "price": "32.00",
+    "currency": "SAR",
+    "calories": 140,
+    "dietary_tags": [
+      "halal",
+      "vegan",
+      "spicy"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Acılı Ezme",
+        "description": "A fiery Turkish relish of finely chopped tomato, walnut, and pepper paste, pounded by hand and finished with pomegranate molasses.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أجمة حارة",
+        "description": "مزيج تركي حار من الطماطم والجوز ومعجون الفلفل المفروم يدوياً، يُنهى بدبس الرمان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "adana-spicy-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/adana-spicy-kebab.jpg",
+    "price": "95.00",
+    "currency": "SAR",
+    "calories": 520,
+    "dietary_tags": [
+      "halal",
+      "spicy"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Adana Kebab",
+        "description": "Hand-minced spiced lamb, skewered wide and grilled over charcoal.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كباب أضنة",
+        "description": "لحم ضأن متبّل مفروم يدوياً، يُشوى على سيخ عريض فوق الفحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "asparagus-with-hollandaise-sauce",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/asparagus-with-hollandaise-sauce.jpg",
+    "price": "38.00",
+    "currency": "SAR",
+    "calories": 180,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Asparagus with Hollandaise",
+        "description": "Charred asparagus spears finished with warm hollandaise sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "الهليون بصلصة الهولنديز",
+        "description": "أعواد الهليون المشوية على الفحم تُنهى بصلصة الهولنديز الدافئة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "assado-argentina-style",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/assado-argentina-style.jpg",
+    "price": "320.00",
+    "currency": "SAR",
+    "calories": null,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Asado Argentina Style",
+        "description": "Mixed beef and lamb cuts slow-cooked over open flame in the Argentine asado tradition.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أسادو على الطريقة الأرجنتينية",
+        "description": "تشكيلة من قطع اللحم البقري والضأن تُطهى ببطء على اللهب المكشوف على تقليد الأسادو الأرجنتيني.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "baba-ghanoush",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/baba-ghanoush.jpg",
+    "price": "34.00",
+    "currency": "SAR",
+    "calories": 210,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Baba Ghanoush",
+        "description": "Aubergine roasted over open flame until smoky, then whipped with tahini, garlic, and lemon.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بابا غنوج",
+        "description": "باذنجان مشوي على النار حتى يكتسب نكهة مدخنة، يُخفق مع الطحينة والثوم والليمون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "baked-patato",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/baked-patato.jpg",
+    "price": "30.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Baked Potato",
+        "description": "Whole baked potato with sour cream, chives, and butter.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بطاطا مخبوزة",
+        "description": "بطاطا كاملة مخبوزة مع الكريمة الحامضة والثوم المعمر والزبدة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "bbq-chicken-meatballs",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/bbq-chicken-meatballs.jpg",
+    "price": "88.00",
+    "currency": "SAR",
+    "calories": 480,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "BBQ Chicken Meatballs",
+        "description": "Grilled chicken meatballs glazed in smoky barbecue sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كرات الدجاج بصلصة الباربكيو",
+        "description": "كرات دجاج مشوية مغطاة بصلصة الباربكيو المدخنة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-carpaccio-with-truffle-mayo",
+    "category_slug": "starters",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/beef-carpaccio-with-truffle-mayo.jpg",
+    "price": "68.00",
+    "currency": "SAR",
+    "calories": 320,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Carpaccio With Truffle Mayo",
+        "description": "Thin-sliced raw beef fillet dressed with truffle mayonnaise and shaved parmesan.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كارباتشيو اللحم بمايونيز الكمأة",
+        "description": "شرائح رقيقة من فيليه اللحم النيء مع مايونيز الكمأة وشرائح البارميزان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-rib-soup-cal-do-de-res",
+    "category_slug": "soups",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/beef-rib-soup-cal-do-de-res.jpg",
+    "price": "42.00",
+    "currency": "SAR",
+    "calories": 320,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Rib Soup (Caldo de Res)",
+        "description": "An Argentine beef rib broth simmered for hours with corn, potato, and root vegetables.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شوربة ضلع البقر (كالدو دي ريس)",
+        "description": "مرق أرجنتيني من ضلع البقر يُطهى ساعات طويلة مع الذرة والبطاطا والخضروات الجذرية.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-special-shaslik",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/beef-special-shaslik.jpg",
+    "price": "150.00",
+    "currency": "SAR",
+    "calories": 560,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Shaslik",
+        "description": "Skewered beef cubes with pepper and onion, grilled over charcoal.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شاشليك اللحم البقري",
+        "description": "مكعبات لحم بقري على سيخ مع الفلفل والبصل، تُشوى على الفحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-special-tenderloin-440-grm",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/beef-special-tenderloin-440-grm.jpg",
+    "price": "280.00",
+    "currency": "SAR",
+    "calories": 820,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Tenderloin (440g)",
+        "description": "A whole 440-gram beef tenderloin, grilled to order and rested before carving.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "لحم التندرلوين (440 غرام)",
+        "description": "قطعة تندرلوين كاملة وزنها 440 غراماً، تُشوى حسب الطلب وتُترك لترتاح قبل التقطيع.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-tagine",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/beef-tagine.jpg",
+    "price": "145.00",
+    "currency": "SAR",
+    "calories": 680,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Tagine",
+        "description": "Beef shoulder braised for hours with warming spice until it falls from the bone.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "طاجن اللحم البقري",
+        "description": "كتف بقري يُطهى ببطء لساعات طويلة مع التوابل الدافئة حتى ينفصل عن العظم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beef-tongue",
+    "category_slug": "starters",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/beef-tongue.jpg",
+    "price": "58.00",
+    "currency": "SAR",
+    "calories": 380,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beef Tongue",
+        "description": "Slow-braised beef tongue, thin-sliced and served cold with a sharp mustard sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "لسان البقر",
+        "description": "لسان بقر مطهو ببطء، يُقطّع رقيقاً ويُقدّم بارداً مع صلصة الخردل الحادة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "beyti-rolls-with-yogurt-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/beyti-rolls-with-yogurt-kebab.jpg",
+    "price": "105.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Beyti Rolls with Yoghurt",
+        "description": "Minced lamb kebab rolled in flatbread, sliced and finished with garlic yoghurt and tomato sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "لفائف البيتي باللبن",
+        "description": "كباب لحم ضأن مفروم ملفوف بالخبز الرقيق، يُقطّع ويُنهى بلبن الثوم وصلصة الطماطم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "burrata-salad",
+    "category_slug": "salads",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/burrata-salad.jpg",
+    "price": "62.00",
+    "currency": "SAR",
+    "calories": 410,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Burrata Salad",
+        "description": "Creamy burrata over heirloom tomatoes and basil, finished with aged balsamic and olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة البوراتا",
+        "description": "جبن البوراتا الكريمي فوق طماطم متعددة الألوان والريحان، مع البلسمك المعتّق وزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "bursa-style-pita-meatballs",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/bursa-style-pita-meatballs.jpg",
+    "price": "92.00",
+    "currency": "SAR",
+    "calories": 610,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Bursa Style Pita Meatballs",
+        "description": "Grilled meatballs over toasted pita, yoghurt, and tomato-butter sauce, Bursa style.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كرات اللحم على طريقة بورصة",
+        "description": "كرات لحم مشوية فوق خبز محمص مع اللبن وصلصة الطماطم بالزبدة، على طريقة بورصة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "ceaser-salad-chicken",
+    "category_slug": "salads",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/ceaser-salad-chicken.jpg",
+    "price": "52.00",
+    "currency": "SAR",
+    "calories": 480,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Caesar Salad with Chicken",
+        "description": "Grilled chicken over baby gem lettuce, parmesan, and croutons in a classic Caesar dressing.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة سيزر بالدجاج",
+        "description": "دجاج مشوي فوق خس بيبي جيم والبارميزان والخبز المحمص مع صلصة سيزر الكلاسيكية.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "ceaser-salad-shrimps",
+    "category_slug": "salads",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/ceaser-salad-shrimps.jpg",
+    "price": "58.00",
+    "currency": "SAR",
+    "calories": 420,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish",
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Caesar Salad with Shrimp",
+        "description": "Char-grilled shrimp over baby gem lettuce and parmesan in a classic Caesar dressing.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة سيزر بالروبيان",
+        "description": "روبيان مشوي على الفحم فوق خس بيبي جيم والبارميزان مع صلصة سيزر الكلاسيكية.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "cheesy-loaded-fries",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/cheesy-loaded-fries.jpg",
+    "price": "42.00",
+    "currency": "SAR",
+    "calories": 620,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy",
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Cheesy Loaded Fries",
+        "description": "Crisp fries piled with melted cheese, jalapeño, and smoked beef bits.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بطاطس محملة بالجبن",
+        "description": "بطاطس مقرمشة مغطاة بالجبن الذائب والهالبينو وقطع اللحم المدخن.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "chicken-bones-shish-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/chicken-bones-shish-kebab.jpg",
+    "price": "89.00",
+    "currency": "SAR",
+    "calories": 540,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Bone-In Chicken Shish Kebab",
+        "description": "Chicken thigh on the bone, marinated and grilled over charcoal for extra char.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شيش كباب الدجاج بالعظم",
+        "description": "فخذ دجاج بالعظم متبّل ومشوي على الفحم لنكهة مدخنة إضافية.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "chicken-empanadas",
+    "category_slug": "starters",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/chicken-empanadas.jpg",
+    "price": "48.00",
+    "currency": "SAR",
+    "calories": 340,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Chicken Empanadas",
+        "description": "Hand-folded pastry parcels filled with spiced chicken, baked to order.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "إمبناداس بالدجاج",
+        "description": "فطائر مطوية يدوياً محشوة بالدجاج المتبّل، تُخبز عند الطلب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "chicken-shish-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/chicken-shish-kebab.jpg",
+    "price": "85.00",
+    "currency": "SAR",
+    "calories": 420,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Chicken Shish Kebab",
+        "description": "Cubed chicken breast marinated and skewered, grilled over charcoal.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شيش كباب الدجاج",
+        "description": "قطع صدر دجاج متبّلة ومشوية على سيخ فوق الفحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "chicken-tagine",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/chicken-tagine.jpg",
+    "price": "125.00",
+    "currency": "SAR",
+    "calories": 560,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Chicken Tagine",
+        "description": "Chicken braised slowly with preserved lemon and olives.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "طاجن الدجاج",
+        "description": "دجاج يُطهى ببطء مع الليمون المخلل والزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "cioppino-seafood-soup",
+    "category_slug": "soups",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/cioppino-seafood-soup.jpg",
+    "price": "48.00",
+    "currency": "SAR",
+    "calories": 380,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Cioppino Seafood Soup",
+        "description": "A San Francisco-Italian fisherman's stew of shrimp, mussels, and fish in a tomato-wine broth.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شوربة تشوبينو بالمأكولات البحرية",
+        "description": "شوربة إيطالية-أمريكية من الروبيان وبلح البحر والسمك في مرق الطماطم والنبيذ.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "fettuccine-alfredo-on-the-parmesan-wheel",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/fettuccine-alfredo-on-the-parmesan-wheel.jpg",
+    "price": "98.00",
+    "currency": "SAR",
+    "calories": 780,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Fettuccine Alfredo On The Parmesan Wheel",
+        "description": "Fresh fettuccine tossed tableside inside a hollowed parmesan wheel, finished in butter and cream.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "فيتوتشيني ألفريدو على عجلة البارميزان",
+        "description": "فيتوتشيني طازج يُقلّب أمام الضيف داخل عجلة جبن البارميزان المجوّفة، يُنهى بالزبدة والقشدة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "flank-steak-caprese-salad",
+    "category_slug": "salads",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/flank-steak-caprese-salad.jpg",
+    "price": "68.00",
+    "currency": "SAR",
+    "calories": 460,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Flank Steak Caprese Salad",
+        "description": "Sliced grilled flank steak over buffalo mozzarella, tomato, and basil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة الكابريزي بستيك الفلانك",
+        "description": "شرائح ستيك الفلانك المشوي فوق موزاريلا البوفالو والطماطم والريحان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "french-fries",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/french-fries.jpg",
+    "price": "28.00",
+    "currency": "SAR",
+    "calories": 380,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "French Fries",
+        "description": "Twice-fried potatoes, crisp outside and soft within, salted to order.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بطاطس مقلية",
+        "description": "بطاطا مقلية مرتين، مقرمشة من الخارج وطرية من الداخل، تُملّح عند الطلب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "fresh-avocado-and-mixed-greens-salad",
+    "category_slug": "salads",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/fresh-avocado-and-mixed-greens-salad.jpg",
+    "price": "46.00",
+    "currency": "SAR",
+    "calories": 320,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Fresh Avocado And Mixed Greens Salad",
+        "description": "Avocado, mixed leaves, and seasonal vegetables tossed in a light citrus dressing.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة الأفوكادو الطازج بالخضار المشكلة",
+        "description": "أفوكادو وأوراق خضراء مشكّلة وخضروات موسمية مع صلصة الحمضيات الخفيفة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "gavurdagi-salad",
+    "category_slug": "salads",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/gavurdagi-salad.jpg",
+    "price": "45.00",
+    "currency": "SAR",
+    "calories": 240,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [
+      "nuts"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Gavurdağı Salad",
+        "description": "A rustic Turkish tomato and walnut salad, dressed with pomegranate molasses and sumac.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة غاوورداغي",
+        "description": "سلطة تركية ريفية من الطماطم والجوز، تُتبّل بدبس الرمان والسماق.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "girit-ezme-with-zucchini",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/girit-ezme-with-zucchini.jpg",
+    "price": "36.00",
+    "currency": "SAR",
+    "calories": 160,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Girit Ezme with Zucchini",
+        "description": "A Cretan-style mezze of shredded zucchini folded through crumbled cheese and herbs, served chilled.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أجمة كريتية بالكوسا",
+        "description": "مقبلات على الطريقة الكريتية من الكوسا المبشورة ممزوجة بالجبن المفتت والأعشاب، تُقدّم باردة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "gnocchi-pasta",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/gnocchi-pasta.jpg",
+    "price": "82.00",
+    "currency": "SAR",
+    "calories": 620,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Potato Gnocchi",
+        "description": "Soft potato gnocchi in a sage brown-butter sauce with shaved parmesan.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "نوكي البطاطا",
+        "description": "نوكي طري من البطاطا في صلصة الزبدة البنية بالمريمية مع شرائح البارميزان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "grain-tabbouleh",
+    "category_slug": "salads",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/grain-tabbouleh.jpg",
+    "price": "45.00",
+    "currency": "SAR",
+    "calories": 210,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Grain Tabbouleh",
+        "description": "Parsley and bulgur tabbouleh, finely chopped and dressed with lemon and olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "تبولة بالحبوب",
+        "description": "تبولة من البقدونس والبرغل مفرومة ناعماً ومتبّلة بالليمون وزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "green-salad-with-edamame-beets",
+    "category_slug": "salads",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/green-salad-with-edamame-beets.jpg",
+    "price": "48.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [
+      "soy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Green Salad With Edamame Beets",
+        "description": "Mixed greens with edamame, roasted beets, and a light vinaigrette.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة خضراء بالإدامامي والشمندر",
+        "description": "أوراق خضراء مشكّلة مع الإدامامي والشمندر المشوي وصلصة خفيفة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "grilled-lamb-chops",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/grilled-lamb-chops.jpg",
+    "price": "195.00",
+    "currency": "SAR",
+    "calories": 620,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Grilled Lamb Chops",
+        "description": "Charcoal-grilled lamb chops, rested and finished with rosemary butter.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ريش الضأن المشوية",
+        "description": "ريش ضأن تُشوى على الفحم، تُترك لترتاح وتُنهى بزبدة إكليل الجبل.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "grilled-salmon",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/grilled-salmon.jpg",
+    "price": "135.00",
+    "currency": "SAR",
+    "calories": 480,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Grilled Salmon",
+        "description": "Char-grilled salmon fillet finished with lemon butter and herbs.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلمون مشوي",
+        "description": "شريحة سلمون مشوية على الفحم تُنهى بزبدة الليمون والأعشاب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "grilled-vegetables",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/grilled-vegetables.jpg",
+    "price": "34.00",
+    "currency": "SAR",
+    "calories": 160,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Grilled Vegetables",
+        "description": "Seasonal vegetables charred over open flame and finished with olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "خضار مشوية",
+        "description": "خضروات موسمية مشوية على اللهب المكشوف وتُنهى بزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "harira-soup",
+    "category_slug": "soups",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/harira-soup.jpg",
+    "price": "34.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Harira Soup",
+        "description": "A hearty lentil and tomato soup layered with chickpeas and warming spice.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شوربة الحريرة",
+        "description": "شوربة عدس وطماطم غنية بالحمص والتوابل الدافئة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "humus",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/humus.jpg",
+    "price": "29.00",
+    "currency": "SAR",
+    "calories": 250,
+    "dietary_tags": [
+      "halal",
+      "vegan",
+      "gluten_free"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Humus",
+        "description": "Chickpeas blended smooth with tahini, lemon, and garlic, finished with a pool of olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "حمص",
+        "description": "حمص مطحون ناعماً مع الطحينة والليمون والثوم، يُقدّم مع بركة من زيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "kafta",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/kafta.jpg",
+    "price": "92.00",
+    "currency": "SAR",
+    "calories": 500,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Kafta",
+        "description": "Spiced minced beef and lamb, hand-shaped onto skewers and charcoal grilled.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كفتة",
+        "description": "لحم بقري وضأن مفروم متبّل، يُشكّل يدوياً على أسياخ ويُشوى على الفحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "kebab-meter-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/kebab-meter-kebab.jpg",
+    "price": "140.00",
+    "currency": "SAR",
+    "calories": 980,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Meter Kebab",
+        "description": "A full meter of mixed grilled kebabs, built to share across the table.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كباب المتر",
+        "description": "متر كامل من الكباب المشوي المشكّل، يُقدّم للمشاركة على المائدة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "la-rio-signature-comlek",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/la-rio-signature-comlek.jpg",
+    "price": "165.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "La Rio Signature Çömlek",
+        "description": "Our signature clay-pot stew, lamb and vegetables sealed and slow-cooked, cracked open at the table.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "چوملك لا ريو المميز",
+        "description": "طاجن اللحم الفخاري المميز بمطعمنا، لحم ضأن وخضروات محكمة الإغلاق تُطهى ببطء وتُفتح أمام الضيف.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "la-rio-special-burger",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/la-rio-special-burger.jpg",
+    "price": "135.00",
+    "currency": "SAR",
+    "calories": 980,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "La Rio Special Burger",
+        "description": "House-ground beef patty, aged cheddar, and smoked bacon beef in a brioche bun.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "برجر لا ريو الخاص",
+        "description": "قرص لحم بقري مطحون في المطعم مع جبن الشيدر المعتّق ولحم مقدد مدخن في خبز البريوش.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "la-rio-special-kebab-4-pax",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/la-rio-special-kebab-4-pax.jpg",
+    "price": "135.00",
+    "currency": "SAR",
+    "calories": 920,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "La Rio Special Kebab (4 Pax)",
+        "description": "Our mixed grill platter of lamb, chicken, and beef kebabs for the table.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كباب لا ريو الخاص (لأربعة أشخاص)",
+        "description": "طبق المشاوي المشكّلة الخاص بنا من كباب الضأن والدجاج ولحم البقر للمائدة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "la-rio-special-meatballs",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/la-rio-special-meatballs.jpg",
+    "price": "90.00",
+    "currency": "SAR",
+    "calories": 560,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "La Rio Special Meatballs",
+        "description": "House-blend beef meatballs, char-grilled and finished with a smoked tomato sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كرات اللحم الخاصة بلا ريو",
+        "description": "كرات لحم بقري بخلطة المطعم، تُشوى على الفحم وتُنهى بصلصة الطماطم المدخنة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "lahmacun",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/lahmacun.jpg",
+    "price": "38.00",
+    "currency": "SAR",
+    "calories": 320,
+    "dietary_tags": [
+      "halal",
+      "spicy"
+    ],
+    "allergens": [
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Lahmacun",
+        "description": "Thin Turkish flatbread topped with minced lamb, tomato, and peppers, baked until crisp.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "لحم بعجين",
+        "description": "عجينة تركية رقيقة مغطاة بلحم الضأن المفروم والطماطم والفلفل، تُخبز حتى تصبح مقرمشة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "lamb-loin-parmesiano-risotto",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/lamb-loin-parmesiano-risotto.jpg",
+    "price": "115.00",
+    "currency": "SAR",
+    "calories": 720,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Lamb Loin Parmesan Risotto",
+        "description": "Creamy parmesan risotto topped with sliced grilled lamb loin.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ريزوتو البارميزان بلحم الضأن",
+        "description": "ريزوتو كريمي بالبارميزان مغطى بشرائح لحم الضأن المشوي.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "lamb-shanks",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/lamb-shanks.jpg",
+    "price": "175.00",
+    "currency": "SAR",
+    "calories": 720,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Lamb Shanks",
+        "description": "Lamb shank braised for hours until it falls off the bone, in a rich pan jus.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أوصال الضأن",
+        "description": "وصلة ضأن تُطهى ببطء لساعات طويلة حتى ينفصل اللحم عن العظم، في مرق غني.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "lamb-shoulder",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/lamb-shoulder.jpg",
+    "price": "190.00",
+    "currency": "SAR",
+    "calories": 760,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Lamb Shoulder",
+        "description": "Slow-roasted lamb shoulder, tender enough to serve off the bone.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كتف الضأن",
+        "description": "كتف ضأن يُحمّص ببطء حتى يصبح طرياً بما يكفي لتقديمه بلا عظم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "lamb-skewers",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/lamb-skewers.jpg",
+    "price": "110.00",
+    "currency": "SAR",
+    "calories": 560,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Lamb Skewers",
+        "description": "Cubed lamb marinated overnight and grilled over charcoal to order.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أسياخ لحم الضأن",
+        "description": "مكعبات لحم ضأن متبّلة طوال الليل وتُشوى على الفحم عند الطلب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "meatballs-with-yoghurt",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/meatballs-with-yoghurt.jpg",
+    "price": "88.00",
+    "currency": "SAR",
+    "calories": 540,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Meatballs With Yoghurt",
+        "description": "Grilled beef meatballs over garlic yoghurt, finished with warm butter and paprika.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كرات اللحم باللبن",
+        "description": "كرات لحم بقري مشوية فوق لبن الثوم، تُنهى بالزبدة الدافئة والفلفل الأحمر.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "mix-seafood-platter",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/mix-seafood-platter.jpg",
+    "price": "245.00",
+    "currency": "SAR",
+    "calories": 620,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Mixed Seafood Platter",
+        "description": "Grilled shrimp, calamari, and fish for the table, finished with lemon and herb oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "طبق المأكولات البحرية المشكلة",
+        "description": "روبيان وحبار وسمك مشوي للمائدة، يُنهى بزيت الليمون والأعشاب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "mouhamara",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/mouhamara.jpg",
+    "price": "35.00",
+    "currency": "SAR",
+    "calories": 280,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [
+      "nuts"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Mouhamara",
+        "description": "A dip of roasted red pepper, walnut, and pomegranate molasses, sweet, smoky, and sharp at once.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "محمرة",
+        "description": "غموس من الفلفل الأحمر المشوي والجوز ودبس الرمان، يجمع بين الحلاوة والدخان والحموضة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "mushroom-ravioli",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/mushroom-ravioli.jpg",
+    "price": "92.00",
+    "currency": "SAR",
+    "calories": 560,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Mushroom Ravioli",
+        "description": "Hand-folded ravioli filled with wild mushroom, tossed in a light truffle butter.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "رافيولي الفطر",
+        "description": "رافيولي محشو بالفطر البري مطوي يدوياً، يُقلّب في زبدة الكمأة الخفيفة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "mushroom-risotto",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/mushroom-risotto.jpg",
+    "price": "88.00",
+    "currency": "SAR",
+    "calories": 590,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Mushroom Risotto",
+        "description": "Slow-stirred risotto with wild mushroom and a shaving of parmesan.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ريزوتو الفطر",
+        "description": "ريزوتو يُحرّك ببطء مع الفطر البري وشرائح البارميزان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "mutebbel",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/mutebbel.jpg",
+    "price": "33.00",
+    "currency": "SAR",
+    "calories": 230,
+    "dietary_tags": [
+      "halal",
+      "vegan",
+      "gluten_free"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Mutebbel",
+        "description": "Smoked aubergine whipped with yoghurt and tahini, lighter than baba ghanoush and just as smoky.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "متبل",
+        "description": "باذنجان مدخن يُخفق مع الزبادي والطحينة، أخف من بابا غنوج وبنفس النكهة المدخنة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "new-york-striploin-steak",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/new-york-striploin-steak.jpg",
+    "price": "245.00",
+    "currency": "SAR",
+    "calories": 780,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "New York Striploin Steak",
+        "description": "Dry-aged striploin, char-grilled and finished with garlic herb butter.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ستيك نيويورك ستريبلوين",
+        "description": "قطعة ستريبلوين معتّقة جافاً، تُشوى على الفحم وتُنهى بزبدة الثوم والأعشاب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "onion-dolma",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/onion-dolma.jpg",
+    "price": "37.00",
+    "currency": "SAR",
+    "calories": 190,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Onion Dolma",
+        "description": "Whole onions hollowed and stuffed with spiced rice, slow-cooked until sweet and tender.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بصل محشي",
+        "description": "بصل كامل محشو بالأرز المتبل، يُطهى ببطء حتى يصبح حلواً وطرياً.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "panzanella-salad",
+    "category_slug": "salads",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/panzanella-salad.jpg",
+    "price": "47.00",
+    "currency": "SAR",
+    "calories": 300,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Panzanella Salad",
+        "description": "Tuscan bread salad of tomato, cucumber, red onion, and torn sourdough.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة بانزانيلا",
+        "description": "سلطة توسكانية من الطماطم والخيار والبصل الأحمر وقطع خبز العجين المخمر.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "parmigiana-melanzane",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/parmigiana-melanzane.jpg",
+    "price": "128.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy",
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Melanzane alla Parmigiana",
+        "description": "Layered fried aubergine, tomato sauce, and parmesan, baked until bubbling.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "الباذنجان بالبارميزان",
+        "description": "طبقات من الباذنجان المقلي وصلصة الطماطم والبارميزان، تُخبز حتى تفور.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pickled-red-onions",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/pickled-red-onions.jpg",
+    "price": "28.00",
+    "currency": "SAR",
+    "calories": 45,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pickled Red Onions",
+        "description": "Quick-pickled red onion, sharp and bright, cut through the richer cuts of meat.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بصل أحمر مخلل",
+        "description": "بصل أحمر مخلل سريعاً، حاد ومنعش، يوازن دسم قطع اللحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pistachio-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/pistachio-kebab.jpg",
+    "price": "120.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "nuts"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pistachio Kebab",
+        "description": "Minced lamb kebab crusted in crushed pistachio, grilled over charcoal.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كباب الفستق",
+        "description": "كباب لحم ضأن مفروم مغطى بالفستق المطحون، يُشوى على الفحم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-barbeque-chicken",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-barbeque-chicken.jpg",
+    "price": "78.00",
+    "currency": "SAR",
+    "calories": 720,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "BBQ Chicken Pizza",
+        "description": "Smoky barbecue chicken, red onion, and mozzarella on our long-fermented dough.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا الدجاج بصلصة الباربكيو",
+        "description": "دجاج مدخن بصلصة الباربكيو والبصل الأحمر وجبن الموزاريلا على عجينتنا طويلة التخمير.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-calzone-rucola",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-calzone-rucola.jpg",
+    "price": "72.00",
+    "currency": "SAR",
+    "calories": 780,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Calzone with Rocket",
+        "description": "A folded calzone of mozzarella and ham, opened tableside and topped with fresh rocket.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كالزوني بالجرجير",
+        "description": "كالزوني مطوي بجبن الموزاريلا واللحم المقدد، يُفتح على الطاولة ويُغطى بالجرجير الطازج.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-diavola",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-diavola.jpg",
+    "price": "75.00",
+    "currency": "SAR",
+    "calories": 750,
+    "dietary_tags": [
+      "halal",
+      "spicy"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pizza Diavola",
+        "description": "Spicy salami, chilli, and mozzarella on a wood-fired base.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا ديافولا",
+        "description": "سلامي حار وفلفل حار وجبن الموزاريلا على قاعدة مخبوزة على الحطب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-fu-gazza",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-fu-gazza.jpg",
+    "price": "70.00",
+    "currency": "SAR",
+    "calories": 680,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pizza Fugazza",
+        "description": "An Argentine-Italian classic: soft mozzarella pizza piled high with sweet caramelized onion.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا فوغازا",
+        "description": "كلاسيكية أرجنتينية-إيطالية: بيتزا بجبن الموزاريلا الطري مغطاة بكثافة بالبصل المكرمل الحلو.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-la-rio-signature",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-la-rio-signature.jpg",
+    "price": "95.00",
+    "currency": "SAR",
+    "calories": 820,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pizza La Rio Signature",
+        "description": "Our house pizza layered with three cheeses, cured meats, and rocket, dressed after the oven.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا لا ريو المميزة",
+        "description": "بيتزا المطعم الخاصة بثلاثة أنواع من الجبن واللحوم المقددة والجرجير، تُتبّل بعد الخروج من الفرن.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-margherita",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-margherita.jpg",
+    "price": "65.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pizza Margherita",
+        "description": "San Marzano tomato, fior di latte mozzarella, and basil on our long-fermented dough.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا مارغريتا",
+        "description": "طماطم سان مارزانو وجبن الموزاريلا فيور دي لاتيه والريحان على عجينتنا طويلة التخمير.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-seafood-marinara",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-seafood-marinara.jpg",
+    "price": "92.00",
+    "currency": "SAR",
+    "calories": 710,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Seafood Marinara Pizza",
+        "description": "Shrimp, mussels, and calamari over a light tomato base, no cheese.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا مارينارا بالمأكولات البحرية",
+        "description": "روبيان وبلح البحر والحبار فوق قاعدة طماطم خفيفة، بدون جبن.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "pizza-verdure",
+    "category_slug": "pizza",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/pizza-verdure.jpg",
+    "price": "68.00",
+    "currency": "SAR",
+    "calories": 620,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Pizza Verdure",
+        "description": "Charred seasonal vegetables and mozzarella on a light tomato base.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "بيتزا الخضار",
+        "description": "خضروات موسمية مشوية وجبن الموزاريلا فوق قاعدة طماطم خفيفة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "puff-bread",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/puff-bread.jpg",
+    "price": "28.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Puff Bread",
+        "description": "Our own oven's puffed flatbread, torn and served warm to open the table.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "خبز منفوخ",
+        "description": "خبز رقيق منفوخ من فرننا الخاص، يُقدّم دافئاً لافتتاح المائدة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "red-lentil-soup",
+    "category_slug": "soups",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/red-lentil-soup.jpg",
+    "price": "32.00",
+    "currency": "SAR",
+    "calories": 220,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Red Lentil Soup",
+        "description": "Classic Turkish red lentil soup, blended smooth and finished with sizzled butter and mint.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "شوربة العدس الأحمر",
+        "description": "شوربة العدس الأحمر التركية التقليدية، مطحونة ناعماً ومزينة بالزبدة المقلية والنعناع.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "ribeye-steak",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/ribeye-steak.jpg",
+    "price": "265.00",
+    "currency": "SAR",
+    "calories": 840,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Ribeye Steak",
+        "description": "Well-marbled ribeye, dry-aged and char-grilled over charcoal to order.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ستيك ريب آي",
+        "description": "ريب آي غني بالرخام، معتّق جافاً ويُشوى على الفحم حسب الطلب.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "roasted-sweet-potato-wedges",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/roasted-sweet-potato-wedges.jpg",
+    "price": "32.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Roasted Sweet Potato Wedges",
+        "description": "Sweet potato wedges roasted until caramelized at the edge.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "أصابع البطاطا الحلوة المحمصة",
+        "description": "أصابع بطاطا حلوة تُحمّص حتى تتكرمل أطرافها.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "rostad-spinach",
+    "category_slug": "sides",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/rostad-spinach.jpg",
+    "price": "30.00",
+    "currency": "SAR",
+    "calories": 140,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Roasted Spinach",
+        "description": "Wilted spinach sautéed in garlic and olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سبانخ محمصة",
+        "description": "سبانخ ذابلة تُقلّى بالثوم وزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "rucola-parmigiano",
+    "category_slug": "salads",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/rucola-parmigiano.jpg",
+    "price": "50.00",
+    "currency": "SAR",
+    "calories": 220,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Rucola e Parmigiano",
+        "description": "Rocket leaves, shaved parmesan, and cherry tomatoes in lemon and olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة الجرجير والبارميزان",
+        "description": "أوراق الجرجير وشرائح البارميزان والطماطم الكرزية مع الليمون وزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "salad-with-tulum-cheese",
+    "category_slug": "salads",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/salad-with-tulum-cheese.jpg",
+    "price": "52.00",
+    "currency": "SAR",
+    "calories": 280,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Salad With Tulum Cheese",
+        "description": "Mixed leaves and pomegranate seeds crumbled with aged Turkish tulum cheese.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سلطة بجبنة التلوم",
+        "description": "أوراق مشكّلة وحبوب الرمان مع جبنة التلوم التركية المعتّقة المفتتة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "savory-baked-brie",
+    "category_slug": "starters",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/savory-baked-brie.jpg",
+    "price": "62.00",
+    "currency": "SAR",
+    "calories": 480,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy",
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Savory Baked Brie",
+        "description": "Whole brie baked until molten, served with fruit compote and toasted bread.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "جبن البري المخبوز",
+        "description": "جبن بري كامل يُخبز حتى يذوب، يُقدّم مع كومبوت الفاكهة والخبز المحمص.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "scallops-seaweed-leaves",
+    "category_slug": "starters",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/scallops-seaweed-leaves.jpg",
+    "price": "78.00",
+    "currency": "SAR",
+    "calories": 260,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Seared Scallops with Seaweed",
+        "description": "Pan-seared scallops over seaweed leaves with a citrus butter sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "إسكالوب مشوي بأوراق الأعشاب البحرية",
+        "description": "إسكالوب مشوي على الطاسة فوق أوراق الأعشاب البحرية مع صلصة الزبدة والحمضيات.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "sea-food-linguine",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/sea-food-linguine.jpg",
+    "price": "110.00",
+    "currency": "SAR",
+    "calories": 640,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Seafood Linguine",
+        "description": "Linguine tossed with shrimp, mussels, and calamari in a light garlic and white wine sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "لينغويني بالمأكولات البحرية",
+        "description": "لينغويني مع الروبيان وبلح البحر والحبار في صلصة الثوم والنبيذ الأبيض الخفيفة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "seafood-risotto",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/seafood-risotto.jpg",
+    "price": "118.00",
+    "currency": "SAR",
+    "calories": 680,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Seafood Risotto",
+        "description": "Saffron risotto finished with shrimp, mussels, and squid.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ريزوتو المأكولات البحرية",
+        "description": "ريزوتو بالزعفران يُنهى بالروبيان وبلح البحر والحبار.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "shrimp-salmon-tartar",
+    "category_slug": "starters",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/shrimp-salmon-tartar.jpg",
+    "price": "72.00",
+    "currency": "SAR",
+    "calories": 300,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Shrimp and Salmon Tartare",
+        "description": "Diced raw shrimp and salmon dressed with citrus, chilli, and olive oil.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "تارتار الروبيان والسلمون",
+        "description": "روبيان وسلمون نيء مقطّع مكعبات ومتبّل بالحمضيات والفلفل الحار وزيت الزيتون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "smashed-burger",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/smashed-burger.jpg",
+    "price": "120.00",
+    "currency": "SAR",
+    "calories": 890,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Smashed Burger",
+        "description": "Two smashed beef patties, American cheese, and pickles on a toasted bun.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "برجر سماشد",
+        "description": "قرصان من لحم البقر المسحوق، جبن أمريكي، ومخلل في خبز محمص.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "smoked-beef-tacos",
+    "category_slug": "starters",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/smoked-beef-tacos.jpg",
+    "price": "55.00",
+    "currency": "SAR",
+    "calories": 420,
+    "dietary_tags": [
+      "halal",
+      "spicy"
+    ],
+    "allergens": [
+      "gluten"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Smoked Beef Tacos",
+        "description": "Slow-smoked beef in soft tortillas with pickled onion and chimichurri.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "تاكو اللحم المدخن",
+        "description": "لحم بقري مدخن ببطء في خبز التورتيا الطري مع البصل المخلل وصلصة التشيميتشوري.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "smoked-chicken-bbq",
+    "category_slug": "steaks-and-mains",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/smoked-chicken-bbq.jpg",
+    "price": "130.00",
+    "currency": "SAR",
+    "calories": 720,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Smoked BBQ Chicken",
+        "description": "Half chicken, slow-smoked and glazed in house barbecue sauce.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "دجاج مدخن بالباربكيو",
+        "description": "نصف دجاجة تُدخّن ببطء وتُغطى بصلصة الباربكيو الخاصة بالمطعم.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "spagetti-alla-bolognase",
+    "category_slug": "pasta-and-risotto",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/spagetti-alla-bolognase.jpg",
+    "price": "78.00",
+    "currency": "SAR",
+    "calories": 700,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Spaghetti alla Bolognese",
+        "description": "Slow-simmered beef ragù over spaghetti, finished with parmesan.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سباغيتي بالبولونيز",
+        "description": "راغو لحم بقري يُطهى ببطء فوق السباغيتي، يُنهى بالبارميزان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "spinach-garlic-prawns",
+    "category_slug": "sides",
+    "cuisine": "italian",
+    "image": "/images/menu/Italian/spinach-garlic-prawns.jpg",
+    "price": "45.00",
+    "currency": "SAR",
+    "calories": 220,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [
+      "shellfish"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Spinach with Garlic Prawns",
+        "description": "Wilted spinach tossed with garlic prawns and a splash of white wine.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "سبانخ بالروبيان والثوم",
+        "description": "سبانخ ذابلة تُقلّب مع الروبيان والثوم ولمسة من النبيذ الأبيض.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "tomato-carpaccio",
+    "category_slug": "salads",
+    "cuisine": "argentine",
+    "image": "/images/menu/Argentine/tomato-carpaccio.jpg",
+    "price": "49.00",
+    "currency": "SAR",
+    "calories": 180,
+    "dietary_tags": [
+      "halal",
+      "vegetarian"
+    ],
+    "allergens": [
+      "dairy"
+    ],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Tomato Carpaccio",
+        "description": "Thin-sliced heirloom tomato with basil oil, sea salt, and shaved parmesan.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كارباتشيو الطماطم",
+        "description": "شرائح رقيقة من الطماطم الملونة مع زيت الريحان وملح البحر وشرائح البارميزان.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "urfa-kebab",
+    "category_slug": "kebabs-and-skewers",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/urfa-kebab.jpg",
+    "price": "98.00",
+    "currency": "SAR",
+    "calories": 550,
+    "dietary_tags": [
+      "halal"
+    ],
+    "allergens": [],
+    "is_featured": true,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Urfa Kebab",
+        "description": "Hand-minced lamb kebab seasoned with Urfa pepper, milder and deeper than Adana.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "كباب أورفة",
+        "description": "كباب لحم ضأن مفروم يدوياً متبّل بفلفل أورفة، أخف حرارة وأعمق نكهة من الأضنة.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  },
+  {
+    "slug": "vine-leaves",
+    "category_slug": "cold-mezze",
+    "cuisine": "turkish",
+    "image": "/images/menu/Turkish/vine-leaves.jpg",
+    "price": "39.00",
+    "currency": "SAR",
+    "calories": 200,
+    "dietary_tags": [
+      "halal",
+      "vegan"
+    ],
+    "allergens": [],
+    "is_featured": false,
+    "is_available": true,
+    "sort_order": 0,
+    "translations": {
+      "en": {
+        "name": "Vine Leaves",
+        "description": "Vine leaves hand-rolled around spiced rice and herbs, served with a wedge of lemon.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      },
+      "ar": {
+        "name": "ورق عنب",
+        "description": "ورق عنب ملفوف يدوياً بالأرز المتبل والأعشاب، يُقدّم مع شريحة ليمون.",
+        "short_description": null,
+        "ingredients_note": null,
+        "preparation_note": null
+      }
+    }
+  }
+]
