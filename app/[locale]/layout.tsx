@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Sans_Arabic, Inter } from 'next/font/google'
+import { Bodoni_Moda, IBM_Plex_Sans_Arabic, Inter } from 'next/font/google'
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -12,6 +12,16 @@ import '@/app/globals.css'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-latin',
+  display: 'swap',
+})
+
+// The display face. Bodoni's high contrast and vertical stress echo the
+// logo's gold script without imitating it; the optical-size axis keeps the
+// hairlines from disappearing at hero scale. Latin only — the Arabic swap
+// lives in globals.css.
+const display = Bodoni_Moda({
+  subsets: ['latin'],
+  variable: '--font-display',
   display: 'swap',
 })
 
@@ -52,8 +62,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={active} dir={getDirection(active)}>
-      <body className={`${inter.variable} ${arabic.variable}`}>
-        <a href="#main-content" className="sr-only focus:not-sr-only">
+      <body
+        className={`${inter.variable} ${arabic.variable} ${display.variable}`}
+      >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
+        >
           Skip to content
         </a>
         {children}

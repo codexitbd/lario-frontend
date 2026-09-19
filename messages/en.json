@@ -35,7 +35,24 @@
     "calories": "calories",
     "unavailable": "Currently unavailable",
     "allergens": "Allergens",
-    "relatedDishes": "You might also like"
+    "relatedDishes": "You might also like",
+    "dietaryAll": "All dishes",
+    "priceAny": "Any price",
+    "priceUnder": "Under {max}",
+    "priceBetween": "{min} to {max}",
+    "priceOver": "Over {min}",
+    "resultsOne": "1 dish",
+    "resultsMany": "{count} dishes",
+    "browseCourses": "Browse by course",
+    "tags": {
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "gluten_free": "Gluten free",
+      "spicy": "Spicy",
+      "halal": "Halal"
+    },
+    "visitUs": "Visit Us",
+    "filters": "Filters"
   },
   "reservation": {
     "stepBranch": "Branch",
@@ -68,6 +85,15 @@
     "getDirections": "Get directions",
     "popularDishes": "Popular choices",
     "callBranch": "Call this branch"
+  },
+  "sections": {
+    "privateEvents": {
+      "stats": {
+        "private_room_seats": "Seats",
+        "branches_available": "Branches",
+        "advance_notice_days": "Days' notice"
+      }
+    }
   },
   "footer": {
     "rights": "All rights reserved.",

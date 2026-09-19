@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import home from '@/content/home.json'
+import menuItems from '@/content/menu-items.json'
 import { SECTION_TYPES } from '@/lib/schemas'
 import { LOCALES } from '@/lib/i18n/config'
 
@@ -33,9 +34,25 @@ describe('home fixture', () => {
     }
   })
 
-  it('references six featured dishes on featured_dishes', () => {
+  // Four, not the six of decision D8. Reference 02-featured-dishes is a
+  // five-column mosaic with exactly four naming tiles, and the client asked for
+  // that layout as drawn. A fifth dish has no column to go in and is dropped by
+  // the component, so the fixture must not carry one.
+  it('references four featured dishes on featured_dishes', () => {
     const featured = home.sections.find((s) => s.type === 'featured_dishes')
-    expect(featured?.payload.item_slugs).toHaveLength(6)
+    expect(featured?.payload.item_slugs).toHaveLength(4)
+  })
+
+  // D8's actual intent was internal links into distinct category pages, and
+  // that survives the reduction: four dishes, four courses, all three cuisines.
+  it('spans four distinct courses so the links still reach four categories', () => {
+    const featured = home.sections.find((s) => s.type === 'featured_dishes')
+    const slugs = featured?.payload.item_slugs as string[]
+    const categories = slugs.map(
+      (slug) => menuItems.find((item) => item.slug === slug)?.category_slug,
+    )
+    expect(categories.every(Boolean)).toBe(true)
+    expect(new Set(categories).size).toBe(4)
   })
 
   it('references both branches on branch_cards', () => {

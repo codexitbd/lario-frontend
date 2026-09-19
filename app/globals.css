@@ -1,20 +1,277 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   La Rio design tokens — Tailwind v4 is CSS-first. There is no
+   tailwind.config.js and one must not be created.
+
+   Every colour below is sampled from public/original-logo.png. The deep
+   emerald and the gold are the brand; nothing else is invented.
+
+   THE PAGE ALTERNATES LIGHT AND DARK GROUNDS, following the reference set:
+   intro, chef_story and faq sit on bone; everything else is emerald or ink.
+   That rhythm is the design — a page that is green end to end reads as one
+   long block and loses the contrast the references are built on.
+
+   One accent throughout: gold. On dark grounds that is --color-gold; on bone
+   it is --color-gold-ink, the same hue carried down far enough to pass AA.
+   Same accent, tonally adjusted — not a second colour.
+--------------------------------------------------------------------------- */
+
 @theme {
+  /* Dark grounds — deepest first. */
+  --color-ink: #03201a;
+  --color-ink-raised: #052b21;
+  --color-emerald: #054c38;
+  --color-emerald-lift: #0a6048;
+
+  /* The single accent. */
+  --color-gold: #e8b860;
+  --color-gold-deep: #c1913f;
+  --color-gold-pale: #f3dcae;
+  /* Gold on bone: 5.7:1, so it is usable for body text and not just labels. */
+  --color-gold-ink: #7a5616;
+
+  /* Text on dark. ivory 17:1, ivory-dim 8.3:1 against --color-ink. */
+  --color-ivory: #f4efe6;
+  --color-ivory-dim: #bfb9ac;
+
+  /* The light ground and its text. bone is --color-ivory used as a surface;
+     ink-soft is 6.3:1 on it, ink itself is 14.4:1. */
+  --color-bone: #f4efe6;
+  --color-bone-raised: #ece5d8;
+  --color-ink-soft: #4c5a53;
+
+  /* Scrim for media overlays. Near-black, NOT --color-ink: tinting a full-bleed
+     photograph or film with the emerald ground pushes green through the whole
+     frame and makes the footage look colour-graded rather than lit. */
+  --color-scrim: #060d0b;
+
   --font-latin: var(--font-latin), system-ui, sans-serif;
   --font-arabic: var(--font-arabic), system-ui, sans-serif;
+
+  /* One easing for everything that moves. */
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Display type. A class rather than a `font-display` theme token, because
+   next/font already owns the --font-* variables on <body> and a @theme entry
+   of the same name would be shadowed there — the Arabic swap below would
+   silently never apply. */
+.lr-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+}
+
+/* Bodoni has no Arabic. Arabic display headings use the Arabic text face at a
+   heavier weight rather than rendering Latin metrics over Arabic glyphs.
+   ponytail: a real Arabic display serif (Amiri) is one next/font call away if
+   the client wants both locales in the same register. */
+html[dir="rtl"] .lr-display {
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  /* Arabic has no italic. Left alone, the browser synthesises an oblique by
+     shearing the glyphs, which reads as a rendering fault rather than as
+     emphasis. Display italics are a Latin device here, so they are simply
+     dropped — the kicker eyebrows and the private-events headline both carry
+     the `italic` utility and both resolve upright in Arabic. */
+  font-style: normal;
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
+  background-color: var(--color-ink);
+  color: var(--color-ivory);
   font-family: var(--font-latin);
+  /* Bodoni's hairlines shimmer without this on dark grounds. */
+  -webkit-font-smoothing: antialiased;
 }
 
 html[dir="rtl"] body {
   font-family: var(--font-arabic);
+}
+
+/* Arabic is a connected script. Letter-spacing pulls the glyphs apart and
+   breaks the joins, so every `tracking-*` label on this page — eyebrows, CTA
+   text, stat units, opening-hours headings — renders as disconnected letters in
+   Arabic. Tracking is a Latin-only device here, and !important is the right
+   tool: it has to beat utility classes sitewide, and there is no correct case
+   for tracked Arabic to protect. */
+html[dir="rtl"] body * {
+  letter-spacing: normal !important;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* One focus ring, visible on every ground on the page. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion. MOTION_INTENSITY 6, delivered with zero JavaScript.
+
+   Scroll reveals use native CSS scroll-driven animations, so there is no
+   IntersectionObserver, no client component and no bundle cost against the
+   95+ mobile PageSpeed target. The @supports guard matters: without it, a
+   browser lacking animation-timeline would paint opacity:0 and never restore
+   it, hiding the whole page.
+--------------------------------------------------------------------------- */
+
+@keyframes lr-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lr-reveal {
+      animation: lr-reveal linear both;
+      animation-timeline: view();
+      /* --i staggers siblings without a JS orchestrator. */
+      animation-range: entry calc(4% + var(--i, 0) * 5%) cover
+        calc(26% + var(--i, 0) * 5%);
+    }
+  }
+}
+
+/* Gallery strip. The one marquee on this page. */
+@keyframes lr-marquee {
+  to {
+    transform: translateX(var(--lr-marquee-end));
+  }
+}
+
+.lr-marquee-track {
+  /* RTL lays the duplicated copy out on the opposite side, so the travel
+     direction flips with it. */
+  --lr-marquee-end: -50%;
+  animation: lr-marquee 64s linear infinite;
+}
+
+html[dir="rtl"] .lr-marquee-track {
+  --lr-marquee-end: 50%;
+}
+
+.lr-marquee:hover .lr-marquee-track,
+.lr-marquee:focus-within .lr-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Drift behind the featured grid, seen through the serrated edge above it.
+   Parallax carries the intro section into the next one. */
+@keyframes lr-drift {
+  from {
+    transform: translateY(-6%);
+  }
+  to {
+    transform: translateY(6%);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lr-drift {
+      animation: lr-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+/* The serrated edge carried down from the intro section (reference
+   01-intro-bottom). Fine teeth, not a craft-fair banner. */
+.lr-teeth {
+  --lr-tooth: 14px;
+  -webkit-mask: conic-gradient(
+      from -45deg at bottom,
+      #0000,
+      #000 1deg 89deg,
+      #0000 90deg
+    )
+    50% / var(--lr-tooth) 100%;
+  mask: conic-gradient(
+      from -45deg at bottom,
+      #0000,
+      #000 1deg 89deg,
+      #0000 90deg
+    )
+    50% / var(--lr-tooth) 100%;
+}
+
+/* Testimonial transition (reference 08-testimonials-next-transition): the
+   incoming quote wipes across the outgoing one rather than crossfading.
+   clip-path is physical, so the wipe direction is spelled out per writing mode
+   — in Arabic it has to arrive from the other edge or the carousel reads as
+   running backwards. */
+.lr-wipe {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 900ms var(--ease-brand), opacity 500ms linear;
+  opacity: 0;
+}
+
+html[dir="rtl"] .lr-wipe {
+  clip-path: inset(0 100% 0 0);
+}
+
+.lr-wipe[data-active="true"],
+html[dir="rtl"] .lr-wipe[data-active="true"] {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* visibility, not display: the slides share one grid cell, so hiding them
+     with `display: none` would resize the section on every advance, and
+     restoring the active one would also have to restore its `display: flex`. */
+  .lr-wipe {
+    clip-path: none !important;
+    visibility: hidden;
+  }
+
+  .lr-wipe[data-active="true"] {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* Notched frame of reference 04-chef-story. clip-path has no logical form, so
+   the mirrored path is spelled out for RTL rather than left to flip itself. */
+.lr-notch {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 26% 100%, 26% 82%, 0 82%);
+}
+
+html[dir="rtl"] .lr-notch {
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 74% 82%, 74% 100%, 0 100%);
+}
+
+/* Cards reveal their copy on hover. The row collapses to 0fr rather than to
+   opacity 0, so the title sits on the base of the card at rest and is lifted by
+   the description arriving, as in reference 01-intro-hover — an invisible
+   paragraph still holding its height would float the title mid-card.
+
+   Touch devices have no hover, so the copy is simply always there rather than
+   hidden behind a gesture that never fires. */
+@media (hover: none) {
+  .lr-hover-copy {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -25,5 +282,10 @@ html[dir="rtl"] body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .lr-marquee-track {
+    animation-play-state: paused !important;
+    transform: none !important;
   }
 }

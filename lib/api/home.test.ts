@@ -13,7 +13,8 @@ describe('getHome', () => {
   it('resolves featured_dishes item_slugs into MenuItemCard[] via getFeaturedItems', () => {
     const home = getHome('en')
     const featured = home.sections.find((s) => s.type === 'featured_dishes')
-    expect(featured?.items).toHaveLength(6)
+    // Four naming tiles in reference 02-featured-dishes; see content/home.test.ts.
+    expect(featured?.items).toHaveLength(4)
     expect(featured?.items?.[0].slug).toBe('assado-argentina-style')
   })
 

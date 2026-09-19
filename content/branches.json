@@ -104,7 +104,7 @@
         },
         "faq": [
           { "q": "Is the courtyard open year round?", "a": "It opens in October and closes at the end of April, weather permitting." },
-          { "q": "Can you host a group of twenty?", "a": "Yes. Two bays can be combined for larger groups — mention it in your reservation notes." }
+          { "q": "Can you host a group of twenty?", "a": "Yes. Two bays can be combined for larger groups. Mention it in your reservation notes." }
         ]
       },
       "ar": {
@@ -122,7 +122,7 @@
         },
         "faq": [
           { "q": "هل الفناء مفتوح طوال السنة؟", "a": "يفتح في أكتوبر ويغلق نهاية أبريل، حسب أحوال الطقس." },
-          { "q": "هل يمكنكم استضافة مجموعة من عشرين شخصاً؟", "a": "نعم، يمكن دمج جلستين للمجموعات الكبيرة — يُرجى ذكر ذلك في ملاحظات الحجز." }
+          { "q": "هل يمكنكم استضافة مجموعة من عشرين شخصاً؟", "a": "نعم، يمكن دمج جلستين للمجموعات الكبيرة. يُرجى ذكر ذلك في ملاحظات الحجز." }
         ]
       }
     }

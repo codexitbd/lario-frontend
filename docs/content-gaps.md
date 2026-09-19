@@ -15,13 +15,29 @@ every week until it is empty.
 | 8 | Interior and atmosphere photography — 14 named shots, see the shoot list below | Open | 2026-09-18 |
 | 9 | Argentina Style Asado calorie value — flagged in quotation | Open | 2026-09-18 |
 | 10 | Default social-card OG image — no asset exists; `DEFAULT_OG_IMAGE` is `null` until one is supplied | Open | 2026-09-18 |
+| 11 | `short_description` now MIRRORS the long `description` on all 89 dishes, in both locales, so the menu cards read properly. The descriptions happen to be card-length already (47-130 characters), but they were written as dish-page copy. Tighter card-specific lines — roughly 10-14 words — would let the two fields do different jobs. Not blocking. | Open | 2026-09-20 |
 
 ## Gap 8 — the shoot list
 
 Fourteen images the homepage and branch pages are built around. None exist, so
-every one of them is `null` in `content/home.json` / `content/branches.json`
-and the components must render without them. The filenames below are the paths
-the fixtures will point at once the files land under `public/`.
+every one of them is still `null` in `content/home.json` /
+`content/branches.json`. The filenames below are the paths the fixtures will
+point at once the files land under `public/`.
+
+**Stand-ins are rendering in the meantime.** `lib/placeholders.ts` maps each
+slot to an Unsplash frame, and `components/ui/figure.tsx` falls back to it when
+the fixture field is null. The fixtures themselves were deliberately NOT
+edited: they are the executable specification the Laravel developer builds
+against, and a third-party URL in them would assert that La Rio owns a
+photograph it does not.
+
+The three cuisine cards are the exception — they use La Rio's own dish
+photography, which already exists in the repo, rather than stock.
+
+**To hand over:** drop the real files under `public/images/`, set the matching
+fixture fields, then delete `lib/placeholders.ts` and the `remotePatterns`
+entry in `next.config.ts`. Nothing else changes; no component reads either one
+directly.
 
 **Homepage — `/images/home/`**
 

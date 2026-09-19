@@ -22,5 +22,23 @@
       "en": { "title": "Terms & Conditions", "heading": "Terms & Conditions", "body": "<p>Placeholder pending client-supplied copy. See docs/content-gaps.md item 7.</p>" },
       "ar": { "title": "الشروط والأحكام", "heading": "الشروط والأحكام", "body": "<p>نص مؤقت بانتظار المحتوى من العميل. راجع docs/content-gaps.md البند 7.</p>" }
     }
+  },
+  {
+    "slug": "menu",
+    "template": "menu",
+    "translations": {
+      "en": {
+        "title": "Menu",
+        "heading": "Our Menu",
+        "description": "Eighty-nine dishes across three kitchens: wood-fired pizza and hand-rolled pasta, charcoal kebabs and mezze, and Argentine asado from the open grill.",
+        "body": "<p>Every plate comes from one of three kitchens working side by side around the open charcoal grill. Browse the full list, or jump straight to a course.</p>"
+      },
+      "ar": {
+        "title": "القائمة",
+        "heading": "قائمتنا",
+        "description": "تسعة وثمانون طبقاً من ثلاثة مطابخ: بيتزا على الحطب ومعكرونة طازجة، وكباب ومقبلات على الفحم، وأسادو أرجنتيني من الشواية المفتوحة.",
+        "body": "<p>يأتي كل طبق من أحد المطابخ الثلاثة التي تعمل جنباً إلى جنب حول شواية الفحم المفتوحة. تصفح القائمة كاملة، أو انتقل مباشرة إلى الصنف الذي تريده.</p>"
+      }
+    }
   }
 ]

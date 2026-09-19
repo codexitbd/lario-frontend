@@ -57,7 +57,14 @@ describe('formatDateTime', () => {
 })
 
 describe('formatTimeRange', () => {
-  it('joins two times with an en dash', () => {
-    expect(formatTimeRange('12:00', '23:30', 'en')).toBe('12:00 PM – 11:30 PM')
+  it('joins two times with a plain hyphen', () => {
+    expect(formatTimeRange('12:00', '23:30', 'en')).toBe('12:00 PM - 11:30 PM')
+  })
+
+  it('uses no en dash or em dash, in either locale', () => {
+    for (const locale of ['en', 'ar'] as const) {
+      const range = formatTimeRange('13:00', '01:00', locale)
+      expect(range).not.toMatch(/[–—]/)
+    }
   })
 })

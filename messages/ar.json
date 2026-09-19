@@ -35,7 +35,24 @@
     "calories": "سعرة حرارية",
     "unavailable": "غير متوفر حاليًا",
     "allergens": "مسببات الحساسية",
-    "relatedDishes": "قد يعجبك أيضًا"
+    "relatedDishes": "قد يعجبك أيضًا",
+    "dietaryAll": "كل الأطباق",
+    "priceAny": "أي سعر",
+    "priceUnder": "أقل من {max}",
+    "priceBetween": "من {min} إلى {max}",
+    "priceOver": "أكثر من {min}",
+    "resultsOne": "طبق واحد",
+    "resultsMany": "{count} طبقاً",
+    "browseCourses": "تصفح حسب الصنف",
+    "tags": {
+      "vegetarian": "نباتي",
+      "vegan": "نباتي صرف",
+      "gluten_free": "خالٍ من الغلوتين",
+      "spicy": "حار",
+      "halal": "حلال"
+    },
+    "visitUs": "زورونا",
+    "filters": "الفلاتر"
   },
   "reservation": {
     "stepBranch": "الفرع",
@@ -68,6 +85,15 @@
     "getDirections": "الحصول على الاتجاهات",
     "popularDishes": "الأطباق الأكثر طلبًا",
     "callBranch": "اتصل بهذا الفرع"
+  },
+  "sections": {
+    "privateEvents": {
+      "stats": {
+        "private_room_seats": "مقعد",
+        "branches_available": "فرع",
+        "advance_notice_days": "أيام مسبقًا"
+      }
+    }
   },
   "footer": {
     "rights": "جميع الحقوق محفوظة.",

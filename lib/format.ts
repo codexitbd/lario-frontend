@@ -47,7 +47,31 @@ export function formatTimeRange(
   closes: string,
   locale: Locale,
 ): string {
-  return `${formatClock(opens, locale)} – ${formatClock(closes, locale)}`
+  // A plain hyphen, not an en dash. Opening hours render beside Arabic text on
+  // branch cards and branch pages, where a dash glyph that does not exist in
+  // the Arabic face falls back to a different font mid-string. The hyphen is
+  // also the house rule for every range on the site, so date and price ranges
+  // match this without a second decision.
+  return `${formatClock(opens, locale)} - ${formatClock(closes, locale)}`
+}
+
+const WEEKDAY_REFERENCE_SUNDAY = Date.UTC(2024, 0, 7)
+
+/**
+ * `day_of_week` is 0-6 with 0 = Sunday, matching `toSchemaOpeningHours`.
+ * Anchored to a known Sunday in UTC so the name never drifts by a day when the
+ * server sits in a different zone from Riyadh.
+ */
+export function formatWeekday(
+  dayOfWeek: number,
+  locale: Locale,
+  width: 'short' | 'long' = 'short',
+): string {
+  const date = new Date(WEEKDAY_REFERENCE_SUNDAY + dayOfWeek * 86_400_000)
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    timeZone: 'UTC',
+    weekday: width,
+  }).format(date)
 }
 
 function formatClock(time: string, locale: Locale): string {

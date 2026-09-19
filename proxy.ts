@@ -25,7 +25,10 @@ const CSP = [
   "font-src 'self'",
   "style-src 'self' 'unsafe-inline'",
   "script-src 'self' 'unsafe-inline'",
-  'frame-src https://www.google.com https://maps.google.com',
+  // google/maps: branch map embeds. youtube-nocookie: the hero background
+  // film (components/sections/hero-video.tsx). Without the youtube entry the
+  // iframe is blocked with no error anywhere except the console.
+  'frame-src https://www.google.com https://maps.google.com https://www.youtube-nocookie.com',
   "connect-src 'self'",
   'upgrade-insecure-requests',
 ].join('; ')

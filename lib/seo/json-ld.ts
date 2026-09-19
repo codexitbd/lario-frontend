@@ -112,7 +112,11 @@ export function restaurantJsonLd(input: {
   name: string
   description: string
   url: string
-  image: string
+  // Nullable, matching seo.og.image and settings.seo_defaults.og_image. No
+  // hero photograph and no default social card exist yet (content gaps 8 and
+  // 10), and `"image": ""` is not a weaker assertion than omitting the key —
+  // it is an invalid one. The property is dropped instead.
+  image: string | null
   branches: Branch[]
 }) {
   return {
@@ -121,7 +125,7 @@ export function restaurantJsonLd(input: {
     name: input.name,
     description: input.description,
     url: input.url,
-    image: input.image,
+    ...(input.image ? { image: input.image } : {}),
     servesCuisine: ['Italian', 'Turkish', 'Argentinian'],
     location: input.branches.map((branch) => localBusinessJsonLd(branch)),
   }

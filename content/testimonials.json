@@ -67,8 +67,8 @@
     "is_featured": false,
     "sort_order": 5,
     "translations": {
-      "en": { "author_title": "First visit", "body": "Ordered the kebab and sat facing the grill — half the meal is watching it get made. Coming back with the whole family next time." },
-      "ar": { "author_title": "الزيارة الأولى", "body": "طلبت الكباب وجلست مقابل الشواية — نصف المتعة في مشاهدة التحضير. سأعود مع العائلة كاملة في المرة القادمة." }
+      "en": { "author_title": "First visit", "body": "Ordered the kebab and sat facing the grill. Half the meal is watching it get made. Coming back with the whole family next time." },
+      "ar": { "author_title": "الزيارة الأولى", "body": "طلبت الكباب وجلست مقابل الشواية. نصف المتعة في مشاهدة التحضير. سأعود مع العائلة كاملة في المرة القادمة." }
     }
   },
   {
@@ -103,8 +103,8 @@
     "is_featured": false,
     "sort_order": 8,
     "translations": {
-      "en": { "author_title": "Sunday lunch", "body": "Easy visit with a toddler — valet took the car, a high chair was ready before we sat down. Small things that make a difference." },
-      "ar": { "author_title": "غداء الأحد", "body": "زيارة سهلة مع طفل صغير — استلم موظف صف السيارات سيارتنا، وكان كرسي الأطفال جاهزاً قبل أن نجلس. تفاصيل بسيطة لكنها تصنع فرقاً." }
+      "en": { "author_title": "Sunday lunch", "body": "Easy visit with a toddler. Valet took the car, a high chair was ready before we sat down. Small things that make a difference." },
+      "ar": { "author_title": "غداء الأحد", "body": "زيارة سهلة مع طفل صغير. استلم موظف صف السيارات سيارتنا، وكان كرسي الأطفال جاهزاً قبل أن نجلس. تفاصيل بسيطة لكنها تصنع فرقاً." }
     }
   },
   {
@@ -115,8 +115,8 @@
     "is_featured": false,
     "sort_order": 9,
     "translations": {
-      "en": { "author_title": "First time trying the fettuccine", "body": "They finish the fettuccine alfredo tableside in a parmesan wheel — my kids still talk about it weeks later." },
-      "ar": { "author_title": "أول تجربة للفيتوتشيني", "body": "يُنهون تحضير الفيتوتشيني ألفريدو أمام الطاولة داخل عجلة الجبن مباشرة — أطفالي ما زالوا يتحدثون عنها بعد أسابيع." }
+      "en": { "author_title": "First time trying the fettuccine", "body": "They finish the fettuccine alfredo tableside in a parmesan wheel. My kids still talk about it weeks later." },
+      "ar": { "author_title": "أول تجربة للفيتوتشيني", "body": "يُنهون تحضير الفيتوتشيني ألفريدو أمام الطاولة داخل عجلة الجبن مباشرة. أطفالي ما زالوا يتحدثون عنها بعد أسابيع." }
     }
   },
   {

@@ -131,10 +131,57 @@ describe('testimonials fixture', () => {
 
 describe('pages fixture', () => {
   it('covers the three system pages', () => {
-    expect(pages.map((p) => p.slug).sort()).toEqual([
-      'contact',
-      'privacy-policy',
-      'terms-and-conditions',
-    ])
+    for (const slug of ['contact', 'privacy-policy', 'terms-and-conditions']) {
+      expect(pages.map((p) => p.slug)).toContain(slug)
+    }
+  })
+
+  // /menu is a page row so the menu index has an editable SEO record from the
+  // start, which the brief requires of every Phase 1-3 resource.
+  it('carries the menu landing row with its own meta description', () => {
+    const menu = pages.find((p) => p.slug === 'menu')
+    expect(menu?.template).toBe('menu')
+    for (const locale of LOCALES) {
+      const t = menu?.translations[locale] as { description?: string }
+      expect(t?.description?.length ?? 0).toBeGreaterThan(50)
+    }
+  })
+
+  it('gives every page a title and heading in both locales', () => {
+    for (const page of pages) {
+      for (const locale of LOCALES) {
+        const t = page.translations[locale] as {
+          title: string
+          heading: string
+        }
+        expect(t.title.length, `${page.slug} ${locale} title`).toBeGreaterThan(0)
+        expect(t.heading.length, `${page.slug} ${locale} heading`).toBeGreaterThan(0)
+      }
+    }
+  })
+})
+
+describe('typographic house rules across every fixture', () => {
+  // The em dash and the en dash are both banned in visible copy. They are not
+  // a style preference here: the Arabic faces this site ships do not carry
+  // them, so a dash inside an Arabic string falls back to a different font
+  // mid-sentence and breaks the line's colour. The Latin copy follows the same
+  // rule so the two locales stay in step. Use a period, a comma or a plain
+  // hyphen. lib/format.ts joins time ranges with a hyphen for this reason.
+  const FIXTURES = import.meta.glob('/content/**/*.json', {
+    eager: true,
+    query: '?raw',
+    import: 'default',
+  }) as Record<string, string>
+
+  it('finds at least one fixture to check', () => {
+    expect(Object.keys(FIXTURES).length).toBeGreaterThan(0)
+  })
+
+  it.each(Object.keys(FIXTURES))('%s carries no em or en dash', (path) => {
+    const offending = [...FIXTURES[path].matchAll(/.{0,40}[–—].{0,40}/g)]
+      .map((match) => match[0])
+      .slice(0, 5)
+    expect(offending, offending.join('\n')).toEqual([])
   })
 })

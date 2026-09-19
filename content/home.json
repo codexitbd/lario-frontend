@@ -16,8 +16,7 @@
       "sort_order": 0,
       "payload": {
         "background_image": null,
-        "video": null,
-        "locations": ["Al Narjis", "Al Yasmin", "Riyadh, Saudi Arabia"]
+        "video": null
       },
       "translations": {
         "en": {
@@ -101,9 +100,7 @@
           "assado-argentina-style",
           "fettuccine-alfredo-on-the-parmesan-wheel",
           "urfa-kebab",
-          "pizza-la-rio-signature",
-          "burrata-salad",
-          "ribeye-steak"
+          "pizza-la-rio-signature"
         ]
       },
       "translations": {
@@ -219,7 +216,7 @@
             },
             {
               "title": "Combined Tables",
-              "body": "At Al Yasmin, two dining bays can be joined for groups of twenty or more — mention it when you reserve."
+              "body": "At Al Yasmin, two dining bays can be joined for groups of twenty or more. Mention it when you reserve."
             },
             {
               "title": "Shared Menus",
@@ -239,7 +236,7 @@
             },
             {
               "title": "دمج الطاولات",
-              "body": "في فرع الياسمين، يمكن دمج جلستين للمجموعات من عشرين ضيفاً فأكثر — يُرجى ذكر ذلك عند الحجز."
+              "body": "في فرع الياسمين، يمكن دمج جلستين للمجموعات من عشرين ضيفاً فأكثر. يُرجى ذكر ذلك عند الحجز."
             },
             {
               "title": "قوائم مشتركة",
@@ -311,7 +308,7 @@
             },
             {
               "q": "Do you offer vegetarian options across all three cuisines?",
-              "a": "Yes, each kitchen — Italian, Turkish and Argentine — keeps vegetarian dishes on the menu, from mezze to wood-fired pizza."
+              "a": "Yes. All three kitchens, Italian, Turkish and Argentine, keep vegetarian dishes on the menu, from mezze to wood-fired pizza."
             },
             {
               "q": "Is valet parking available?",
@@ -338,7 +335,7 @@
             },
             {
               "q": "هل تتوفر خيارات نباتية في المطابخ الثلاثة؟",
-              "a": "نعم، يحتفظ كل مطبخ — الإيطالي والتركي والأرجنتيني — بأطباق نباتية ضمن القائمة، من المقبلات الباردة إلى البيتزا المخبوزة على الحطب."
+              "a": "نعم، تحتفظ المطابخ الثلاثة، الإيطالي والتركي والأرجنتيني، بأطباق نباتية ضمن القائمة، من المقبلات الباردة إلى البيتزا المخبوزة على الحطب."
             },
             {
               "q": "هل تتوفر خدمة صف السيارات؟",
@@ -362,12 +359,12 @@
         "en": {
           "heading": "Reserve Your Table",
           "subheading": "Choose Al Narjis or Al Yasmin, tell us when, and we'll hold your table by the fire.",
-          "cta_label": "Book Now"
+          "cta_label": "Reserve a Table"
         },
         "ar": {
           "heading": "احجز طاولتك",
           "subheading": "اختر فرع النرجس أو الياسمين، وأخبرنا بالموعد، وسنحجز لك طاولة قرب النار.",
-          "cta_label": "احجز الآن"
+          "cta_label": "احجز طاولتك"
         }
       }
     }
