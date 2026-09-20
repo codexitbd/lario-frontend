@@ -11,7 +11,10 @@
     "gallery": "معرض الصور",
     "events": "الفعاليات",
     "blog": "المجلة",
-    "comingSoon": "قريبًا"
+    "comingSoon": "قريبًا",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "primary": "الرئيسية"
   },
   "actions": {
     "reserve": "احجز طاولة",
@@ -52,7 +55,24 @@
       "halal": "حلال"
     },
     "visitUs": "زورونا",
-    "filters": "الفلاتر"
+    "filters": "الفلاتر",
+    "inThisCourse": "في هذا الصنف",
+    "aboutThisDish": "عن هذا الطبق",
+    "otherCourses": "أصناف أخرى",
+    "allergenNames": {
+      "gluten": "غلوتين",
+      "dairy": "ألبان",
+      "nuts": "مكسرات",
+      "shellfish": "محار",
+      "egg": "بيض",
+      "soy": "صويا"
+    },
+    "allergenNone": "لا توجد مسببات حساسية مدرجة",
+    "backToMenu": "كل الأطباق",
+    "ingredients": "المكوّنات",
+    "preparation": "طريقة التحضير",
+    "moreFromCourse": "المزيد من {course}",
+    "contains": "يحتوي على"
   },
   "reservation": {
     "stepBranch": "الفرع",
@@ -98,6 +118,23 @@
   "footer": {
     "rights": "جميع الحقوق محفوظة.",
     "privacy": "سياسة الخصوصية",
-    "terms": "الشروط والأحكام"
+    "terms": "الشروط والأحكام",
+    "explore": "تصفح",
+    "visitUs": "زورونا",
+    "followUs": "تابعونا",
+    "getInTouch": "تواصل معنا",
+    "whatsapp": "واتساب",
+    "callUs": "اتصل بنا",
+    "emailUs": "راسلنا",
+    "newsletterTitle": "انضم إلى قائمتنا",
+    "newsletterBody": "أطباق جديدة من الشواية، وقوائم موسمية، ومواعيد الجلسات الخاصة. رسائل قليلة في السنة.",
+    "newsletterLabel": "البريد الإلكتروني",
+    "newsletterAction": "انضم",
+    "newsletterConsent": "يمكنك إلغاء الاشتراك في أي وقت.",
+    "newsletterSuccess": "تم تسجيلك. تفقّد بريدك لتأكيد الاشتراك.",
+    "newsletterError": "لم يتم الإرسال. حاول مرة أخرى.",
+    "openUntil": "مفتوح الآن حتى {time}",
+    "opensOn": "يفتح {day} الساعة {time}",
+    "closedToday": "مغلق اليوم"
   }
 }

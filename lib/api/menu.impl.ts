@@ -113,9 +113,16 @@ export function getMenuItem(locale: Locale, slug: string): MenuItem | null {
     .slice(0, 4)
     .map((i) => toCard(locale, i))
 
+  // resolveTranslation falls back to `en`, so for an untranslated row the two
+  // names come back identical — null rather than printing the same string
+  // twice under itself.
+  const other: Locale = locale === 'ar' ? 'en' : 'ar'
+  const alt = resolveTranslation(item.translations, other).name
+
   return {
     ...card,
     description: t.description,
+    name_alt: alt === card.name ? null : alt,
     ingredients_note: t.ingredients_note ?? null,
     preparation_note: t.preparation_note ?? null,
     allergens: item.allergens as MenuItem['allergens'],

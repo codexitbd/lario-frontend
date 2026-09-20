@@ -24,8 +24,10 @@ is the difference between one pass and three.
 |`homepage/07-gallery-strip.png` | the layout and on hover image will be 0 degree and will have a autoplay caresol so its moving and on hover it stop  | Its palette — use ours, its content - use our, not the rounded corner - use corner like other desing. |
 |`homepage/08-testimonials.png` | the layout  | Its palette — use ours, its content - use our. |
 |`homepage/08-testimonials-next-transition.png` | when autoplay starts the image will over another like the screenshot effect and also the text  | Its palette — use ours, its content - use our. |
-| | | |
-| | | |
+|`shared/header-mobile.png` | THE DESKTOP HEADER despite the filename. Two decks: a hairline utility strip (pin + address, phone, email) over a main bar with the wordmark, a centred nav, an active-item rule, and an outlined Reserve button. Transparent over the hero. | Its palette and face. Its dropdown carets — our Phase-4 items are disabled, not parents. Its six-item nav list; ours is the five live routes. |
+|`shared/header.png` | The CONDENSED state: wordmark plus a hamburger on a dark ground. This is what the header becomes on scroll, and what it is at mobile width. | Its "P." mark — we set our own wordmark in Bodoni. |
+|`shared/footer.png` | **RETIRED 2026-09-20.** Was layout-only. Three zones across the top, link tiles in two columns, one wide action with an arrow box at its end, and a bottom rule carrying social, copyright and legal. | Everything, now. It is a lab-automation SaaS footer: its whole vocabulary is boxes, and copying its composition faithfully put ten containers in a fine-dining footer. The rule for our footer is zero containers. Its newsletter panel is the one idea that survived, and only because the client asked for it separately. |
+|`shared/footer-mobile.png` | Retired with the desktop drawing. | As above. |
 
 ---
 

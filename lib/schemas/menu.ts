@@ -40,6 +40,12 @@ export type MenuItemCard = z.infer<typeof menuItemCardSchema>
 
 export const menuItemSchema = menuItemCardSchema.extend({
   description: z.string(),
+  // The dish name in the OTHER locale, or null when the two are identical
+  // (a dish nobody has translated yet, or a proper noun that does not change).
+  // Riyadh diners know half this menu by its Arabic or Turkish name, so the
+  // dish page shows both; spec §7.3 asks for it. Detail response only — the
+  // card shape stays lean.
+  name_alt: z.string().nullable(),
   ingredients_note: z.string().nullable(),
   preparation_note: z.string().nullable(),
   allergens: z.array(z.enum(ALLERGENS)),

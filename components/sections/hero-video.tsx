@@ -47,11 +47,21 @@ export function HeroVideo({
 
   // `onLoad` fires when the player document is ready, which is BEFORE the first
   // frame of video is painted. Fading in on it shows a black player for a beat.
-  // The short delay lets playback start, and the poster photograph behind holds
-  // the frame until then.
+  //
+  // The delay is 3400ms, and the exact number matters. `controls=0` suppresses
+  // the control BAR but YouTube still paints its large centred transport
+  // overlay (previous / pause / next) for roughly three seconds at the start of
+  // playback, then fades it out on its own. Revealing at 900ms landed inside
+  // that window, so every visitor saw player chrome flash across the hero;
+  // measured in-browser, controls were up at 0s and gone by 6s. The scale crop
+  // that hides the bottom bar cannot help here, because a centred overlay stays
+  // centred at any scale.
+  //
+  // Nothing is lost by waiting: the poster photograph is the LCP element and it
+  // simply holds the frame a beat longer before the crossfade.
   useEffect(() => {
     if (!mounted || !loaded) return
-    const timer = window.setTimeout(() => setReady(true), 900)
+    const timer = window.setTimeout(() => setReady(true), 3400)
     return () => window.clearTimeout(timer)
   }, [mounted, loaded])
 

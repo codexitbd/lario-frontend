@@ -28,7 +28,7 @@ export function Faq({ section }: { section: { content: Bag } }) {
   if (items.length === 0) return null
 
   return (
-    <section className="bg-bone py-24 md:py-36">
+    <section className="bg-bone py-20 md:py-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <header className="lr-reveal lg:col-span-5 lg:sticky lg:top-24 lg:self-start">

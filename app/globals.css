@@ -7,10 +7,26 @@
    Every colour below is sampled from public/original-logo.png. The deep
    emerald and the gold are the brand; nothing else is invented.
 
-   THE PAGE ALTERNATES LIGHT AND DARK GROUNDS, following the reference set:
-   intro, chef_story and faq sit on bone; everything else is emerald or ink.
-   That rhythm is the design — a page that is green end to end reads as one
-   long block and loses the contrast the references are built on.
+   THE DARK GROUND IS NEUTRAL, NOT THE BRAND GREEN. This is the correction that
+   matters most here, and it was made against measurement rather than taste.
+   The old ink (#03201a) was the brand emerald at 83% saturation used as the
+   field for 90.6% of /menu and 50.1% of the homepage; with the emerald bands on
+   top, /menu measured 94% green and the homepage 72%. A page whose every
+   surface carries the brand hue does not read as branded, it reads as tinted.
+
+   So the ground keeps the brand HUE (170deg) and gives up the saturation:
+   83% down to 18%. It photographs as charcoal, which is exactly what the
+   client's own menu reference does — its ground is a near-neutral dark and the
+   plated food carries all of the colour. Contrast improves rather than
+   degrades: ivory 15.0 -> 16.3, gold 9.3 -> 10.2, measured against the new
+   value. Do not push this back toward emerald.
+
+   EMERALD IS AN ACCENT GROUND, not the field. Rare on purpose — against
+   charcoal and bone it reads as a brand moment. One or two sections a page,
+   never the default.
+
+   Light and dark grounds still alternate, following the reference set: intro,
+   chef_story and faq sit on bone.
 
    One accent throughout: gold. On dark grounds that is --color-gold; on bone
    it is --color-gold-ink, the same hue carried down far enough to pass AA.
@@ -18,9 +34,11 @@
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* Dark grounds — deepest first. */
-  --color-ink: #03201a;
-  --color-ink-raised: #052b21;
+  /* The neutral dark ground: brand hue, brand-free saturation. */
+  --color-ink: #0e1413;
+  --color-ink-raised: #141a19;
+
+  /* The brand green. An ACCENT ground now, not the field — see above. */
   --color-emerald: #054c38;
   --color-emerald-lift: #0a6048;
 
@@ -31,7 +49,7 @@
   /* Gold on bone: 5.7:1, so it is usable for body text and not just labels. */
   --color-gold-ink: #7a5616;
 
-  /* Text on dark. ivory 17:1, ivory-dim 8.3:1 against --color-ink. */
+  /* Text on dark. ivory 16.3:1, ivory-dim 9.5:1 against --color-ink. */
   --color-ivory: #f4efe6;
   --color-ivory-dim: #bfb9ac;
 
@@ -106,6 +124,27 @@ html[dir="rtl"] body * {
   letter-spacing: normal !important;
 }
 
+/* The rule above is scoped to RTL PAGES, which misses the case where a string
+   in one script sits inside a page in the other. The locale switcher's label is
+   exactly that: "العربية" rendered on an English page, where it picked up 1.68px
+   of tracking (breaking the joins) and fell back out of the Arabic face because
+   --font-arabic is only applied under dir="rtl". `name_alt` on a dish page has
+   the same shape.
+
+   So key on the TEXT's own language rather than the document's direction. Any
+   element carrying lang="ar" gets the Arabic face and no tracking wherever it
+   appears, and a lang="en" island inside an Arabic page gets the Latin face
+   back. */
+[lang="ar"] {
+  font-family: var(--font-arabic);
+  letter-spacing: normal !important;
+  text-transform: none;
+}
+
+html[dir="rtl"] [lang="en"] {
+  font-family: var(--font-latin);
+}
+
 ::selection {
   background-color: var(--color-gold);
   color: var(--color-ink);
@@ -147,6 +186,159 @@ html[dir="rtl"] body * {
       animation-range: entry calc(4% + var(--i, 0) * 5%) cover
         calc(26% + var(--i, 0) * 5%);
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   REVEAL MATERIALS. One entrance per KIND of content, not one for everything.
+
+   `.lr-reveal` alone, applied to all 35 reveal sites, was the motion equivalent
+   of putting the same tracked-caps label above every section: it read as a
+   template. These three are chosen to fit what they reveal, and they are all
+   still pure CSS on a view() timeline, so the zero-JS budget is untouched.
+
+     .lr-plate   photographs. Settle in from slightly oversize with the clip
+                 opening from the base, like a plate being set down. Cheap
+                 enough to run on 89 grid cards.
+     .lr-focus   the few LARGE feature photographs only. Adds a blur that
+                 clears, which reads as a focus pull. Deliberately NOT on grid
+                 cards: 89 simultaneous blur filters is a mobile frame-rate
+                 problem, and this budget is contractual.
+     .lr-unmask  headings. Type is wiped up from behind its own baseline rather
+                 than faded, so the letterforms arrive already sharp.
+
+   `.lr-reveal` stays for body copy and small groups, which genuinely do just
+   want to rise. Stagger siblings with --i, as before.
+--------------------------------------------------------------------------- */
+
+@keyframes lr-plate {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+    clip-path: inset(0 0 12% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes lr-focus {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes lr-unmask {
+  from {
+    clip-path: inset(0 0 110% 0);
+    transform: translateY(0.4em);
+  }
+  to {
+    clip-path: inset(-0.3em 0 -0.3em 0);
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lr-plate {
+      animation: lr-plate linear both;
+      animation-timeline: view();
+      animation-range: entry 2% cover 22%;
+    }
+
+    .lr-focus {
+      animation: lr-focus linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 26%;
+    }
+
+    /* clip-path needs a painted box; inline text gets one without changing
+       layout flow. */
+    .lr-unmask {
+      display: inline-block;
+      animation: lr-unmask linear both;
+      animation-timeline: view();
+      animation-range: entry 6% cover 20%;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   HERO LOAD CHOREOGRAPHY. Time-based, not scroll-driven, and that distinction
+   is the whole point: the hero is above the fold, so a view() timeline resolves
+   past its own range before the first paint and the hero effectively had NO
+   entrance. This is the one place on the site that earns a first-load sequence
+   (brand register permits exactly that), so it gets a real one.
+
+   Staggered with --d in milliseconds on each element rather than a generic
+   cascade, so the order is legible in the markup.
+
+   The animations exist ONLY inside the no-preference query. That matters: the
+   base state carries no opacity rule, so if the animation never runs the
+   content is simply visible. Never gate hero copy on a transition.
+--------------------------------------------------------------------------- */
+
+@keyframes lr-hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The headline is wiped up from behind its own baseline so the letterforms
+   arrive sharp rather than fading in at partial opacity. The negative inset on
+   the resolved state keeps ascenders and descenders from being clipped. */
+@keyframes lr-hero-title {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.36em);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(-0.3em 0 -0.3em 0);
+    transform: none;
+  }
+}
+
+/* A slow settle on the still frame behind the film. 2.6s, imperceptible per
+   frame, and it gives the hero a sense of depth before the video takes over. */
+@keyframes lr-hero-plate {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lr-hero-in {
+    animation: lr-hero-in 900ms var(--ease-brand) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .lr-hero-title {
+    animation: lr-hero-title 1150ms var(--ease-brand) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .lr-hero-plate {
+    animation: lr-hero-plate 2600ms var(--ease-brand) both;
   }
 }
 
@@ -233,6 +425,68 @@ html[dir="rtl"] .lr-wipe {
 html[dir="rtl"] .lr-wipe[data-active="true"] {
   clip-path: inset(0 0 0 0);
   opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Site chrome. The header is fixed and transparent over the hero, and takes
+   its ground as the reader scrolls — driven by a native scroll-progress
+   timeline, so there is no scroll listener, no client component and nothing
+   added to the mobile budget.
+
+   THE BASE STATE BELOW IS THE SOLID ONE, deliberately. A browser without
+   animation-timeline support, or a reader who asked for reduced motion, gets a
+   header that is always legible; sitting transparent over the film is the
+   enhancement. Written the other way round, an unsupporting browser would show
+   an invisible header forever — the same trap the .lr-reveal guard exists for.
+--------------------------------------------------------------------------- */
+
+.lr-chrome-strip {
+  /* One source of truth for the strip's height: the keyframe below has to
+     name a real length, because height cannot interpolate from `auto`. */
+  --lr-strip: 2.75rem;
+  height: var(--lr-strip);
+}
+
+@keyframes lr-chrome-ground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lr-chrome-strip {
+  from {
+    height: var(--lr-strip);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* The keyframe name belongs IN the shorthand. `animation: linear both` with
+       the name split into a following `animation-name` parses as a keyframes
+       ident called "linear" and the whole declaration is dropped — fill-mode
+       computes to `none`, and the strip springs back to full height the moment
+       the reader scrolls past the range. Measured, not guessed. */
+    .lr-chrome-ground {
+      animation: lr-chrome-ground linear both;
+      animation-timeline: scroll(root block);
+      /* Resolved by the time the reader has cleared the header's own height. */
+      animation-range: 0 6rem;
+    }
+
+    .lr-chrome-strip {
+      animation: lr-chrome-strip linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 6rem;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

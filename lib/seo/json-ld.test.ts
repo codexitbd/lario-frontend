@@ -36,6 +36,7 @@ const seo: Seo = {
 const item: MenuItem = {
   slug: 'test-dish',
   name: 'Test Dish',
+  name_alt: null,
   short_description: 'A dish for testing.',
   price: '42.00',
   currency: 'SAR',

@@ -218,20 +218,28 @@ export function Testimonials({
                   </button>
                 </div>
 
-                <ol className="flex items-center gap-2">
+                <ol className="flex items-center">
                   {items.map((item, slide) => (
                     <li key={`dot-${item.author_name}-${slide}`}>
+                      {/* The dot stays 8px; the BUTTON is 24px so it meets
+                          WCAG 2.2 AA target size. Padding does the work, so the
+                          hit area grows without the mark changing size. */}
                       <button
                         type="button"
                         onClick={() => go(slide)}
                         aria-label={item.author_name}
                         aria-current={slide === index}
-                        className={`block size-2 transition-colors duration-300 ${
-                          slide === index
-                            ? 'bg-gold'
-                            : 'bg-ivory/25 hover:bg-ivory/50'
-                        }`}
-                      />
+                        className="flex size-6 items-center justify-center"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`block size-2 transition-colors duration-300 ${
+                            slide === index
+                              ? 'bg-gold'
+                              : 'bg-ivory/25 group-hover:bg-ivory/50 hover:bg-ivory/50'
+                          }`}
+                        />
+                      </button>
                     </li>
                   ))}
                 </ol>

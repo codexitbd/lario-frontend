@@ -23,17 +23,33 @@ export function CategoryNav({
   categories,
   locale,
   dict,
+  heading,
+  headingHidden = false,
 }: {
   categories: MenuCategory[]
   locale: Locale
   dict: Dictionary
+  /** Defaults to "Browse by course"; a category page passes "Other courses". */
+  heading?: string
+  /** Keeps the heading in the accessibility tree but off the page. A category
+      page already reads as "these are the other courses" from context, and a
+      tracked-caps label above it is the section scaffold this site removed
+      everywhere else. /menu keeps it visible because there it IS the primary
+      navigation affordance. */
+  headingHidden?: boolean
 }) {
   if (categories.length === 0) return null
 
   return (
     <Container className="pt-16 md:pt-20">
-      <h2 className="text-center text-[0.6875rem] tracking-[0.28em] text-gold-ink uppercase">
-        {dict.menu.browseCourses}
+      <h2
+        className={
+          headingHidden
+            ? 'sr-only'
+            : 'text-center text-[0.6875rem] tracking-[0.28em] text-gold-ink uppercase'
+        }
+      >
+        {heading ?? dict.menu.browseCourses}
       </h2>
 
       <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-10">

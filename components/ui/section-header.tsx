@@ -3,14 +3,15 @@ import type { ReactNode } from 'react'
 /**
  * Section headers, in two deliberately different treatments.
  *
- * The CMS puts an eyebrow on ten of the eleven homepage sections. Rendering
- * all ten as the same wide-tracked micro-caps label is what makes a page read
- * as templated, so only four sections get that device (`label`). The rest set
- * the eyebrow as a display italic kicker at heading scale (`kicker`), which is
- * typography rather than a badge. No client copy is dropped either way.
+ * The CMS puts an eyebrow on ten of the eleven homepage sections. A wide-tracked
+ * micro-caps label above every heading is the most saturated AI section-scaffold
+ * there is, so NO section heading uses that device any more: every eyebrow sets
+ * as a display italic kicker at heading scale (`kicker`), which is typography
+ * rather than a badge. No client copy is dropped.
  *
- * If you add a section, prefer `kicker`. Four `label` headers is the ceiling
- * for a page this length.
+ * `label` still exists for the rare case where an eyebrow genuinely is a small
+ * functional label rather than a voice line, but nothing on the site uses it
+ * today, and it no longer carries flanking hairlines. Prefer `kicker`.
  */
 export function SectionHeader({
   eyebrow,
@@ -37,7 +38,6 @@ export function SectionHeader({
   const centred = align === 'center'
   const light = tone === 'light'
   const accent = light ? 'text-gold-ink' : 'text-gold'
-  const rule = light ? 'bg-gold-ink/40' : 'bg-gold/40'
   const title = light ? 'text-ink' : 'text-ivory'
   const body = light ? 'text-ink-soft' : 'text-ivory-dim'
 
@@ -49,16 +49,13 @@ export function SectionHeader({
     >
       {eyebrow ? (
         treatment === 'label' ? (
+          // No flanking hairlines. A tracked-caps label with a rule either
+          // side is the most saturated AI section-scaffold there is; the label
+          // alone still does the job on the four sections that keep it.
           <p
-            className={`flex items-center gap-4 text-[0.6875rem] tracking-[0.24em] uppercase ${accent} ${
-              centred ? 'justify-center' : ''
-            }`}
+            className={`text-[0.6875rem] tracking-[0.24em] uppercase ${accent}`}
           >
-            {centred ? (
-              <span aria-hidden="true" className={`hidden h-px w-10 sm:block ${rule}`} />
-            ) : null}
             {eyebrow}
-            <span aria-hidden="true" className={`hidden h-px w-10 sm:block ${rule}`} />
           </p>
         ) : (
           // pb-1 and the loosened leading keep italic descenders (y, g, p) off
@@ -71,9 +68,11 @@ export function SectionHeader({
         )
       ) : null}
 
+      {/* Capped at 3.25rem, down from 4rem. This is a restaurant: a headline
+          that outweighs the plate beside it is the wrong hierarchy. */}
       <h2
         id={headingId}
-        className={`lr-display mt-4 max-w-[18ch] text-[clamp(2rem,1.2rem+3.4vw,4rem)] leading-[1.08] ${title}`}
+        className={`lr-display lr-unmask mt-4 max-w-[18ch] text-[clamp(1.875rem,1.1rem+2.6vw,3.25rem)] leading-[1.08] text-balance ${title}`}
       >
         {heading}
       </h2>

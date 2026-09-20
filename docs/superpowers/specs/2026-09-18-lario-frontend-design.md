@@ -4,7 +4,7 @@
 **Repo:** `lario-web` (Next.js 16 · React 19 · TypeScript · Tailwind v4)
 **Scope:** Homepage, Menu, Category, Dish, Branches, Branch detail, Reservation,
 Contact, Legal — English and Arabic.
-**Status:** Approved in brainstorming. Awaiting implementation plan.
+**Status:** Approved. §7.1-7.3 and the homepage are BUILT (2026-09-20); the shared layer of §10 and §8-9 are not. Amendments made during the build are marked inline and dated.
 
 ---
 
@@ -339,25 +339,56 @@ the UI.
 
 Grounds alternate: dark hero, bone browse band, ink grid, bone visit block.
 
-### 7.2 `/menu/[category]`
+### 7.2 `/menu/[category]` — BUILT 2026-09-20
 
-Page hero with breadcrumbs · **`intro_content` block** · scoped toolbar · item
-grid · sibling-category strip · CTA.
+Page hero with breadcrumbs · **`intro_content` block** · ~~scoped toolbar~~ ·
+item grid · sibling-category strip · CTA.
+
+**Amended: no scoped toolbar.** Courses run 4 to 17 dishes, every card already
+prints its dietary tags, and a second filter island over seventeen items is
+machinery for its own sake. Filtering stays on `/menu`, where there are 89
+dishes to filter. Reinstating it is a small addition if the client asks.
 
 `intro_content` is unique per-category prose, not decoration. It is the reason
 course-based URLs were chosen and the thing that makes the page rankable. A
 category page shipping without it is not done.
 
-`generateStaticParams` returns all nine slugs. Exactly one `h1`.
+`generateStaticParams` returns all nine slugs, read from the PURE impl —
+`cacheTag`/`cacheLife` have no request context at build time. Exactly one `h1`.
+Grounds alternate: dark hero, bone `intro_content` band, ink grid, bone sibling
+strip, dark close.
 
-### 7.3 `/menu/[category]/[dish]`
+### 7.3 `/menu/[category]/[dish]` — BUILT 2026-09-20
 
-Breadcrumbs · split hero (image \| name, Arabic name, price, calories,
-description) · dietary and allergen badges · ingredients and preparation notes ·
-availability state · Reserve CTA · four related dishes from the same category.
+Breadcrumbs · split hero (image \| name, name in the other script, price,
+calories, description) · dietary and allergen badges · ingredients and
+preparation notes · availability state · Reserve CTA · four related dishes from
+the same category.
 
 `MenuItem` + `BreadcrumbList` JSON-LD. `generateStaticParams` returns all 89.
 Prices formatted with `Intl.NumberFormat`, never parsed to a float.
+
+**REDESIGNED 2026-09-20** to the cinematic lane. The hero on the category page
+is bottom-anchored and asymmetric like the site hero; the dish page uses named
+grid areas so identity (name, price, calories) precedes the plate on narrow
+screens. That last one fixed a real defect: the square plate is taller than a
+phone viewport, so the stacked layout pushed the name and price below the fold.
+`IN THIS COURSE`, `OTHER COURSES` and `YOU MIGHT ALSO LIKE` are gone as visible
+labels; the first two survive as `sr-only` headings for the document outline.
+
+Three notes from the build:
+
+- **`name_alt`** (the dish's name in the other script) is DERIVED in
+  `lib/api/menu.impl.ts` from the other locale's translation, not a column, and
+  is null when both resolve to the same string. Contract amended the same day.
+  It renders inside a `<bdi>` — `dir` on the paragraph aligns text to that
+  block's own start edge and threw the Arabic name across the column.
+- **`ingredients_note` and `preparation_note` are null on all 89 dishes** and 35
+  carry no allergens, so the whole "about this dish" band is conditional and
+  disappears rather than framing nothing. The long description is NOT
+  substituted into them.
+- **A dish reached through the wrong course 404s**, rather than serving the same
+  content at two URLs.
 
 ---
 
@@ -428,12 +459,78 @@ It is tested in Arabic explicitly, not assumed.
 
 ## 10. Shared layer
 
-**Header** — sticky, condenses on scroll. Logo, nav (Phase-4 items
-`aria-disabled`), locale switcher, Reserve button, mobile drawer with focus
-trapping and Escape to close.
+**Header — BUILT 2026-09-20.** Condenses on scroll. Wordmark, nav (Phase-4
+items `aria-disabled`), locale switcher, Reserve button, mobile drawer with
+focus trapping and Escape to close. As built, with three amendments:
 
-**Footer** — branches, hours summary, contact, social, legal links, locale
-switcher.
+- **`fixed`, not `sticky`.** Every page opens on a dark band and already
+  reserves `pt-32` for chrome, so the header overlays rather than displacing —
+  which is what lets it sit transparent over the hero film as the reference
+  draws it. `sticky` reserves the space a second time.
+- **The condense is a native scroll-progress timeline**, not a scroll listener:
+  `.lr-chrome-ground` / `.lr-chrome-strip` in `globals.css`. Consistent with
+  §10.2 — the chrome adds no JavaScript beyond the drawer.
+- **Focus trapping and Escape are the browser's**, via a native `<dialog>`
+  opened with `showModal()`. No focus-trap code ships.
+
+**AMENDED: the desktop bar carries the five live routes only**, not those plus
+the six Phase-4 items. Eleven items in a centred bar is not the approved shape,
+and the client's own reference (`design/references/shared/header-mobile.png`)
+draws six slots. The deferred items keep their place — disabled, labelled
+"coming soon" — in the drawer and the footer, which is what §3 protects: they
+are rendered, and they are never links to a route that does not exist.
+
+**The locale switcher is BUILT** (`components/layout/locale-switch.tsx`). It was
+missed in the first header pass and shipped only after the client asked where it
+was, which was a functional defect and not a missing flourish: half this
+audience reads Arabic first, every route is prerendered in both languages, and
+there was no way to reach the Arabic side except typing `/ar` into the address
+bar. It switches on the page the reader is already on, not to the other
+homepage, because slugs are shared across locales and the mapping is a pure
+prefix swap (`stripLocalePrefix`, tested).
+
+**It must stay a plain `<a>`, never `next/link`.** The root layout here is
+`app/[locale]/layout.tsx`, which emits `<html lang dir>`. Next cannot re-render
+those attributes during a client transition, so a `<Link>` across locales left
+the document at `lang="en" dir="ltr"` while rendering Arabic AND mounted the
+incoming tree beside the outgoing one: measured two `<header>`, two `<footer>`,
+two `<main>` and TWO `<h1>` in the DOM at once. Only a full document load
+rebuilds the html element.
+
+**Footer — BUILT 2026-09-20.** Newsletter signup, both branches with live
+open/closed state, hours, contact, nav, social, legal.
+
+**AMENDED: `design/references/shared/footer.png` is RETIRED for this
+component.** It is a lab-automation SaaS footer and its entire vocabulary is
+boxes. Two passes reproduced its composition faithfully and produced ten
+containers (four nav tiles, a white action bar, a raised address panel, three
+social tiles, two legal tiles); boxed single words are what made the result read
+as a product footer rather than a restaurant's. The rule for this component is
+now **zero containers**: not one box, tile, panel or card. The two rooms carry
+the composition, separated by one hairline that organises real content.
+
+**AMENDED: a newsletter EXISTS**, added at client request on the same day, which
+reverses an earlier decision in this file. It is a real feature end to end, not
+a decorative field: `newsletterSchema`, `POST /api/newsletter`, a
+`newsletter_subscribers` table, and an amendment to `03-api-contract.md`. Double
+opt-in is the contract, so `201` carries `status: "pending"` and the success
+copy says "check your inbox to confirm" on the strength of that word. All four
+states are built (idle, submitting, success, error) and the error state surfaces
+the endpoint's own localised 422 rather than hard-coding English.
+
+**ADDED, not in the original spec: live open/closed state per branch.** The one
+genuinely useful thing a restaurant footer can tell someone at 11pm. Pure logic
+in `lib/hours.ts` (`getOpenState`), rendered by a client island because "now"
+cannot be baked into a prerendered page. The wrap past midnight is the whole
+difficulty and is tested: both branches close at 01:00, the next calendar day,
+so yesterday's row must be checked before today's.
+
+**NO reserve button in the footer**: the section immediately above it is the
+reservation CTA, so a second large action was duplicate intent. **No "coming
+soon" list**: announcing six unbuilt pages at the bottom of every page made the
+site read as unfinished, and §3 is satisfied by the mobile drawer. **No locale
+switcher** in the footer: it lives in the header and in the mobile drawer's top
+row, which is reachable from every page without scrolling to the bottom.
 
 **Global UI** — gallery lightbox (keyboard-navigable, focus-trapped),
 testimonial carousel (reverses in RTL), branch-picker dialog, toast
@@ -502,11 +599,27 @@ declarations in `app/globals.css`; v4 is CSS-first and there is no
 `tailwind.config.js`.
 
 **Palette.** Deep emerald and gold, both sampled from `public/original-logo.png`
-rather than eyeballed. Dark grounds `--color-ink` / `--color-ink-raised` /
-`--color-emerald`; the light ground is `--color-bone`. One accent: `--color-gold`
-on dark, `--color-gold-ink` on bone — the same hue carried down far enough to
-pass AA. `--color-scrim` is a separate near-black for media overlays, because
-tinting a photograph with the emerald ground greens the whole frame.
+rather than eyeballed. The light ground is `--color-bone`. One accent:
+`--color-gold` on dark, `--color-gold-ink` on bone — the same hue carried down
+far enough to pass AA. `--color-scrim` is a separate near-black for media
+overlays, because tinting a photograph with the emerald ground greens the whole
+frame.
+
+**AMENDED 2026-09-20: the dark ground is NEUTRAL, and emerald is an accent.**
+`--color-ink` was `#03201a`, the brand emerald at 83% saturation, used as the
+field for 90.6% of `/menu` and 50.1% of the homepage; measured with the emerald
+bands on top, `/menu` was 94% green and the homepage 72%. A page whose every
+surface carries the brand hue reads as tinted, not as branded. The ground keeps
+the hue and drops the saturation to 18% (`#0e1413`), which is what the client's
+own menu reference does: a near-neutral dark with the plated food carrying all
+the colour. Contrast improved rather than degraded (ivory 15.0 -> 16.3, gold
+9.3 -> 10.2). `--color-emerald` is now spent on one or two sections a page as a
+brand moment, never as the default field.
+
+**The logo is used, not substituted.** `public/golden-logo.png` (single-colour
+gold) sits on dark grounds, `public/original-logo.png` (full colour) on light.
+Both are the same artwork on a transparent ground, so either drops straight onto
+its surface. Do not set the brand in type instead.
 
 **Grounds alternate.** Pages are NOT uniformly dark. On the homepage `intro`,
 `chef_story` and `faq` sit on bone and everything else is ink or emerald; on
@@ -514,7 +627,13 @@ tinting a photograph with the emerald ground greens the whole frame.
 visit block is bone. `SectionHeader` and `Cta` take a `tone` prop for this —
 passing the wrong one produces gold that fails contrast.
 
-**Type.** Bodoni Moda for display via `.lr-display`, Inter for body and UI.
+**Type.** Bodoni Moda for display via `.lr-display`, **Archivo** for body and
+UI. Amended 2026-09-20: it was Inter, which is the default every AI-built site
+reaches for and reads as the absence of a choice. Archivo is a grotesque with
+slightly condensed proportions and real texture at 13-16px, which is where most
+of this site's copy lives, and it pairs with Bodoni on a contrast axis rather
+than competing. Section headings cap at 3.25rem (was 4rem): a headline that
+outweighs the plate beside it is the wrong hierarchy for a restaurant.
 Arabic display falls back to IBM Plex Sans Arabic at 600: Bodoni has no Arabic,
 and a synthesised oblique on Arabic glyphs reads as a rendering fault, so
 `.lr-display` also forces `font-style: normal` under `dir="rtl"`. A real Arabic
@@ -524,10 +643,25 @@ display serif is one `next/font` call away if the client wants parity.
 documented exception is a photographic ARCH mask, used on the menu's visit block
 and taken from the reference.
 
-**Motion.** CSS only. Scroll reveals use native `animation-timeline: view()`
-behind an `@supports` guard, so nothing ships an IntersectionObserver and no
-animation library is in the bundle. `prefers-reduced-motion` is honoured
-throughout, including skipping the hero film entirely.
+**Motion.** CSS only, and **FOUR reveal materials, not one** (amended
+2026-09-20). A single identical entrance applied to all 35 reveal sites was the
+motion equivalent of putting the same label above every section. `.lr-plate` for
+photographs, `.lr-focus` for large feature photographs only (it adds a blur, so
+never on the 89-card grid), `.lr-unmask` for headings, `.lr-reveal` for body
+copy. All four run on `animation-timeline: view()` behind an `@supports` guard,
+so nothing ships an IntersectionObserver and no animation library is in the
+bundle.
+
+**The hero is the one exception and uses TIME-BASED motion** (`.lr-hero-*`). It
+is above the fold, so a view() timeline is already past its range at first paint
+and the hero had no entrance at all. The header's condense-on-scroll uses
+`scroll(root block)`. `prefers-reduced-motion` is honoured throughout, including
+skipping the hero film entirely.
+
+**No tracked-caps eyebrow above any section heading, and no decorative glyphs.**
+Both were the saturated AI section-scaffold. Every eyebrow now sets as a display
+italic kicker; the six lozenge glyphs are gone. Header alignment and section
+spacing vary by content rather than repeating one template.
 
 **Typographic house rules.** No em dash and no en dash in any visible string,
 in either locale — the Arabic faces do not carry them, so a dash falls back to a
@@ -598,7 +732,7 @@ delivery date. Track these from day one:
 2. **Homepage** — all 11 sections, the proving ground for every pattern
 3. **Client approval gate** — the remaining pages inherit these decisions, so a
    change of direction here costs one page instead of five
-4. `/menu` → `/menu/[category]` → `/menu/[category]/[dish]`
+4. `/menu` → `/menu/[category]` → `/menu/[category]/[dish]` — **done 2026-09-20**
 5. `/branches` → `/branches/[slug]`
 6. `/reservation` including the mock endpoint and all error states
 7. `/contact`, then the shared legal template

@@ -312,14 +312,8 @@ export function MenuBrowser({
               <section key={group.category.slug} className="pt-24 md:pt-32">
                 {/* The reference marks each course with a small caps title
                     between two lozenges. */}
-                <h2 className="flex items-center justify-center gap-4 text-[0.8125rem] tracking-[0.3em] text-ivory uppercase">
-                  <span aria-hidden="true" className="text-xs text-gold">
-                    &#9671;
-                  </span>
+                <h2 className="text-center text-[0.8125rem] tracking-[0.28em] text-ivory-dim uppercase">
                   {group.category.name}
-                  <span aria-hidden="true" className="text-xs text-gold">
-                    &#9671;
-                  </span>
                 </h2>
 
                 <ul className="mt-14 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-20">

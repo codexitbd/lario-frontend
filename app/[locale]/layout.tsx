@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
-import { Bodoni_Moda, IBM_Plex_Sans_Arabic, Inter } from 'next/font/google'
+import { Archivo, Bodoni_Moda, IBM_Plex_Sans_Arabic } from 'next/font/google'
+import { SiteFooter } from '@/components/layout/site-footer'
+import { SiteHeader } from '@/components/layout/site-header'
+import { getBranches } from '@/lib/api/branches'
+import { getSettings } from '@/lib/api/settings'
+import { getDictionary } from '@/lib/i18n/dictionaries'
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -9,7 +14,17 @@ import {
 } from '@/lib/i18n/config'
 import '@/app/globals.css'
 
-const inter = Inter({
+// Archivo, not Inter. Inter is the default every AI-built site reaches for and
+// it reads as absence of a choice; Archivo is a grotesque with slightly
+// condensed proportions and real texture at 13-16px, which is the size most of
+// this site's copy actually lives at (dish descriptions, hours, addresses). It
+// also pairs on a contrast axis with Bodoni rather than competing: Didone
+// high-contrast display against an even-weight workhorse.
+//
+// The Arabic face stays IBM Plex Sans Arabic. Arabic display options are
+// genuinely thin, it is a well-drawn face, and it is already the shipped
+// identity for half the audience.
+const latin = Archivo({
   subsets: ['latin'],
   variable: '--font-latin',
   display: 'swap',
@@ -60,18 +75,39 @@ export default async function LocaleLayout({
   // locale normalisation, so /de/robots.txt arrives here with locale="de".
   const active: Locale = isLocale(locale) ? locale : DEFAULT_LOCALE
 
+  // The chrome's data, fetched once here for both the header and the footer.
+  // All three are cached fetchers, so this costs one resolution per locale for
+  // the whole site rather than one per page.
+  const [branches, settings, dict] = await Promise.all([
+    getBranches(active),
+    getSettings(active),
+    getDictionary(active),
+  ])
+
   return (
     <html lang={active} dir={getDirection(active)}>
       <body
-        className={`${inter.variable} ${arabic.variable} ${display.variable}`}
+        className={`${latin.variable} ${arabic.variable} ${display.variable}`}
       >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
         >
-          Skip to content
+          {dict.actions.skipToContent}
         </a>
+        <SiteHeader
+          branches={branches}
+          settings={settings}
+          locale={active}
+          dict={dict}
+        />
         {children}
+        <SiteFooter
+          branches={branches}
+          settings={settings}
+          locale={active}
+          dict={dict}
+        />
       </body>
     </html>
   )

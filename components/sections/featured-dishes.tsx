@@ -136,14 +136,14 @@ export function FeaturedDishes({
           eyebrow={readText(content, 'eyebrow')}
           heading={readText(content, 'heading')}
           subheading={readText(content, 'subheading')}
-          treatment="label"
-          align="center"
+          treatment="kicker"
+          align="start"
         />
       </Container>
 
       <ul className="mt-14 grid grid-cols-1 md:mt-20 lg:h-[44rem] lg:grid-cols-5 lg:grid-rows-2">
         {/* Hero: the middle two columns, full height, naming over the image. */}
-        <li className="lr-reveal lg:col-span-2 lg:col-start-2 lg:row-span-2">
+        <li className="lr-plate lg:col-span-2 lg:col-start-2 lg:row-span-2">
           <Link
             href={localePath(locale, hero.url)}
             className="group relative flex aspect-[4/5] items-end justify-center overflow-hidden sm:aspect-[16/10] lg:h-full lg:aspect-auto"
@@ -182,7 +182,7 @@ export function FeaturedDishes({
           return (
             <li
               key={tile.item.slug}
-              className={`lr-reveal ${placement}`}
+              className={`lr-plate ${placement}`}
               style={{ '--i': index + 1 } as CSSProperties}
             >
               <Link

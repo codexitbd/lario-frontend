@@ -11,21 +11,31 @@ import type { Locale } from '@/lib/i18n/config'
 const HERO_SLOT = 'home.hero'
 
 /**
- * Reference 00-hero: the film fills the viewport, the type sits over it, and
- * nothing else competes.
+ * Reference 00-hero: the film fills the viewport and nothing competes with it.
  *
- * Full-bleed and full-height. Three text elements and a pair of CTAs, and
- * deliberately nothing beneath them — no branch strip, no scroll cue, no
- * shaped bottom edge. The hero's job is the value proposition and the primary
- * action; the branches get a whole section of their own further down.
+ * BOTTOM-ANCHORED AND ASYMMETRIC, not a centred stack. The type sits on the
+ * lower third as a title card, headline on the start side and the lede plus
+ * both actions on the end side, which leaves the top ~60% of the frame as pure
+ * film. A centred column over full-bleed media is the canonical restaurant
+ * move and also the canonical AI one; splitting the base keeps the first and
+ * loses the second. It mirrors correctly in RTL because the split is a grid,
+ * not a float.
+ *
+ * THE SCRIM IS EDGE-WEIGHTED. An earlier pass pooled a radial gradient in the
+ * middle of the frame to hold centred type, which dimmed the footage exactly
+ * where the food is. Weight now lives at the two edges: enough at the top for
+ * the fixed header, heavy at the base where the copy actually sits, and the
+ * centre left alone so the film keeps its own contrast.
+ *
+ * MOTION IS TIME-BASED HERE, uniquely on this site. Everything else reveals on
+ * a view() timeline, but the hero is above the fold, so a scroll timeline is
+ * already past its range at first paint and produced no entrance at all. See
+ * `.lr-hero-*` in globals.css. The delays are stated in the markup via --d so
+ * the running order reads top to bottom.
  *
  * The photograph is the LCP element and carries `priority`; the YouTube film
  * layers on top once the browser is idle. See hero-video.tsx for why that
  * order is not negotiable.
- *
- * The scrim is neutral, not emerald. Tinting it with --color-ink pushed green
- * through the whole frame and made the footage look colour-graded rather than
- * lit.
  */
 export function Hero({
   section,
@@ -36,6 +46,8 @@ export function Hero({
 }) {
   const { payload, content } = section
   const heading = readText(content, 'heading')
+  const eyebrow = readText(content, 'eyebrow')
+  const subheading = readText(content, 'subheading')
   const background = readImage(payload, 'background_image')
   // The scrim follows what will actually render, not just the fixture: a
   // stand-in photograph needs scrimming exactly as much as a real one, and the
@@ -46,7 +58,7 @@ export function Hero({
   const videoId = readText(payload, 'video') || PLACEHOLDER_HERO_VIDEO
 
   return (
-    <section className="relative isolate flex min-h-[100dvh] flex-col justify-center overflow-hidden py-24">
+    <section className="relative isolate flex min-h-[100dvh] flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-20">
       <Figure
         src={background}
         slot={HERO_SLOT}
@@ -55,26 +67,16 @@ export function Hero({
         sizes="100vw"
         priority
         labelPosition="bottom"
-        className="absolute inset-0 -z-20"
+        className="lr-hero-plate absolute inset-0 -z-20"
       />
 
       {videoId ? <HeroVideo videoId={videoId} title={heading} /> : null}
 
       {hasPhoto ? (
-        <>
-          {/* Light enough to keep the footage's own colour, heavy enough to
-              hold the type at AA. A flat full-cover tint is what made this
-              read as a green wash, so the weight lives in the edges and in a
-              soft pool behind the copy instead. */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 -z-[5] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-scrim)_80%,transparent)_0%,color-mix(in_srgb,var(--color-scrim)_20%,transparent)_30%,color-mix(in_srgb,var(--color-scrim)_26%,transparent)_64%,color-mix(in_srgb,var(--color-scrim)_86%,transparent)_100%)]"
-          />
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 -z-[5] bg-[radial-gradient(56%_44%_at_50%_50%,color-mix(in_srgb,var(--color-scrim)_52%,transparent)_0%,transparent_74%)]"
-          />
-        </>
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 -z-[5] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-scrim)_62%,transparent)_0%,color-mix(in_srgb,var(--color-scrim)_12%,transparent)_26%,color-mix(in_srgb,var(--color-scrim)_18%,transparent)_48%,color-mix(in_srgb,var(--color-scrim)_78%,transparent)_82%,color-mix(in_srgb,var(--color-scrim)_92%,transparent)_100%)]"
+        />
       ) : (
         <span
           aria-hidden="true"
@@ -82,39 +84,48 @@ export function Hero({
         />
       )}
 
-      <Container className="relative flex flex-col items-center text-center">
-        {readText(content, 'eyebrow') ? (
-          <p className="lr-reveal flex items-center gap-4 text-[0.6875rem] tracking-[0.24em] text-gold uppercase">
-            <span aria-hidden="true" className="hidden h-px w-10 bg-gold/40 sm:block" />
-            {readText(content, 'eyebrow')}
-            <span aria-hidden="true" className="hidden h-px w-10 bg-gold/40 sm:block" />
+      <Container className="relative">
+        {eyebrow ? (
+          <p
+            className="lr-hero-in text-[0.6875rem] tracking-[0.24em] text-gold uppercase"
+            style={{ '--d': 150 } as CSSProperties}
+          >
+            {eyebrow}
           </p>
         ) : null}
 
-        <h1
-          className="lr-display lr-reveal mt-6 max-w-[26ch] text-[clamp(2.25rem,1.1rem+4.2vw,4.25rem)] leading-[1.06] text-ivory"
-          style={{ '--i': 1 } as CSSProperties}
-        >
-          {heading}
-        </h1>
+        {/* items-end aligns the two columns on their last line, so the headline
+            and the actions share a baseline no matter how either wraps. */}
+        <div className="mt-6 grid items-end gap-y-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-x-16">
+          <h1
+            className="lr-display lr-hero-title max-w-[16ch] text-[clamp(2.25rem,1.1rem+4.2vw,4.25rem)] leading-[1.04] text-balance text-ivory"
+            style={{ '--d': 300 } as CSSProperties}
+          >
+            {heading}
+          </h1>
 
-        <p
-          className="lr-reveal mt-6 max-w-[46ch] text-base leading-relaxed text-ivory-dim md:text-lg"
-          style={{ '--i': 2 } as CSSProperties}
-        >
-          {readText(content, 'subheading')}
-        </p>
+          <div>
+            {subheading ? (
+              <p
+                className="lr-hero-in max-w-[44ch] text-base leading-relaxed text-pretty text-ivory-dim md:text-lg"
+                style={{ '--d': 520 } as CSSProperties}
+              >
+                {subheading}
+              </p>
+            ) : null}
 
-        <div
-          className="lr-reveal mt-10 flex flex-col items-center gap-4 sm:flex-row"
-          style={{ '--i': 3 } as CSSProperties}
-        >
-          <Cta href={localePath(locale, '/reservation')} variant="solid">
-            {readText(content, 'cta_label')}
-          </Cta>
-          <Cta href={localePath(locale, '/menu')} variant="outline">
-            {readText(content, 'secondary_cta_label')}
-          </Cta>
+            <div
+              className="lr-hero-in mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
+              style={{ '--d': 660 } as CSSProperties}
+            >
+              <Cta href={localePath(locale, '/reservation')} variant="solid">
+                {readText(content, 'cta_label')}
+              </Cta>
+              <Cta href={localePath(locale, '/menu')} variant="outline">
+                {readText(content, 'secondary_cta_label')}
+              </Cta>
+            </div>
+          </div>
         </div>
       </Container>
     </section>

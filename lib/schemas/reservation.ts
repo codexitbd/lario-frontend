@@ -55,6 +55,22 @@ export const contactSchema = z.object({
 })
 export type ContactInput = z.infer<typeof contactSchema>
 
+/**
+ * Newsletter signup. Deliberately two fields: every extra input on a footer
+ * form costs completions, and a mailing list needs an address and a language to
+ * send in, nothing else. `locale` drives both the 422 message language and
+ * which list the backend files the address under.
+ *
+ * Consent is captured by submission against the visible notice next to the
+ * field rather than a checkbox, which is the standard pattern and is what the
+ * contract records.
+ */
+export const newsletterSchema = z.object({
+  email: z.email(),
+  locale: localeSchema,
+})
+export type NewsletterInput = z.infer<typeof newsletterSchema>
+
 // Numerals in the Arabic strings are LATIN (1, 20, 1000), not Arabic-Indic
 // (١, ٢٠, ١٠٠٠). Decision D16 and lib/format.ts's NUMERAL_SYSTEM = 'latn' make
 // Latin digits the sitewide rule for Arabic; a validation message rendering

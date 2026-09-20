@@ -52,4 +52,21 @@ describe('getMenuItem', () => {
     expect(item!.related.length).toBeLessThanOrEqual(4)
     expect(item!.related.every((r) => r.slug !== item!.slug)).toBe(true)
   })
+
+  it('carries name_alt in the other script, or null when the two match', async () => {
+    const en = await getMenuItem('en', 'urfa-kebab')
+    expect(en!.name_alt).toMatch(/[\u0600-\u06ff]/)
+
+    const ar = await getMenuItem('ar', 'urfa-kebab')
+    expect(ar!.name_alt).toBe(en!.name)
+
+    // All 89 fixture rows are translated, so every one has a real second name.
+    // The null branch guards untranslated CMS rows, where resolveTranslation
+    // falls back to `en` and both names come back identical; no fixture
+    // reaches it, so it is not asserted here.
+    for (const item of await getMenuItems('en')) {
+      const full = await getMenuItem('en', item.slug)
+      expect(full!.name_alt).not.toBeNull()
+    }
+  })
 })

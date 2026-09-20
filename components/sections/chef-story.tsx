@@ -31,27 +31,20 @@ export function ChefStory({
   return (
     <section className="relative overflow-hidden bg-bone py-24 md:py-36">
       <Container>
-        <header className="lr-reveal flex flex-col items-center text-center">
+        {/* Start-aligned, and no rules flanking the heading. This header sits
+            above a two-column split, so centring it floated a symmetrical block
+            over an asymmetric body; the hairlines were the same section
+            scaffold removed from SectionHeader. */}
+        <header className="lr-reveal flex max-w-[52ch] flex-col items-start text-start">
           <p className="lr-display pb-1 text-xl leading-[1.15] text-gold-ink italic md:text-2xl">
             {readText(content, 'eyebrow')}
           </p>
 
-          {/* Rules flank the heading itself, not a label above it. */}
-          <div className="mt-5 flex w-full items-center justify-center gap-6">
-            <span
-              aria-hidden="true"
-              className="hidden h-px max-w-40 flex-1 bg-gold-ink/35 sm:block"
-            />
-            <h2 className="lr-display max-w-[16ch] text-[clamp(2rem,1.2rem+3.4vw,4rem)] leading-[1.08] text-ink">
-              {readText(content, 'heading')}
-            </h2>
-            <span
-              aria-hidden="true"
-              className="hidden h-px max-w-40 flex-1 bg-gold-ink/35 sm:block"
-            />
-          </div>
+          <h2 className="lr-display lr-unmask mt-4 max-w-[16ch] text-[clamp(1.875rem,1.1rem+2.6vw,3.25rem)] leading-[1.08] text-balance text-ink">
+            {readText(content, 'heading')}
+          </h2>
 
-          <p className="mt-7 max-w-[54ch] text-base leading-relaxed text-ink md:text-lg">
+          <p className="mt-6 max-w-[54ch] text-base leading-relaxed text-pretty text-ink md:text-lg">
             {readText(content, 'subheading')}
           </p>
         </header>
@@ -83,7 +76,7 @@ export function ChefStory({
           </div>
 
           <div
-            className="lr-reveal lg:col-span-7"
+            className="lr-focus lg:col-span-7"
             style={{ '--i': 2 } as CSSProperties}
           >
             <Figure

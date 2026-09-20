@@ -15,11 +15,11 @@ reaches it.
 |---|---|---|
 | `homepage/` | yes, 17 images | **yes** — all 11 sections, EN + AR |
 | `menu/menu.png` | yes, 1 image | **yes** — `/menu` landing, EN + AR |
-| `menu/` category + dish | no | no — `/menu/[category]` and the dish page |
+| `menu/` category + dish | **no** | **yes** — built from the `/menu` language, since no reference was supplied |
 | `branches/` | no | no |
 | `reservation/` | no | no |
 | `contact/` | no | no |
-| `shared/` | **no** | no — header, footer, nav, lightbox all blocked on this |
+| `shared/` | **yes, 4 images** — header + footer, each desktop and mobile | **header and footer yes**; locale switcher, lightbox, branch picker and toasts still blocked |
 
 The design system produced from these is recorded in the spec's §12 and
 summarised in `../lario-web-CLAUDE.md`. Read that before adding a page: the
@@ -27,9 +27,10 @@ palette, the bone/dark ground alternation, the square-corner rule and the
 no-dash typographic rule are all already decided, and a new page should inherit
 them rather than re-derive them.
 
-**The shared layer is the blocker.** Header, footer, nav and the gallery
-lightbox cannot be designed without references, and `NOTES.md` defers the nav
-explicitly. Drop images into `shared/` when they exist.
+**The shared layer is partly unblocked.** Four references landed on 2026-09-20
+and the header and footer are built from them. The locale switcher, gallery
+lightbox, branch-picker dialog and toasts still have no reference. Drop images
+into `shared/` when they exist.
 
 ---
 
@@ -127,13 +128,19 @@ in `NOTES.md`. Do not force it into a numbered slot.
 
 ### `shared/` — spec §10, cross-page
 
-| File | Contents |
-|---|---|
-| `header.*` | Sticky header, logo, nav, locale switcher, Reserve button |
-| `header-mobile.*` | Drawer open state |
-| `footer.*` | Branches, hours, contact, social, legal |
-| `lightbox.*` | Gallery viewer |
-| `carousel.*` | Testimonial controls |
+**Mind the filenames — they are swapped.** `header-mobile.png` is the DESKTOP
+header drawn in full; `header.png` is the condensed state. Supplied as-is by the
+client; the components are built to the drawings, not to the names.
+
+| File | Contents | Built |
+|---|---|---|
+| `header-mobile.*` | The full desktop header: utility strip (address, phone, email), wordmark, centred nav with an active rule, outlined Reserve button | **yes** |
+| `header.*` | The condensed state: wordmark and a hamburger on a dark ground | **yes** |
+| `footer.*` | Three zones plus a bottom rule. **RETIRED 2026-09-20** — it is a lab-automation SaaS footer and its vocabulary is boxes. Two passes copied it faithfully and produced ten containers in a fine-dining footer. Do not build from it again | superseded |
+| `footer-mobile.*` | The same three zones stacked to one column | superseded, as above |
+| `lightbox.*` | Gallery viewer | no reference |
+| `carousel.*` | Testimonial controls | no reference |
+| — | Locale switcher, branch-picker dialog, toasts | no reference |
 | `branch-dialog.*` | Branch picker modal |
 | `toast.*` | Form feedback |
 

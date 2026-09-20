@@ -1,6 +1,7 @@
 import { Container } from '@/components/ui/container'
 import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
+import { formatPhone } from '@/lib/format'
 import { groupOpeningHours } from '@/lib/hours'
 import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
@@ -39,7 +40,7 @@ export function VisitBlock({
     <section className="bg-bone py-24 md:py-32">
       <Container>
         <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-24">
-          <div className="lr-reveal relative">
+          <div className="lr-focus relative">
             {/* Arch: square at the base, semicircular at the head. */}
             <Figure
               src={null}
@@ -111,7 +112,7 @@ export function VisitBlock({
                     dir="ltr"
                     className="transition-colors duration-300 hover:text-gold-ink"
                   >
-                    {settings.contact.phone}
+                    {formatPhone(settings.contact.phone)}
                   </a>
                 </dd>
               </div>
@@ -129,7 +130,7 @@ export function VisitBlock({
                           href={branch.google_maps_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="ms-3 inline-block border-b border-gold-ink/40 pb-0.5 text-[0.625rem] tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
+                          className="ms-3 inline-flex min-h-6 items-center border-b border-gold-ink/40 pb-0.5 text-[0.625rem] tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
                         >
                           {dict.branch.getDirections}
                         </a>

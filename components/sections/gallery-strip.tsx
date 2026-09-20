@@ -47,13 +47,13 @@ export function GalleryStrip({
   }))
 
   return (
-    <section className="overflow-hidden bg-ink py-24 md:py-36">
+    <section className="overflow-hidden bg-ink py-16 md:py-20">
       <Container>
         <SectionHeader
           eyebrow={readText(content, 'eyebrow')}
           heading={readText(content, 'heading')}
           subheading={readText(content, 'subheading')}
-          treatment="label"
+          treatment="kicker"
           align="center"
         />
       </Container>

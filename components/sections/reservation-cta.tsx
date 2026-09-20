@@ -36,7 +36,7 @@ export function ReservationCta({
     : '/reservation'
 
   return (
-    <section className="relative isolate overflow-hidden border-t border-gold/25 bg-ink py-24 md:py-36">
+    <section className="relative isolate overflow-hidden border-t border-gold/25 bg-ink py-28 md:py-44">
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_0%,color-mix(in_srgb,var(--color-gold)_9%,transparent)_0%,transparent_70%)]"
@@ -63,7 +63,7 @@ export function ReservationCta({
                     locale,
                     `/reservation?branch=${branch.slug}`,
                   )}
-                  className="border-b border-gold/30 pb-1 text-sm text-gold transition-colors duration-300 hover:border-gold hover:text-gold-pale"
+                  className="inline-flex min-h-6 items-center border-b border-gold/30 pb-1 text-sm text-gold transition-colors duration-300 hover:border-gold hover:text-gold-pale"
                 >
                   {branch.name}
                 </Link>

@@ -16,6 +16,9 @@ every week until it is empty.
 | 9 | Argentina Style Asado calorie value — flagged in quotation | Open | 2026-09-18 |
 | 10 | Default social-card OG image — no asset exists; `DEFAULT_OG_IMAGE` is `null` until one is supplied | Open | 2026-09-18 |
 | 11 | `short_description` now MIRRORS the long `description` on all 89 dishes, in both locales, so the menu cards read properly. The descriptions happen to be card-length already (47-130 characters), but they were written as dish-page copy. Tighter card-specific lines — roughly 10-14 words — would let the two fields do different jobs. Not blocking. | Open | 2026-09-20 |
+| 12 | `ingredients_note` and `preparation_note` are null on **all 89 dishes**. The dish page's "about this dish" band is now reserved for this prose and therefore renders on NO dish at all today; allergens moved inline into the hero. Supplying two or three lines per dish turns the band on and gives each dish page unique copy worth ranking. | Open | 2026-09-20 |
+
+| 13 | Newsletter copy is PLACEHOLDER, written by us, not by the client: the invitation ("Join our list"), what subscribers get, the consent line and the confirmation message, in both locales. The signup is live and stores real addresses, so this copy is a promise the restaurant has to keep. Needs client sign-off before launch, and a decision on what they will actually send and how often. | Open | 2026-09-20 |
 
 ## Gap 8 — the shoot list
 

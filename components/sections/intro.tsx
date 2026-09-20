@@ -38,7 +38,7 @@ export function Intro({ section }: { section: { payload: Bag; content: Bag } }) 
   const cards = readList(content, 'cards', cuisineCardSchema)
 
   return (
-    <section className="relative bg-bone py-24 md:py-36">
+    <section className="relative bg-bone py-28 md:py-44">
       <Container>
         <SectionHeader
           eyebrow={readText(content, 'eyebrow')}

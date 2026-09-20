@@ -11,7 +11,10 @@
     "gallery": "Gallery",
     "events": "Events",
     "blog": "Journal",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "primary": "Primary"
   },
   "actions": {
     "reserve": "Reserve a Table",
@@ -52,7 +55,24 @@
       "halal": "Halal"
     },
     "visitUs": "Visit Us",
-    "filters": "Filters"
+    "filters": "Filters",
+    "inThisCourse": "In this course",
+    "aboutThisDish": "About this dish",
+    "otherCourses": "Other courses",
+    "allergenNames": {
+      "gluten": "Gluten",
+      "dairy": "Dairy",
+      "nuts": "Nuts",
+      "shellfish": "Shellfish",
+      "egg": "Egg",
+      "soy": "Soy"
+    },
+    "allergenNone": "No listed allergens",
+    "backToMenu": "All dishes",
+    "ingredients": "Ingredients",
+    "preparation": "How we cook it",
+    "moreFromCourse": "More from {course}",
+    "contains": "Contains"
   },
   "reservation": {
     "stepBranch": "Branch",
@@ -98,6 +118,23 @@
   "footer": {
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
-    "terms": "Terms & Conditions"
+    "terms": "Terms & Conditions",
+    "explore": "Explore",
+    "visitUs": "Visit us",
+    "followUs": "Follow us",
+    "getInTouch": "Get in touch",
+    "whatsapp": "WhatsApp",
+    "callUs": "Call us",
+    "emailUs": "Email us",
+    "newsletterTitle": "Join our list",
+    "newsletterBody": "New dishes from the grill, seasonal menus, and private dining dates. A few times a year.",
+    "newsletterLabel": "Email address",
+    "newsletterAction": "Join",
+    "newsletterConsent": "You can unsubscribe at any time.",
+    "newsletterSuccess": "You are on the list. Check your inbox to confirm.",
+    "newsletterError": "That did not go through. Please try again.",
+    "openUntil": "Open now until {time}",
+    "opensOn": "Opens {day} at {time}",
+    "closedToday": "Closed today"
   }
 }

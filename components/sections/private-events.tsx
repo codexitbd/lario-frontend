@@ -83,16 +83,8 @@ export function PrivateEvents({
             />
 
             {readText(content, 'eyebrow') ? (
-              <p className="mt-6 flex items-center gap-4 text-[0.6875rem] tracking-[0.24em] text-gold uppercase">
-                <span
-                  aria-hidden="true"
-                  className="hidden h-px w-10 bg-gold/40 sm:block"
-                />
+              <p className="mt-6 text-[0.6875rem] tracking-[0.24em] text-gold uppercase">
                 {readText(content, 'eyebrow')}
-                <span
-                  aria-hidden="true"
-                  className="hidden h-px w-10 bg-gold/40 sm:block"
-                />
               </p>
             ) : null}
 
@@ -116,7 +108,7 @@ export function PrivateEvents({
             return (
               <li
                 key={card.title}
-                className="lr-reveal group relative aspect-[3/4] overflow-hidden"
+                className="lr-plate group relative aspect-[3/4] overflow-hidden"
                 style={{ '--i': index } as CSSProperties}
               >
                 <Figure
