@@ -689,7 +689,7 @@
       "gluten",
       "egg"
     ],
-    "is_featured": false,
+    "is_featured": true,
     "is_available": true,
     "sort_order": 0,
     "translations": {
@@ -1233,7 +1233,7 @@
       "vegetarian"
     ],
     "allergens": [],
-    "is_featured": false,
+    "is_featured": true,
     "is_available": true,
     "sort_order": 0,
     "translations": {
@@ -1498,7 +1498,7 @@
     "allergens": [
       "gluten"
     ],
-    "is_featured": false,
+    "is_featured": true,
     "is_available": true,
     "sort_order": 0,
     "translations": {
@@ -2428,7 +2428,7 @@
       "halal"
     ],
     "allergens": [],
-    "is_featured": true,
+    "is_featured": false,
     "is_available": true,
     "sort_order": 0,
     "translations": {

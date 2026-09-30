@@ -14,15 +14,15 @@ is the difference between one pass and three.
 |`homepage/01-intro-hover.png` | show the name and short catchy descrioption like the image on hover with golden glow from out golden color | Its palette — use ours. |
 |`homepage/01-intro-mobile.png` | same card after section text comes one after one hover effect work on tap | Its palette — use ours. |
 |`homepage/01-intro-bottom.png` | keep the bottom shape like this and parelax to the next section | Its palette — use ours. |
-|`homepage/02-featured-dishes.png` | the desing shown only 4 but i want you to modify this same desing referance into 6 | Its palette — use ours. |
-|`homepage/03-why-lario.png` | the exact layout | Its palette — use ours, its content - use our. |
+|`homepage/02-featured-dishes.png` | **SUPERSEDED 2026-09-30** — the client asked for a new design in its place: four 1:1 cards across the full width, naming over the base of each plate, one expanding to a square on hover, autoplaying as a carousel that advances one card at a time. Built as `signature-favourites.tsx` | Its palette — use ours. |
+|`homepage/03-why-lario.png` | **SUPERSEDED 2026-09-30** — the client found the built version dull and generic and asked for something creative and modern that does not lean on colour. Rebuilt as a large-type ledger of the four points beside one full-height photograph, on the neutral ink ground | Its palette — use ours. |
 |`homepage/04-chef-story.png` | the exact layout | Its palette — use ours, its content - use our. |
 |`homepage/05-branch-cards.png` | the exact layout and place the 2 branch as the branch content | Its palette — use ours, its content - use our. |
 |`homepage/05-branch-cards-on-hover.png` | on hover scale image and width  | Its palette — use ours, its content - use our. |
 |`homepage/05-branch-cards-on-other-hover.png` | on hover scale image and width  | Its palette — use ours, its content - use our. |
 |`homepage/06-private-events.png` | the layout  | Its palette — use ours, its content - use our, not the rounded corner - use corner like other desing. |
 |`homepage/07-gallery-strip.png` | the layout and on hover image will be 0 degree and will have a autoplay caresol so its moving and on hover it stop  | Its palette — use ours, its content - use our, not the rounded corner - use corner like other desing. |
-|`homepage/08-testimonials.png` | the layout  | Its palette — use ours, its content - use our. |
+|`homepage/08-testimonials.png` | **SUPERSEDED 2026-09-30** by the client's fanned-card reference (21st.dev stagger testimonials), built as `review-fan.tsx` on real Google reviews | Its palette — use ours, its content - use our. |
 |`homepage/08-testimonials-next-transition.png` | when autoplay starts the image will over another like the screenshot effect and also the text  | Its palette — use ours, its content - use our. |
 |`shared/header-mobile.png` | THE DESKTOP HEADER despite the filename. Two decks: a hairline utility strip (pin + address, phone, email) over a main bar with the wordmark, a centred nav, an active-item rule, and an outlined Reserve button. Transparent over the hero. | Its palette and face. Its dropdown carets — our Phase-4 items are disabled, not parents. Its six-item nav list; ours is the five live routes. |
 |`shared/header.png` | The CONDENSED state: wordmark plus a hamburger on a dark ground. This is what the header becomes on scroll, and what it is at mobile width. | Its "P." mark — we set our own wordmark in Bodoni. |

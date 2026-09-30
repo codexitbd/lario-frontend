@@ -1,0 +1,437 @@
+- generic [active] [ref=f3e1]:
+  - link "تخطَّ إلى المحتوى" [ref=f3e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=f3e3]:
+    - generic [ref=f3e5]:
+      - link "La Rio" [ref=f3e6] [cursor=pointer]:
+        - /url: /ar
+        - img "La Rio" [ref=f3e7]
+      - button "فتح القائمة" [ref=f3e8]
+  - main [ref=f3e12]:
+    - generic [ref=f3e17]:
+      - paragraph [ref=f3e18]: حكاية طعام تتجاوز الحدود
+      - generic [ref=f3e19]:
+        - heading "مطبخ إيطالي وتركي وأرجنتيني في الرياض" [level=1] [ref=f3e20]
+        - generic [ref=f3e21]:
+          - paragraph [ref=f3e22]: يجمع لا ريو نار الأرجنتين الجريئة ووصفات إيطاليا الخالدة وكرم الضيافة التركية على مائدة واحدة.
+          - generic [ref=f3e23]:
+            - link "احجز طاولتك" [ref=f3e24] [cursor=pointer]:
+              - /url: /ar/reservation
+            - link "تصفح القائمة" [ref=f3e25] [cursor=pointer]:
+              - /url: /ar/menu
+    - generic [ref=f3e28]:
+      - generic [ref=f3e29]:
+        - paragraph [ref=f3e30]: ثلاثة مطابخ على مائدة واحدة
+        - heading "قائمة واحدة، ثلاث ثقافات" [level=2] [ref=f3e31]
+        - paragraph [ref=f3e32]: يأتي كل طبق في لا ريو من أحد المطابخ الثلاثة التي تعمل جنباً إلى جنب حول شوايتنا المفتوحة على الفحم.
+      - list [ref=f3e33]:
+        - listitem [ref=f3e34]:
+          - generic [ref=f3e36]:
+            - heading "إيطالي" [level=3] [ref=f3e37]
+            - generic:
+              - paragraph:
+                - generic [ref=f3e38]: بيتزا مخبوزة على الحطب، وباستا وريزوتو معدة يدوياً، على الطريقة التي عُرفت بها شمال إيطاليا دائماً.
+        - listitem [ref=f3e39]:
+          - generic [ref=f3e41]:
+            - heading "تركي" [level=3] [ref=f3e42]
+            - generic:
+              - paragraph:
+                - generic [ref=f3e43]: كباب على الفحم، ومقبلات باردة، وأطباق مطهوة ببطء، تصل من الشواية إلى مائدتك مباشرة.
+        - listitem [ref=f3e44]:
+          - generic [ref=f3e46]:
+            - heading "أرجنتيني" [level=3] [ref=f3e47]
+            - generic:
+              - paragraph:
+                - generic [ref=f3e48]: قطع لحم فاخرة وأسادو كامل، يُطهى ببطء فوق جمر مفتوح على الطريقة الأرجنتينية.
+    - generic [ref=f3e50]:
+      - generic [ref=f3e52]:
+        - paragraph [ref=f3e53]: من القائمة
+        - heading "أطباقنا المميزة" [level=2] [ref=f3e54]
+        - paragraph [ref=f3e55]: الأطباق التي يعود إليها ضيوفنا.
+      - list [ref=f3e57]:
+        - listitem [ref=f3e58]:
+          - link "الستيك والأطباق الرئيسية أسادو على الطريقة الأرجنتينية ‏320 ر.س.‏ عرض التفاصيل" [ref=f3e59] [cursor=pointer]:
+            - /url: /ar/menu/steaks-and-mains/assado-argentina-style
+            - generic [ref=f3e62]:
+              - generic [ref=f3e63]: الستيك والأطباق الرئيسية
+              - generic [ref=f3e64]: أسادو على الطريقة الأرجنتينية
+              - generic:
+                - generic:
+                  - generic [ref=f3e65]: ‏320 ر.س.‏
+                  - generic [ref=f3e66]: عرض التفاصيل
+        - listitem [ref=f3e67]:
+          - link "الباستا والريزوتو فيتوتشيني ألفريدو على عجلة البارميزان ‏98 ر.س.‏ عرض التفاصيل" [ref=f3e68] [cursor=pointer]:
+            - /url: /ar/menu/pasta-and-risotto/fettuccine-alfredo-on-the-parmesan-wheel
+            - generic [ref=f3e71]:
+              - generic [ref=f3e72]: الباستا والريزوتو
+              - generic [ref=f3e73]: فيتوتشيني ألفريدو على عجلة البارميزان
+              - generic:
+                - generic:
+                  - generic [ref=f3e74]: ‏98 ر.س.‏
+                  - generic [ref=f3e75]: عرض التفاصيل
+        - listitem [ref=f3e76]:
+          - link "الكباب والأسياخ كباب أورفة ‏98 ر.س.‏ عرض التفاصيل" [ref=f3e77] [cursor=pointer]:
+            - /url: /ar/menu/kebabs-and-skewers/urfa-kebab
+            - generic [ref=f3e80]:
+              - generic [ref=f3e81]: الكباب والأسياخ
+              - generic [ref=f3e82]: كباب أورفة
+              - generic:
+                - generic:
+                  - generic [ref=f3e83]: ‏98 ر.س.‏
+                  - generic [ref=f3e84]: عرض التفاصيل
+        - listitem [ref=f3e85]:
+          - link "البيتزا بيتزا لا ريو المميزة ‏95 ر.س.‏ عرض التفاصيل" [ref=f3e86] [cursor=pointer]:
+            - /url: /ar/menu/pizza/pizza-la-rio-signature
+            - generic [ref=f3e89]:
+              - generic [ref=f3e90]: البيتزا
+              - generic [ref=f3e91]: بيتزا لا ريو المميزة
+              - generic:
+                - generic:
+                  - generic [ref=f3e92]: ‏95 ر.س.‏
+                  - generic [ref=f3e93]: عرض التفاصيل
+        - listitem [ref=f3e94]:
+          - link "السلطات سلطة البوراتا ‏62 ر.س.‏ عرض التفاصيل" [ref=f3e95] [cursor=pointer]:
+            - /url: /ar/menu/salads/burrata-salad
+            - generic [ref=f3e98]:
+              - generic [ref=f3e99]: السلطات
+              - generic [ref=f3e100]: سلطة البوراتا
+              - generic:
+                - generic:
+                  - generic [ref=f3e101]: ‏62 ر.س.‏
+                  - generic [ref=f3e102]: عرض التفاصيل
+        - listitem [ref=f3e103]:
+          - link "المقبلات الباردة لحم بعجين ‏38 ر.س.‏ عرض التفاصيل" [ref=f3e104] [cursor=pointer]:
+            - /url: /ar/menu/cold-mezze/lahmacun
+            - generic [ref=f3e107]:
+              - generic [ref=f3e108]: المقبلات الباردة
+              - generic [ref=f3e109]: لحم بعجين
+              - generic:
+                - generic:
+                  - generic [ref=f3e110]: ‏38 ر.س.‏
+                  - generic [ref=f3e111]: عرض التفاصيل
+        - listitem [ref=f3e112]:
+          - link "المقبلات الساخنة إمبناداس بالدجاج ‏48 ر.س.‏ عرض التفاصيل" [ref=f3e113] [cursor=pointer]:
+            - /url: /ar/menu/starters/chicken-empanadas
+            - generic [ref=f3e116]:
+              - generic [ref=f3e117]: المقبلات الساخنة
+              - generic [ref=f3e118]: إمبناداس بالدجاج
+              - generic:
+                - generic:
+                  - generic [ref=f3e119]: ‏48 ر.س.‏
+                  - generic [ref=f3e120]: عرض التفاصيل
+        - listitem [ref=f3e121]:
+          - link "الشوربات شوربة الحريرة ‏34 ر.س.‏ عرض التفاصيل" [ref=f3e122] [cursor=pointer]:
+            - /url: /ar/menu/soups/harira-soup
+            - generic [ref=f3e125]:
+              - generic [ref=f3e126]: الشوربات
+              - generic [ref=f3e127]: شوربة الحريرة
+              - generic:
+                - generic:
+                  - generic [ref=f3e128]: ‏34 ر.س.‏
+                  - generic [ref=f3e129]: عرض التفاصيل
+      - link "عرض القائمة كاملة" [ref=f3e131] [cursor=pointer]:
+        - /url: /ar/menu
+    - generic [ref=f3e135]:
+      - generic [ref=f3e136]:
+        - paragraph [ref=f3e137]: لماذا لا ريو
+        - heading "ما يميز مائدتنا" [level=2] [ref=f3e138]
+        - paragraph [ref=f3e139]: نادراً ما تشترك ثلاثة مطابخ في مطبخ واحد. في لا ريو، تشترك في شواية واحدة.
+      - list [ref=f3e142]:
+        - listitem [ref=f3e143]:
+          - generic [ref=f3e146]: شواية فحم مفتوحة تُدار طوال الليل
+        - listitem [ref=f3e147]:
+          - generic [ref=f3e150]: ثلاثة مطابخ في مطبخ واحد مشترك
+        - listitem [ref=f3e151]:
+          - generic [ref=f3e154]: فرعان في أنحاء الرياض
+        - listitem [ref=f3e155]:
+          - generic [ref=f3e158]: طاولات عائلية وجلسات خاصة على حد سواء
+      - link "احجز طاولتك" [ref=f3e159] [cursor=pointer]:
+        - /url: /ar/reservation
+    - generic [ref=f3e162]:
+      - generic [ref=f3e163]:
+        - paragraph [ref=f3e164]: قصتنا
+        - heading "بُنيت حول النار" [level=2] [ref=f3e165]
+        - paragraph [ref=f3e166]: افتُتح فرع النرجس أولاً، ثم تبعه فرع الياسمين بعد أربع سنوات، وصُمم لعشاءات أطول وأكثر تمهلاً.
+      - generic [ref=f3e168]:
+        - paragraph [ref=f3e169]: "بدأ لا ريو بفكرة بسيطة: وضع الشواية في قلب الصالة بدلاً من إخفائها في الخلف. تعتمد مطابخنا على تقنية الأسادو الأرجنتينية، وحرفية الباستا والبيتزا الإيطالية، وطهي الفحم التركي، وينتقل طهاتنا بين المطابخ الثلاثة بدل الالتزام بواحد فقط. والنتيجة قائمة تشترك في نار واحدة أكثر مما تشترك في عادات بلد واحد."
+        - generic [ref=f3e170]:
+          - link "زورونا في النرجس" [ref=f3e171] [cursor=pointer]:
+            - /url: /ar/branches/narjis
+          - link "زورونا في الياسمين" [ref=f3e172] [cursor=pointer]:
+            - /url: /ar/branches/al-yasmin
+    - generic [ref=f3e176]:
+      - generic [ref=f3e178]:
+        - paragraph [ref=f3e179]: في أنحاء الرياض
+        - heading "اعثر على لا ريو الأقرب" [level=2] [ref=f3e180]
+        - paragraph [ref=f3e181]: موقعان مختلفان، ونهج واحد في الطعام والضيافة.
+      - generic [ref=f3e182]:
+        - article [ref=f3e183]:
+          - paragraph [ref=f3e187]: مائدتنا الأولى في الرياض
+          - heading [level=3] [ref=f3e188]:
+            - link "لا ريو النرجس" [ref=f3e189] [cursor=pointer]:
+              - /url: /ar/branches/narjis
+          - paragraph [ref=f3e190]: حي النرجس، الرياض 13327، المملكة العربية السعودية
+          - heading "ساعات العمل" [level=4] [ref=f3e191]
+          - generic [ref=f3e192]:
+            - generic [ref=f3e193]:
+              - term [ref=f3e194]: الأحد - الخميس
+              - definition [ref=f3e195]: 12:00 م - 11:30 م
+            - generic [ref=f3e196]:
+              - term [ref=f3e197]: الجمعة - السبت
+              - definition [ref=f3e198]: 01:00 م - 01:00 ص
+          - link "الحصول على الاتجاهات" [ref=f3e199] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=La+Rio+Al+Narjis+Riyadh
+        - article [ref=f3e200]:
+          - paragraph [ref=f3e204]: قاعات أهدأ، والنار ذاتها
+          - heading [level=3] [ref=f3e205]:
+            - link "لا ريو الياسمين" [ref=f3e206] [cursor=pointer]:
+              - /url: /ar/branches/al-yasmin
+          - paragraph [ref=f3e207]: حي الياسمين، الرياض 13325، المملكة العربية السعودية
+          - heading "ساعات العمل" [level=4] [ref=f3e208]
+          - generic [ref=f3e209]:
+            - generic [ref=f3e210]:
+              - term [ref=f3e211]: الأحد - الخميس
+              - definition [ref=f3e212]: 01:00 م - 11:00 م
+            - generic [ref=f3e213]:
+              - term [ref=f3e214]: الجمعة - السبت
+              - definition [ref=f3e215]: 01:00 م - 01:00 ص
+          - link "الحصول على الاتجاهات" [ref=f3e216] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=La+Rio+Al+Yasmin+Riyadh
+    - generic [ref=f3e218]:
+      - generic [ref=f3e224]:
+        - paragraph [ref=f3e227]: احتفلوا معنا
+        - heading "الجلسات الخاصة والمناسبات" [level=2] [ref=f3e228]
+        - paragraph [ref=f3e229]: غرفة خاصة وترتيب طاولات مرن للتجمعات الكبيرة والصغيرة.
+      - generic [ref=f3e230]:
+        - list [ref=f3e231]:
+          - listitem [ref=f3e232]:
+            - generic [ref=f3e234]:
+              - paragraph [ref=f3e235]:
+                - generic [ref=f3e236]: "12"
+                - generic [ref=f3e237]: مقعد
+              - heading "غرفة الطعام الخاصة" [level=3] [ref=f3e238]
+              - generic:
+                - paragraph:
+                  - generic [ref=f3e239]: تتسع غرفتنا الخاصة في فرع النرجس لاثني عشر ضيفاً بجانب الشواية المفتوحة، وتناسب أعياد الميلاد والخطوبة والعشاءات الخاصة بالعمل.
+          - listitem [ref=f3e240]:
+            - generic [ref=f3e242]:
+              - paragraph [ref=f3e243]:
+                - generic [ref=f3e244]: "2"
+                - generic [ref=f3e245]: فرع
+              - heading "دمج الطاولات" [level=3] [ref=f3e246]
+              - generic:
+                - paragraph:
+                  - generic [ref=f3e247]: في فرع الياسمين، يمكن دمج جلستين للمجموعات من عشرين ضيفاً فأكثر. يُرجى ذكر ذلك عند الحجز.
+          - listitem [ref=f3e248]:
+            - generic [ref=f3e250]:
+              - paragraph [ref=f3e251]:
+                - generic [ref=f3e252]: "3"
+                - generic [ref=f3e253]: أيام مسبقًا
+              - heading "قوائم مشتركة" [level=3] [ref=f3e254]
+              - generic:
+                - paragraph:
+                  - generic [ref=f3e255]: أخبرونا بعدد الضيوف وتفضيلاتهم قبل بضعة أيام، وسيعد مطبخنا قائمة مشتركة من المطابخ الثلاثة.
+        - link "استفسر عن مناسبتك" [ref=f3e257] [cursor=pointer]:
+          - /url: /ar/reservation
+    - generic [ref=f3e259]:
+      - generic [ref=f3e261]:
+        - paragraph [ref=f3e262]: لمحة من الداخل
+        - heading "داخل لا ريو" [level=2] [ref=f3e263]
+        - paragraph [ref=f3e264]: الشواية، وصالات الطعام، والتفاصيل بينهما.
+      - generic [ref=f3e266]:
+        - figure [ref=f3e267]
+        - figure [ref=f3e269]
+        - figure [ref=f3e271]
+        - figure [ref=f3e273]
+        - figure [ref=f3e275]
+        - figure [ref=f3e277]
+        - figure [aria-hidden] [ref=f3e279]
+        - figure [aria-hidden] [ref=f3e281]
+        - figure [aria-hidden] [ref=f3e283]
+        - figure [aria-hidden] [ref=f3e285]
+        - figure [aria-hidden] [ref=f3e287]
+        - figure [aria-hidden] [ref=f3e289]
+      - link "تعرف على الفرعين" [ref=f3e292] [cursor=pointer]:
+        - /url: /ar/branches
+    - generic [ref=f3e294]:
+      - generic [ref=f3e296]:
+        - paragraph [ref=f3e297]: آراء ضيوفنا
+        - heading "ماذا يقول ضيوفنا" [level=2] [ref=f3e298]
+        - paragraph [ref=f3e299]: ملاحظات من طاولات النرجس والياسمين.
+      - paragraph [ref=f3e300]: Rocel Mae L.
+      - list [ref=f3e301]:
+        - listitem [ref=f3e302]:
+          - blockquote [ref=f3e303]:
+            - img "5 out of 5" [ref=f3e304]
+            - paragraph [ref=f3e315]: جئنا كمجموعة وحظينا بتجربة عشاء رائعة! كان الموظفون ودودين ومنتبهين، وجعلونا نشعر بالترحيب منذ لحظة وصولنا.
+            - generic [ref=f3e317]:
+              - generic [ref=f3e318]: Rocel Mae L.
+              - generic [ref=f3e319]: عشاء جماعي
+        - listitem [aria-hidden] [ref=f3e320] [cursor=pointer]:
+          - blockquote [ref=f3e321]:
+            - paragraph [ref=f3e333]: اخترنا هذا المكان للاحتفال بذكرى زواجنا السابعة، ولم يكن ليكون أفضل من ذلك. الأجواء رومانسية بشكل جميل، والطعام لذيذ وقُدّم بسرعة.
+            - generic [ref=f3e335]:
+              - generic [ref=f3e336]: Melvie D.
+              - generic [ref=f3e337]: عشاء ذكرى الزواج
+        - listitem [aria-hidden] [ref=f3e338] [cursor=pointer]:
+          - blockquote [ref=f3e339]:
+            - paragraph [ref=f3e351]: أطباق الباستا مذهلة حقاً، مطهوة بإتقان مع صلصات غنية بالنكهة تعكس حرصهم على الجودة. أطباق اللحوم رائعة والنكهات ممتازة.
+            - generic [ref=f3e353]:
+              - generic [ref=f3e354]: Omar F.
+              - generic [ref=f3e355]: تقييم على قوقل
+        - listitem [aria-hidden]:
+          - blockquote:
+            - paragraph: نادراً ما أمنح أحداً عشرة من عشرة، لكن لا ريو يستحق كل نقطة منها.
+            - generic:
+              - generic:
+                - generic: Mir Zaed I.
+                - generic: زائر من الولايات المتحدة
+        - listitem [aria-hidden]:
+          - blockquote:
+            - paragraph: من مطاعمنا المفضلة. جربنا كل شيء تقريباً هنا وجميع الأطباق لذيذة ورائعة. الخدمة ممتازة، والنُدُل لطفاء وسريعون.
+            - generic:
+              - generic:
+                - generic: Roula A.
+                - generic: ضيفة دائمة
+        - listitem [aria-hidden] [ref=f3e356] [cursor=pointer]:
+          - blockquote [ref=f3e357]:
+            - paragraph [ref=f3e369]: زيارة هذا المطعم متعة دائماً! طعام لذيذ وطازج، وكميات سخية! جربت غداء العمل لديهم وكان ممتازاً!
+            - generic [ref=f3e371]:
+              - generic [ref=f3e372]: Yousra
+              - generic [ref=f3e373]: غداء عمل
+        - listitem [aria-hidden] [ref=f3e374] [cursor=pointer]:
+          - blockquote [ref=f3e375]:
+            - paragraph [ref=f3e385]: أنصح بشدة بالكباب والبطاطس المحمّلة بالجبن، كانا رائعين!
+            - generic [ref=f3e387]:
+              - generic [ref=f3e388]: Sara A.
+              - generic [ref=f3e389]: تقييم على قوقل
+      - generic [ref=f3e390]:
+        - button "السابق" [ref=f3e391]
+        - button "التالي" [ref=f3e394]
+    - generic [ref=f3e400]:
+      - generic [ref=f3e401]:
+        - paragraph [ref=f3e402]: معلومات مفيدة
+        - heading "الأسئلة الشائعة" [level=2] [ref=f3e403]
+        - paragraph [ref=f3e404]: إجابات عن الأسئلة الأكثر تكراراً من ضيوفنا قبل زيارتهم الأولى.
+      - generic [ref=f3e405]:
+        - group [ref=f3e406]:
+          - generic "هل الطعام في لا ريو حلال؟" [ref=f3e407] [cursor=pointer]
+        - group [ref=f3e410]:
+          - generic "هل تقبلون الحجز، أم يمكن الحضور مباشرة؟" [ref=f3e411] [cursor=pointer]
+        - group [ref=f3e414]:
+          - generic "هل تتوفر خيارات نباتية في المطابخ الثلاثة؟" [ref=f3e415] [cursor=pointer]
+        - group [ref=f3e418]:
+          - generic "هل تتوفر خدمة صف السيارات؟" [ref=f3e419] [cursor=pointer]
+        - group [ref=f3e422]:
+          - generic "هل يمكن استقبال مجموعات كبيرة أو عائلات؟" [ref=f3e423] [cursor=pointer]
+    - generic [ref=f3e428]:
+      - heading "احجز طاولتك" [level=2] [ref=f3e429]
+      - paragraph [ref=f3e430]: اختر فرع النرجس أو الياسمين، وأخبرنا بالموعد، وسنحجز لك طاولة قرب النار.
+      - link "احجز طاولتك" [ref=f3e431] [cursor=pointer]:
+        - /url: /ar/reservation
+      - list [ref=f3e432]:
+        - listitem [ref=f3e433]:
+          - link "لا ريو النرجس" [ref=f3e434] [cursor=pointer]:
+            - /url: /ar/reservation?branch=narjis
+        - listitem [ref=f3e435]:
+          - link "لا ريو الياسمين" [ref=f3e436] [cursor=pointer]:
+            - /url: /ar/reservation?branch=al-yasmin
+  - contentinfo [ref=f3e437]:
+    - generic [ref=f3e438]:
+      - generic [ref=f3e439]:
+        - region [ref=f3e440]:
+          - heading "انضم إلى قائمتنا" [level=2] [ref=f3e441]
+          - paragraph [ref=f3e442]: أطباق جديدة من الشواية، وقوائم موسمية، ومواعيد الجلسات الخاصة. رسائل قليلة في السنة.
+          - generic [ref=f3e443]:
+            - generic [ref=f3e444]: البريد الإلكتروني
+            - generic [ref=f3e445]:
+              - textbox "البريد الإلكتروني" [ref=f3e446]
+              - button "انضم" [ref=f3e447]
+            - paragraph [ref=f3e450]: يمكنك إلغاء الاشتراك في أي وقت.
+            - alert
+        - generic [ref=f3e451]:
+          - generic [ref=f3e452]:
+            - heading "تصفح" [level=2] [ref=f3e453]
+            - navigation "تصفح" [ref=f3e455]:
+              - list [ref=f3e456]:
+                - listitem [ref=f3e457]:
+                  - link "الرئيسية" [ref=f3e458] [cursor=pointer]:
+                    - /url: /ar
+                - listitem [ref=f3e459]:
+                  - link "قائمة الطعام" [ref=f3e460] [cursor=pointer]:
+                    - /url: /ar/menu
+                - listitem [ref=f3e461]:
+                  - link "الفروع" [ref=f3e462] [cursor=pointer]:
+                    - /url: /ar/branches
+                - listitem [ref=f3e463]:
+                  - link "الحجوزات" [ref=f3e464] [cursor=pointer]:
+                    - /url: /ar/reservation
+                - listitem [ref=f3e465]:
+                  - link "تواصل معنا" [ref=f3e466] [cursor=pointer]:
+                    - /url: /ar/contact
+          - generic [ref=f3e467]:
+            - heading "زورونا" [level=2] [ref=f3e468]
+            - list [ref=f3e470]:
+              - listitem [ref=f3e471]:
+                - link "لا ريو النرجس" [ref=f3e472] [cursor=pointer]:
+                  - /url: /ar/branches/narjis
+                - paragraph [aria-hidden] [ref=f3e473]
+                - paragraph [ref=f3e474]: حي النرجس، الرياض 13327، المملكة العربية السعودية
+                - generic [ref=f3e475]:
+                  - link "+966 11 234 5678" [ref=f3e476] [cursor=pointer]:
+                    - /url: tel:+966112345678
+                  - link "الحصول على الاتجاهات" [ref=f3e478] [cursor=pointer]:
+                    - /url: https://maps.google.com/?q=La+Rio+Al+Narjis+Riyadh
+              - listitem [ref=f3e479]:
+                - link "لا ريو الياسمين" [ref=f3e480] [cursor=pointer]:
+                  - /url: /ar/branches/al-yasmin
+                - paragraph [aria-hidden] [ref=f3e481]
+                - paragraph [ref=f3e482]: حي الياسمين، الرياض 13325، المملكة العربية السعودية
+                - generic [ref=f3e483]:
+                  - link "+966 11 234 5679" [ref=f3e484] [cursor=pointer]:
+                    - /url: tel:+966112345679
+                  - link "الحصول على الاتجاهات" [ref=f3e486] [cursor=pointer]:
+                    - /url: https://maps.google.com/?q=La+Rio+Al+Yasmin+Riyadh
+          - generic [ref=f3e487]:
+            - heading "تواصل معنا" [level=2] [ref=f3e488]
+            - list [ref=f3e490]:
+              - listitem [ref=f3e491]:
+                - link "+966 11 234 5678" [ref=f3e492] [cursor=pointer]:
+                  - /url: tel:+966112345678
+              - listitem [ref=f3e494]:
+                - link "واتساب" [ref=f3e495] [cursor=pointer]:
+                  - /url: https://wa.me/966512345678
+              - listitem [ref=f3e496]:
+                - link "hello@lario.sa" [ref=f3e497] [cursor=pointer]:
+                  - /url: mailto:hello@lario.sa
+          - generic [ref=f3e499]:
+            - heading "تابعونا" [level=2] [ref=f3e500]
+            - list [ref=f3e502]:
+              - listitem [ref=f3e503]:
+                - link "Instagram" [ref=f3e504] [cursor=pointer]:
+                  - /url: https://instagram.com/lario.sa
+              - listitem [ref=f3e507]:
+                - link "TikTok" [ref=f3e508] [cursor=pointer]:
+                  - /url: https://tiktok.com/@lario.sa
+              - listitem [ref=f3e511]:
+                - link "Snapchat" [ref=f3e512] [cursor=pointer]:
+                  - /url: https://snapchat.com/add/lario.sa
+      - generic [ref=f3e515]:
+        - paragraph [ref=f3e516]: © La Rio. جميع الحقوق محفوظة.
+        - list [ref=f3e517]:
+          - listitem [ref=f3e518]:
+            - link "سياسة الخصوصية" [ref=f3e519] [cursor=pointer]:
+              - /url: /ar/privacy-policy
+          - listitem [ref=f3e520]:
+            - link "الشروط والأحكام" [ref=f3e521] [cursor=pointer]:
+              - /url: /ar/terms-and-conditions
+  - generic [ref=f3e526] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f3e527]
+    - generic [ref=f3e531]:
+      - button "Open issues overlay" [ref=f3e532]:
+        - generic [ref=f3e533]:
+          - generic [aria-hidden] [ref=f3e534]: "0"
+          - generic [ref=f3e535]: "1"
+        - generic [ref=f3e536]: Issue
+      - button "Collapse issues badge" [ref=f3e537]
+  - alert [ref=f3e540]

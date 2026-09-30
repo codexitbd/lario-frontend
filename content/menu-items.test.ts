@@ -58,21 +58,20 @@ describe('menu-items fixture', () => {
     }
   })
 
-  it('features exactly the six dishes the homepage fixture names', () => {
-    const featured = items.filter((i) => i.is_featured)
-    // Identity, not just count: swapping one featured dish for another keeps the
-    // count at 6 and the spread at 4+, so a count-only assertion would pass while
-    // the homepage silently rendered the wrong six cards.
-    expect(new Set(featured.map((i) => i.slug))).toEqual(
-      new Set([
-        'assado-argentina-style',
-        'fettuccine-alfredo-on-the-parmesan-wheel',
-        'urfa-kebab',
-        'pizza-la-rio-signature',
-        'burrata-salad',
-        'ribeye-steak',
-      ]),
+  // is_featured has exactly one consumer: cascadeForMenuItem pushes the `home`
+  // tag for a featured dish and not for any other. So the flag means "the
+  // homepage names this dish", and the assertion reads it out of the homepage
+  // fixture rather than restating the list. Drift either way is a real bug —
+  // a flag the homepage does not name revalidates the homepage for nothing, and
+  // a homepage dish without the flag leaves the homepage stale after an edit.
+  it('flags exactly the dishes the homepage fixture names, for the cache cascade', async () => {
+    const home = (await import('@/content/home.json')).default
+    const section = home.sections.find((s) => s.type === 'featured_dishes')
+    const named = new Set(
+      (section?.payload as { item_slugs: string[] }).item_slugs,
     )
-    expect(new Set(featured.map((i) => i.category_slug)).size).toBeGreaterThanOrEqual(4)
+    const featured = items.filter((i) => i.is_featured)
+    expect(new Set(featured.map((i) => i.slug))).toEqual(named)
+    expect(new Set(featured.map((i) => i.category_slug)).size).toBe(named.size)
   })
 })

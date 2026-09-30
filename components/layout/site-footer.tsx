@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   InstagramLogoIcon,
@@ -5,59 +6,72 @@ import {
   TiktokLogoIcon,
 } from '@phosphor-icons/react/ssr'
 import type { Icon } from '@phosphor-icons/react'
+import type { ReactNode } from 'react'
+import goldenLogo from '@/public/golden-logo.png'
 import { NewsletterForm } from '@/components/layout/newsletter-form'
 import { OpenNow } from '@/components/layout/open-now'
-import { Wordmark } from '@/components/layout/wordmark'
 import { Container } from '@/components/ui/container'
 import { LEGAL_NAV, PRIMARY_NAV } from '@/lib/nav'
 import { formatPhone } from '@/lib/format'
-import { groupOpeningHours } from '@/lib/hours'
 import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import type { Branch, Settings } from '@/lib/schemas'
 
 /**
- * The site footer. NO CONTAINERS: not one box, tile, panel or card.
+ * The site footer, rebuilt 2026-09-30 at client request from a 21st.dev
+ * "large name footer" reference, then compressed the same day to roughly half
+ * a desktop viewport.
  *
- * Earlier passes were built from design/references/shared/footer.png, a
- * lab-automation SaaS footer whose entire vocabulary is boxes. Copying its
- * composition faithfully produced ten of them here, and boxed single words are
- * what made it read as a product footer rather than a restaurant's. That
- * reference is retired for this component; do not reintroduce tiles.
+ * Two bands. The first is the working footer in one row: the newsletter, then
+ * Explore, Get in touch and Visit us. The second is the name: the real gold
+ * logo (golden-logo.png, per the rule in wordmark.tsx) set wide at the start
+ * edge and SINKING through the bottom of the page, cropped by its band and
+ * dissolving into the ground, with the fine print at the end edge on its
+ * baseline. The first full-height version spent ~470px on the logo alone;
+ * cropping it is what buys the height back without shrinking the mark.
  *
- * The composition is an ASYMMETRIC TOP BAND: the invitation on the start side,
- * the two rooms stacked on the end side, split 5fr/6fr so neither reads as a
- * column in a three-up grid. Beneath it a quiet wayfinding line, then fine
- * print. Three bands, each a different shape.
+ * Not taken from the reference: its shadcn Button, its icon sheet, its grey
+ * text ramp and its gradient-clipped text. The site has its own tokens and
+ * phosphor icons, and a gradient on a raster logo is a CSS mask.
  *
- * WHAT MAKES IT INFORMATIVE rather than a sitemap: each room reports whether it
- * is serving RIGHT NOW (components/layout/open-now.tsx), which is the one thing
- * a person reading a restaurant footer at 11pm actually wants. That is also the
- * only justified coloured status dot on the site, because it reports real state
- * that changes rather than decorating a list.
+ * The 2026-09-20 rules still hold. NO CONTAINERS: not one box, tile, panel or
+ * card. NO RESERVE BUTTON: the section above is the reservation CTA. NO
+ * "COMING SOON" LIST: spec §3 is satisfied by the mobile drawer. NO YEAR in the
+ * copyright: pages are prerendered and revalidated by webhook, so `new Date()`
+ * would bake the build year and then be quietly wrong.
  *
- * NO RESERVE BUTTON. The section immediately above the footer is the
- * reservation CTA, so a second large action inches below it was duplicate
- * intent. The per-branch phone numbers are the footer's booking path.
- *
- * NO "COMING SOON" LIST. Announcing six unbuilt pages at the bottom of every
- * page made the site read as unfinished. Spec §3 wants the Phase-4 items
- * rendered disabled where the prototype nav had them, which is the header; the
- * mobile drawer still does that, so §3 still holds.
- *
- * NO YEAR in the copyright. Pages are statically prerendered and revalidated by
- * content webhook rather than on a schedule, so `new Date()` would bake the
- * build year and then be quietly wrong.
+ * Each room still reports whether it is serving RIGHT NOW (open-now.tsx). The
+ * address and the per-day hours table live on the branch page the room's name
+ * links to; the footer keeps the live state, the phone and directions.
  */
-const SOCIAL_ICONS: Record<keyof Settings['social'], Icon> = {
-  instagram: InstagramLogoIcon,
-  tiktok: TiktokLogoIcon,
-  snapchat: SnapchatLogoIcon,
-}
+const SOCIALS: Record<keyof Settings['social'], { icon: Icon; name: string }> =
+  {
+    instagram: { icon: InstagramLogoIcon, name: 'Instagram' },
+    tiktok: { icon: TiktokLogoIcon, name: 'TikTok' },
+    snapchat: { icon: SnapchatLogoIcon, name: 'Snapchat' },
+  }
 
-const QUIET_LINK =
+const LINK =
   'inline-flex min-h-6 items-center transition-colors duration-300 ease-brand hover:text-gold'
+const DIM = `${LINK} text-ivory-dim`
+
+function Column({
+  title,
+  className = '',
+  children,
+}: {
+  title: string
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <div className={className}>
+      <h2 className="lr-display text-lg text-gold italic">{title}</h2>
+      <div className="mt-3 text-sm">{children}</div>
+    </div>
+  )
+}
 
 export function SiteFooter({
   branches,
@@ -71,155 +85,84 @@ export function SiteFooter({
   dict: Dictionary
 }) {
   return (
-    <footer className="border-t border-gold/20 bg-ink text-ivory">
+    <footer className="overflow-hidden border-t border-gold/20 bg-ink text-ivory">
       <Container>
-        {/* items-center, not the default start: the invitation is a third the
-            height of the two rooms beside it, and top-aligning left a void
-            under it that read as a missing block rather than as space. */}
-        <div className="grid gap-16 py-16 lg:grid-cols-[5fr_6fr] lg:items-center lg:gap-24 lg:py-20">
-          {/* The invitation. */}
-          <section aria-labelledby="lr-newsletter">
+        {/* Mobile: newsletter, then Explore and Get in touch two-up, then
+            Visit us full width. md: newsletter across, three columns under.
+            lg: one row. */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pt-12 pb-6 md:grid-cols-3 lg:grid-cols-[1.5fr_0.7fr_0.9fr_1.1fr] lg:gap-x-12">
+          <section
+            aria-labelledby="lr-newsletter"
+            className="col-span-2 md:col-span-3 lg:col-span-1"
+          >
             <h2
               id="lr-newsletter"
-              className="lr-display text-[clamp(1.5rem,1.2rem+0.9vw,2rem)] leading-tight text-ivory"
+              className="lr-display text-[clamp(1.375rem,1.1rem+0.7vw,1.75rem)] leading-tight text-ivory"
             >
               {dict.footer.newsletterTitle}
             </h2>
-            <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-pretty text-ivory-dim">
+            <p className="mt-2 max-w-[44ch] text-sm leading-relaxed text-pretty text-ivory-dim">
               {dict.footer.newsletterBody}
             </p>
             <NewsletterForm locale={locale} dict={dict} />
           </section>
 
-          {/* The two rooms, stacked and divided by one hairline that separates
-              real content rather than decorating. */}
-          <ul className="flex flex-col">
-            {branches.map((branch, index) => (
-              <li
-                key={branch.slug}
-                className={
-                  index > 0 ? 'mt-10 border-t border-ivory/10 pt-10' : undefined
-                }
-              >
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <Link
-                    href={localePath(locale, branch.url)}
-                    className="lr-display text-xl leading-tight text-ivory transition-colors duration-300 ease-brand hover:text-gold"
-                  >
-                    {branch.name}
-                  </Link>
-                  <OpenNow branch={branch} locale={locale} dict={dict} />
-                </div>
+          <Column title={dict.footer.explore}>
+            <nav aria-label={dict.footer.explore}>
+              <ul className="space-y-1">
+                {PRIMARY_NAV.map((item) => (
+                  <li key={item.key}>
+                    <Link href={localePath(locale, item.href)} className={DIM}>
+                      {dict.nav[item.key]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Column>
 
-                <p className="mt-3 max-w-[40ch] text-sm leading-relaxed text-pretty text-ivory-dim">
-                  {branch.address}
-                </p>
-
-                <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm">
-                  {groupOpeningHours(
-                    branch.opening_hours,
-                    locale,
-                    dict.branch.closed,
-                  ).map((group) => (
-                    <div key={group.days} className="contents">
-                      <dt className="text-ivory-dim/60">{group.days}</dt>
-                      <dd className="text-ivory-dim">{group.hours}</dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div className="mt-4 flex flex-wrap items-center gap-x-7 gap-y-2 text-sm">
-                  <a
-                    href={`tel:${branch.phone}`}
-                    className={`${QUIET_LINK} text-gold hover:text-gold-pale`}
-                  >
-                    <bdi dir="ltr">{formatPhone(branch.phone)}</bdi>
-                  </a>
-                  {branch.google_maps_url ? (
-                    <a
-                      href={branch.google_maps_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`${QUIET_LINK} text-ivory-dim`}
-                    >
-                      {dict.branch.getDirections}
-                    </a>
-                  ) : null}
-                </div>
+          <Column title={dict.footer.getInTouch}>
+            <ul className="space-y-1">
+              <li>
+                <a href={`tel:${settings.contact.phone}`} className={DIM}>
+                  <bdi dir="ltr">{formatPhone(settings.contact.phone)}</bdi>
+                </a>
               </li>
-            ))}
-          </ul>
-        </div>
-      </Container>
-
-      {/* The brand, and the way around the site. */}
-      <div className="border-t border-ivory/10">
-        <Container className="flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-          <Wordmark
-            locale={locale}
-            siteName={settings.site_name}
-            className="h-12 shrink-0"
-          />
-
-          <nav aria-label={dict.footer.explore}>
-            <ul className="flex flex-wrap items-center gap-x-9 gap-y-3">
-              {PRIMARY_NAV.map((item) => (
-                <li key={item.key}>
-                  <Link
-                    href={localePath(locale, item.href)}
-                    className={`${QUIET_LINK} text-[0.8125rem] tracking-[0.1em] text-ivory-dim uppercase`}
-                  >
-                    {dict.nav[item.key]}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <a
+                  href={`https://wa.me/${settings.contact.whatsapp.replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={DIM}
+                >
+                  {dict.footer.whatsapp}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${settings.contact.email}`}
+                  className={`${DIM} break-all`}
+                >
+                  <bdi dir="ltr">{settings.contact.email}</bdi>
+                </a>
+              </li>
             </ul>
-          </nav>
-
-          <div className="flex items-center gap-x-8 text-sm">
-            <a
-              href={`mailto:${settings.contact.email}`}
-              className={`${QUIET_LINK} text-ivory-dim`}
-            >
-              <bdi dir="ltr">{settings.contact.email}</bdi>
-            </a>
-            <a
-              href={`https://wa.me/${settings.contact.whatsapp.replace(/\D/g, '')}`}
-              target="_blank"
-              rel="noreferrer"
-              className={`${QUIET_LINK} text-ivory-dim`}
-            >
-              {dict.footer.whatsapp}
-            </a>
-          </div>
-        </Container>
-      </div>
-
-      {/* Fine print. Social glyphs are bare, not tiles: the padding gives them a
-          target without drawing a box around a logo. */}
-      <div className="border-t border-ivory/10">
-        <Container className="flex flex-col-reverse items-center gap-5 py-6 md:flex-row md:justify-between">
-          <p className="text-center text-[0.6875rem] tracking-[0.14em] text-ivory-dim/60 uppercase">
-            &copy; {settings.site_name}. {dict.footer.rights}
-          </p>
-
-          <div className="flex items-center gap-x-7">
             <ul
               aria-label={dict.footer.followUs}
-              className="flex items-center gap-x-4"
+              className="mt-2 -ms-2 flex items-center"
             >
-              {(Object.keys(SOCIAL_ICONS) as (keyof Settings['social'])[]).map(
+              {(Object.keys(SOCIALS) as (keyof Settings['social'])[]).map(
                 (network) => {
-                  const SocialIcon = SOCIAL_ICONS[network]
+                  const { icon: SocialIcon, name } = SOCIALS[network]
                   return (
                     <li key={network}>
                       <a
                         href={settings.social[network]}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex size-8 items-center justify-center text-ivory-dim transition-colors duration-300 ease-brand hover:text-gold"
+                        className="flex size-10 items-center justify-center text-ivory-dim transition-colors duration-300 ease-brand hover:text-gold"
                       >
-                        <span className="sr-only">{network}</span>
+                        <span className="sr-only">{name}</span>
                         <SocialIcon aria-hidden="true" className="size-5" />
                       </a>
                     </li>
@@ -227,22 +170,90 @@ export function SiteFooter({
                 },
               )}
             </ul>
+          </Column>
 
-            <ul className="flex items-center gap-x-6">
+          <Column
+            title={dict.footer.visitUs}
+            className="col-span-2 md:col-span-1"
+          >
+            <ul className="grid gap-4 sm:grid-cols-2 sm:gap-x-10 md:grid-cols-1">
+              {branches.map((branch) => (
+                <li key={branch.slug}>
+                  {/* Two lines a room: who and how to call, then whether
+                      they are serving and how to get there. */}
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                    <Link
+                      href={localePath(locale, branch.url)}
+                      className="lr-display text-lg leading-tight text-ivory transition-colors duration-300 ease-brand hover:text-gold"
+                    >
+                      {branch.name}
+                    </Link>
+                    <a
+                      href={`tel:${branch.phone}`}
+                      className="inline-flex min-h-6 items-center text-gold transition-colors duration-300 ease-brand hover:text-gold-pale"
+                    >
+                      <bdi dir="ltr">{formatPhone(branch.phone)}</bdi>
+                    </a>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-x-4">
+                    <OpenNow branch={branch} locale={locale} dict={dict} />
+                    {branch.google_maps_url ? (
+                      <a
+                        href={branch.google_maps_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`${DIM} text-[0.8125rem]`}
+                      >
+                        {dict.branch.getDirections}
+                      </a>
+                    ) : null}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Column>
+        </div>
+
+        {/* The name, sinking. The band's height is the whole budget; the image
+            is 1.8x that tall and lifted by its own transparent top padding
+            (10.7% of the canvas), so the band shows the top ~70% of the
+            artwork, enough for "Rio" to read, and the rest is below the page. The mask dissolves it
+            before the cut so the crop reads as depth, not as clipping.
+            Decorative: the brand is named by the header mark and the
+            copyright line, so it is hidden rather than announced a third
+            time. On a phone the fine print comes first so the name is still
+            the last thing on the page. */}
+        <div className="flex flex-col-reverse gap-8 border-t border-ivory/10 pt-5 md:flex-row md:items-end md:justify-between md:gap-12">
+          <div className="h-[clamp(5rem,9vw,8.5rem)] shrink-0 overflow-hidden">
+            <Image
+              src={goldenLogo}
+              alt=""
+              aria-hidden="true"
+              sizes="44rem"
+              draggable={false}
+              className="pointer-events-none h-[180%] w-auto max-w-none -translate-y-[10.7%] select-none [mask-image:linear-gradient(to_bottom,#000_42%,transparent_66%)]"
+            />
+          </div>
+
+          <div className="flex flex-col gap-3 md:items-end md:pb-6">
+            <ul className="flex flex-wrap items-center gap-x-6">
               {LEGAL_NAV.map((item) => (
                 <li key={item.key}>
                   <Link
                     href={localePath(locale, item.href)}
-                    className={`${QUIET_LINK} text-[0.6875rem] tracking-[0.14em] text-ivory-dim/70 uppercase`}
+                    className={`${LINK} text-[0.6875rem] tracking-[0.14em] text-ivory-dim/70 uppercase`}
                   >
                     {dict.footer[item.key]}
                   </Link>
                 </li>
               ))}
             </ul>
+            <p className="text-[0.6875rem] tracking-[0.14em] text-ivory-dim/60 uppercase">
+              &copy; {settings.site_name}. {dict.footer.rights}
+            </p>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </footer>
   )
 }

@@ -84,13 +84,13 @@ in `NOTES.md`. Do not force it into a numbered slot.
 |---|---|---|
 | `00-hero.*` | `hero` | Eyebrow, H1, lede, two CTAs, locations strip, scroll cue |
 | `01-intro.*` | `intro` | "Our Table" — three cuisine cards + rich copy |
-| `02-featured-dishes.*` | `featured_dishes` | Six dishes, 2×3, → View Full Menu |
-| `03-why-lario.*` | `why_lario` | Split: image \| copy + icon list + CTA |
+| `02-featured-dishes.*` | `featured_dishes` | **SUPERSEDED 2026-09-30.** The client replaced this layout with a filmstrip carousel; see `components/sections/signature-favourites.tsx`. Do not rebuild the mosaic from this image |
+| `03-why-lario.*` | `why_lario` | **SUPERSEDED 2026-09-30.** The client asked for a new design; see `components/sections/why-lario.tsx`. Do not rebuild the split from this image |
 | `04-chef-story.*` | `chef_story` | Split reversed, warm ground, framed image |
 | `05-branch-cards.*` | `branch_cards` | "Find Your La Rio" — two cards |
 | `06-private-events.*` | `private_events` | Three cards with stat numbers |
 | `07-gallery-strip.*` | `gallery_strip` | "In Pictures" — opens the lightbox |
-| `08-testimonials.*` | `testimonials` | Carousel, prev/next, reverses in RTL |
+| `08-testimonials.*` | `testimonials` | **SUPERSEDED 2026-09-30.** The client supplied a new reference (a fanned card stack); see `components/sections/review-fan.tsx`. Do not rebuild the photo-and-ghosted-title split from these images |
 | `09-faq.*` | `faq` | Accordion |
 | `10-reservation-cta.*` | `reservation_cta` | Closing band, branch-preselect links |
 

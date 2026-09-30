@@ -100,7 +100,11 @@
           "assado-argentina-style",
           "fettuccine-alfredo-on-the-parmesan-wheel",
           "urfa-kebab",
-          "pizza-la-rio-signature"
+          "pizza-la-rio-signature",
+          "burrata-salad",
+          "lahmacun",
+          "chicken-empanadas",
+          "harira-soup"
         ]
       },
       "translations": {
@@ -273,7 +277,7 @@
       "type": "testimonials",
       "sort_order": 8,
       "payload": {
-        "testimonial_limit": 6
+        "testimonial_limit": 7
       },
       "translations": {
         "en": {

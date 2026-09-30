@@ -10,7 +10,7 @@ every week until it is empty.
 | 3 | Calories and allergens for all 89 dishes | Open | 2026-09-18 |
 | 4 | Arabic dish names and descriptions — pending native review | Open | 2026-09-18 |
 | 5 | Distinct branch story copy for Narjis and Al Yasmin | Open | 2026-09-18 |
-| 6 | Real attributed testimonials | Open | 2026-09-18 |
+| 6 | Real attributed testimonials | Resolved 2026-09-30: seven Google reviews of Al Narjis, verbatim contiguous excerpts with surnames reduced to an initial, Arabic bodies translated from the originals. Al Yasmin reviews and the client's own choice of featured ones still to come | 2026-09-18 |
 | 7 | Privacy policy and terms copy | Open | 2026-09-18 |
 | 8 | Interior and atmosphere photography — 14 named shots, see the shoot list below | Open | 2026-09-18 |
 | 9 | Argentina Style Asado calorie value — flagged in quotation | Open | 2026-09-18 |

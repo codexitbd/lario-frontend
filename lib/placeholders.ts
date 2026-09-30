@@ -45,7 +45,6 @@ export const PLACEHOLDERS = {
   'home.events.0': unsplash('1550966871-3ed3cdb5ed0c', 900, 1200),
   'home.events.1': unsplash('1528605248644-14dd04022da1', 900, 1200),
   'home.events.2': unsplash('1555939594-58d7cb561ad1', 900, 1200),
-  'home.testimonials': unsplash('1592861956120-e524fc739696', 1200, 900),
 
   'home.gallery.0': unsplash('1558030006-450675393462', 1000, 750),
   'home.gallery.1': unsplash('1424847651672-bf20a4b0982b', 1000, 750),

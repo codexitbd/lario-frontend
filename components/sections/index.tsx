@@ -1,13 +1,13 @@
 import { BranchCards } from '@/components/sections/branch-cards'
 import { ChefStory } from '@/components/sections/chef-story'
 import { Faq } from '@/components/sections/faq'
-import { FeaturedDishes } from '@/components/sections/featured-dishes'
 import { GalleryStrip } from '@/components/sections/gallery-strip'
 import { Hero } from '@/components/sections/hero'
 import { Intro } from '@/components/sections/intro'
 import { PrivateEvents } from '@/components/sections/private-events'
 import { ReservationCta } from '@/components/sections/reservation-cta'
-import { Testimonials } from '@/components/sections/testimonials'
+import { ReviewFan } from '@/components/sections/review-fan'
+import { SignatureFavourites } from '@/components/sections/signature-favourites'
 import { WhyLario } from '@/components/sections/why-lario'
 import { readList, readText, testimonialSchema } from '@/components/sections/content'
 import type { Locale } from '@/lib/i18n/config'
@@ -40,7 +40,7 @@ export function renderSection(
       return <Intro section={section} />
     case 'featured_dishes':
       return (
-        <FeaturedDishes section={section} locale={locale} dict={dict} />
+        <SignatureFavourites section={section} locale={locale} dict={dict} />
       )
     case 'why_lario':
       return <WhyLario section={section} locale={locale} />
@@ -54,7 +54,7 @@ export function renderSection(
       return <GalleryStrip section={section} locale={locale} />
     case 'testimonials':
       return (
-        <Testimonials
+        <ReviewFan
           items={readList(section.content, 'testimonials', testimonialSchema)}
           eyebrow={readText(section.content, 'eyebrow')}
           heading={readText(section.content, 'heading')}

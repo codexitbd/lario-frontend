@@ -34,25 +34,31 @@ describe('home fixture', () => {
     }
   })
 
-  // Four, not the six of decision D8. Reference 02-featured-dishes is a
-  // five-column mosaic with exactly four naming tiles, and the client asked for
-  // that layout as drawn. A fifth dish has no column to go in and is dropped by
-  // the component, so the fixture must not carry one.
-  it('references four featured dishes on featured_dishes', () => {
+  // Eight, and the count is load-bearing rather than editorial. The section
+  // shows FOUR at a time and the carousel advances one card at a time, so a
+  // fixture of four would rotate the same four dishes through the same four
+  // slots and the motion would carry no new information. D8 amended twice: 6,
+  // then 4 for the mosaic, now 8 for the filmstrip that replaced it.
+  it('references eight featured dishes on featured_dishes', () => {
     const featured = home.sections.find((s) => s.type === 'featured_dishes')
-    expect(featured?.payload.item_slugs).toHaveLength(4)
+    expect(featured?.payload.item_slugs).toHaveLength(8)
   })
 
-  // D8's actual intent was internal links into distinct category pages, and
-  // that survives the reduction: four dishes, four courses, all three cuisines.
-  it('spans four distinct courses so the links still reach four categories', () => {
+  // D8's actual intent was internal links into distinct category pages, and it
+  // is better served than it has ever been: eight dishes, eight of the nine
+  // courses, all three cuisines.
+  it('spans eight distinct courses so the links reach eight categories', () => {
     const featured = home.sections.find((s) => s.type === 'featured_dishes')
     const slugs = featured?.payload.item_slugs as string[]
     const categories = slugs.map(
       (slug) => menuItems.find((item) => item.slug === slug)?.category_slug,
     )
     expect(categories.every(Boolean)).toBe(true)
-    expect(new Set(categories).size).toBe(4)
+    expect(new Set(categories).size).toBe(8)
+    const cuisines = slugs.map(
+      (slug) => menuItems.find((item) => item.slug === slug)?.cuisine,
+    )
+    expect(new Set(cuisines).size).toBe(3)
   })
 
   it('references both branches on branch_cards', () => {

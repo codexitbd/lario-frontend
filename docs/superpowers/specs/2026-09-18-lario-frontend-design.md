@@ -64,7 +64,7 @@ on the implementation plan.
 | D5 | Full prototype nav, Phase-4 items disabled | Client override — see §3 |
 | D6 | Menu taxonomy is **course-based** | Matches contract examples and real search intent |
 | D7 | `reservation_cta` added as homepage section 10 | One of the 10 approved types; Phase 3.4 needs it |
-| D8 | ~~6~~ **4** featured dishes spanning courses | Amended 2026-09-20: reference 02-featured-dishes is a five-column mosaic with exactly four naming tiles, and the client asked for that layout as drawn. Still four distinct courses and all three cuisines, so the internal-link intent holds |
+| D8 | ~~6~~ ~~4~~ **8** featured dishes spanning courses | Amended 2026-09-20 to 4 for the five-column mosaic, then 2026-09-30 to **8** when the client replaced the mosaic with a filmstrip carousel. The section shows FOUR at a time and advances one card at a time, so four slugs would rotate the same four dishes through the same four slots and the motion would carry nothing. Eight dishes now span eight of the nine courses and all three cuisines, which serves the internal-link intent better than either earlier count |
 | D9 | 9 categories; desserts/drinks are a content gap | All content is CMS-driven, so adding rows later is free |
 | D10 | Category pills **navigate**, they do not filter in place | Prevents `/menu` and `/menu/[category]` competing |
 | D11 | Contract extended with `whatsapp`, `seating_preference`, `consent` | WhatsApp is how Saudi restaurants confirm bookings |
@@ -277,13 +277,13 @@ white-screen the homepage.
 |---|---|---|
 | 0 | `hero` | Eyebrow, H1, lede, Reserve + Explore Menu CTAs. **Built 2026-09-20 without the locations strip or scroll cue** (client decision): full-viewport YouTube film over a poster photograph, nothing beneath the CTAs |
 | 1 | `intro` | "Our Table" — three cuisine cards (Italian · Turkish · Argentine) + rich copy |
-| 2 | `featured_dishes` | **Four** dishes (D8, amended), five-column mosaic: a double-width hero tile with its naming over the photograph, three flanking columns each split photo / flat naming tile, alternating which half sits on top |
-| 3 | `why_lario` | Split: image \| eyebrow, copy, icon list, CTA |
+| 2 | `featured_dishes` | **Eight** dishes, four on screen (D8, amended twice). Rebuilt 2026-09-30 at client request as `signature-favourites.tsx`: a full-width filmstrip of four cards at 25% each, every card carrying the plate full-bleed with its naming over the base. Hovering one opens it to a true 1:1 square and squeezes the other three; autoplay advances the strip ONE card at a time, and prev/next arrows sit at the section header's end edge (added 2026-09-30 at client request; the other option offered was flanking the View Full Menu CTA, which would have put the control a section away from what it drives). The five-column mosaic it replaced is in git history at `components/sections/featured-dishes.tsx` |
+| 3 | `why_lario` | Rebuilt 2026-09-30 at client request (the mosaic-era version read as the section-scaffold template on a flat emerald field). Now a ledger and a slab on the ink ground: the four points set large in Bodoni as a hairline ledger on the start side, one photograph the full section height bleeding off the end edge with the inset frame. Hovering a row draws a gold line across it and warms the frame. Gold is the only accent; the section no longer uses emerald |
 | 4 | `chef_story` | Split reversed, warm ground, framed image, two CTAs |
 | 5 | `branch_cards` | "Find Your La Rio" — two cards |
 | 6 | `private_events` | Three cards with statistic numbers · CTA → `/reservation` |
 | 7 | `gallery_strip` | "In Pictures" — opens the lightbox |
-| 8 | `testimonials` | Carousel with prev/next; direction reverses in RTL |
+| 8 | `testimonials` | Rebuilt 2026-09-30 at client request as `review-fan.tsx`, from a 21st.dev "stagger testimonials" reference: square cards fanned from the centre, alternate cards tilted +-2.5deg (the gallery strip's tilt), the centre card lifted and set on bone against a bone-raised ground (emerald dropped the same day at client request), any card clickable to centre it, arrows beneath, 7s autoplay. Real Google reviews of Al Narjis replaced the invented fixture (content gap 6). The reference's brutalist styling, lucide icons, shadcn tokens and resize listener were not carried over |
 | 9 | `faq` | Accordion |
 | 10 | `reservation_cta` | Closing band; branch-preselect deep links |
 
@@ -499,6 +499,25 @@ rebuilds the html element.
 
 **Footer — BUILT 2026-09-20.** Newsletter signup, both branches with live
 open/closed state, hours, contact, nav, social, legal.
+
+**AMENDED 2026-09-30: recomposed at client request** from a 21st.dev "large
+name footer" reference, which the client found the 2026-09-20 layout too plain
+against. Its composition was taken, not its shadcn styling: the newsletter on
+the start side; four short columns on the end side (Visit us, Explore, Get in
+touch, Follow us); then the real gold logo set large across the foot, faded into
+the ground with a CSS mask where the reference used gradient-clipped type; then
+copyright and legal. The zero-containers rule and the no-reserve, no-coming-soon,
+no-year rules below all still hold. The per-day hours table was dropped from the
+footer, since the live open/closed line answers the same question and the branch
+page carries the full week.
+
+**AMENDED again 2026-09-30: compressed to about half a desktop viewport** (436px
+at 1512x860, down from about 1100px) at client request. Two bands: one row holding the
+newsletter, Explore, Get in touch (with social icons) and Visit us; then the
+logo at the start edge, cropped by a short band so it sinks through the bottom
+of the page with its lower third dissolved by the mask, and the fine print at
+the end edge on its baseline. Each branch is two lines (name and phone, live
+state and directions); addresses now live only on the branch pages.
 
 **AMENDED: `design/references/shared/footer.png` is RETIRED for this
 component.** It is a lab-automation SaaS footer and its entire vocabulary is

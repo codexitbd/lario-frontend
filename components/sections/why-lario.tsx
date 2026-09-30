@@ -9,6 +9,7 @@ import type { Icon } from '@phosphor-icons/react'
 import { Container } from '@/components/ui/container'
 import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
+import { SectionHeader } from '@/components/ui/section-header'
 import {
   iconPointSchema,
   readImage,
@@ -20,19 +21,48 @@ import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 
 /**
- * Reference 03-why-lario: two photographs pinned to opposite edges of the
- * viewport at different heights, with the argument centred between them.
+ * Why La Rio, rebuilt 2026-09-30 at client request. Reference 03-why-lario is
+ * superseded (design/NOTES.md).
  *
- * The previous build put one image in a container column and the icon list
- * where the second photograph belongs, which flattened the reference's
- * three-zone composition into an ordinary split. The images here are
- * absolutely positioned and deliberately bleed off both edges; only the centre
- * column is contained.
+ * What the client called dull was the section-scaffold template: a centred
+ * eyebrow, a caps heading, a hairline, a 2x2 icon-bullet list and a CTA, sat on
+ * a full emerald field with two photographs drifting on the edges. Four short
+ * claims were footnotes under a heading, and the colour was doing the work the
+ * composition should have.
  *
- * The heading is set in caps with wide tracking, echoing the reference's
- * treatment in our own display face rather than importing a second one. In
- * Arabic both caps and tracking are inert (see globals.css), which is correct —
- * the device is Latin-only.
+ * Now the four claims ARE the composition. A ledger and a slab:
+ *
+ *   the ledger   the four points set large in Bodoni, one to a row, on
+ *                hairlines. Hover a row and a gold line draws across it from the
+ *                start edge (`.lr-why-row`, globals.css).
+ *   the slab     ONE photograph, the full height of the section, bleeding off
+ *                the end edge with the house inset frame. The frame warms to
+ *                gold whenever a ledger row is hovered, so the claim and the
+ *                room answer each other. That link is the whole reason the
+ *                frame here has a hover state when static frames elsewhere do
+ *                not.
+ *
+ * Ink ground, not emerald. "Not over-coloured" was the brief, and a flat brand
+ * field is exactly what the design system warns against as a default; emerald
+ * stays on the page as the testimonials moment and nowhere else. Interest comes
+ * from scale, photography and one motivated interaction, with gold as the only
+ * accent.
+ *
+ * Motion is the site's own materials: `.lr-focus` on the slab, which is the one
+ * large feature photograph the guide reserves it for, `.lr-unmask` on the
+ * heading through SectionHeader, and a staggered `.lr-reveal` down the rows.
+ *
+ * The old component also read `image_secondary`, a field the fixture has never
+ * carried. One frame shown with conviction beats two floating ones, and the
+ * off-contract read goes with it.
+ *
+ * ONE Figure for both layouts. Below lg it is in flow between the header and
+ * the ledger at 4:3; at lg it goes absolute against the section (Container and
+ * the copy column are unpositioned, so the section is its containing block) and
+ * becomes the slab. The first cut rendered two Figures, one `hidden lg:block`,
+ * on the assumption that display:none would spare the phone the request. It
+ * does not: an <img> in a hidden subtree still loads, only CSS backgrounds are
+ * skipped, and the phone was fetching the photograph twice at two sizes.
  */
 const ICONS: Record<string, Icon> = {
   flame: FlameIcon,
@@ -40,6 +70,8 @@ const ICONS: Record<string, Icon> = {
   'map-pin': MapPinIcon,
   users: UsersIcon,
 }
+
+const SHOT = 'The room and the fire. Atmosphere, mid-service.'
 
 export function WhyLario({
   section,
@@ -50,109 +82,72 @@ export function WhyLario({
 }) {
   const { payload, content } = section
   const points = readList(content, 'points', iconPointSchema)
+  const image = readImage(payload, 'image')
+
+  const ledger = (
+    <ul className="mt-12 md:mt-14">
+      {points.map((point, index) => {
+        const Glyph = ICONS[point.icon]
+        return (
+          <li
+            key={point.label}
+            style={{ '--i': index } as CSSProperties}
+            className="lr-reveal lr-why-row group relative flex items-center gap-5 border-t border-ivory/15 py-5 md:gap-7 md:py-6"
+          >
+            {Glyph ? (
+              <Glyph
+                aria-hidden="true"
+                weight="thin"
+                className="size-6 shrink-0 text-gold/60 transition-colors duration-500 ease-brand group-hover:text-gold md:size-7"
+              />
+            ) : null}
+            <span className="lr-display text-xl leading-[1.2] text-ivory-dim transition-colors duration-500 ease-brand group-hover:text-ivory md:text-2xl lg:text-[1.75rem]">
+              {point.label}
+            </span>
+          </li>
+        )
+      })}
+    </ul>
+  )
 
   return (
-    <section className="relative isolate overflow-hidden bg-emerald py-24 md:py-40">
-      {/* Edge-pinned, different heights. Hidden below lg, where they stack
-          into the flow instead. */}
-      <Figure
-        src={readImage(payload, 'image')}
-        slot="home.why-lario"
-        alt=""
-        shot="The room and the fire. Atmosphere, mid-service."
-        sizes="24vw"
-        className="absolute start-0 top-[6%] -z-10 hidden aspect-[3/4] w-[24%] lg:block"
-      />
-      <Figure
-        src={readImage(payload, 'image_secondary')}
-        slot="home.why-lario.secondary"
-        alt=""
-        shot="The open kitchen, seen from the room."
-        sizes="24vw"
-        className="absolute end-0 bottom-[4%] -z-10 hidden aspect-[4/3] w-[24%] lg:block"
-      />
-
+    <section className="lr-why relative isolate overflow-hidden bg-ink py-24 md:py-32 lg:py-36">
       <Container>
-        {/* max-w-xl, not 2xl: the two edge photographs each take 24% of the
-            viewport, and a wider column runs the icon list underneath them. */}
-        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <p className="lr-reveal lr-display pb-1 text-xl leading-[1.15] text-gold italic md:text-2xl">
-            {readText(content, 'eyebrow')}
-          </p>
-
-          <h2
-            className="lr-reveal lr-display mt-5 text-[clamp(1.75rem,1rem+2.6vw,3rem)] leading-[1.25] tracking-[0.06em] text-ivory uppercase"
-            style={{ '--i': 1 } as CSSProperties}
-          >
-            {readText(content, 'heading')}
-          </h2>
-
-          <p
-            className="lr-reveal mt-6 max-w-[46ch] text-base leading-relaxed text-ivory-dim md:text-lg"
-            style={{ '--i': 2 } as CSSProperties}
-          >
-            {readText(content, 'subheading')}
-          </p>
-
-          <span
-            aria-hidden="true"
-            className="mt-10 block h-px w-16 bg-gold/50"
+        <div className="lg:w-[55%] xl:w-[52%]">
+          <SectionHeader
+            eyebrow={readText(content, 'eyebrow')}
+            heading={readText(content, 'heading')}
+            subheading={readText(content, 'subheading')}
+            treatment="kicker"
+            align="start"
           />
 
-          <ul
-            className="lr-reveal mt-10 grid w-full gap-x-10 gap-y-5 sm:grid-cols-2"
-            style={{ '--i': 3 } as CSSProperties}
-          >
-            {points.map((point) => {
-              const Glyph = ICONS[point.icon]
-              return (
-                <li
-                  key={point.label}
-                  className="flex items-start gap-3 text-start"
-                >
-                  {Glyph ? (
-                    <Glyph
-                      aria-hidden="true"
-                      weight="light"
-                      className="mt-0.5 size-5 shrink-0 text-gold"
-                    />
-                  ) : null}
-                  <span className="text-sm leading-relaxed text-ivory-dim">
-                    {point.label}
-                  </span>
-                </li>
-              )
-            })}
-          </ul>
+          {/* The photograph: in flow here below lg, the full-height slab off
+              the end edge at lg. See the note above on why it is one element. */}
+          <div className="relative mt-12 aspect-[4/3] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:-z-10 lg:mt-0 lg:aspect-auto lg:w-[38vw]">
+            <Figure
+              src={image}
+              slot="home.why-lario"
+              alt=""
+              shot={SHOT}
+              sizes="(min-width: 64rem) 38vw, 100vw"
+              className="lr-focus absolute inset-0"
+            />
+            <span
+              aria-hidden="true"
+              className="lr-why-frame pointer-events-none absolute inset-3 border border-ivory/25 transition-colors duration-700 ease-brand lg:inset-4"
+            />
+          </div>
+
+          {ledger}
 
           <Cta
             href={localePath(locale, '/reservation')}
             variant="outline"
-            className="lr-reveal mt-12"
+            className="lr-reveal mt-12 md:mt-14"
           >
             {readText(content, 'cta_label')}
           </Cta>
-        </div>
-
-        {/* Below lg the two edge photographs have nowhere to bleed to, so they
-            follow the copy as a plain pair rather than disappearing. */}
-        <div className="mt-14 grid grid-cols-2 gap-4 lg:hidden">
-          <Figure
-            src={readImage(payload, 'image')}
-            slot="home.why-lario"
-            alt=""
-            shot="The room and the fire."
-            sizes="50vw"
-            className="relative aspect-[3/4] w-full"
-          />
-          <Figure
-            src={readImage(payload, 'image_secondary')}
-            slot="home.why-lario.secondary"
-            alt=""
-            shot="The open kitchen."
-            sizes="50vw"
-            className="relative mt-8 aspect-[3/4] w-full"
-          />
         </div>
       </Container>
     </section>

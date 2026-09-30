@@ -38,7 +38,7 @@ describe('getTestimonials', () => {
   it('resolves the requested locale', () => {
     const [first] = getTestimonials('ar')
     expect(first.body).toBe(
-      'الأسادو يستحق الانتظار. جلسنا قرب الشواية وشاهدنا معظم التحضير أمامنا.',
+      'جئنا كمجموعة وحظينا بتجربة عشاء رائعة! كان الموظفون ودودين ومنتبهين، وجعلونا نشعر بالترحيب منذ لحظة وصولنا.',
     )
   })
 })

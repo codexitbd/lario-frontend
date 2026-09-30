@@ -406,27 +406,6 @@ html[dir="rtl"] .lr-marquee-track {
     50% / var(--lr-tooth) 100%;
 }
 
-/* Testimonial transition (reference 08-testimonials-next-transition): the
-   incoming quote wipes across the outgoing one rather than crossfading.
-   clip-path is physical, so the wipe direction is spelled out per writing mode
-   — in Arabic it has to arrive from the other edge or the carousel reads as
-   running backwards. */
-.lr-wipe {
-  clip-path: inset(0 0 0 100%);
-  transition: clip-path 900ms var(--ease-brand), opacity 500ms linear;
-  opacity: 0;
-}
-
-html[dir="rtl"] .lr-wipe {
-  clip-path: inset(0 100% 0 0);
-}
-
-.lr-wipe[data-active="true"],
-html[dir="rtl"] .lr-wipe[data-active="true"] {
-  clip-path: inset(0 0 0 0);
-  opacity: 1;
-}
-
 /* ---------------------------------------------------------------------------
    Site chrome. The header is fixed and transparent over the hero, and takes
    its ground as the reader scrolls — driven by a native scroll-progress
@@ -489,19 +468,73 @@ html[dir="rtl"] .lr-wipe[data-active="true"] {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  /* visibility, not display: the slides share one grid cell, so hiding them
-     with `display: none` would resize the section on every advance, and
-     restoring the active one would also have to restore its `display: flex`. */
-  .lr-wipe {
-    clip-path: none !important;
-    visibility: hidden;
-  }
+/* Why La Rio (components/sections/why-lario.tsx). Hover a ledger row and a
+   gold line draws across it from the START edge, over the row's own hairline;
+   the photograph's frame warms with it. transform-origin has no logical form,
+   so the RTL origin is spelled out, as .lr-marquee-track's travel is. Transform
+   and colour only: nothing here lays out. */
+.lr-why-row::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: -1px;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 700ms var(--ease-brand);
+}
 
-  .lr-wipe[data-active="true"] {
-    visibility: visible;
-    opacity: 1;
+html[dir="rtl"] .lr-why-row::after {
+  transform-origin: 100% 50%;
+}
+
+.lr-why-row:hover::after {
+  transform: scaleX(1);
+}
+
+.lr-why:has(.lr-why-row:hover) .lr-why-frame {
+  border-color: color-mix(in srgb, var(--color-gold) 80%, transparent);
+}
+
+/* Guest reviews (components/sections/review-fan.tsx). React writes each
+   card's signed position --p; everything else is here. A card sits at
+   two-thirds of its own width per slot from the centre, lifted and tilted per
+   parity by the two custom properties React sets alongside --p. The wrap
+   crosses the fan at opacity 0 (data-far), so only transform and opacity ever
+   change. The tilt direction and the slot travel both flip in RTL through
+   --lr-fan-dir, the same treatment the marquee's travel gets. */
+.lr-fan {
+  --lr-fan-dir: 1;
+  --lr-fan-card: 18rem;
+}
+
+@media (min-width: 40rem) {
+  .lr-fan {
+    --lr-fan-card: 22.5rem;
   }
+}
+
+html[dir="rtl"] .lr-fan {
+  --lr-fan-dir: -1;
+}
+
+.lr-fan-card {
+  width: var(--lr-fan-card);
+  height: var(--lr-fan-card);
+  /* start-1/2 puts the card's leading edge at the centre; this pulls its own
+     centre there, in the writing direction, before the slot offset. */
+  translate: calc(var(--lr-fan-dir) * -50%) -50%;
+  transform: translateX(
+      calc(var(--lr-fan-dir) * var(--p, 0) * var(--lr-fan-card) / 1.5)
+    )
+    translateY(var(--lr-fan-y, 0px))
+    rotate(calc(var(--lr-fan-dir) * var(--lr-fan-r, 0deg)));
+  transition:
+    transform 700ms var(--ease-brand),
+    opacity 400ms linear,
+    background-color 500ms var(--ease-brand),
+    color 500ms var(--ease-brand);
 }
 
 /* Notched frame of reference 04-chef-story. clip-path has no logical form, so
@@ -525,6 +558,122 @@ html[dir="rtl"] .lr-notch {
   .lr-hover-copy {
     grid-template-rows: 1fr;
     opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Signature favourites (components/sections/signature-favourites.tsx).
+
+   Four cards tile the full width at 25% each; hovering one opens it to a true
+   square and its three neighbours give up the difference. The square is exact
+   rather than eyeballed because the strip HEIGHT and the open card's WIDTH are
+   the same custom property. Clamped at both ends on purpose: uncapped, the
+   section grows taller than the viewport on a wide monitor; unfloored, the three
+   squeezed neighbours fall under ~170px at 1024 and a dish name has nowhere to
+   wrap.
+
+   The carousel rotates the cards' flex `order` and translates the track by at
+   most one card, rather than translating an ever-longer track. It rests ONE card
+   in: card i sits at position (i - head + 1) mod 8, so position 0 waits clipped
+   off the leading edge, 1-4 are the four on screen and 5-7 wait off the trailing
+   edge. That lead-in is what lets the previous arrow animate in a single commit
+   instead of rotating order and suppressing the transition for a frame first.
+
+   Percentages, not container units, for everything horizontal. The track is a
+   block-level flex container, so its width IS the strip width and 25% of it is
+   exactly one card — which is what keeps the four on screen tiling the strip
+   whatever step the carousel is on. `--lr-fav-h` is the one length that cannot
+   be a percentage, since a percentage height resolves against the parent's
+   height rather than its width, so it is vw; the scrollbar makes vw a few px
+   wider than the strip, which shifts the proportion slightly and leaves the 1:1
+   exact, because height and open width read the same property.
+
+   The card's own `container-type` (Tailwind `@container` on each li) is what
+   lets the dish name scale in cqi as the accordion opens it.
+--------------------------------------------------------------------------- */
+.lr-fav-strip {
+  --lr-fav-h: clamp(30rem, 45vw, 44rem);
+  --lr-fav-narrow: calc((100% - var(--lr-fav-h)) / 3);
+}
+
+.lr-fav-track > li {
+  flex: 0 0 min(78%, 22rem);
+  transition: flex-basis 700ms var(--ease-brand);
+}
+
+@media (min-width: 64rem) {
+  .lr-fav-strip {
+    height: var(--lr-fav-h);
+  }
+
+  .lr-fav-track > li {
+    flex-basis: 25%;
+    /* Held here rather than set inline, so the scroll-snap row below lg keeps
+       the cards in fixture order however far the carousel has travelled. */
+    order: var(--lr-fav-order, 0);
+  }
+
+  /* At rest the track sits one card in, so a card waits off the leading edge for
+     the previous arrow. That offset has to be the LEAD-IN CARD'S OWN WIDTH, not
+     a flat 25%: the accordion squeezes every card including that one, and a
+     fixed 25% then stops landing on a card boundary and drags the whole strip
+     about 100px left, clipping the first card on screen. Defining the offset AS
+     the lead-in's width keeps the two in agreement by construction. Measured in
+     the browser, not reasoned about. */
+  .lr-fav-track {
+    --lr-fav-lead: 25%;
+    transform: translateX(calc(var(--lr-fav-step, 1) * -25%));
+  }
+
+  .lr-fav-track[data-motion="rest"] {
+    transform: translateX(calc(-1 * var(--lr-fav-lead)));
+  }
+
+  .lr-fav-track[data-motion="rest"]:has(a:hover),
+  .lr-fav-track[data-motion="rest"]:has(a:focus-visible) {
+    --lr-fav-lead: var(--lr-fav-narrow);
+  }
+
+  /* Transitioned ONLY while the carousel is mid-advance, which is what makes
+     the loop seamless. Landing a move rotates the cards' flex `order` by one and
+     returns the step to rest together, which is the frame the slide already
+     arrived at — with nothing transitioning at rest, it does not slide back to
+     get there. It also means Tab travel repoints the strip instantly. */
+  .lr-fav-track[data-motion="next"],
+  .lr-fav-track[data-motion="prev"] {
+    transition: transform 900ms var(--ease-brand);
+  }
+
+  /* RTL lays the track out from the other edge, so the travel flips with it —
+     the same treatment .lr-marquee-track gets, and for the same reason. Both
+     states are spelled out: `html[dir="rtl"] .lr-fav-track` already outweighs
+     the LTR rest rule, so without an RTL rest rule of its own the strip would
+     lose its lead-in offset in Arabic. */
+  html[dir="rtl"] .lr-fav-track {
+    transform: translateX(calc(var(--lr-fav-step, 1) * 25%));
+  }
+
+  html[dir="rtl"] .lr-fav-track[data-motion="rest"] {
+    transform: translateX(var(--lr-fav-lead));
+  }
+
+  /* The accordion. Driven by :has() rather than React state so pointer travel
+     across four cards costs no render, and held to `rest` so it cannot fight a
+     slide already in flight.
+
+     The two rules TIE at (0,3,2) and the open one wins on source order, so it
+     has to stay second. Do not "clarify" the squeeze rule's argument to
+     `:has(> li a:hover)`: the child combinator inside adds a type selector, the
+     rule reaches (0,3,3), and it then beats the open rule — every card squeezes,
+     the hovered one included, and the accordion silently stops working. */
+  .lr-fav-track[data-motion="rest"]:has(a:hover) > li,
+  .lr-fav-track[data-motion="rest"]:has(a:focus-visible) > li {
+    flex-basis: var(--lr-fav-narrow);
+  }
+
+  .lr-fav-track[data-motion="rest"] > li:has(a:hover),
+  .lr-fav-track[data-motion="rest"] > li:has(a:focus-visible) {
+    flex-basis: var(--lr-fav-h);
   }
 }
 

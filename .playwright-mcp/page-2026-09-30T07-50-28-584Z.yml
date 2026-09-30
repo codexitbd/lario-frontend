@@ -1,0 +1,469 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e6]:
+      - paragraph [ref=e7]:
+        - link "La Rio Al Narjis" [ref=e11] [cursor=pointer]:
+          - /url: /branches/narjis
+        - generic [ref=e12]:
+          - text: ·
+          - link "La Rio Al Yasmin" [ref=e13] [cursor=pointer]:
+            - /url: /branches/al-yasmin
+      - paragraph [ref=e14]:
+        - link "+966 11 234 5678" [ref=e15] [cursor=pointer]:
+          - /url: tel:+966112345678
+        - link "hello@lario.sa" [ref=e19] [cursor=pointer]:
+          - /url: mailto:hello@lario.sa
+    - generic [ref=e23]:
+      - link "La Rio" [ref=e24] [cursor=pointer]:
+        - /url: /
+        - img "La Rio" [ref=e25]
+      - navigation "Primary" [ref=e26]:
+        - link "Home" [ref=e27] [cursor=pointer]:
+          - /url: /
+        - link "Menu" [ref=e29] [cursor=pointer]:
+          - /url: /menu
+        - link "Branches" [ref=e30] [cursor=pointer]:
+          - /url: /branches
+        - link "Reservations" [ref=e31] [cursor=pointer]:
+          - /url: /reservation
+        - link "Contact" [ref=e32] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e33]:
+        - link "العربية" [ref=e34] [cursor=pointer]:
+          - /url: /ar
+        - link "Reserve a Table" [ref=e35] [cursor=pointer]:
+          - /url: /reservation
+  - main [ref=e36]:
+    - generic [ref=e41]:
+      - paragraph [ref=e42]: A Dining Story Beyond Borders
+      - generic [ref=e43]:
+        - heading "Italian, Turkish and Argentinian Dining in Riyadh" [level=1] [ref=e44]
+        - generic [ref=e45]:
+          - paragraph [ref=e46]: La Rio brings bold Argentinian fire, timeless Italian recipes and warm Turkish hospitality to one table.
+          - generic [ref=e47]:
+            - link "Reserve a Table" [ref=e48] [cursor=pointer]:
+              - /url: /reservation
+            - link "Explore Our Menu" [ref=e49] [cursor=pointer]:
+              - /url: /menu
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - paragraph [ref=e54]: Three Kitchens, One Table
+        - heading "One Menu, Three Traditions" [level=2] [ref=e55]
+        - paragraph [ref=e56]: Every plate at La Rio comes from one of three kitchens working side by side around our open charcoal grill.
+      - list [ref=e57]:
+        - listitem [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Italian" [level=3] [ref=e61]
+            - generic:
+              - paragraph:
+                - generic [ref=e62]: Wood-fired pizza, hand-rolled pasta and risotto, made the way northern Italy has always made them.
+        - listitem [ref=e63]:
+          - generic [ref=e65]:
+            - heading "Turkish" [level=3] [ref=e66]
+            - generic:
+              - paragraph:
+                - generic [ref=e67]: Charcoal kebabs, mezze and slow-simmered stews, carried straight from the grill to your table.
+        - listitem [ref=e68]:
+          - generic [ref=e70]:
+            - heading "Argentine" [level=3] [ref=e71]
+            - generic:
+              - paragraph:
+                - generic [ref=e72]: Prime cuts and whole-animal asado, cooked low and slow over open coals in the Argentine style.
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - paragraph [ref=e77]: From the Menu
+          - heading "Signature Favourites" [level=2] [ref=e78]
+          - paragraph [ref=e79]: The dishes guests come back for.
+        - generic [ref=e80]:
+          - button "Previous" [ref=e81]
+          - button "Next" [ref=e84]
+      - list [ref=e88]:
+        - listitem [ref=e89]:
+          - link "Steaks & Mains Asado Argentina Style SAR 320 View Details" [ref=e90] [cursor=pointer]:
+            - /url: /menu/steaks-and-mains/assado-argentina-style
+            - generic [ref=e93]:
+              - generic [ref=e94]: Steaks & Mains
+              - generic [ref=e95]: Asado Argentina Style
+              - generic:
+                - generic:
+                  - generic [ref=e96]: SAR 320
+                  - generic [ref=e97]: View Details
+        - listitem [ref=e98]:
+          - link "Pasta & Risotto Fettuccine Alfredo On The Parmesan Wheel SAR 98 View Details" [ref=e99] [cursor=pointer]:
+            - /url: /menu/pasta-and-risotto/fettuccine-alfredo-on-the-parmesan-wheel
+            - generic [ref=e102]:
+              - generic [ref=e103]: Pasta & Risotto
+              - generic [ref=e104]: Fettuccine Alfredo On The Parmesan Wheel
+              - generic:
+                - generic:
+                  - generic [ref=e105]: SAR 98
+                  - generic [ref=e106]: View Details
+        - listitem [ref=e107]:
+          - link "Kebabs & Skewers Urfa Kebab SAR 98 View Details" [ref=e108] [cursor=pointer]:
+            - /url: /menu/kebabs-and-skewers/urfa-kebab
+            - generic [ref=e111]:
+              - generic [ref=e112]: Kebabs & Skewers
+              - generic [ref=e113]: Urfa Kebab
+              - generic:
+                - generic:
+                  - generic [ref=e114]: SAR 98
+                  - generic [ref=e115]: View Details
+        - listitem [ref=e116]:
+          - link "Pizza Pizza La Rio Signature SAR 95 View Details" [ref=e117] [cursor=pointer]:
+            - /url: /menu/pizza/pizza-la-rio-signature
+            - generic [ref=e120]:
+              - generic [ref=e121]: Pizza
+              - generic [ref=e122]: Pizza La Rio Signature
+              - generic:
+                - generic:
+                  - generic [ref=e123]: SAR 95
+                  - generic [ref=e124]: View Details
+        - listitem [ref=e125]:
+          - link "Salads Burrata Salad SAR 62 View Details" [ref=e126] [cursor=pointer]:
+            - /url: /menu/salads/burrata-salad
+            - generic [ref=e129]:
+              - generic [ref=e130]: Salads
+              - generic [ref=e131]: Burrata Salad
+              - generic:
+                - generic:
+                  - generic [ref=e132]: SAR 62
+                  - generic [ref=e133]: View Details
+        - listitem [ref=e134]:
+          - link "Cold Mezze Lahmacun SAR 38 View Details" [ref=e135] [cursor=pointer]:
+            - /url: /menu/cold-mezze/lahmacun
+            - generic [ref=e138]:
+              - generic [ref=e139]: Cold Mezze
+              - generic [ref=e140]: Lahmacun
+              - generic:
+                - generic:
+                  - generic [ref=e141]: SAR 38
+                  - generic [ref=e142]: View Details
+        - listitem [ref=e143]:
+          - link "Starters Chicken Empanadas SAR 48 View Details" [ref=e144] [cursor=pointer]:
+            - /url: /menu/starters/chicken-empanadas
+            - generic [ref=e147]:
+              - generic [ref=e148]: Starters
+              - generic [ref=e149]: Chicken Empanadas
+              - generic:
+                - generic:
+                  - generic [ref=e150]: SAR 48
+                  - generic [ref=e151]: View Details
+        - listitem [ref=e152]:
+          - link "Soups Harira Soup SAR 34 View Details" [ref=e153] [cursor=pointer]:
+            - /url: /menu/soups/harira-soup
+            - generic [ref=e156]:
+              - generic [ref=e157]: Soups
+              - generic [ref=e158]: Harira Soup
+              - generic:
+                - generic:
+                  - generic [ref=e159]: SAR 34
+                  - generic [ref=e160]: View Details
+      - link "View Full Menu" [ref=e162] [cursor=pointer]:
+        - /url: /menu
+    - generic [ref=e166]:
+      - generic [ref=e167]:
+        - paragraph [ref=e168]: Why La Rio
+        - heading "What Sets Our Table Apart" [level=2] [ref=e169]
+        - paragraph [ref=e170]: Three cuisines rarely share a kitchen. At La Rio, they share a grill.
+      - list [ref=e173]:
+        - listitem [ref=e174]:
+          - generic [ref=e177]: An open charcoal grill tended all night
+        - listitem [ref=e178]:
+          - generic [ref=e181]: Three cuisines, one shared kitchen
+        - listitem [ref=e182]:
+          - generic [ref=e185]: Two branches across Riyadh
+        - listitem [ref=e186]:
+          - generic [ref=e189]: Family tables and private dining alike
+      - link "Reserve a Table" [ref=e190] [cursor=pointer]:
+        - /url: /reservation
+    - generic [ref=e193]:
+      - generic [ref=e194]:
+        - paragraph [ref=e195]: Our Story
+        - heading "Built Around the Fire" [level=2] [ref=e196]
+        - paragraph [ref=e197]: Al Narjis opened first; Al Yasmin followed four years later, built for longer, slower dinners.
+      - generic [ref=e199]:
+        - paragraph [ref=e200]: "La Rio started with a simple idea: put the grill at the centre of the room instead of hiding it in the back. Our kitchens draw on Argentine asado technique, Italian pasta and pizza craft, and Turkish charcoal cooking, and our cooks move between all three rather than staying fenced into one. The result is a menu that shares a fire more than it shares a single country's habits."
+        - generic [ref=e201]:
+          - link "Meet Us at Al Narjis" [ref=e202] [cursor=pointer]:
+            - /url: /branches/narjis
+          - link "Meet Us at Al Yasmin" [ref=e203] [cursor=pointer]:
+            - /url: /branches/al-yasmin
+    - generic [ref=e207]:
+      - generic [ref=e209]:
+        - paragraph [ref=e210]: Across Riyadh
+        - heading "Find Your La Rio" [level=2] [ref=e211]
+        - paragraph [ref=e212]: Two settings, one approach to food and hospitality.
+      - generic [ref=e213]:
+        - article [ref=e214]:
+          - paragraph [ref=e218]: Our first table in Riyadh
+          - heading [level=3] [ref=e219]:
+            - link "La Rio Al Narjis" [ref=e220] [cursor=pointer]:
+              - /url: /branches/narjis
+          - paragraph [ref=e221]: Al Narjis District, Riyadh 13327, Saudi Arabia
+          - heading "Opening hours" [level=4] [ref=e222]
+          - generic [ref=e223]:
+            - generic [ref=e224]:
+              - term [ref=e225]: Sun - Thu
+              - definition [ref=e226]: 12:00 PM - 11:30 PM
+            - generic [ref=e227]:
+              - term [ref=e228]: Fri - Sat
+              - definition [ref=e229]: 01:00 PM - 01:00 AM
+          - link "Get directions" [ref=e230] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=La+Rio+Al+Narjis+Riyadh
+        - article [ref=e231]:
+          - paragraph [ref=e235]: Quieter rooms, the same fire
+          - heading [level=3] [ref=e236]:
+            - link "La Rio Al Yasmin" [ref=e237] [cursor=pointer]:
+              - /url: /branches/al-yasmin
+          - paragraph [ref=e238]: Al Yasmin District, Riyadh 13325, Saudi Arabia
+          - heading "Opening hours" [level=4] [ref=e239]
+          - generic [ref=e240]:
+            - generic [ref=e241]:
+              - term [ref=e242]: Sun - Thu
+              - definition [ref=e243]: 01:00 PM - 11:00 PM
+            - generic [ref=e244]:
+              - term [ref=e245]: Fri - Sat
+              - definition [ref=e246]: 01:00 PM - 01:00 AM
+          - link "Get directions" [ref=e247] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=La+Rio+Al+Yasmin+Riyadh
+    - generic [ref=e249]:
+      - generic [ref=e255]:
+        - paragraph [ref=e258]: Celebrate With Us
+        - heading "Private Dining & Events" [level=2] [ref=e259]
+        - paragraph [ref=e260]: A private room and a flexible table plan for gatherings large and small.
+      - generic [ref=e261]:
+        - list [ref=e262]:
+          - listitem [ref=e263]:
+            - generic [ref=e265]:
+              - paragraph [ref=e266]:
+                - generic [ref=e267]: "12"
+                - generic [ref=e268]: Seats
+              - heading "Private Dining Room" [level=3] [ref=e269]
+              - generic:
+                - paragraph:
+                  - generic [ref=e270]: Our twelve-seat private room at Al Narjis sits beside the open grill and suits birthdays, engagements and small business dinners.
+          - listitem [ref=e271]:
+            - generic [ref=e273]:
+              - paragraph [ref=e274]:
+                - generic [ref=e275]: "2"
+                - generic [ref=e276]: Branches
+              - heading "Combined Tables" [level=3] [ref=e277]
+              - generic:
+                - paragraph:
+                  - generic [ref=e278]: At Al Yasmin, two dining bays can be joined for groups of twenty or more. Mention it when you reserve.
+          - listitem [ref=e279]:
+            - generic [ref=e281]:
+              - paragraph [ref=e282]:
+                - generic [ref=e283]: "3"
+                - generic [ref=e284]: Days' notice
+              - heading "Shared Menus" [level=3] [ref=e285]
+              - generic:
+                - paragraph:
+                  - generic [ref=e286]: Tell us your guest count and preferences a few days ahead, and our kitchen will plan a shared menu across all three cuisines.
+        - link "Enquire About Your Event" [ref=e288] [cursor=pointer]:
+          - /url: /reservation
+    - generic [ref=e290]:
+      - generic [ref=e292]:
+        - paragraph [ref=e293]: A Look Inside
+        - heading "Inside La Rio" [level=2] [ref=e294]
+        - paragraph [ref=e295]: The grill, the dining rooms and the details in between.
+      - generic [ref=e297]:
+        - figure [ref=e298]
+        - figure [ref=e300]
+        - figure [ref=e302]
+        - figure [ref=e304]
+        - figure [ref=e306]
+        - figure [ref=e308]
+        - figure [aria-hidden] [ref=e310]
+        - figure [aria-hidden] [ref=e312]
+        - figure [aria-hidden] [ref=e314]
+        - figure [aria-hidden] [ref=e316]
+        - figure [aria-hidden] [ref=e318]
+        - figure [aria-hidden] [ref=e320]
+      - link "See Both Branches" [ref=e323] [cursor=pointer]:
+        - /url: /branches
+    - generic [ref=e325]:
+      - generic [ref=e327]:
+        - paragraph [ref=e328]: Guest Reviews
+        - heading "What Our Guests Say" [level=2] [ref=e329]
+        - paragraph [ref=e330]: Notes from tables at Al Narjis and Al Yasmin.
+      - paragraph [ref=e331]: Rocel Mae L.
+      - list [ref=e332]:
+        - listitem [ref=e333]:
+          - blockquote [ref=e334]:
+            - img "5 out of 5" [ref=e335]
+            - paragraph [ref=e346]: Came here as a group and we had a wonderful dining experience! The staff were friendly, attentive, and made us feel welcome from the moment we arrived.
+            - generic [ref=e348]:
+              - generic [ref=e349]: Rocel Mae L.
+              - generic [ref=e350]: Group dinner
+        - listitem [aria-hidden] [ref=e351] [cursor=pointer]:
+          - blockquote [ref=e352]:
+            - paragraph [ref=e364]: We chose this spot to celebrate our 7th anniversary, and it couldn't have been more perfect. The ambiance is beautifully romantic, and the food was delicious and served promptly.
+            - generic [ref=e366]:
+              - generic [ref=e367]: Melvie D.
+              - generic [ref=e368]: Anniversary dinner
+        - listitem [aria-hidden] [ref=e369] [cursor=pointer]:
+          - blockquote [ref=e370]:
+            - paragraph [ref=e382]: The pasta dishes are truly amazing, perfectly cooked with rich, flavorful sauces that showcase their dedication to quality. The meat dishes are amazing and the flavors are great.
+            - generic [ref=e384]:
+              - generic [ref=e385]: Omar F.
+              - generic [ref=e386]: Google review
+        - listitem [aria-hidden]:
+          - blockquote:
+            - paragraph: It is very rare that I give a 10/10 to anyone, but La Rio deserves every bit of it.
+            - generic:
+              - generic:
+                - generic: Mir Zaed I.
+                - generic: Visiting from the United States
+        - listitem [aria-hidden]:
+          - blockquote:
+            - paragraph: One of our favorite restaurants. We almost tried everything here and all the dishes are delicious and great. The service is so good, the waiters are so nice and quick.
+            - generic:
+              - generic:
+                - generic: Roula A.
+                - generic: Regular guest
+        - listitem [aria-hidden] [ref=e387] [cursor=pointer]:
+          - blockquote [ref=e388]:
+            - paragraph [ref=e400]: Always a pleasure to visit this restaurant! Delicious and fresh food, generous portions! I've tried their business lunch and it was excellent!
+            - generic [ref=e402]:
+              - generic [ref=e403]: Yousra
+              - generic [ref=e404]: Business lunch
+        - listitem [aria-hidden] [ref=e405] [cursor=pointer]:
+          - blockquote [ref=e406]:
+            - paragraph [ref=e416]: I highly recommend the kebabs and the cheesy loaded fries, they were outstanding!
+            - generic [ref=e418]:
+              - generic [ref=e419]: Sara A.
+              - generic [ref=e420]: Google review
+      - generic [ref=e421]:
+        - button "Previous" [ref=e422]
+        - button "Next" [ref=e425]
+    - generic [ref=e431]:
+      - generic [ref=e432]:
+        - paragraph [ref=e433]: Good to Know
+        - heading "Frequently Asked Questions" [level=2] [ref=e434]
+        - paragraph [ref=e435]: Answers to what guests ask us most before their first visit.
+      - generic [ref=e436]:
+        - group [ref=e437]:
+          - generic "Is the food at La Rio halal?" [ref=e438] [cursor=pointer]
+        - group [ref=e441]:
+          - generic "Do you take reservations, or can we walk in?" [ref=e442] [cursor=pointer]
+        - group [ref=e445]:
+          - generic "Do you offer vegetarian options across all three cuisines?" [ref=e446] [cursor=pointer]
+        - group [ref=e449]:
+          - generic "Is valet parking available?" [ref=e450] [cursor=pointer]
+        - group [ref=e453]:
+          - generic "Can you seat large groups or families?" [ref=e454] [cursor=pointer]
+    - generic [ref=e459]:
+      - heading "Reserve Your Table" [level=2] [ref=e460]
+      - paragraph [ref=e461]: Choose Al Narjis or Al Yasmin, tell us when, and we'll hold your table by the fire.
+      - link "Reserve a Table" [ref=e462] [cursor=pointer]:
+        - /url: /reservation
+      - list [ref=e463]:
+        - listitem [ref=e464]:
+          - link "La Rio Al Narjis" [ref=e465] [cursor=pointer]:
+            - /url: /reservation?branch=narjis
+        - listitem [ref=e466]:
+          - link "La Rio Al Yasmin" [ref=e467] [cursor=pointer]:
+            - /url: /reservation?branch=al-yasmin
+  - contentinfo [ref=e468]:
+    - generic [ref=e469]:
+      - generic [ref=e470]:
+        - region [ref=e471]:
+          - heading "Join our list" [level=2] [ref=e472]
+          - paragraph [ref=e473]: New dishes from the grill, seasonal menus, and private dining dates. A few times a year.
+          - generic [ref=e474]:
+            - generic [ref=e475]: Email address
+            - generic [ref=e476]:
+              - textbox "Email address" [ref=e477]
+              - button "Join" [ref=e478]
+            - paragraph [ref=e481]: You can unsubscribe at any time.
+            - alert
+        - generic [ref=e482]:
+          - generic [ref=e483]:
+            - heading "Explore" [level=2] [ref=e484]
+            - navigation "Explore" [ref=e486]:
+              - list [ref=e487]:
+                - listitem [ref=e488]:
+                  - link "Home" [ref=e489] [cursor=pointer]:
+                    - /url: /
+                - listitem [ref=e490]:
+                  - link "Menu" [ref=e491] [cursor=pointer]:
+                    - /url: /menu
+                - listitem [ref=e492]:
+                  - link "Branches" [ref=e493] [cursor=pointer]:
+                    - /url: /branches
+                - listitem [ref=e494]:
+                  - link "Reservations" [ref=e495] [cursor=pointer]:
+                    - /url: /reservation
+                - listitem [ref=e496]:
+                  - link "Contact" [ref=e497] [cursor=pointer]:
+                    - /url: /contact
+          - generic [ref=e498]:
+            - heading "Visit us" [level=2] [ref=e499]
+            - list [ref=e501]:
+              - listitem [ref=e502]:
+                - link "La Rio Al Narjis" [ref=e503] [cursor=pointer]:
+                  - /url: /branches/narjis
+                - paragraph [aria-hidden] [ref=e504]
+                - paragraph [ref=e505]: Al Narjis District, Riyadh 13327, Saudi Arabia
+                - generic [ref=e506]:
+                  - link "+966 11 234 5678" [ref=e507] [cursor=pointer]:
+                    - /url: tel:+966112345678
+                  - link "Get directions" [ref=e509] [cursor=pointer]:
+                    - /url: https://maps.google.com/?q=La+Rio+Al+Narjis+Riyadh
+              - listitem [ref=e510]:
+                - link "La Rio Al Yasmin" [ref=e511] [cursor=pointer]:
+                  - /url: /branches/al-yasmin
+                - paragraph [aria-hidden] [ref=e512]
+                - paragraph [ref=e513]: Al Yasmin District, Riyadh 13325, Saudi Arabia
+                - generic [ref=e514]:
+                  - link "+966 11 234 5679" [ref=e515] [cursor=pointer]:
+                    - /url: tel:+966112345679
+                  - link "Get directions" [ref=e517] [cursor=pointer]:
+                    - /url: https://maps.google.com/?q=La+Rio+Al+Yasmin+Riyadh
+          - generic [ref=e518]:
+            - heading "Get in touch" [level=2] [ref=e519]
+            - list [ref=e521]:
+              - listitem [ref=e522]:
+                - link "+966 11 234 5678" [ref=e523] [cursor=pointer]:
+                  - /url: tel:+966112345678
+              - listitem [ref=e525]:
+                - link "WhatsApp" [ref=e526] [cursor=pointer]:
+                  - /url: https://wa.me/966512345678
+              - listitem [ref=e527]:
+                - link "hello@lario.sa" [ref=e528] [cursor=pointer]:
+                  - /url: mailto:hello@lario.sa
+          - generic [ref=e530]:
+            - heading "Follow us" [level=2] [ref=e531]
+            - list [ref=e533]:
+              - listitem [ref=e534]:
+                - link "Instagram" [ref=e535] [cursor=pointer]:
+                  - /url: https://instagram.com/lario.sa
+              - listitem [ref=e538]:
+                - link "TikTok" [ref=e539] [cursor=pointer]:
+                  - /url: https://tiktok.com/@lario.sa
+              - listitem [ref=e542]:
+                - link "Snapchat" [ref=e543] [cursor=pointer]:
+                  - /url: https://snapchat.com/add/lario.sa
+      - generic [ref=e546]:
+        - paragraph [ref=e547]: © La Rio. All rights reserved.
+        - list [ref=e548]:
+          - listitem [ref=e549]:
+            - link "Privacy Policy" [ref=e550] [cursor=pointer]:
+              - /url: /privacy-policy
+          - listitem [ref=e551]:
+            - link "Terms & Conditions" [ref=e552] [cursor=pointer]:
+              - /url: /terms-and-conditions
+  - generic [ref=e557] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e558]
+    - generic [ref=e562]:
+      - button "Open issues overlay" [ref=e563]:
+        - generic [ref=e564]:
+          - generic [aria-hidden] [ref=e565]: "0"
+          - generic [ref=e566]: "1"
+        - generic [ref=e567]: Issue
+      - button "Collapse issues badge" [ref=e568]
+  - alert [ref=e571]

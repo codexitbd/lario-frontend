@@ -74,7 +74,7 @@ export function NewsletterForm({
     return (
       <p
         role="status"
-        className="mt-7 flex items-start gap-3 text-sm leading-relaxed text-gold"
+        className="mt-5 flex items-start gap-3 text-sm leading-relaxed text-gold"
       >
         <CheckIcon aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
         {dict.footer.newsletterSuccess}
@@ -85,7 +85,7 @@ export function NewsletterForm({
   const sending = status === 'sending'
 
   return (
-    <form onSubmit={onSubmit} noValidate={false} className="mt-7 max-w-md">
+    <form onSubmit={onSubmit} noValidate={false} className="mt-5 max-w-md">
       <label
         htmlFor={id}
         className="block text-[0.6875rem] tracking-[0.18em] text-ivory-dim/70 uppercase"
@@ -107,7 +107,7 @@ export function NewsletterForm({
           dir="ltr"
           aria-describedby={`${id}-note`}
           aria-invalid={status === 'error'}
-          className="min-w-0 flex-1 bg-transparent py-3 text-base text-ivory placeholder:text-ivory-dim/50 focus:outline-none disabled:opacity-60"
+          className="min-w-0 flex-1 bg-transparent py-2.5 text-base text-ivory placeholder:text-ivory-dim/50 focus:outline-none disabled:opacity-60"
         />
         <button
           type="submit"
@@ -128,7 +128,7 @@ export function NewsletterForm({
 
       <p
         id={`${id}-note`}
-        className="mt-3 text-[0.75rem] leading-relaxed text-ivory-dim/60"
+        className="mt-2 text-[0.75rem] leading-relaxed text-ivory-dim/60"
       >
         {dict.footer.newsletterConsent}
       </p>
