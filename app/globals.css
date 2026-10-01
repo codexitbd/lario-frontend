@@ -342,6 +342,32 @@ html[dir="rtl"] [lang="en"] {
   }
 }
 
+/* Branch page hero (app/[locale]/branches/[slug]/page.tsx). The photograph
+   is held at 1.14 and sinks six percent while the reader scrolls the first
+   screen, so the room drops away behind the story like a camera tilting up.
+   Scroll-driven, no JavaScript. The 14% overscale is what keeps the frame
+   covered through the whole travel. Base state is the resting image, so a
+   browser without scroll timelines, or a reader on reduced motion, simply
+   sees the photograph. */
+@keyframes lr-room-media {
+  from {
+    transform: scale(1.14) translateY(0);
+  }
+  to {
+    transform: scale(1.14) translateY(6%);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lr-room-media {
+      animation: lr-room-media linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 90vh;
+    }
+  }
+}
+
 /* Gallery strip. The one marquee on this page. */
 @keyframes lr-marquee {
   to {
@@ -407,64 +433,54 @@ html[dir="rtl"] .lr-marquee-track {
 }
 
 /* ---------------------------------------------------------------------------
-   Site chrome. The header is fixed and transparent over the hero, and takes
-   its ground as the reader scrolls — driven by a native scroll-progress
-   timeline, so there is no scroll listener, no client component and nothing
-   added to the mobile budget.
+   Site chrome (components/layout/header-shell.tsx sets the attributes).
 
-   THE BASE STATE BELOW IS THE SOLID ONE, deliberately. A browser without
-   animation-timeline support, or a reader who asked for reduced motion, gets a
-   header that is always legible; sitting transparent over the film is the
-   enhancement. Written the other way round, an unsupporting browser would show
-   an invisible header forever — the same trap the .lr-reveal guard exists for.
+   data-top     transparent ground, utility strip open. Only at the very top,
+                over the dark opening band every page starts on.
+   (absent)     solid ground, strip collapsed. Everywhere else, so the header
+                is legible over light sections.
+   data-hidden  slid out of view while the reader scrolls down. Any scroll up
+                clears it. Focus inside the header also overrides it, so a
+                keyboard reader tabbing into the nav always sees where they are.
+
+   Under reduced motion the states still apply; only the transitions go.
 --------------------------------------------------------------------------- */
 
+.lr-chrome {
+  transition: translate 450ms var(--ease-brand);
+}
+
+.lr-chrome[data-hidden]:not(:focus-within) {
+  translate: 0 -100%;
+}
+
+.lr-chrome-ground {
+  transition: opacity 300ms linear;
+}
+
+.lr-chrome[data-top] .lr-chrome-ground {
+  opacity: 0;
+}
+
 .lr-chrome-strip {
-  /* One source of truth for the strip's height: the keyframe below has to
-     name a real length, because height cannot interpolate from `auto`. */
+  /* A real length, because height cannot transition from `auto`. */
   --lr-strip: 2.75rem;
   height: var(--lr-strip);
+  transition:
+    height 400ms var(--ease-brand),
+    opacity 250ms linear;
 }
 
-@keyframes lr-chrome-ground {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.lr-chrome:not([data-top]) .lr-chrome-strip {
+  height: 0;
+  opacity: 0;
 }
 
-@keyframes lr-chrome-strip {
-  from {
-    height: var(--lr-strip);
-    opacity: 1;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-  }
-}
-
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    /* The keyframe name belongs IN the shorthand. `animation: linear both` with
-       the name split into a following `animation-name` parses as a keyframes
-       ident called "linear" and the whole declaration is dropped — fill-mode
-       computes to `none`, and the strip springs back to full height the moment
-       the reader scrolls past the range. Measured, not guessed. */
-    .lr-chrome-ground {
-      animation: lr-chrome-ground linear both;
-      animation-timeline: scroll(root block);
-      /* Resolved by the time the reader has cleared the header's own height. */
-      animation-range: 0 6rem;
-    }
-
-    .lr-chrome-strip {
-      animation: lr-chrome-strip linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 6rem;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .lr-chrome,
+  .lr-chrome-ground,
+  .lr-chrome-strip {
+    transition: none;
   }
 }
 

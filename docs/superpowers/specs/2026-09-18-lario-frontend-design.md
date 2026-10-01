@@ -63,7 +63,7 @@ on the implementation plan.
 | D4 | Keep `private_events`, gallery CTA, full nav | Client override of the scope gate — see §3 |
 | D5 | Full prototype nav, Phase-4 items disabled | Client override — see §3 |
 | D6 | Menu taxonomy is **course-based** | Matches contract examples and real search intent |
-| D7 | `reservation_cta` added as homepage section 10 | One of the 10 approved types; Phase 3.4 needs it |
+| D7 | ~~`reservation_cta` added as homepage section 10~~ **Removed from the homepage 2026-10-01** by client decision ("looks stupid" above the footer), and not used on the branch pages either. The type stays in the contract and the renderer; the fixture carries ten sections | Was: one of the 10 approved types; Phase 3.4 needs it. Now: the header's Reserve button and the hero CTA carry the intent |
 | D8 | ~~6~~ ~~4~~ **8** featured dishes spanning courses | Amended 2026-09-20 to 4 for the five-column mosaic, then 2026-09-30 to **8** when the client replaced the mosaic with a filmstrip carousel. The section shows FOUR at a time and advances one card at a time, so four slugs would rotate the same four dishes through the same four slots and the motion would carry nothing. Eight dishes now span eight of the nine courses and all three cuisines, which serves the internal-link intent better than either earlier count |
 | D9 | 9 categories; desserts/drinks are a content gap | All content is CMS-driven, so adding rows later is free |
 | D10 | Category pills **navigate**, they do not filter in place | Prevents `/menu` and `/menu/[category]` competing |
@@ -415,6 +415,23 @@ CTA.
 `LocalBusiness` + `BreadcrumbList` + `FAQPage` JSON-LD. `opening_hours` renders
 from the raw array; `schema_opening_hours` feeds the JSON-LD — the frontend
 never reformats hours itself.
+
+**BUILT 2026-10-01, then amended the same day by client decision.** There is
+NO `/branches` index (§8.1 is withdrawn): the header renders Branches as a
+hover menu of the two rooms, and the drawer as a heading over the two links,
+so the item carries no href (`components/layout/site-nav.tsx`; `PRIMARY_NAV`
+no longer lists it). `/branches/[slug]` renders blocks 1, 3, 4, 5 and 6 in that
+order, and NOT block 7 (the closing reservation band, removed with D7): a
+full-bleed hero whose photograph sinks on scroll (`.lr-room-media`,
+scroll-driven CSS, no JavaScript) with the tagline, name, live open state and
+the two actions; the story set large beside the room's second photograph in
+the house arch; the three popular dishes in the menu's own cards; the gallery
+grid, rendered only once `gallery[]` carries frames (both are empty today);
+Visit with the address, directions note, hours set large and the facilities
+with glyphs; and the homepage FAQ accordion fed the room's own questions. The
+hero's Reserve button preselects the room. Block 2 (long-form copy) has no field
+in the contract beyond `story` and is not built; the map is a directions link,
+not an embed, for the reason /contact gives.
 
 **The map loads lazily and below the fold, never blocking LCP.**
 

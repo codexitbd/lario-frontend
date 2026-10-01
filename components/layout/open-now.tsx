@@ -39,12 +39,17 @@ export function OpenNow({
   branch,
   locale,
   dict,
+  tone = 'dark',
 }: {
   branch: Branch
   locale: Locale
   dict: Dictionary
+  /** The ground it sits on. Gold is 2.4:1 on bone, so the light tone swaps in
+      gold-ink, the same trade the CTA and section header make. */
+  tone?: 'dark' | 'light'
 }) {
   const minute = useSyncExternalStore(subscribe, snapshot, serverSnapshot)
+  const light = tone === 'light'
 
   // Server and first paint: hold the space, say nothing.
   if (minute === null) {
@@ -67,10 +72,26 @@ export function OpenNow({
       <span
         aria-hidden="true"
         className={`size-1.5 shrink-0 rounded-full ${
-          state.open ? 'bg-gold' : 'bg-ivory-dim/40'
+          state.open
+            ? light
+              ? 'bg-gold-ink'
+              : 'bg-gold'
+            : light
+              ? 'bg-ink/25'
+              : 'bg-ivory-dim/40'
         }`}
       />
-      <span className={state.open ? 'text-gold' : 'text-ivory-dim/70'}>
+      <span
+        className={
+          state.open
+            ? light
+              ? 'text-gold-ink'
+              : 'text-gold'
+            : light
+              ? 'text-ink-soft'
+              : 'text-ivory-dim/70'
+        }
+      >
         {label}
       </span>
     </p>

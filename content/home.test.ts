@@ -5,12 +5,16 @@ import { SECTION_TYPES } from '@/lib/schemas'
 import { LOCALES } from '@/lib/i18n/config'
 
 describe('home fixture', () => {
-  it('has all 11 approved section types exactly once', () => {
+  // Ten of the eleven approved types. `reservation_cta` was removed from the
+  // homepage by client decision on 2026-10-01 (D7 amended); the type still
+  // exists in the contract and the renderer, so an editor can put it back.
+  it('has every approved section type except reservation_cta, exactly once', () => {
     const types = home.sections.map((s) => s.type)
-    expect(types).toHaveLength(11)
-    expect(new Set(types).size).toBe(11)
+    expect(types).toHaveLength(10)
+    expect(new Set(types).size).toBe(10)
     for (const type of SECTION_TYPES) {
-      expect(types).toContain(type)
+      if (type === 'reservation_cta') expect(types).not.toContain(type)
+      else expect(types).toContain(type)
     }
   })
 
@@ -20,9 +24,9 @@ describe('home fixture', () => {
     expect(orders[0]).toBe(0)
   })
 
-  it('opens with hero and closes with reservation_cta', () => {
+  it('opens with hero and closes with faq', () => {
     expect(home.sections[0].type).toBe('hero')
-    expect(home.sections.at(-1)?.type).toBe('reservation_cta')
+    expect(home.sections.at(-1)?.type).toBe('faq')
   })
 
   it('carries translated content for every section in both locales', () => {

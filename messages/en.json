@@ -181,5 +181,14 @@
     "send": "Send message",
     "successTitle": "Message received",
     "successBody": "Thank you. The restaurant will reply within one working day."
+  },
+  "branches": {
+    "story": "The story",
+    "gallery": "Inside the room",
+    "address": "Address",
+    "viewFullMenu": "See the full menu",
+    "faqEyebrow": "Before you come",
+    "faqHeading": "Frequently asked",
+    "faqBody": "For anything else, call the room directly."
   }
 }

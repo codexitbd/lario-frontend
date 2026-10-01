@@ -24,7 +24,10 @@ export type NavLink = { key: NavKey; href: string }
 export const PRIMARY_NAV: readonly NavLink[] = [
   { key: 'home', href: '/' },
   { key: 'menu', href: '/menu' },
-  { key: 'branches', href: '/branches' },
+  // No 'branches' entry: by client decision (2026-10-01) there is no /branches
+  // index. The header renders Branches as a menu of the two rooms after
+  // 'menu' (components/layout/site-nav.tsx); the footer lists the rooms under
+  // Visit us. The rooms' own urls come from the API, never from here.
   { key: 'reservation', href: '/reservation' },
   { key: 'contact', href: '/contact' },
 ]

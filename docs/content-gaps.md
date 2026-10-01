@@ -66,6 +66,18 @@ directly.
 | `narjis/hero.jpg` | Al Narjis exterior or entrance. Branch page hero and `og:image`. |
 | `al-yasmin/hero.jpg` | Al Yasmin exterior or entrance. Branch page hero and `og:image`. |
 
+The contact page (built 2026-10-01) adds one more slot with no fixture field
+behind it, `contact.hero` in `lib/placeholders.ts`: a wide entrance-at-dusk
+shot for `/contact`, like the menu page's own stand-ins. Its two room
+photographs reuse the branch frames above.
+
+The branch pages (built 2026-10-01) use `narjis/hero.jpg` and
+`al-yasmin/hero.jpg` for their heroes and add a second frame per room,
+`branch.<slug>.story` in `lib/placeholders.ts`, for the arch beside the story:
+Narjis's street entrance, Al Yasmin's courtyard. When the shoot lands those
+are the first two frames of each branch's `gallery[]`, which also switches on
+the gallery grid.
+
 Branch `gallery[]` is empty for both branches and is not counted above — it is
 open-ended and will take whatever additional interior frames the shoot yields.
 

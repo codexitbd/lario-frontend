@@ -4,6 +4,7 @@ import {
   MapPinIcon,
   PhoneIcon,
 } from '@phosphor-icons/react/ssr'
+import { HeaderShell } from '@/components/layout/header-shell'
 import { LocaleSwitch } from '@/components/layout/locale-switch'
 import { SiteNav } from '@/components/layout/site-nav'
 import { Wordmark } from '@/components/layout/wordmark'
@@ -29,14 +30,17 @@ import type { Branch, Settings } from '@/lib/schemas'
  * reference shows. `position: sticky` would push all of that down and reserve
  * the space twice.
  *
- * It takes its ground ON SCROLL, and that transition is a native
- * scroll-progress timeline in globals.css (`.lr-chrome-*`) — no scroll
- * listener, no client component, nothing added to the 95+ mobile budget. The
- * utility strip collapses in the same range, which is the "condenses on scroll"
- * of spec §10. Read the CSS before changing this: the SOLID state is the base
- * and the transparent one is the enhancement, so a browser without
- * animation-timeline (or a reader on reduced motion) gets a header that is
- * always legible instead of one that is never visible.
+ * Transparent ONLY at the very top of the page, over the dark opening band;
+ * solid everywhere else, with the utility strip collapsed (the "condenses on
+ * scroll" of spec §10). It slides away while the reader scrolls down and
+ * returns on any scroll up, at client request 2026-09-30. HeaderShell owns the
+ * scroll reading and globals.css (`.lr-chrome`) owns the visuals.
+ *
+ * This replaced a native scroll-progress timeline for the ground. That needed
+ * no JavaScript, but CSS cannot tell scroll direction, and the timeline was
+ * reported leaving the header transparent over light sections in the client's
+ * browser. With JS off the <noscript> rule below pins the ground solid, so the
+ * header is never invisible: the trap the timeline's solid base state guarded.
  */
 export function SiteHeader({
   branches,
@@ -52,11 +56,15 @@ export function SiteHeader({
   const reserveHref = localePath(locale, '/reservation')
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 text-ivory">
+    <HeaderShell>
+      <noscript>
+        <style>{'.lr-chrome .lr-chrome-ground{opacity:1}'}</style>
+      </noscript>
+
       {/* The ground, as its own layer: opacity is cheap to animate and does not
           interpolate a colour through muddy intermediate values the way
           transparent -> ink would. `-z-10` needs the header's own stacking
-          context, which `fixed` + `z-50` already establishes. */}
+          context, which `fixed` + `z-50` on HeaderShell already establishes. */}
       <span
         aria-hidden="true"
         className="lr-chrome-ground absolute inset-0 -z-10 border-b border-gold/20 bg-ink/95 backdrop-blur-sm"
@@ -137,6 +145,11 @@ export function SiteHeader({
           dict={dict}
           siteName={settings.site_name}
           reserveHref={reserveHref}
+          branches={branches.map((branch) => ({
+            slug: branch.slug,
+            name: branch.name,
+            url: localePath(locale, branch.url),
+          }))}
         />
 
         {/* The switcher rides with the Reserve button in the end column, NOT in
@@ -155,6 +168,6 @@ export function SiteHeader({
           </Link>
         </div>
       </Container>
-    </header>
+    </HeaderShell>
   )
 }

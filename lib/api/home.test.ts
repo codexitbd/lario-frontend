@@ -7,7 +7,8 @@ describe('getHome', () => {
   it('satisfies the contract shape', () => {
     const home = getHome('en')
     expect(() => homeSchema.parse(home)).not.toThrow()
-    expect(home.sections).toHaveLength(11)
+    // Ten since 2026-10-01: see content/home.test.ts on reservation_cta.
+    expect(home.sections).toHaveLength(10)
   })
 
   it('resolves featured_dishes item_slugs into MenuItemCard[] via getFeaturedItems', () => {

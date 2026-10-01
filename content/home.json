@@ -352,25 +352,6 @@
           ]
         }
       }
-    },
-    {
-      "type": "reservation_cta",
-      "sort_order": 10,
-      "payload": {
-        "default_branch": null
-      },
-      "translations": {
-        "en": {
-          "heading": "Reserve Your Table",
-          "subheading": "Choose Al Narjis or Al Yasmin, tell us when, and we'll hold your table by the fire.",
-          "cta_label": "Reserve a Table"
-        },
-        "ar": {
-          "heading": "احجز طاولتك",
-          "subheading": "اختر فرع النرجس أو الياسمين، وأخبرنا بالموعد، وسنحجز لك طاولة قرب النار.",
-          "cta_label": "احجز طاولتك"
-        }
-      }
     }
   ]
 }

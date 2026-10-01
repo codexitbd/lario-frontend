@@ -62,8 +62,18 @@ export const PLACEHOLDERS = {
   'menu.visit': unsplash('1517248135467-4c7edcad34c4', 1100, 1400),
   'menu.visit.inset': unsplash('1504674900247-0877df9cc836', 800, 600),
 
+  // Contact page. One stand-in, for the hero; the two rooms reuse the branch
+  // frames below, shown larger and on a light ground.
+  'contact.hero': unsplash('1578474846511-04ba529f0b88', 2400, 1400),
+
   'branch.narjis': unsplash('1514933651103-005eec06c04b', 1600, 1200),
   'branch.al-yasmin': unsplash('1517248135467-4c7edcad34c4', 1600, 1200),
+
+  // Branch pages (2026-10-01). The hero reuses the frame above; the story
+  // arch needs a second frame of the same room. Narjis gets its street
+  // entrance, Al Yasmin the courtyard its copy describes.
+  'branch.narjis.story': unsplash('1559925393-8be0ec4767c8', 1100, 1400),
+  'branch.al-yasmin.story': unsplash('1537047902294-62a40c20a6ae', 1100, 1400),
 } as const
 
 /**

@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ListIcon, XIcon } from '@phosphor-icons/react/ssr'
+import { CaretDownIcon, ListIcon, XIcon } from '@phosphor-icons/react/ssr'
 import {
   DEFERRED_NAV,
   PRIMARY_NAV,
@@ -31,28 +31,41 @@ import type { Dictionary } from '@/lib/i18n/dictionaries'
  * turn every statically prerendered page in the site dynamic — 196 menu pages
  * included. A pathname read costs nothing by comparison.
  *
- * DELIBERATE DEVIATION from spec §3: the DESKTOP bar carries the five live
- * routes only, not the six Phase-4 items as well. Eleven items in a centred bar
- * is not the approved shape, and the client's own reference (design/references/
+ * DELIBERATE DEVIATION from spec §3: the DESKTOP bar carries the live routes
+ * only, not the six Phase-4 items as well. Eleven items in a centred bar is not
+ * the approved shape, and the client's own reference (design/references/
  * shared/header-mobile.png) draws six slots. The deferred items keep their
  * place — disabled, labelled "coming soon" — in the drawer and the footer,
  * which is what §3 is actually protecting: they are rendered, and they are
  * never links to nothing.
+ *
+ * BRANCHES IS A MENU, NOT A LINK (client decision 2026-10-01, replacing the
+ * /branches index page). On desktop "Branches" is a button that opens the two
+ * rooms on hover, focus or click; in the drawer it is a heading over the two
+ * room links. The button carries no href, so nothing here can point at the
+ * route that no longer exists. The lit rule beneath it follows the current
+ * branch page the same way the other items follow theirs.
  */
 export function SiteNav({
   locale,
   dict,
   siteName,
   reserveHref,
+  branches,
 }: {
   locale: Locale
   dict: Dictionary
   siteName: string
   reserveHref: string
+  /** The rooms, already localised: the menu renders their names and urls. */
+  branches: { slug: string; name: string; url: string }[]
 }) {
   const pathname = usePathname()
   const drawer = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
+  // Hover and focus open the branches menu through CSS alone; this state is
+  // for a click or tap, so a pointer that cannot hover still gets in.
+  const [branchesOpen, setBranchesOpen] = useState(false)
 
   const show = () => {
     drawer.current?.showModal()
@@ -69,6 +82,21 @@ export function SiteNav({
     // Home only ever matches itself; in Arabic that is `/ar`, not `/`.
     exact: item.href === '/',
   }))
+  const onBranchPage = isActivePath(pathname, localePath(locale, '/branches'))
+
+  const itemClass =
+    'group relative py-2 text-[0.75rem] tracking-[0.18em] text-ivory uppercase transition-colors duration-300 ease-brand hover:text-gold'
+  const rule = (active: boolean) => (
+    // The reference marks the current page with a short rule under it. It
+    // grows from the start edge on hover, so the same device reads as both
+    // state and affordance.
+    <span
+      aria-hidden="true"
+      className={`absolute inset-x-0 bottom-0 h-px origin-[left_center] bg-gold transition-transform duration-500 ease-brand rtl:origin-[right_center] ${
+        active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+      }`}
+    />
+  )
 
   return (
     <>
@@ -79,23 +107,83 @@ export function SiteNav({
         {links.map((item) => {
           const active = isActivePath(pathname, item.localised, item.exact)
           return (
-            <Link
-              key={item.key}
-              href={item.localised}
-              aria-current={active ? 'page' : undefined}
-              className="group relative py-2 text-[0.75rem] tracking-[0.18em] text-ivory uppercase transition-colors duration-300 ease-brand hover:text-gold"
-            >
-              {item.label}
-              {/* The reference marks the current page with a short rule under
-                  it. It grows from the start edge on hover, so the same device
-                  reads as both state and affordance. */}
-              <span
-                aria-hidden="true"
-                className={`absolute inset-x-0 bottom-0 h-px origin-[left_center] bg-gold transition-transform duration-500 ease-brand rtl:origin-[right_center] ${
-                  active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                }`}
-              />
-            </Link>
+            <span key={item.key} className="contents">
+              <Link
+                href={item.localised}
+                aria-current={active ? 'page' : undefined}
+                className={itemClass}
+              >
+                {item.label}
+                {rule(active)}
+              </Link>
+
+              {item.key === 'menu' ? (
+                <div
+                  className="group/branches relative"
+                  data-open={branchesOpen || undefined}
+                  onMouseLeave={() => setBranchesOpen(false)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') setBranchesOpen(false)
+                  }}
+                  onBlur={(event) => {
+                    // Closes a click-opened menu once focus leaves it entirely.
+                    if (
+                      !event.currentTarget.contains(
+                        event.relatedTarget as Node | null,
+                      )
+                    ) {
+                      setBranchesOpen(false)
+                    }
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={branchesOpen}
+                    aria-haspopup="menu"
+                    aria-current={onBranchPage ? 'page' : undefined}
+                    onClick={() => setBranchesOpen((current) => !current)}
+                    className={`${itemClass} flex items-center gap-1.5`}
+                  >
+                    {dict.nav.branches}
+                    <CaretDownIcon
+                      aria-hidden="true"
+                      weight="bold"
+                      className="size-3 transition-transform duration-300 ease-brand group-hover/branches:rotate-180 group-data-open/branches:rotate-180"
+                    />
+                    {rule(onBranchPage)}
+                  </button>
+
+                  {/* pt-4 rather than mt-4: the gap stays inside the hover
+                      area, so the menu does not close on the way down to it. */}
+                  <ul
+                    role="menu"
+                    className="invisible absolute start-0 top-full z-10 min-w-[15rem] translate-y-2 pt-4 opacity-0 transition-[opacity,transform,visibility] duration-300 ease-brand group-hover/branches:visible group-hover/branches:translate-y-0 group-hover/branches:opacity-100 group-focus-within/branches:visible group-focus-within/branches:translate-y-0 group-focus-within/branches:opacity-100 group-data-open/branches:visible group-data-open/branches:translate-y-0 group-data-open/branches:opacity-100"
+                  >
+                    <li className="border border-gold/20 bg-ink/95 py-2 backdrop-blur-sm">
+                      <ul>
+                        {branches.map((branch) => {
+                          const here = isActivePath(pathname, branch.url)
+                          return (
+                            <li key={branch.slug} role="none">
+                              <Link
+                                role="menuitem"
+                                href={branch.url}
+                                aria-current={here ? 'page' : undefined}
+                                className={`lr-display block px-6 py-3 text-lg leading-tight transition-colors duration-300 ease-brand hover:text-gold ${
+                                  here ? 'text-gold' : 'text-ivory'
+                                }`}
+                              >
+                                {branch.name}
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
+            </span>
           )
         })}
       </nav>
@@ -151,19 +239,48 @@ export function SiteNav({
           <nav aria-label={dict.nav.primary} className="mt-10">
             <ul className="flex flex-col">
               {links.map((item) => (
-                <li key={item.key} className="border-b border-ivory/10">
-                  <Link
-                    href={item.localised}
-                    onClick={hide}
-                    aria-current={
-                      isActivePath(pathname, item.localised, item.exact)
-                        ? 'page'
-                        : undefined
-                    }
-                    className="lr-display block py-5 text-2xl text-ivory transition-colors duration-300 aria-[current=page]:text-gold hover:text-gold"
-                  >
-                    {item.label}
-                  </Link>
+                <li key={item.key} className="contents">
+                  <span className="block border-b border-ivory/10">
+                    <Link
+                      href={item.localised}
+                      onClick={hide}
+                      aria-current={
+                        isActivePath(pathname, item.localised, item.exact)
+                          ? 'page'
+                          : undefined
+                      }
+                      className="lr-display block py-5 text-2xl text-ivory transition-colors duration-300 aria-[current=page]:text-gold hover:text-gold"
+                    >
+                      {item.label}
+                    </Link>
+                  </span>
+
+                  {/* The two rooms under a heading that is not itself a link. */}
+                  {item.key === 'menu' ? (
+                    <span className="block border-b border-ivory/10 py-5">
+                      <span className="lr-display block text-2xl text-ivory-dim">
+                        {dict.nav.branches}
+                      </span>
+                      <ul className="mt-3 flex flex-col gap-1 ps-5">
+                        {branches.map((branch) => (
+                          <li key={branch.slug}>
+                            <Link
+                              href={branch.url}
+                              onClick={hide}
+                              aria-current={
+                                isActivePath(pathname, branch.url)
+                                  ? 'page'
+                                  : undefined
+                              }
+                              className="lr-display block py-2 text-xl text-ivory transition-colors duration-300 aria-[current=page]:text-gold hover:text-gold"
+                            >
+                              {branch.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </span>
+                  ) : null}
                 </li>
               ))}
 
