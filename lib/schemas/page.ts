@@ -41,7 +41,9 @@ export const pageSchema = z.object({
   // 'menu' is the /menu landing page. It is a page row like any other so the
   // menu index gets an editable SEO record from the start, which the brief
   // requires of every resource built in Phases 1-3.
-  template: z.enum(['home', 'contact', 'legal', 'menu']),
+  // 'reservation' (2026-10-01) for the same reason: /reservation needs its own
+  // editable SEO record.
+  template: z.enum(['home', 'contact', 'legal', 'menu', 'reservation']),
   // GET /pages/{slug} returns sections "when present" (03-api-contract.md).
   // Without this field Zod strips them silently and the page renders empty.
   sections: z.array(pageSectionSchema).optional(),

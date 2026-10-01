@@ -96,7 +96,36 @@
     "errorEmail": "Enter a valid email address.",
     "errorPhone": "Enter a valid phone number, including the country code.",
     "errorRateLimit": "Too many requests. Please try again in a few minutes.",
-    "errorNetwork": "We could not send that. Check your connection and try again."
+    "errorNetwork": "We could not send that. Check your connection and try again.",
+    "chapterRoom": "Room",
+    "chapterWhen": "When",
+    "chapterDetails": "Details",
+    "chapterReview": "Review",
+    "askRoom": "Which room?",
+    "askWhen": "When are you coming?",
+    "askDetails": "Who should we expect?",
+    "askReview": "Your request",
+    "stepOf": "{step} / {total}",
+    "edit": "Edit",
+    "fewerGuests": "Fewer guests",
+    "moreGuests": "More guests",
+    "hoursOpen": "{branch} is open {hours} that day.",
+    "hoursClosed": "{branch} is closed that day.",
+    "noPreference": "No preference",
+    "requestTable": "Request a table",
+    "reference": "Reference",
+    "occasions": {
+      "birthday": "Birthday",
+      "anniversary": "Anniversary",
+      "business": "Business",
+      "family": "Family",
+      "other": "Other"
+    },
+    "seatings": {
+      "indoor": "Indoors",
+      "outdoor": "Outdoors",
+      "private": "Private room"
+    }
   },
   "branch": {
     "openingHours": "Opening hours",
@@ -136,5 +165,20 @@
     "openUntil": "Open now until {time}",
     "opensOn": "Opens {day} at {time}",
     "closedToday": "Closed today"
+  },
+  "contact": {
+    "findUs": "Find us",
+    "findUsBody": "Two rooms in Riyadh. Each takes its own calls and bookings.",
+    "writeHeading": "Write to us",
+    "writeBody": "Allergies, private rooms, group dinners, or anything on the menu.",
+    "forTable": "Looking for a table?",
+    "branch": "Which branch is this about?",
+    "branchAny": "Either",
+    "phoneOptional": "Phone (optional)",
+    "subject": "Subject (optional)",
+    "message": "Your message",
+    "send": "Send message",
+    "successTitle": "Message received",
+    "successBody": "Thank you. The restaurant will reply within one working day."
   }
 }

@@ -173,4 +173,30 @@ describe('restaurantJsonLd', () => {
     expect(ld.location[0]['@type']).toBe('Restaurant')
     expect(JSON.stringify(ld)).not.toMatch(FORBIDDEN_TERMS)
   })
+
+  it('carries a ReserveAction when given the reservation page', () => {
+    const ld = restaurantJsonLd({
+      name: 'La Rio',
+      description: 'd',
+      url: 'https://lario.sa/',
+      image: null,
+      branches: [],
+      reserveUrl: 'https://lario.sa/reservation',
+    })
+    expect(ld.potentialAction).toEqual({
+      '@type': 'ReserveAction',
+      target: 'https://lario.sa/reservation',
+    })
+  })
+
+  it('emits no potentialAction without a reservation page', () => {
+    const ld = restaurantJsonLd({
+      name: 'La Rio',
+      description: 'd',
+      url: 'https://lario.sa/',
+      image: null,
+      branches: [],
+    })
+    expect('potentialAction' in ld).toBe(false)
+  })
 })

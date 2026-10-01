@@ -118,6 +118,10 @@ export function restaurantJsonLd(input: {
   // it is an invalid one. The property is dropped instead.
   image: string | null
   branches: Branch[]
+  /** The reservation page. Emits a ReserveAction, which is the schema.org
+      type for "you can book here". No Reservation entity is ever emitted:
+      on a static page that would assert a booking that does not exist. */
+  reserveUrl?: string
 }) {
   return {
     '@context': 'https://schema.org',
@@ -128,5 +132,13 @@ export function restaurantJsonLd(input: {
     ...(input.image ? { image: input.image } : {}),
     servesCuisine: ['Italian', 'Turkish', 'Argentinian'],
     location: input.branches.map((branch) => localBusinessJsonLd(branch)),
+    ...(input.reserveUrl
+      ? {
+          potentialAction: {
+            '@type': 'ReserveAction',
+            target: input.reserveUrl,
+          },
+        }
+      : {}),
   }
 }

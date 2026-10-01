@@ -96,7 +96,36 @@
     "errorEmail": "أدخل بريدًا إلكترونيًا صحيحًا.",
     "errorPhone": "أدخل رقم هاتف صحيحًا مع رمز الدولة.",
     "errorRateLimit": "عدد كبير جدًا من الطلبات. يرجى المحاولة مرة أخرى بعد بضع دقائق.",
-    "errorNetwork": "تعذر إرسال الطلب. تحقق من اتصالك وحاول مرة أخرى."
+    "errorNetwork": "تعذر إرسال الطلب. تحقق من اتصالك وحاول مرة أخرى.",
+    "chapterRoom": "الفرع",
+    "chapterWhen": "الموعد",
+    "chapterDetails": "البيانات",
+    "chapterReview": "المراجعة",
+    "askRoom": "أي فرع؟",
+    "askWhen": "متى تأتون؟",
+    "askDetails": "من ننتظر؟",
+    "askReview": "طلبك",
+    "stepOf": "{step} / {total}",
+    "edit": "تعديل",
+    "fewerGuests": "ضيوف أقل",
+    "moreGuests": "ضيوف أكثر",
+    "hoursOpen": "{branch} مفتوح {hours} في ذلك اليوم.",
+    "hoursClosed": "{branch} مغلق في ذلك اليوم.",
+    "noPreference": "لا تفضيل",
+    "requestTable": "اطلب طاولة",
+    "reference": "رقم المرجع",
+    "occasions": {
+      "birthday": "عيد ميلاد",
+      "anniversary": "ذكرى سنوية",
+      "business": "عمل",
+      "family": "عائلة",
+      "other": "أخرى"
+    },
+    "seatings": {
+      "indoor": "داخلي",
+      "outdoor": "خارجي",
+      "private": "غرفة خاصة"
+    }
   },
   "branch": {
     "openingHours": "ساعات العمل",
@@ -136,5 +165,20 @@
     "openUntil": "مفتوح الآن حتى {time}",
     "opensOn": "يفتح {day} الساعة {time}",
     "closedToday": "مغلق اليوم"
+  },
+  "contact": {
+    "findUs": "أين تجدنا",
+    "findUsBody": "فرعان في الرياض، ولكل منهما هاتفه وحجوزاته.",
+    "writeHeading": "راسلنا",
+    "writeBody": "الحساسية الغذائية، أو الغرف الخاصة، أو عشاء المجموعات، أو أي سؤال عن القائمة.",
+    "forTable": "تبحث عن طاولة؟",
+    "branch": "أي فرع يخص هذا؟",
+    "branchAny": "أي منهما",
+    "phoneOptional": "رقم الهاتف (اختياري)",
+    "subject": "الموضوع (اختياري)",
+    "message": "رسالتك",
+    "send": "أرسل الرسالة",
+    "successTitle": "تم استلام رسالتك",
+    "successBody": "شكراً لك. سيرد عليك المطعم خلال يوم عمل واحد."
   }
 }

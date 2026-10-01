@@ -8,8 +8,13 @@ describe('getPage', () => {
     expect(getPage('en', 'no-such-page')).toBeNull()
   })
 
-  it('returns each of the three system pages satisfying the contract shape', () => {
-    for (const slug of ['contact', 'privacy-policy', 'terms-and-conditions']) {
+  it('returns each of the system pages satisfying the contract shape', () => {
+    for (const slug of [
+      'contact',
+      'reservation',
+      'privacy-policy',
+      'terms-and-conditions',
+    ]) {
       const page = getPage('en', slug)
       expect(page).not.toBeNull()
       expect(() => pageSchema.parse(page)).not.toThrow()
