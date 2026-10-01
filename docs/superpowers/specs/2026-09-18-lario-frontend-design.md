@@ -430,6 +430,10 @@ Four steps: **branch → date, time, party size → your details → review and
 confirm.** A stepper header shows position; every step is reachable backwards
 without data loss.
 
+**BUILT 2026-10-01** as a scrolling book; see
+`2026-10-01-reservation-page-design.md` and
+`docs/superpowers/plans/2026-10-01-reservation-page.md`.
+
 | Step | Fields |
 |---|---|
 | 1 | `branch_slug` — radio cards, preselected from a `?branch=` deep link |
@@ -450,7 +454,15 @@ and demoable. Network failure is handled as a third state.
 It must never imply a confirmed booking. The wording is signed off in both
 languages before the demo.
 
-`Reservation` + `ReservationAction` JSON-LD. Page is not cached.
+~~`Reservation` + `ReservationAction` JSON-LD.~~ **AMENDED 2026-10-01:**
+`Restaurant` with a `ReserveAction` `potentialAction`. `ReservationAction` is
+not a schema.org type and a `Reservation` entity on a static page asserts a
+booking that does not exist. Page is not cached.
+
+**STAGING DECIDED 2026-10-01**, since no reference drawings were ever supplied:
+see `2026-10-01-reservation-page-design.md`. The four steps become chapters of
+one scrolling page with a sticky progress rail, date and time are native
+inputs, and the review step is a bone ticket on the ink ground.
 
 **RTL note:** the date picker is the single most common Arabic layout break.
 It is tested in Arabic explicitly, not assumed.
@@ -467,9 +479,15 @@ focus trapping and Escape to close. As built, with three amendments:
   reserves `pt-32` for chrome, so the header overlays rather than displacing —
   which is what lets it sit transparent over the hero film as the reference
   draws it. `sticky` reserves the space a second time.
-- **The condense is a native scroll-progress timeline**, not a scroll listener:
-  `.lr-chrome-ground` / `.lr-chrome-strip` in `globals.css`. Consistent with
-  §10.2 — the chrome adds no JavaScript beyond the drawer.
+- ~~**The condense is a native scroll-progress timeline**, not a scroll
+  listener.~~ **AMENDED 2026-09-30 at client request:** the header hides while
+  the reader scrolls down and returns on any scroll up, which CSS cannot do
+  because it cannot read scroll direction. `header-shell.tsx` is a small client
+  island (one passive, frame-coalesced listener that writes `data-top` and
+  `data-hidden` on the `<header>`, with no React state), and `.lr-chrome` in
+  `globals.css` does the visuals. The ground is transparent only at the very
+  top and solid everywhere else; the timeline had been reported leaving it
+  transparent over light sections. A `<noscript>` rule pins it solid without JS.
 - **Focus trapping and Escape are the browser's**, via a native `<dialog>`
   opened with `showModal()`. No focus-trap code ships.
 
@@ -550,6 +568,21 @@ soon" list**: announcing six unbuilt pages at the bottom of every page made the
 site read as unfinished, and §3 is satisfied by the mobile drawer. **No locale
 switcher** in the footer: it lives in the header and in the mobile drawer's top
 row, which is reachable from every page without scrolling to the bottom.
+
+**Contact — BUILT 2026-10-01** (`app/[locale]/contact/page.tsx`,
+`components/contact/contact-form.tsx`). Three bands in three layouts. A dark
+hero with the page heading on the start side and the three direct channels
+(call, WhatsApp, email from `settings.contact`) as large ruled rows on the end
+side, because a guest opening a restaurant's contact page wants a number to
+tap. A bone band with both rooms side by side: arch photograph, tagline, name,
+live open/closed state (`OpenNow`, given a `light` tone for this ground),
+address, directions note and link, grouped hours, facilities, and the room's
+own phone, WhatsApp and email. A dark band with the message form beside a
+sticky introduction and one line sending table bookings to `/reservation`. The
+form posts to `/api/contacts` and renders every contract state: 201, per-field
+422 messages in the request locale, 429, and transport failure. Statically
+prerendered: the "NOT cached" note in §4.1 is satisfied by the form being a
+client island, as the footer newsletter already is on every cached page.
 
 **Global UI** — gallery lightbox (keyboard-navigable, focus-trapped),
 testimonial carousel (reverses in RTL), branch-picker dialog, toast
