@@ -61,9 +61,21 @@ export function Ticket({
       value: state.guest_name,
       display: true,
     },
-    { chapter: 'details', label: dict.reservation.email, value: state.guest_email },
-    { chapter: 'details', label: dict.reservation.phone, value: state.guest_phone },
-    { chapter: 'details', label: dict.reservation.whatsapp, value: state.whatsapp },
+    {
+      chapter: 'details',
+      label: dict.reservation.email,
+      value: state.guest_email,
+    },
+    {
+      chapter: 'details',
+      label: dict.reservation.phone,
+      value: state.guest_phone,
+    },
+    {
+      chapter: 'details',
+      label: dict.reservation.whatsapp,
+      value: state.whatsapp,
+    },
     {
       chapter: 'details',
       label: dict.reservation.occasion,
@@ -90,7 +102,10 @@ export function Ticket({
           <p className="text-[0.6875rem] tracking-[0.18em] text-gold-ink uppercase">
             {dict.reservation.reference}
           </p>
-          <p className="lr-display mt-1 text-3xl text-ink tabular-nums" dir="ltr">
+          <p
+            className="lr-display mt-1 text-3xl text-ink tabular-nums"
+            dir="ltr"
+          >
             {received.reference}
           </p>
           <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-ink-soft">

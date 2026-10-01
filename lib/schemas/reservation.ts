@@ -92,8 +92,7 @@ export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
       'Enter a valid phone number including the country code, for example +966512345678.',
     whatsapp: 'Enter a valid WhatsApp number including the country code.',
     party_size: 'Choose a party size between 1 and 20 guests.',
-    reserved_for:
-      'Choose a date and time in the next 90 days, including a timezone offset.',
+    reserved_for: 'Choose a time later than now, within the next 90 days.',
     occasion: 'Choose one of the listed occasions.',
     seating_preference: 'Choose one of the listed seating options.',
     notes: 'Notes must be under 1000 characters.',
@@ -113,7 +112,7 @@ export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
     guest_phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة، مثل ‎+966512345678.',
     whatsapp: 'أدخل رقم واتساب صحيحاً مع رمز الدولة.',
     party_size: 'اختر عدد ضيوف بين 1 و20.',
-    reserved_for: 'اختر تاريخاً ووقتاً خلال التسعين يوماً القادمة، مع تحديد المنطقة الزمنية.',
+    reserved_for: 'اختر وقتاً لاحقاً للآن، خلال التسعين يوماً القادمة.',
     occasion: 'اختر إحدى المناسبات المتاحة.',
     seating_preference: 'اختر أحد خيارات الجلوس المتاحة.',
     notes: 'يجب ألا تتجاوز الملاحظات 1000 حرف.',

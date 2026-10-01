@@ -116,12 +116,23 @@ describe('chapterIssues', () => {
     expect(chapterIssues(filled(), 'room', 'en')).toEqual({})
   })
 
-  it('puts a past time on reserved_for, which the When chapter owns', () => {
+  it('puts a past time on reserved_for, which the When chapter owns, in words a guest can act on', () => {
     const today = new Date().toISOString().slice(0, 10)
     const past = { ...filled(), date: today, time: '00:01' }
     const issues = chapterIssues(past, 'when', 'en')
     expect(Object.keys(issues)).toEqual(['reserved_for'])
+    expect(issues.reserved_for[0]).toBe(
+      'Choose a time later than now, within the next 90 days.',
+    )
     expect(chapterIssues(past, 'details', 'en')).toEqual({})
+  })
+
+  it('accepts a late dinner on the last date the picker offers', () => {
+    // The picker's max is a calendar day; the rule is 90 x 24h from now. The
+    // last offered day must be valid at any time of that day, not only before
+    // the current time of day.
+    const last = { ...filled(), date: dateBounds().max, time: '23:30' }
+    expect(chapterIssues(last, 'when', 'en')).toEqual({})
   })
 
   it('a complete state has no issues in any chapter', () => {
@@ -142,11 +153,11 @@ describe('firstChapterWithIssues', () => {
 })
 
 describe('dateBounds', () => {
-  it('runs from today to ninety days out, in Riyadh', () => {
+  it('runs from today to the last whole day inside ninety days, in Riyadh', () => {
     // 2026-10-01T22:30Z is already 2026-10-02 in Riyadh (UTC+3).
     const bounds = dateBounds(new Date('2026-10-01T22:30:00Z'))
     expect(bounds.min).toBe('2026-10-02')
-    expect(bounds.max).toBe('2026-12-31')
+    expect(bounds.max).toBe('2026-12-30')
   })
 })
 

@@ -88,6 +88,9 @@ export function ReservationBook({
   const [issues, setIssues] = useState<Issues>({})
   const [notice, setNotice] = useState('')
   const [received, setReceived] = useState<Received | null>(null)
+  // What was actually sent. The ticket renders this after a 201, so the
+  // reference never sits over details the server did not receive.
+  const [submitted, setSubmitted] = useState<BookState | null>(null)
   const [active, setActive] = useState<Chapter | 'review'>('room')
   const bounds = useMemo(() => dateBounds(), [])
 
@@ -165,6 +168,7 @@ export function ReservationBook({
       })
       if (response.ok) {
         const body = (await response.json()) as { data: Received }
+        setSubmitted(state)
         setReceived(body.data)
         setStatus('done')
         goTo('review')
@@ -192,6 +196,7 @@ export function ReservationBook({
   }
 
   const sending = status === 'sending'
+  const done = status === 'done'
   const rail: { key: Chapter | 'review'; label: string }[] = [
     { key: 'room', label: dict.reservation.chapterRoom },
     { key: 'when', label: dict.reservation.chapterWhen },
@@ -201,392 +206,415 @@ export function ReservationBook({
   const activeIndex = rail.findIndex((item) => item.key === active)
 
   return (
-    <Container className="pb-24 md:pb-32 lg:grid lg:grid-cols-[10rem_1fr] lg:gap-16">
+    <Container
+      className={
+        done
+          ? 'pb-24 md:pb-32'
+          : 'pb-24 md:pb-32 lg:grid lg:grid-cols-[10rem_1fr] lg:gap-16'
+      }
+    >
       {/* The rail. One nav, two renderings: a sticky column from lg, a slim
-          bar pinned under the header below it. Numerals are the stepper
-          position spec §9 requires, not decoration. */}
-      <nav
-        aria-label={dict.nav.primary}
-        className="lg:sticky lg:top-32 lg:self-start"
-      >
-        <ol className="hidden lg:flex lg:flex-col lg:gap-6">
-          {rail.map((item, index) => {
-            const done = item.key !== 'review' && complete[item.key]
-            const current = item.key === active
-            return (
-              <li key={item.key}>
-                <a
-                  href={`#${CHAPTER_IDS[item.key]}`}
-                  aria-current={current ? 'step' : undefined}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    goTo(item.key)
-                  }}
-                  className={`group flex items-baseline gap-3 transition-colors duration-300 ease-brand hover:text-gold ${current ? 'text-ivory' : 'text-ivory-dim/70'}`}
-                >
-                  <span
-                    className={`lr-display text-2xl tabular-nums transition-colors duration-500 ease-brand ${current ? 'text-gold' : ''}`}
+          bar pinned under the header below it. The nav itself is sticky:
+          a sticky child cannot leave a parent that is exactly its own height.
+          Numerals are the stepper position spec §9 requires, not decoration.
+          Once the request is received the book is over, so the rail and the
+          three filled chapters go with it and only the ticket remains. */}
+      {done ? null : (
+        <nav
+          aria-label={dict.reservation.progress}
+          className="sticky top-20 z-10 lg:top-32 lg:self-start"
+        >
+          <ol className="hidden lg:flex lg:flex-col lg:gap-6">
+            {rail.map((item, index) => {
+              const done = item.key !== 'review' && complete[item.key]
+              const current = item.key === active
+              return (
+                <li key={item.key}>
+                  <a
+                    href={`#${CHAPTER_IDS[item.key]}`}
+                    aria-current={current ? 'step' : undefined}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      goTo(item.key)
+                    }}
+                    className={`group flex items-baseline gap-3 transition-colors duration-300 ease-brand hover:text-gold ${current ? 'text-ivory' : 'text-ivory-dim/70'}`}
                   >
-                    0{index + 1}
-                  </span>
-                  <span className="text-[0.75rem] tracking-[0.16em] uppercase">
-                    {item.label}
-                  </span>
-                  {done ? (
-                    <CheckIcon
-                      aria-hidden="true"
-                      weight="bold"
-                      className="size-3 text-gold"
-                    />
-                  ) : null}
-                </a>
-              </li>
-            )
-          })}
-        </ol>
-        <p className="sticky top-20 z-10 -mx-5 flex items-center justify-between border-b border-ivory/10 bg-ink/95 px-5 py-3 text-[0.75rem] tracking-[0.16em] uppercase backdrop-blur-sm sm:-mx-8 sm:px-8 lg:hidden">
-          <span className="text-gold">
-            {interpolate(dict.reservation.stepOf, {
-              step: `0${activeIndex + 1}`,
-              total: `0${rail.length}`,
+                    <span
+                      className={`lr-display text-2xl tabular-nums transition-colors duration-500 ease-brand ${current ? 'text-gold' : ''}`}
+                    >
+                      0{index + 1}
+                    </span>
+                    <span className="text-[0.75rem] tracking-[0.16em] uppercase">
+                      {item.label}
+                    </span>
+                    {done ? (
+                      <CheckIcon
+                        aria-hidden="true"
+                        weight="bold"
+                        className="size-3 text-gold"
+                      />
+                    ) : null}
+                  </a>
+                </li>
+              )
             })}
-          </span>
-          <span className="text-ivory">{rail[activeIndex]?.label}</span>
-        </p>
-      </nav>
+          </ol>
+          <p className="-mx-5 flex items-center justify-between border-b border-ivory/10 bg-ink/95 px-5 py-3 text-[0.75rem] tracking-[0.16em] uppercase backdrop-blur-sm sm:-mx-8 sm:px-8 lg:hidden">
+            <span className="text-gold">
+              {interpolate(dict.reservation.stepOf, {
+                step: `0${activeIndex + 1}`,
+                total: `0${rail.length}`,
+              })}
+            </span>
+            <span className="text-ivory">{rail[activeIndex]?.label}</span>
+          </p>
+        </nav>
+      )}
 
       <form onSubmit={onSubmit} noValidate className="min-w-0">
-        {/* Chapter 1: Room */}
-        <ChapterFrame
-          id={CHAPTER_IDS.room}
-          number="01"
-          title={dict.reservation.askRoom}
-          error={error('branch_slug')}
-          errorId={describe('branch_slug')}
-        >
-          <fieldset
-            aria-describedby={describe('branch_slug')}
-            className="grid gap-px md:grid-cols-2"
-          >
-            <legend className="sr-only">{dict.reservation.chapterRoom}</legend>
-            {branches.map((room) => (
-              <label
-                key={room.slug}
-                className="group relative isolate flex min-h-[22rem] cursor-pointer flex-col justify-end overflow-hidden p-8 md:min-h-[28rem]"
+        {done ? null : (
+          <>
+            {/* Chapter 1: Room */}
+            <ChapterFrame
+              id={CHAPTER_IDS.room}
+              number="01"
+              title={dict.reservation.askRoom}
+              error={error('branch_slug')}
+              errorId={describe('branch_slug')}
+            >
+              <fieldset
+                aria-describedby={describe('branch_slug')}
+                className="grid gap-px md:grid-cols-2"
               >
-                <input
-                  type="radio"
-                  name="branch_slug"
-                  value={room.slug}
-                  checked={state.branch_slug === room.slug}
-                  onChange={() => patch({ branch_slug: room.slug })}
-                  disabled={sending}
-                  className="peer sr-only"
-                />
-                <Figure
-                  src={room.hero_image}
-                  slot={`branch.${room.slug}`}
-                  alt=""
-                  shot={`${room.name}. Entrance or exterior.`}
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="absolute inset-0 -z-20"
-                />
-                {/* Unchosen rooms sit under heavy ink; the chosen one lifts. */}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 -z-10 bg-ink/80 transition-colors duration-700 ease-brand group-hover:bg-ink/55 peer-checked:bg-ink/35"
-                />
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-3 border border-ivory/15 transition-colors duration-500 ease-brand peer-checked:border-gold peer-focus-visible:border-gold-pale"
-                />
-                <span className="lr-display pb-1 text-base leading-[1.15] text-gold italic">
-                  {room.tagline}
-                </span>
-                <span className="lr-display text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-[1.1] text-ivory">
-                  {room.name}
-                </span>
-                <span className="mt-3 flex flex-col gap-0.5 text-sm text-ivory-dim">
-                  {groupOpeningHours(
-                    room.opening_hours,
-                    locale,
-                    dict.branch.closed,
-                  ).map((group) => (
-                    <span key={group.days}>
-                      {group.days} {group.hours}
+                <legend className="sr-only">
+                  {dict.reservation.chapterRoom}
+                </legend>
+                {branches.map((room) => (
+                  <label
+                    key={room.slug}
+                    className="group relative isolate flex min-h-[22rem] cursor-pointer flex-col justify-end overflow-hidden p-8 md:min-h-[28rem]"
+                  >
+                    <input
+                      type="radio"
+                      name="branch_slug"
+                      value={room.slug}
+                      checked={state.branch_slug === room.slug}
+                      onChange={() => patch({ branch_slug: room.slug })}
+                      disabled={sending}
+                      className="peer sr-only"
+                    />
+                    <Figure
+                      src={room.hero_image}
+                      slot={`branch.${room.slug}`}
+                      alt=""
+                      shot={`${room.name}. Entrance or exterior.`}
+                      sizes="(min-width: 768px) 45vw, 100vw"
+                      className="absolute inset-0 -z-20"
+                    />
+                    {/* Unchosen rooms sit under heavy ink; the chosen one lifts. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 -z-10 bg-ink/80 transition-colors duration-700 ease-brand group-hover:bg-ink/55 peer-checked:bg-ink/35"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-3 border border-ivory/15 transition-colors duration-500 ease-brand peer-checked:border-gold peer-focus-visible:border-gold-pale"
+                    />
+                    <span className="lr-display pb-1 text-base leading-[1.15] text-gold italic">
+                      {room.tagline}
                     </span>
-                  ))}
-                </span>
-              </label>
-            ))}
-          </fieldset>
-        </ChapterFrame>
+                    <span className="lr-display text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-[1.1] text-ivory">
+                      {room.name}
+                    </span>
+                    <span className="mt-3 flex flex-col gap-0.5 text-sm text-ivory-dim">
+                      {groupOpeningHours(
+                        room.opening_hours,
+                        locale,
+                        dict.branch.closed,
+                      ).map((group) => (
+                        <span key={group.days}>
+                          {group.days} {group.hours}
+                        </span>
+                      ))}
+                    </span>
+                  </label>
+                ))}
+              </fieldset>
+            </ChapterFrame>
 
-        {/* Chapter 2: When */}
-        <ChapterFrame
-          id={CHAPTER_IDS.when}
-          number="02"
-          title={dict.reservation.askWhen}
-          error={error('reserved_for')}
-          errorId={describe('reserved_for')}
-        >
-          <div className="grid gap-8 md:grid-cols-3 md:gap-x-10">
-            <div>
-              <label htmlFor={`${id}-date`} className={LABEL}>
-                {dict.reservation.date}
-              </label>
-              {/* Native, ltr even in Arabic: the picker is the one control
+            {/* Chapter 2: When */}
+            <ChapterFrame
+              id={CHAPTER_IDS.when}
+              number="02"
+              title={dict.reservation.askWhen}
+              error={error('reserved_for')}
+              errorId={describe('reserved_for')}
+            >
+              <div className="grid gap-8 md:grid-cols-3 md:gap-x-10">
+                <div>
+                  <label htmlFor={`${id}-date`} className={LABEL}>
+                    {dict.reservation.date}
+                  </label>
+                  {/* Native, ltr even in Arabic: the picker is the one control
                   that breaks when mirrored (spec §9). */}
-              <input
-                id={`${id}-date`}
-                name="date"
-                type="date"
-                required
-                min={bounds.min}
-                max={bounds.max}
-                value={state.date}
-                onChange={(e) => patch({ date: e.target.value })}
-                disabled={sending}
-                dir="ltr"
-                aria-invalid={error('reserved_for') ? true : undefined}
-                aria-describedby={describe('reserved_for')}
-                className={INPUT}
-              />
-            </div>
-            <div>
-              <label htmlFor={`${id}-time`} className={LABEL}>
-                {dict.reservation.time}
-              </label>
-              <input
-                id={`${id}-time`}
-                name="time"
-                type="time"
-                required
-                step={900}
-                value={state.time}
-                onChange={(e) => patch({ time: e.target.value })}
-                disabled={sending}
-                dir="ltr"
-                aria-invalid={error('reserved_for') ? true : undefined}
-                aria-describedby={`${id}-hours`}
-                className={INPUT}
-              />
-              <HoursHint
-                id={`${id}-hours`}
-                branch={branch}
-                date={state.date}
-                locale={locale}
-                dict={dict}
-              />
-            </div>
-            <div>
-              <span id={`${id}-guests`} className={LABEL}>
-                {dict.reservation.partySize}
-              </span>
-              <div className="mt-2 flex items-center border-b border-ivory/25 focus-within:border-gold">
-                <button
-                  type="button"
-                  aria-label={dict.reservation.fewerGuests}
-                  onClick={() => step(-1)}
-                  disabled={sending || state.party_size <= 1}
-                  className="flex size-11 items-center justify-center text-gold transition-colors hover:text-gold-pale disabled:opacity-40"
-                >
-                  <MinusIcon aria-hidden="true" className="size-4" />
-                </button>
-                <input
-                  type="number"
-                  name="party_size"
-                  inputMode="numeric"
-                  min={1}
-                  max={20}
-                  aria-labelledby={`${id}-guests`}
-                  aria-invalid={error('party_size') ? true : undefined}
-                  aria-describedby={describe('party_size')}
-                  value={state.party_size}
-                  onChange={(e) => {
-                    const n = Number(e.target.value)
-                    if (Number.isInteger(n)) patch({ party_size: n })
-                  }}
-                  disabled={sending}
-                  dir="ltr"
-                  className="lr-display w-full bg-transparent py-2 text-center text-2xl text-ivory tabular-nums focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                />
-                <button
-                  type="button"
-                  aria-label={dict.reservation.moreGuests}
-                  onClick={() => step(1)}
-                  disabled={sending || state.party_size >= 20}
-                  className="flex size-11 items-center justify-center text-gold transition-colors hover:text-gold-pale disabled:opacity-40"
-                >
-                  <PlusIcon aria-hidden="true" className="size-4" />
-                </button>
+                  <input
+                    id={`${id}-date`}
+                    name="date"
+                    type="date"
+                    required
+                    min={bounds.min}
+                    max={bounds.max}
+                    value={state.date}
+                    onChange={(e) => patch({ date: e.target.value })}
+                    disabled={sending}
+                    dir="ltr"
+                    aria-invalid={error('reserved_for') ? true : undefined}
+                    aria-describedby={describe('reserved_for')}
+                    className={INPUT}
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`${id}-time`} className={LABEL}>
+                    {dict.reservation.time}
+                  </label>
+                  <input
+                    id={`${id}-time`}
+                    name="time"
+                    type="time"
+                    required
+                    step={900}
+                    value={state.time}
+                    onChange={(e) => patch({ time: e.target.value })}
+                    disabled={sending}
+                    dir="ltr"
+                    aria-invalid={error('reserved_for') ? true : undefined}
+                    aria-describedby={[describe('reserved_for'), `${id}-hours`]
+                      .filter(Boolean)
+                      .join(' ')}
+                    className={INPUT}
+                  />
+                  <HoursHint
+                    id={`${id}-hours`}
+                    branch={branch}
+                    date={state.date}
+                    locale={locale}
+                    dict={dict}
+                  />
+                </div>
+                <div>
+                  <span id={`${id}-guests`} className={LABEL}>
+                    {dict.reservation.partySize}
+                  </span>
+                  <div className="mt-2 flex items-center border-b border-ivory/25 focus-within:border-gold">
+                    <button
+                      type="button"
+                      aria-label={dict.reservation.fewerGuests}
+                      onClick={() => step(-1)}
+                      disabled={sending || state.party_size <= 1}
+                      className="flex size-11 items-center justify-center text-gold transition-colors hover:text-gold-pale disabled:opacity-40"
+                    >
+                      <MinusIcon aria-hidden="true" className="size-4" />
+                    </button>
+                    <input
+                      type="number"
+                      name="party_size"
+                      inputMode="numeric"
+                      min={1}
+                      max={20}
+                      aria-labelledby={`${id}-guests`}
+                      aria-invalid={error('party_size') ? true : undefined}
+                      aria-describedby={describe('party_size')}
+                      value={state.party_size}
+                      onChange={(e) => {
+                        const n = Number(e.target.value)
+                        if (Number.isInteger(n)) patch({ party_size: n })
+                      }}
+                      disabled={sending}
+                      dir="ltr"
+                      className="lr-display w-full bg-transparent py-2 text-center text-2xl text-ivory tabular-nums focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    />
+                    <button
+                      type="button"
+                      aria-label={dict.reservation.moreGuests}
+                      onClick={() => step(1)}
+                      disabled={sending || state.party_size >= 20}
+                      className="flex size-11 items-center justify-center text-gold transition-colors hover:text-gold-pale disabled:opacity-40"
+                    >
+                      <PlusIcon aria-hidden="true" className="size-4" />
+                    </button>
+                  </div>
+                  <FieldError
+                    id={describe('party_size')}
+                    message={error('party_size')}
+                  />
+                </div>
               </div>
-              <FieldError
-                id={describe('party_size')}
-                message={error('party_size')}
-              />
-            </div>
-          </div>
-        </ChapterFrame>
+            </ChapterFrame>
 
-        {/* Chapter 3: Details */}
-        <ChapterFrame
-          id={CHAPTER_IDS.details}
-          number="03"
-          title={dict.reservation.askDetails}
-        >
-          <div className="grid gap-8 md:grid-cols-2 md:gap-x-10">
-            <Field
-              id={`${id}-guest_name`}
-              label={dict.reservation.name}
-              error={error('guest_name')}
+            {/* Chapter 3: Details */}
+            <ChapterFrame
+              id={CHAPTER_IDS.details}
+              number="03"
+              title={dict.reservation.askDetails}
             >
-              <input
-                id={`${id}-guest_name`}
-                name="guest_name"
-                type="text"
-                autoComplete="name"
-                value={state.guest_name}
-                onChange={(e) => patch({ guest_name: e.target.value })}
-                disabled={sending}
-                aria-invalid={error('guest_name') ? true : undefined}
-                aria-describedby={describe('guest_name')}
-                className={INPUT}
-              />
-            </Field>
-            <Field
-              id={`${id}-guest_email`}
-              label={dict.reservation.email}
-              error={error('guest_email')}
-            >
-              <input
-                id={`${id}-guest_email`}
-                name="guest_email"
-                type="email"
-                autoComplete="email"
-                value={state.guest_email}
-                onChange={(e) => patch({ guest_email: e.target.value })}
-                disabled={sending}
-                dir="ltr"
-                aria-invalid={error('guest_email') ? true : undefined}
-                aria-describedby={describe('guest_email')}
-                className={INPUT}
-              />
-            </Field>
-            <Field
-              id={`${id}-guest_phone`}
-              label={dict.reservation.phone}
-              error={error('guest_phone')}
-            >
-              <input
-                id={`${id}-guest_phone`}
-                name="guest_phone"
-                type="tel"
-                autoComplete="tel"
-                placeholder="+966 5x xxx xxxx"
-                value={state.guest_phone}
-                onChange={(e) => patch({ guest_phone: e.target.value })}
-                disabled={sending}
-                dir="ltr"
-                aria-invalid={error('guest_phone') ? true : undefined}
-                aria-describedby={describe('guest_phone')}
-                className={INPUT}
-              />
-            </Field>
-            <Field
-              id={`${id}-whatsapp`}
-              label={dict.reservation.whatsapp}
-              error={error('whatsapp')}
-            >
-              <input
-                id={`${id}-whatsapp`}
-                name="whatsapp"
-                type="tel"
-                autoComplete="tel"
-                placeholder="+966 5x xxx xxxx"
-                value={state.whatsapp}
-                onChange={(e) => patch({ whatsapp: e.target.value })}
-                disabled={sending}
-                dir="ltr"
-                aria-invalid={error('whatsapp') ? true : undefined}
-                aria-describedby={describe('whatsapp')}
-                className={INPUT}
-              />
-            </Field>
+              <div className="grid gap-8 md:grid-cols-2 md:gap-x-10">
+                <Field
+                  id={`${id}-guest_name`}
+                  label={dict.reservation.name}
+                  error={error('guest_name')}
+                >
+                  <input
+                    id={`${id}-guest_name`}
+                    name="guest_name"
+                    type="text"
+                    autoComplete="name"
+                    value={state.guest_name}
+                    onChange={(e) => patch({ guest_name: e.target.value })}
+                    disabled={sending}
+                    aria-invalid={error('guest_name') ? true : undefined}
+                    aria-describedby={describe('guest_name')}
+                    className={INPUT}
+                  />
+                </Field>
+                <Field
+                  id={`${id}-guest_email`}
+                  label={dict.reservation.email}
+                  error={error('guest_email')}
+                >
+                  <input
+                    id={`${id}-guest_email`}
+                    name="guest_email"
+                    type="email"
+                    autoComplete="email"
+                    value={state.guest_email}
+                    onChange={(e) => patch({ guest_email: e.target.value })}
+                    disabled={sending}
+                    dir="ltr"
+                    aria-invalid={error('guest_email') ? true : undefined}
+                    aria-describedby={describe('guest_email')}
+                    className={INPUT}
+                  />
+                </Field>
+                <Field
+                  id={`${id}-guest_phone`}
+                  label={dict.reservation.phone}
+                  error={error('guest_phone')}
+                >
+                  <input
+                    id={`${id}-guest_phone`}
+                    name="guest_phone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="+966 5x xxx xxxx"
+                    value={state.guest_phone}
+                    onChange={(e) => patch({ guest_phone: e.target.value })}
+                    disabled={sending}
+                    dir="ltr"
+                    aria-invalid={error('guest_phone') ? true : undefined}
+                    aria-describedby={describe('guest_phone')}
+                    className={INPUT}
+                  />
+                </Field>
+                <Field
+                  id={`${id}-whatsapp`}
+                  label={dict.reservation.whatsapp}
+                  error={error('whatsapp')}
+                >
+                  <input
+                    id={`${id}-whatsapp`}
+                    name="whatsapp"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="+966 5x xxx xxxx"
+                    value={state.whatsapp}
+                    onChange={(e) => patch({ whatsapp: e.target.value })}
+                    disabled={sending}
+                    dir="ltr"
+                    aria-invalid={error('whatsapp') ? true : undefined}
+                    aria-describedby={describe('whatsapp')}
+                    className={INPUT}
+                  />
+                </Field>
 
-            <Tabs
-              legend={dict.reservation.occasion}
-              name="occasion"
-              value={state.occasion}
-              options={[
-                { value: '', label: dict.reservation.noPreference },
-                ...OCCASIONS.map((o) => ({
-                  value: o,
-                  label: dict.reservation.occasions[o],
-                })),
-              ]}
-              onChange={(value) =>
-                patch({ occasion: value as BookState['occasion'] })
-              }
-              disabled={sending}
-            />
-            <Tabs
-              legend={dict.reservation.seating}
-              name="seating_preference"
-              value={state.seating_preference}
-              options={[
-                { value: '', label: dict.reservation.noPreference },
-                ...SEATING_PREFERENCES.map((s) => ({
-                  value: s,
-                  label: dict.reservation.seatings[s],
-                })),
-              ]}
-              onChange={(value) =>
-                patch({
-                  seating_preference: value as BookState['seating_preference'],
-                })
-              }
-              disabled={sending}
-            />
-
-            <Field
-              id={`${id}-notes`}
-              label={dict.reservation.notes}
-              error={error('notes')}
-              className="md:col-span-2"
-            >
-              <textarea
-                id={`${id}-notes`}
-                name="notes"
-                rows={3}
-                maxLength={1000}
-                value={state.notes}
-                onChange={(e) => patch({ notes: e.target.value })}
-                disabled={sending}
-                aria-invalid={error('notes') ? true : undefined}
-                aria-describedby={describe('notes')}
-                className={`${INPUT} resize-y`}
-              />
-            </Field>
-
-            <div className="md:col-span-2">
-              <label className="flex cursor-pointer items-start gap-3 text-sm text-ivory-dim">
-                <input
-                  type="checkbox"
-                  name="consent"
-                  checked={state.consent}
-                  onChange={(e) => patch({ consent: e.target.checked })}
+                <Tabs
+                  legend={dict.reservation.occasion}
+                  name="occasion"
+                  value={state.occasion}
+                  options={[
+                    { value: '', label: dict.reservation.noPreference },
+                    ...OCCASIONS.map((o) => ({
+                      value: o,
+                      label: dict.reservation.occasions[o],
+                    })),
+                  ]}
+                  onChange={(value) =>
+                    patch({ occasion: value as BookState['occasion'] })
+                  }
                   disabled={sending}
-                  aria-invalid={error('consent') ? true : undefined}
-                  aria-describedby={describe('consent')}
-                  className="mt-1 size-4 shrink-0 appearance-none border border-ivory/40 transition-colors checked:border-gold checked:bg-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                 />
-                {dict.reservation.consent}
-              </label>
-              <FieldError id={describe('consent')} message={error('consent')} />
-            </div>
-          </div>
-        </ChapterFrame>
+                <Tabs
+                  legend={dict.reservation.seating}
+                  name="seating_preference"
+                  value={state.seating_preference}
+                  options={[
+                    { value: '', label: dict.reservation.noPreference },
+                    ...SEATING_PREFERENCES.map((s) => ({
+                      value: s,
+                      label: dict.reservation.seatings[s],
+                    })),
+                  ]}
+                  onChange={(value) =>
+                    patch({
+                      seating_preference:
+                        value as BookState['seating_preference'],
+                    })
+                  }
+                  disabled={sending}
+                />
+
+                <Field
+                  id={`${id}-notes`}
+                  label={dict.reservation.notes}
+                  error={error('notes')}
+                  className="md:col-span-2"
+                >
+                  <textarea
+                    id={`${id}-notes`}
+                    name="notes"
+                    rows={3}
+                    maxLength={1000}
+                    value={state.notes}
+                    onChange={(e) => patch({ notes: e.target.value })}
+                    disabled={sending}
+                    aria-invalid={error('notes') ? true : undefined}
+                    aria-describedby={describe('notes')}
+                    className={`${INPUT} resize-y`}
+                  />
+                </Field>
+
+                <div className="md:col-span-2">
+                  <label className="flex cursor-pointer items-start gap-3 text-sm text-ivory-dim">
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      checked={state.consent}
+                      onChange={(e) => patch({ consent: e.target.checked })}
+                      disabled={sending}
+                      aria-invalid={error('consent') ? true : undefined}
+                      aria-describedby={describe('consent')}
+                      className="mt-1 size-4 shrink-0 appearance-none border border-ivory/40 transition-colors checked:border-gold checked:bg-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                    />
+                    {dict.reservation.consent}
+                  </label>
+                  <FieldError
+                    id={describe('consent')}
+                    message={error('consent')}
+                  />
+                </div>
+              </div>
+            </ChapterFrame>
+          </>
+        )}
 
         {/* Chapter 4: Review, as a ticket. Also the success state. */}
         <ChapterFrame
@@ -599,7 +627,7 @@ export function ReservationBook({
           }
         >
           <Ticket
-            state={state}
+            state={submitted ?? state}
             branch={branch}
             received={received}
             locale={locale}
@@ -664,7 +692,10 @@ function ChapterFrame({
       aria-labelledby={`${id}-title`}
       className="scroll-mt-28 border-t border-ivory/10 py-14 first:border-t-0 first:pt-4 md:py-20 lg:scroll-mt-32"
     >
-      <p aria-hidden="true" className="lr-display text-sm text-gold tabular-nums">
+      <p
+        aria-hidden="true"
+        className="lr-display text-sm text-gold tabular-nums"
+      >
         {number}
       </p>
       <h2

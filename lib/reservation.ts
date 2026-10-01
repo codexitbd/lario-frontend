@@ -157,7 +157,10 @@ export function dateBounds(now: Date = new Date()): {
 } {
   return {
     min: riyadhDate(now),
-    max: riyadhDate(new Date(now.getTime() + NINETY_DAYS_MS)),
+    // 89 days, not 90: the schema's rule is 90 x 24h from NOW, so the 90th
+    // calendar day is only valid before the current time of day. Offering it
+    // would reject most dinner times on the last date the picker allows.
+    max: riyadhDate(new Date(now.getTime() + NINETY_DAYS_MS - 86_400_000)),
   }
 }
 

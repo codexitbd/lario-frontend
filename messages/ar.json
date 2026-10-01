@@ -125,7 +125,8 @@
       "indoor": "داخلي",
       "outdoor": "خارجي",
       "private": "غرفة خاصة"
-    }
+    },
+    "progress": "مراحل الحجز"
   },
   "branch": {
     "openingHours": "ساعات العمل",
