@@ -7,7 +7,7 @@ import {
 } from '@phosphor-icons/react/ssr'
 import type { Icon } from '@phosphor-icons/react'
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import { SectionHeader } from '@/components/ui/section-header'
 import {
@@ -17,7 +17,6 @@ import {
   readText,
   type Bag,
 } from '@/components/sections/content'
-import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 
 /**
@@ -141,13 +140,14 @@ export function WhyLario({
 
           {ledger}
 
-          <Cta
-            href={localePath(locale, '/reservation')}
+          <SectionCta
+            payload={payload}
+            locale={locale}
+            fallback="/reservation"
+            label={readText(content, 'cta_label')}
             variant="outline"
             className="lr-reveal mt-12 md:mt-14"
-          >
-            {readText(content, 'cta_label')}
-          </Cta>
+          />
         </div>
       </Container>
     </section>

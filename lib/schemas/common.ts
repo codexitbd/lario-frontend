@@ -18,6 +18,7 @@ export const seoSchema = z.object({
   twitter: z.object({ card: z.string() }),
   alternates: z.object({ en: z.url(), ar: z.url() }),
   schema_enabled: z.boolean(),
+  keywords: z.array(z.string()).optional(),
 })
 export type Seo = z.infer<typeof seoSchema>
 
@@ -54,16 +55,28 @@ export const settingsSchema = z.object({
   site_name: z.string(),
   default_locale: localeSchema,
   locales: z.array(localeSchema),
+  // Every contact value is optional in the admin; an empty field renders nothing.
   contact: z.object({
-    phone: z.string(),
-    whatsapp: z.string(),
-    email: z.email(),
+    phone: z.string().nullable(),
+    whatsapp: z.string().nullable(),
+    email: z.email().nullable(),
+    address: z.string().nullable().optional(),
   }),
-  social: z.object({
-    instagram: z.string(),
-    tiktok: z.string(),
-    snapchat: z.string(),
-  }),
+  // platform -> url. The admin manages any number of platforms (Settings → General).
+  social: z.record(z.string(), z.string()),
+  socials: z
+    .array(z.object({ platform: z.string(), url: z.string() }))
+    .default([]),
+  copyright: z.string().nullable().optional(),
+  branding: z
+    .object({
+      logo: z.url().nullable(),
+      logo_light: z.url().nullable(),
+      favicon: z.url().nullable(),
+      apple_touch_icon: z.url().nullable(),
+    })
+    .partial()
+    .default({}),
   analytics: z.object({
     ga4_id: z.string().nullable(),
     gtm_id: z.string().nullable(),
@@ -75,6 +88,36 @@ export const settingsSchema = z.object({
     // Nullable: no default social-card asset exists (content-gap item 10).
     // A URL that 404s is worse than none — crawlers cache the failure.
     og_image: z.url().nullable(),
+    description: z.string().nullable().optional(),
+    allow_indexing: z.boolean().default(true),
+    google_verification: z.string().nullable().optional(),
+    bing_verification: z.string().nullable().optional(),
+    robots_txt: z.string().nullable().optional(),
   }),
+  // Every tracker is off while its id is empty (Settings → Tracking & scripts).
+  tracking: z
+    .object({
+      ga4_id: z.string().nullable(),
+      gtm_id: z.string().nullable(),
+      meta_pixel_id: z.string().nullable(),
+      tiktok_pixel_id: z.string().nullable(),
+      snap_pixel_id: z.string().nullable(),
+      custom_head: z.string().nullable(),
+      custom_body_start: z.string().nullable(),
+      custom_body_end: z.string().nullable(),
+      extra_script_domains: z.array(z.string()),
+    })
+    .partial()
+    .default({}),
+  reservations: z
+    .object({
+      enabled: z.boolean(),
+      max_party_size: z.number().int(),
+      days_ahead: z.number().int(),
+      min_notice_minutes: z.number().int(),
+      disabled_message: z.string().nullable(),
+    })
+    .partial()
+    .default({}),
 })
 export type Settings = z.infer<typeof settingsSchema>

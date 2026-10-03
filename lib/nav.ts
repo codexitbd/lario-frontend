@@ -1,4 +1,6 @@
+import type { ApiMenuItem } from '@/lib/api/menus'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
+import { type Locale, localePath } from '@/lib/i18n/config'
 
 /**
  * The site's navigation, in one place, so the header, the mobile drawer and
@@ -67,4 +69,60 @@ export function isActivePath(
   const target = localisedHref.replace(/\/+$/, '') || '/'
   if (exact || target === '/') return here === target
   return here === target || here.startsWith(`${target}/`)
+}
+
+/**
+ * A rendered navigation entry. Menus are edited in the admin (Pages → Menus);
+ * the lists above are the fallback when the API has none for a slot.
+ */
+export type NavItem = {
+  id: string
+  label: string
+  /** Already localised; null for a heading or a "coming soon" entry. */
+  href: string | null
+  newTab: boolean
+  comingSoon: boolean
+  /** Home matches only itself; everything else lights up for its subtree. */
+  exact: boolean
+  children: NavItem[]
+}
+
+export function toNavItems(items: ApiMenuItem[], locale: Locale, prefix = 'nav'): NavItem[] {
+  return items.map((item, index) => {
+    const href = item.href && !item.coming_soon ? (item.external ? item.href : localePath(locale, item.href)) : null
+    return {
+      id: `${prefix}-${index}`,
+      label: item.label,
+      href,
+      newTab: item.new_tab,
+      comingSoon: item.coming_soon,
+      exact: item.href === '/',
+      children: toNavItems(item.children, locale, `${prefix}-${index}`),
+    }
+  })
+}
+
+/** The original header (live routes + a Branches menu) for when the API has no "header" menu. */
+export function fallbackHeader(
+  dict: Dictionary,
+  locale: Locale,
+  branches: { slug: string; name: string; url: string }[],
+): NavItem[] {
+  const link = (key: NavKey, href: string): NavItem => ({
+    id: key, label: dict.nav[key], href: localePath(locale, href), newTab: false, comingSoon: false, exact: href === '/', children: [],
+  })
+  const [home, menu, ...rest] = PRIMARY_NAV
+  return [
+    link(home.key, home.href),
+    link(menu.key, menu.href),
+    {
+      id: 'branches', label: dict.nav.branches, href: null, newTab: false, comingSoon: false, exact: false,
+      children: branches.map((b) => ({ id: b.slug, label: b.name, href: localePath(locale, b.url), newTab: false, comingSoon: false, exact: false, children: [] })),
+    },
+    ...rest.map((item) => link(item.key, item.href)),
+  ]
+}
+
+export function fallbackDrawer(dict: Dictionary): NavItem[] {
+  return DEFERRED_NAV.map((key) => ({ id: key, label: dict.nav[key], href: null, newTab: false, comingSoon: true, exact: false, children: [] }))
 }

@@ -39,8 +39,8 @@ describe('seoSchema', () => {
 })
 
 describe('load-bearing constants', () => {
-  it('SECTION_TYPES holds exactly the 11 approved types in order', () => {
-    expect(SECTION_TYPES).toEqual([
+  it('SECTION_TYPES starts with the 11 original homepage types in order', () => {
+    expect(SECTION_TYPES.slice(0, 11)).toEqual([
       'hero',
       'intro',
       'featured_dishes',
@@ -55,16 +55,10 @@ describe('load-bearing constants', () => {
     ])
   })
 
-  it('branchSchema accepts only the two contracted slugs', () => {
-    const base = {
-      slug: 'narjis',
-      name: 'La Rio Al Narjis',
-    }
+  it('branchSchema accepts any admin-created slug but not an empty one', () => {
     expect(() => branchSchema.shape.slug.parse('narjis')).not.toThrow()
-    expect(() => branchSchema.shape.slug.parse('al-yasmin')).not.toThrow()
-    expect(() => branchSchema.shape.slug.parse('al-narjis')).toThrow()
-    expect(() => branchSchema.shape.slug.parse('jeddah')).toThrow()
-    void base
+    expect(() => branchSchema.shape.slug.parse('jeddah')).not.toThrow()
+    expect(() => branchSchema.shape.slug.parse('')).toThrow()
   })
 
   it('requires branch email but tolerates a missing google_maps_url', () => {

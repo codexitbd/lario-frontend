@@ -11,6 +11,8 @@ import {
 } from '@/lib/reservation'
 import type { Branch } from '@/lib/schemas'
 
+const SLUGS = ['narjis', 'al-yasmin']
+
 type Hours = Branch['opening_hours']
 
 function week(
@@ -32,7 +34,7 @@ function soon(): string {
 
 function filled(): BookState {
   return {
-    ...initialState('narjis'),
+    ...initialState('narjis', SLUGS),
     date: soon(),
     time: '20:30',
     party_size: 4,
@@ -59,11 +61,11 @@ describe('toReservedFor', () => {
 
 describe('initialState', () => {
   it('preselects a known branch from the deep link', () => {
-    expect(initialState('al-yasmin').branch_slug).toBe('al-yasmin')
+    expect(initialState('al-yasmin', SLUGS).branch_slug).toBe('al-yasmin')
   })
 
   it('ignores an unknown or missing branch', () => {
-    expect(initialState('foo').branch_slug).toBe('')
+    expect(initialState('foo', SLUGS).branch_slug).toBe('')
     expect(initialState(null).branch_slug).toBe('')
   })
 

@@ -1,10 +1,9 @@
 import type { CSSProperties } from 'react'
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import { HeroVideo } from '@/components/sections/hero-video'
 import { readImage, readText, type Bag } from '@/components/sections/content'
-import { localePath } from '@/lib/i18n/config'
 import { PLACEHOLDER_HERO_VIDEO, placeholderFor } from '@/lib/placeholders'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -118,12 +117,8 @@ export function Hero({
               className="lr-hero-in mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
               style={{ '--d': 660 } as CSSProperties}
             >
-              <Cta href={localePath(locale, '/reservation')} variant="solid">
-                {readText(content, 'cta_label')}
-              </Cta>
-              <Cta href={localePath(locale, '/menu')} variant="outline">
-                {readText(content, 'secondary_cta_label')}
-              </Cta>
+              <SectionCta payload={payload} locale={locale} fallback="/reservation" label={readText(content, 'cta_label')} variant="solid" />
+              <SectionCta payload={payload} linkKey="secondary_cta" locale={locale} fallback="/menu" label={readText(content, 'secondary_cta_label')} variant="outline" />
             </div>
           </div>
         </div>

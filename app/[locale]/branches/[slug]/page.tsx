@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SectionList } from '@/components/sections/section-list'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
@@ -19,10 +20,10 @@ import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
 import { SectionHeader } from '@/components/ui/section-header'
 import { getBranch } from '@/lib/api/branches'
-import { getBranches as getBranchesImpl } from '@/lib/api/branches.impl'
+import { apiSlugs } from '@/lib/api/client'
 import { getSettings } from '@/lib/api/settings'
 import { getDictionary } from '@/lib/i18n/dictionaries'
-import { DEFAULT_LOCALE, isLocale, localePath } from '@/lib/i18n/config'
+import { isLocale, localePath } from '@/lib/i18n/config'
 import { formatPhone } from '@/lib/format'
 import { groupOpeningHours } from '@/lib/hours'
 import { absoluteUrl } from '@/content/seo-defaults'
@@ -33,12 +34,10 @@ import {
   localBusinessJsonLd,
 } from '@/lib/seo/json-ld'
 
-/** Built from the pure impl: the cached fetcher needs a request context and
-    there is none at build time. */
-export function generateStaticParams() {
-  return getBranchesImpl(DEFAULT_LOCALE).map((branch) => ({
-    slug: branch.slug,
-  }))
+/** Every visible branch is prerendered; one added later renders on first visit. */
+export async function generateStaticParams() {
+  const slugs = await apiSlugs('/branches')
+  return (slugs.length > 0 ? slugs : ['__none__']).map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
@@ -447,6 +446,7 @@ export default async function BranchPage({
           }}
         />
       ) : null}
+      <SectionList sections={branch.sections} locale={locale} dict={dict} settings={settings} />
     </main>
   )
 }

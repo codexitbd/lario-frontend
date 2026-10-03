@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SectionList } from '@/components/sections/section-list'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CategoryNav } from '@/components/menu/category-nav'
@@ -7,22 +8,18 @@ import { Container } from '@/components/ui/container'
 import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
 import { getMenuCategories, getMenuCategory } from '@/lib/api/menu'
-import { getMenuCategories as getMenuCategoriesImpl } from '@/lib/api/menu.impl'
+import { apiSlugs } from '@/lib/api/client'
 import { getSettings } from '@/lib/api/settings'
 import { getDictionary } from '@/lib/i18n/dictionaries'
-import { DEFAULT_LOCALE, isLocale, localePath } from '@/lib/i18n/config'
+import { isLocale, localePath } from '@/lib/i18n/config'
 import { absoluteUrl } from '@/content/seo-defaults'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
 
-/**
- * Built from the pure impl, not the cached fetcher: `cacheTag` and `cacheLife`
- * need a real request context and there is none at build time.
- */
-export function generateStaticParams() {
-  return getMenuCategoriesImpl(DEFAULT_LOCALE).map((category) => ({
-    category: category.slug,
-  }))
+/** Every visible category is prerendered; one added later renders on first visit. */
+export async function generateStaticParams() {
+  const slugs = await apiSlugs('/menu/categories')
+  return (slugs.length > 0 ? slugs : ['__none__']).map((category) => ({ category }))
 }
 
 export async function generateMetadata({
@@ -220,6 +217,7 @@ export default async function CategoryPage({
           __html: JSON.stringify(breadcrumbJsonLd(crumbs)),
         }}
       />
+      <SectionList sections={found.sections} locale={locale} dict={dict} settings={settings} />
     </main>
   )
 }

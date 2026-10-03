@@ -31,7 +31,8 @@ export const menuItemCardSchema = z.object({
   currency: z.string().length(3),
   calories: z.number().int().nonnegative().nullable(),
   image: imageUrlSchema.nullable(),
-  dietary_tags: z.array(z.enum(DIETARY_TAGS)),
+  // Tag keys come from the admin (Menu → Dish tags); DIETARY_TAGS lists the seeded ones.
+  dietary_tags: z.array(z.string()),
   is_available: z.boolean(),
   category: categoryRefSchema,
   url: z.string().startsWith('/'),
@@ -48,7 +49,7 @@ export const menuItemSchema = menuItemCardSchema.extend({
   name_alt: z.string().nullable(),
   ingredients_note: z.string().nullable(),
   preparation_note: z.string().nullable(),
-  allergens: z.array(z.enum(ALLERGENS)),
+  allergens: z.array(z.string()),
   seo: seoSchema,
   related: z.array(menuItemCardSchema),
 })

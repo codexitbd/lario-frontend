@@ -1,9 +1,8 @@
 import type { CSSProperties } from 'react'
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import { readImage, readText, type Bag } from '@/components/sections/content'
-import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 
 /**
@@ -58,20 +57,8 @@ export function ChefStory({
               {readText(content, 'body')}
             </p>
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-x-9">
-              <Cta
-                href={localePath(locale, '/branches/narjis')}
-                variant="quiet"
-                tone="light"
-              >
-                {readText(content, 'cta_label')}
-              </Cta>
-              <Cta
-                href={localePath(locale, '/branches/al-yasmin')}
-                variant="quiet"
-                tone="light"
-              >
-                {readText(content, 'secondary_cta_label')}
-              </Cta>
+              <SectionCta payload={payload} locale={locale} label={readText(content, 'cta_label')} variant="quiet" tone="light" />
+              <SectionCta payload={payload} linkKey="secondary_cta" locale={locale} label={readText(content, 'secondary_cta_label')} variant="quiet" tone="light" />
             </div>
           </div>
 

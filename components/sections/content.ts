@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { type Locale, localePath } from '@/lib/i18n/config'
 import { branchSchema } from '@/lib/schemas/branch'
 import { testimonialSchema } from '@/lib/schemas/page'
 
@@ -73,10 +74,39 @@ export const faqItemSchema = z.object({
 })
 export type FaqItem = z.infer<typeof faqItemSchema>
 
+// `label` is admin-written (CMS); `key` + a UI-string unit is the original fixture shape.
 export const statSchema = z.object({
-  key: z.string().min(1),
+  key: z.string().optional(),
+  label: z.string().optional(),
   value: z.string().min(1),
 })
 export type Stat = z.infer<typeof statSchema>
 
 export { branchSchema, testimonialSchema }
+
+const linkSchema = z.object({
+  href: z.string().min(1),
+  new_tab: z.boolean().optional(),
+  external: z.boolean().optional(),
+})
+
+export type SectionLink = { href: string; newTab: boolean }
+
+/**
+ * A button target the admin picked (payload[key] = {href, new_tab, external}).
+ * Internal hrefs arrive locale-free and get the language prefix here.
+ * Key absent (content written before links were editable) → `fallback`;
+ * key present but null (the admin removed the link) → no button.
+ */
+export function readLink(
+  bag: Bag,
+  key: string,
+  locale: Locale,
+  fallback: string | null = null,
+): SectionLink | null {
+  if (!(key in bag)) return fallback ? { href: localePath(locale, fallback), newTab: false } : null
+  const parsed = linkSchema.safeParse(bag[key])
+  if (!parsed.success) return null
+  const { href, external, new_tab } = parsed.data
+  return { href: external ? href : localePath(locale, href), newTab: new_tab ?? false }
+}

@@ -1,5 +1,5 @@
 import { formatDateTime, formatPhone } from '@/lib/format'
-import { interpolate } from '@/lib/i18n/dictionaries'
+import { interpolate } from '@/lib/i18n/interpolate'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import { toReservedFor, type BookState, type Chapter } from '@/lib/reservation'

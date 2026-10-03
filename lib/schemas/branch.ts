@@ -10,7 +10,8 @@ export const openingHourSchema = z.object({
 })
 
 export const branchSchema = z.object({
-  slug: z.enum(['narjis', 'al-yasmin']),
+  // Admin-created: any number of branches, any slug.
+  slug: z.string().min(1),
   name: z.string().min(1),
   tagline: z.string(),
   address: z.string(),
@@ -30,8 +31,11 @@ export const branchSchema = z.object({
   google_maps_url: z.url().nullable(),
   google_place_id: z.string().nullable(),
   hero_image: imageUrlSchema.nullable(),
+  story_image: imageUrlSchema.nullable().optional(),
   gallery: z.array(imageUrlSchema),
-  facilities: z.array(z.object({ slug: z.string(), label: z.string() })),
+  facilities: z.array(
+    z.object({ slug: z.string(), label: z.string(), icon: z.string().nullable().optional() }),
+  ),
   opening_hours: z.array(openingHourSchema).length(7),
   schema_opening_hours: z.array(z.string()),
   popular_dishes: z.array(menuItemCardSchema),

@@ -15,7 +15,7 @@ export const OCCASIONS = [
 ] as const
 
 export const reservationSchema = z.object({
-  branch_slug: z.enum(['narjis', 'al-yasmin']),
+  branch_slug: z.string().min(1),
   guest_name: z.string().min(2).max(120),
   guest_email: z.email(),
   guest_phone: z.string().regex(E164, 'phone must be E.164, e.g. +966512345678'),
@@ -50,7 +50,7 @@ export const contactSchema = z.object({
   phone: z.string().regex(E164).nullish(),
   subject: z.string().max(200).nullish(),
   message: z.string().min(10).max(2000),
-  branch_slug: z.enum(['narjis', 'al-yasmin']).nullish(),
+  branch_slug: z.string().min(1).nullish(),
   locale: localeSchema,
 })
 export type ContactInput = z.infer<typeof contactSchema>

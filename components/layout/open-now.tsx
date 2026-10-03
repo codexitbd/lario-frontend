@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from 'react'
 import { getOpenState } from '@/lib/hours'
-import { interpolate } from '@/lib/i18n/dictionaries'
+import { interpolate } from '@/lib/i18n/interpolate'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import type { Branch } from '@/lib/schemas'

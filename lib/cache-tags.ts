@@ -8,6 +8,19 @@ export const tags = {
   branches: () => 'branches',
   branch: (slug: string) => `branch:${slug}`,
   testimonials: () => 'testimonials',
+  // Added with the CMS (lario-backend App\Support\CacheTags). The API names the
+  // tags each response depends on; these are listed so both sides stay in step.
+  faqs: () => 'faqs',
+  galleries: () => 'galleries',
+  posts: () => 'posts',
+  post: (slug: string) => `post:${slug}`,
+  events: () => 'events',
+  event: (slug: string) => `event:${slug}`,
+  team: () => 'team',
+  pages: () => 'pages',
+  menus: () => 'menus',
+  uiStrings: () => 'ui-strings',
+  detail: (type: string) => `detail:${type}`,
   // `redirects` has no cacheTag() caller and cannot get one. proxy.ts is the
   // only consumer of the redirect list, and it runs in the proxy, BEFORE the
   // render pipeline where `use cache` and cacheTag() have a context to attach

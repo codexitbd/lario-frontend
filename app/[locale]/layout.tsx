@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import { Archivo, Bodoni_Moda, IBM_Plex_Sans_Arabic } from 'next/font/google'
 import { SiteFooter } from '@/components/layout/site-footer'
+import { PreviewBanner } from '@/components/layout/preview-banner'
 import { SiteHeader } from '@/components/layout/site-header'
+import { TrackingBodyEnd, TrackingBodyStart, TrackingHead } from '@/components/layout/tracking'
+import { SITE_URL } from '@/lario.config'
 import { getBranches } from '@/lib/api/branches'
+import { getMenus } from '@/lib/api/menus'
 import { getSettings } from '@/lib/api/settings'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import {
@@ -51,8 +55,23 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }))
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://lario.sa'),
+/** Site-wide head tags from the admin: favicon, home-screen icon, search verification. */
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const settings = await getSettings(isLocale(locale) ? locale : DEFAULT_LOCALE)
+  const { favicon, apple_touch_icon: apple } = settings.branding
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    icons: {
+      ...(favicon ? { icon: favicon } : {}),
+      ...(apple ? { apple } : {}),
+    },
+    verification: {
+      ...(settings.seo_defaults.google_verification ? { google: settings.seo_defaults.google_verification } : {}),
+      ...(settings.seo_defaults.bing_verification ? { other: { 'msvalidate.01': settings.seo_defaults.bing_verification } } : {}),
+    },
+  }
 }
 
 export default async function LocaleLayout({
@@ -78,10 +97,11 @@ export default async function LocaleLayout({
   // The chrome's data, fetched once here for both the header and the footer.
   // All three are cached fetchers, so this costs one resolution per locale for
   // the whole site rather than one per page.
-  const [branches, settings, dict] = await Promise.all([
+  const [branches, settings, dict, menus] = await Promise.all([
     getBranches(active),
     getSettings(active),
     getDictionary(active),
+    getMenus(active),
   ])
 
   return (
@@ -89,6 +109,7 @@ export default async function LocaleLayout({
       <body
         className={`${latin.variable} ${arabic.variable} ${display.variable}`}
       >
+        <TrackingBodyStart tracking={settings.tracking} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
@@ -98,16 +119,21 @@ export default async function LocaleLayout({
         <SiteHeader
           branches={branches}
           settings={settings}
+          menus={menus}
           locale={active}
           dict={dict}
         />
         {children}
+        <TrackingHead tracking={settings.tracking} />
         <SiteFooter
           branches={branches}
           settings={settings}
+          menus={menus}
           locale={active}
           dict={dict}
         />
+        <PreviewBanner />
+        <TrackingBodyEnd tracking={settings.tracking} />
       </body>
     </html>
   )

@@ -1,35 +1,28 @@
-import { cacheLife, cacheTag } from 'next/cache'
-import * as impl from '@/lib/api/branches.impl'
-import { tags } from '@/lib/cache-tags'
+import { cacheLife } from 'next/cache'
+import { z } from 'zod'
+import { apiFind, apiGet } from '@/lib/api/client'
 import type { Locale } from '@/lib/i18n/config'
-import type { Branch } from '@/lib/schemas'
+import { type Branch, branchSchema, pageSectionSchema } from '@/lib/schemas'
 
-export { toSchemaOpeningHours } from '@/lib/api/branches.impl'
+/** Branch detail plus the admin's "detail page extras" components. */
+export const branchDetailSchema = branchSchema.extend({
+  sections: z.array(pageSectionSchema).default([]),
+})
+export type BranchDetail = z.infer<typeof branchDetailSchema>
 
 export async function getBranches(locale: Locale): Promise<Branch[]> {
   'use cache'
-  // Both tags, for the same reason getBranch carries both: toBranch ALWAYS
-  // populates popular_dishes, so every row in this list renders dish cards,
-  // and a dish edit emits `menu` — never `branches`. Tagging only `branches`
-  // leaves a repriced dish showing its old price on every branch card, with
-  // nothing erroring.
-  cacheTag(tags.branches(), tags.menu())
   cacheLife('max')
 
-  return impl.getBranches(locale)
+  return apiGet('/branches', z.array(branchSchema), { locale })
 }
 
 export async function getBranch(
   locale: Locale,
   slug: string,
-): Promise<Branch | null> {
+): Promise<BranchDetail | null> {
   'use cache'
-  // Both tags: this page renders popular_dishes, and a dish edit emits `menu`
-  // (never `branch:{slug}`) per the contract cascade. Tagging only the branch
-  // means a repriced dish leaves this page serving a stale price — silently,
-  // with nothing erroring. Same failure class as getMenuCategory.
-  cacheTag(tags.branch(slug), tags.menu())
   cacheLife('max')
 
-  return impl.getBranch(locale, slug)
+  return apiFind(`/branches/${encodeURIComponent(slug)}`, branchDetailSchema, { locale })
 }

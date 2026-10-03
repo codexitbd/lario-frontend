@@ -50,7 +50,7 @@ export default async function HomePage({
     <main id="main-content">
       {home.sections.map((section) => (
         <div key={`${section.type}-${section.sort_order}`}>
-          {renderSection(section, { locale, dict, branches })}
+          {renderSection(section, { locale, dict, branches, settings })}
         </div>
       ))}
 

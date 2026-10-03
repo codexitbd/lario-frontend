@@ -21,7 +21,7 @@ import { Ticket, type Received } from '@/components/reservation/ticket'
 import { Container } from '@/components/ui/container'
 import { Figure } from '@/components/ui/figure'
 import { groupOpeningHours } from '@/lib/hours'
-import { interpolate } from '@/lib/i18n/dictionaries'
+import { interpolate } from '@/lib/i18n/interpolate'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import {
@@ -82,7 +82,7 @@ export function ReservationBook({
   const id = useId()
   const initialBranch = useSearchParams().get('branch')
   const [state, setState] = useState<BookState>(() =>
-    initialState(initialBranch),
+    initialState(initialBranch, branches.map((b) => b.slug)),
   )
   const [status, setStatus] = useState<Status>('idle')
   const [issues, setIssues] = useState<Issues>({})

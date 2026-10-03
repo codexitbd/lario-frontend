@@ -12,7 +12,8 @@ describe('home fixture', () => {
     const types = home.sections.map((s) => s.type)
     expect(types).toHaveLength(10)
     expect(new Set(types).size).toBe(10)
-    for (const type of SECTION_TYPES) {
+    // The fixture is the original homepage; the CMS added more section types later.
+    for (const type of SECTION_TYPES.slice(0, 11)) {
       if (type === 'reservation_cta') expect(types).not.toContain(type)
       else expect(types).toContain(type)
     }

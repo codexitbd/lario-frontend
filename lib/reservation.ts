@@ -18,12 +18,8 @@ import {
     must not send 20:30 London time. Saudi has no DST. */
 const RIYADH_OFFSET = '+03:00'
 const NINETY_DAYS_MS = 90 * 86_400_000
-const BRANCH_SLUGS = ['narjis', 'al-yasmin'] as const
-
-type BranchSlug = (typeof BRANCH_SLUGS)[number]
-
 export type BookState = {
-  branch_slug: '' | BranchSlug
+  branch_slug: string
   date: string
   time: string
   party_size: number
@@ -57,11 +53,10 @@ const CHAPTER_FIELDS: Record<Chapter, readonly string[]> = {
   ],
 }
 
-export function initialState(branch: string | null): BookState {
+/** `slugs`: the branches on offer — a `?branch=` deep link preselects only a real one. */
+export function initialState(branch: string | null, slugs: readonly string[] = []): BookState {
   return {
-    branch_slug: BRANCH_SLUGS.includes(branch as BranchSlug)
-      ? (branch as BranchSlug)
-      : '',
+    branch_slug: branch && slugs.includes(branch) ? branch : '',
     date: '',
     time: '',
     party_size: 2,

@@ -39,16 +39,19 @@ export function Cta({
   variant = 'solid',
   tone = 'dark',
   className = '',
+  newTab = false,
 }: {
   href: string
   children: ReactNode
   variant?: Variant
   tone?: Tone
   className?: string
+  newTab?: boolean
 }) {
   return (
     <Link
       href={href}
+      {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={`inline-flex items-center justify-center whitespace-nowrap text-[0.8125rem] font-medium tracking-[0.16em] uppercase transition-[background-color,border-color,color,transform] duration-300 ease-brand ${VARIANTS[tone][variant]} ${className}`}
     >
       {children}

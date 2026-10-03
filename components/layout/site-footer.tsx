@@ -1,9 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {
+  FacebookLogoIcon,
+  GlobeIcon,
+  GoogleLogoIcon,
   InstagramLogoIcon,
+  LinkedinLogoIcon,
   SnapchatLogoIcon,
   TiktokLogoIcon,
+  WhatsappLogoIcon,
+  XLogoIcon,
+  YoutubeLogoIcon,
 } from '@phosphor-icons/react/ssr'
 import type { Icon } from '@phosphor-icons/react'
 import type { ReactNode } from 'react'
@@ -11,7 +18,8 @@ import goldenLogo from '@/public/golden-logo.png'
 import { NewsletterForm } from '@/components/layout/newsletter-form'
 import { OpenNow } from '@/components/layout/open-now'
 import { Container } from '@/components/ui/container'
-import { LEGAL_NAV, PRIMARY_NAV } from '@/lib/nav'
+import type { ApiMenuItem } from '@/lib/api/menus'
+import { LEGAL_NAV, PRIMARY_NAV, type NavItem, toNavItems } from '@/lib/nav'
 import { formatPhone } from '@/lib/format'
 import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
@@ -45,12 +53,20 @@ import type { Branch, Settings } from '@/lib/schemas'
  * address and the per-day hours table live on the branch page the room's name
  * links to; the footer keeps the live state, the phone and directions.
  */
-const SOCIALS: Record<keyof Settings['social'], { icon: Icon; name: string }> =
-  {
-    instagram: { icon: InstagramLogoIcon, name: 'Instagram' },
-    tiktok: { icon: TiktokLogoIcon, name: 'TikTok' },
-    snapchat: { icon: SnapchatLogoIcon, name: 'Snapchat' },
-  }
+// Platforms the admin can pick (Settings → General → Social media); any other
+// falls back to a globe.
+const SOCIALS: Record<string, { icon: Icon; name: string }> = {
+  instagram: { icon: InstagramLogoIcon, name: 'Instagram' },
+  tiktok: { icon: TiktokLogoIcon, name: 'TikTok' },
+  snapchat: { icon: SnapchatLogoIcon, name: 'Snapchat' },
+  x: { icon: XLogoIcon, name: 'X' },
+  facebook: { icon: FacebookLogoIcon, name: 'Facebook' },
+  youtube: { icon: YoutubeLogoIcon, name: 'YouTube' },
+  linkedin: { icon: LinkedinLogoIcon, name: 'LinkedIn' },
+  tripadvisor: { icon: GlobeIcon, name: 'Tripadvisor' },
+  google: { icon: GoogleLogoIcon, name: 'Google' },
+  whatsapp: { icon: WhatsappLogoIcon, name: 'WhatsApp' },
+}
 
 const LINK =
   'inline-flex min-h-6 items-center transition-colors duration-300 ease-brand hover:text-gold'
@@ -76,14 +92,22 @@ function Column({
 export function SiteFooter({
   branches,
   settings,
+  menus,
   locale,
   dict,
 }: {
   branches: Branch[]
   settings: Settings
+  /** Admin menus by handle; "footer_explore" and "footer_legal" are used here. */
+  menus: Record<string, ApiMenuItem[]>
   locale: Locale
   dict: Dictionary
 }) {
+  const fallback = (list: readonly { key: string; href: string }[], labels: Record<string, string>): NavItem[] =>
+    list.map((item) => ({ id: item.key, label: labels[item.key], href: localePath(locale, item.href), newTab: false, comingSoon: false, exact: false, children: [] }))
+  const explore = (menus.footer_explore ? toNavItems(menus.footer_explore, locale, 'explore') : fallback(PRIMARY_NAV, dict.nav)).filter((item) => item.href)
+  const legal = (menus.footer_legal ? toNavItems(menus.footer_legal, locale, 'legal') : fallback(LEGAL_NAV, dict.footer)).filter((item) => item.href)
+
   return (
     <footer className="overflow-hidden border-t border-gold/20 bg-ink text-ivory">
       <Container>
@@ -110,10 +134,10 @@ export function SiteFooter({
           <Column title={dict.footer.explore}>
             <nav aria-label={dict.footer.explore}>
               <ul className="space-y-1">
-                {PRIMARY_NAV.map((item) => (
-                  <li key={item.key}>
-                    <Link href={localePath(locale, item.href)} className={DIM}>
-                      {dict.nav[item.key]}
+                {explore.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.href!} className={DIM} {...(item.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -130,7 +154,7 @@ export function SiteFooter({
               </li>
               <li>
                 <a
-                  href={`https://wa.me/${settings.contact.whatsapp.replace(/\D/g, '')}`}
+                  href={`https://wa.me/${(settings.contact.whatsapp ?? '').replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noreferrer"
                   className={DIM}
@@ -151,13 +175,13 @@ export function SiteFooter({
               aria-label={dict.footer.followUs}
               className="mt-2 -ms-2 flex items-center"
             >
-              {(Object.keys(SOCIALS) as (keyof Settings['social'])[]).map(
-                (network) => {
-                  const { icon: SocialIcon, name } = SOCIALS[network]
+              {settings.socials.map(
+                ({ platform: network, url }) => {
+                  const { icon: SocialIcon, name } = SOCIALS[network] ?? { icon: GlobeIcon, name: network }
                   return (
-                    <li key={network}>
+                    <li key={`${network}-${url}`}>
                       <a
-                        href={settings.social[network]}
+                        href={url}
                         target="_blank"
                         rel="noreferrer"
                         className="flex size-10 items-center justify-center text-ivory-dim transition-colors duration-300 ease-brand hover:text-gold"
@@ -237,19 +261,19 @@ export function SiteFooter({
 
           <div className="flex flex-col gap-3 md:items-end md:pb-6">
             <ul className="flex flex-wrap items-center gap-x-6">
-              {LEGAL_NAV.map((item) => (
-                <li key={item.key}>
+              {legal.map((item) => (
+                <li key={item.id}>
                   <Link
-                    href={localePath(locale, item.href)}
+                    href={item.href!}
                     className={`${LINK} text-[0.6875rem] tracking-[0.14em] text-ivory-dim/70 uppercase`}
                   >
-                    {dict.footer[item.key]}
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
             <p className="text-[0.6875rem] tracking-[0.14em] text-ivory-dim/60 uppercase">
-              &copy; {settings.site_name}. {dict.footer.rights}
+              {settings.copyright ?? <>&copy; {settings.site_name}. {dict.footer.rights}</>}
             </p>
           </div>
         </div>

@@ -42,6 +42,13 @@ export function formatDateTime(iso: string, locale: Locale): string {
   }).format(new Date(iso))
 }
 
+export function formatDate(iso: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    timeZone: TIME_ZONE,
+    dateStyle: 'long',
+  }).format(new Date(iso))
+}
+
 export function formatTimeRange(
   opens: string,
   closes: string,
@@ -99,7 +106,8 @@ export function formatClock(time: string, locale: Locale): string {
  * responsible for bidi isolation: this returns a left-to-right string, so print
  * it inside a <bdi dir="ltr"> when the page may be RTL.
  */
-export function formatPhone(e164: string): string {
+export function formatPhone(e164: string | null | undefined): string {
+  if (!e164) return ''
   const digits = e164.replace(/\D/g, '')
   if (!digits.startsWith('966') || digits.length !== 12) return e164
   const national = digits.slice(3)

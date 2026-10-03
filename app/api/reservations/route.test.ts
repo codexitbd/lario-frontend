@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { POST } from '@/app/api/reservations/route'
 
+afterEach(() => vi.unstubAllGlobals())
+
 function post(body: unknown, headers: Record<string, string> = {}) {
   return new Request('https://lario.sa/api/reservations', {
     method: 'POST',
@@ -9,85 +11,40 @@ function post(body: unknown, headers: Record<string, string> = {}) {
   })
 }
 
-const valid = {
-  branch_slug: 'narjis',
-  guest_name: 'Nouf Alharbi',
-  guest_email: 'nouf@example.com',
-  guest_phone: '+966512345678',
-  party_size: 4,
-  reserved_for: new Date(Date.now() + 7 * 86_400_000).toISOString(),
-  consent: true,
-  locale: 'en',
-}
+describe('POST /api/reservations (forwarded to Laravel)', () => {
+  it('passes the body, the visitor IP and the answer through untouched', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ data: { reference: 'LR-ABC234', status: 'pending' } }), { status: 201 }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
 
-function inFutureNaive(days: number): string {
-  // No trailing "Z" and no UTC offset — the exact shape Finding 1 guards
-  // against, since Date.parse() on this resolves against the server
-  // process's local timezone rather than Asia/Riyadh.
-  return new Date(Date.now() + days * 86_400_000)
-    .toISOString()
-    .replace(/\.\d{3}Z$/, '')
-}
+    const response = await POST(post({ guest_name: 'Nouf', locale: 'ar' }, { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' }))
 
-describe('POST /api/reservations', () => {
-  it('returns 201 with a reference and pending status', async () => {
-    const response = await POST(post(valid))
     expect(response.status).toBe(201)
-    const body = await response.json()
-    expect(body.data.reference).toMatch(/^LR-[A-Z2-9]{6}$/)
-    expect(body.data.status).toBe('pending')
-    expect(body.data.branch.slug).toBe('narjis')
+    expect((await response.json()).data.reference).toBe('LR-ABC234')
+    const [url, init] = fetchMock.mock.calls[0]
+    expect(url).toMatch(/\/api\/v1\/reservations$/)
+    expect(init.body).toBe(JSON.stringify({ guest_name: 'Nouf', locale: 'ar' }))
+    expect(init.headers['X-Forwarded-For']).toBe('203.0.113.9')
   })
 
-  it('returns 422 with per-field errors', async () => {
-    const response = await POST(post({ ...valid, guest_email: 'nope' }))
-    expect(response.status).toBe(422)
-    const body = await response.json()
-    expect(body.errors.guest_email).toBeDefined()
-    expect(Array.isArray(body.errors.guest_email)).toBe(true)
+  it('keeps localised 422 errors and 429 Retry-After', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce(
+      new Response(JSON.stringify({ message: 'يرجى مراجعة الحقول المحددة.', errors: { guest_phone: ['…'] } }), { status: 422 }),
+    ).mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too Many Attempts.' }), { status: 429, headers: { 'Retry-After': '42' } })))
+
+    const invalid = await POST(post({}))
+    expect(invalid.status).toBe(422)
+    expect((await invalid.json()).errors.guest_phone).toHaveLength(1)
+
+    const limited = await POST(post({}))
+    expect(limited.status).toBe(429)
+    expect(limited.headers.get('Retry-After')).toBe('42')
   })
 
-  it('returns 429 when the simulate header asks for it', async () => {
-    const response = await POST(post(valid, { 'x-lario-simulate': '429' }))
-    expect(response.status).toBe(429)
-  })
+  it('answers 503 when Laravel is unreachable', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('down')))
 
-  it('returns 422 for malformed JSON', async () => {
-    const response = await POST(
-      new Request('https://lario.sa/api/reservations', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: '{ not json',
-      }),
-    )
-    expect(response.status).toBe(422)
+    expect((await POST(post({}))).status).toBe(503)
   })
-
-  it('rejects a naive datetime with no timezone offset', async () => {
-    const response = await POST(
-      post({ ...valid, reserved_for: inFutureNaive(7) }),
-    )
-    expect(response.status).toBe(422)
-    const body = await response.json()
-    expect(body.errors.reserved_for).toBeDefined()
-  })
-
-  it('returns Arabic error text for an invalid ar-locale request', async () => {
-    const response = await POST(
-      post({ ...valid, guest_email: 'nope', locale: 'ar' }),
-    )
-    expect(response.status).toBe(422)
-    const body = await response.json()
-    expect(body.errors.guest_email[0]).toBe('أدخل بريداً إلكترونياً صحيحاً.')
-  })
-
-  it('ignores the simulate header when NODE_ENV is production', async () => {
-    vi.stubEnv('NODE_ENV', 'production')
-    const response = await POST(post(valid, { 'x-lario-simulate': '429' }))
-    expect(response.status).toBe(201)
-  })
-})
-
-afterEach(() => {
-  vi.unstubAllEnvs()
 })

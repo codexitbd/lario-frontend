@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react/ssr'
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import { SectionHeader } from '@/components/ui/section-header'
 import { readText, type Bag } from '@/components/sections/content'
@@ -155,11 +155,11 @@ export function SignatureFavourites({
   locale,
   dict,
 }: {
-  section: { content: Bag; items?: MenuItemCard[] }
+  section: { content: Bag; payload?: Bag; items?: MenuItemCard[] }
   locale: Locale
   dict: Dictionary
 }) {
-  const { content, items = [] } = section
+  const { content, payload = {}, items = [] } = section
   const count = items.length
 
   const [head, setHead] = useState(0)
@@ -370,9 +370,7 @@ export function SignatureFavourites({
       </div>
 
       <Container className="lr-reveal mt-16 flex justify-center">
-        <Cta href={localePath(locale, '/menu')} variant="outline">
-          {readText(content, 'cta_label')}
-        </Cta>
+        <SectionCta payload={payload} locale={locale} fallback="/menu" label={readText(content, 'cta_label')} variant="outline" />
       </Container>
     </section>
   )

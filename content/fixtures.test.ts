@@ -3,21 +3,10 @@ import branches from '@/content/branches.json'
 import settings from '@/content/settings.json'
 import testimonials from '@/content/testimonials.json'
 import pages from '@/content/pages.json'
-// Cached wrapper `@/lib/api/settings` throws under Vitest — see lib/api/menu.test.ts.
-import { getSettings } from '@/lib/api/settings.impl'
-import { settingsSchema, testimonialSchema } from '@/lib/schemas'
+import { testimonialSchema } from '@/lib/schemas'
 import { LOCALES } from '@/lib/i18n/config'
 
 describe('settings fixture', () => {
-  // The fixture is SOURCE shape, not wire shape — seo_defaults.title_suffix
-  // holds every locale and the resolver picks one. Parse what getSettings
-  // returns, which is what a consumer actually receives.
-  it('resolves to the contract shape in both locales', () => {
-    for (const locale of LOCALES) {
-      expect(() => settingsSchema.parse(getSettings(locale))).not.toThrow()
-    }
-  })
-
   it('carries a title suffix per locale, each in its own script', () => {
     for (const locale of LOCALES) {
       expect(settings.seo_defaults.title_suffix[locale].length).toBeGreaterThan(0)

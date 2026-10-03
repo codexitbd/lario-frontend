@@ -1,16 +1,12 @@
-import { cacheLife, cacheTag } from 'next/cache'
-import { getTestimonials as getTestimonialsImpl } from '@/lib/api/testimonials.impl'
-import { tags } from '@/lib/cache-tags'
+import { cacheLife } from 'next/cache'
+import { z } from 'zod'
+import { apiGet } from '@/lib/api/client'
 import type { Locale } from '@/lib/i18n/config'
-import type { Testimonial } from '@/lib/schemas'
+import { type Testimonial, testimonialSchema } from '@/lib/schemas'
 
-export async function getTestimonials(
-  locale: Locale,
-  limit?: number,
-): Promise<Testimonial[]> {
+export async function getTestimonials(locale: Locale, limit?: number): Promise<Testimonial[]> {
   'use cache'
-  cacheTag(tags.testimonials())
   cacheLife('max')
 
-  return getTestimonialsImpl(locale, limit)
+  return apiGet('/testimonials', z.array(testimonialSchema), { locale, query: { limit } })
 }

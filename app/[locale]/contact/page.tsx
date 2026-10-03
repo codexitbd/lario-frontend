@@ -102,18 +102,18 @@ export default async function ContactPage({
       key: 'whatsapp',
       label: dict.footer.whatsapp,
       value: formatPhone(settings.contact.whatsapp),
-      href: `https://wa.me/${settings.contact.whatsapp.replace(/\D/g, '')}`,
+      href: `https://wa.me/${(settings.contact.whatsapp ?? '').replace(/\D/g, '')}`,
       icon: WhatsappLogoIcon,
       external: true,
     },
     {
       key: 'email',
       label: dict.footer.emailUs,
-      value: settings.contact.email,
+      value: settings.contact.email ?? '',
       href: `mailto:${settings.contact.email}`,
       icon: EnvelopeSimpleIcon,
     },
-  ]
+  ].filter((channel) => channel.value)
 
   return (
     <main id="main-content">

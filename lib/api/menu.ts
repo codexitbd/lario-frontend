@@ -1,70 +1,70 @@
-import { cacheLife, cacheTag } from 'next/cache'
-import * as impl from '@/lib/api/menu.impl'
-import { tags } from '@/lib/cache-tags'
+import { cacheLife } from 'next/cache'
+import { z } from 'zod'
+import { apiFind, apiGet } from '@/lib/api/client'
 import type { Locale } from '@/lib/i18n/config'
-import type {
-  MenuCategory,
-  MenuCategoryDetail,
-  MenuItem,
-  MenuItemCard,
+import {
+  type MenuCategory,
+  type MenuItemCard,
+  menuCategoryDetailSchema,
+  menuCategorySchema,
+  menuItemCardSchema,
+  menuItemSchema,
+  pageSectionSchema,
 } from '@/lib/schemas'
 
-export { toCard, resolveItemCards } from '@/lib/api/menu.impl'
+const withSections = { sections: z.array(pageSectionSchema).default([]) }
 
-export async function getMenuCategories(
-  locale: Locale,
-): Promise<MenuCategory[]> {
+export const menuCategoryPageSchema = menuCategoryDetailSchema.extend(withSections)
+export type MenuCategoryPage = z.infer<typeof menuCategoryPageSchema>
+
+export const menuItemPageSchema = menuItemSchema.extend(withSections)
+export type MenuItemPage = z.infer<typeof menuItemPageSchema>
+
+export const dishTagSchema = z.object({
+  type: z.enum(['dietary', 'allergen']),
+  slug: z.string(),
+  label: z.string().nullable(),
+  icon: z.string().nullable(),
+})
+export type DishTag = z.infer<typeof dishTagSchema>
+
+export async function getMenuCategories(locale: Locale): Promise<MenuCategory[]> {
   'use cache'
-  cacheTag(tags.menu())
   cacheLife('max')
 
-  return impl.getMenuCategories(locale)
+  return apiGet('/menu/categories', z.array(menuCategorySchema), { locale })
 }
 
 export async function getMenuItems(locale: Locale): Promise<MenuItemCard[]> {
   'use cache'
-  cacheTag(tags.menu())
   cacheLife('max')
 
-  return impl.getMenuItems(locale)
+  return apiGet('/menu/items', z.array(menuItemCardSchema), { locale })
 }
 
 export async function getMenuCategory(
   locale: Locale,
   slug: string,
-): Promise<MenuCategoryDetail | null> {
+): Promise<MenuCategoryPage | null> {
   'use cache'
-  // Both tags: a dish edit emits `menu` per the contract cascade, and this page
-  // renders dishes. Without it the category page serves stale items silently.
-  cacheTag(tags.menuCategory(slug), tags.menu())
   cacheLife('max')
 
-  return impl.getMenuCategory(locale, slug)
+  return apiFind(`/menu/categories/${encodeURIComponent(slug)}`, menuCategoryPageSchema, { locale })
 }
 
 export async function getMenuItem(
   locale: Locale,
   slug: string,
-): Promise<MenuItem | null> {
+): Promise<MenuItemPage | null> {
   'use cache'
-  // Both tags: this page renders `related` dishes from the same category, and
-  // editing one of those dishes emits `menu` (never this item's own tag) per
-  // the contract cascade. Tagging only menu-item:{slug} means an edit to a
-  // related dish leaves this page stale — silently, with nothing erroring.
-  // Same failure class as getMenuCategory.
-  cacheTag(tags.menuItem(slug), tags.menu())
   cacheLife('max')
 
-  return impl.getMenuItem(locale, slug)
+  return apiFind(`/menu/items/${encodeURIComponent(slug)}`, menuItemPageSchema, { locale })
 }
 
-export async function getFeaturedItems(
-  locale: Locale,
-  slugs: string[],
-): Promise<MenuItemCard[]> {
+export async function getDishTags(locale: Locale): Promise<DishTag[]> {
   'use cache'
-  cacheTag(tags.home())
   cacheLife('max')
 
-  return impl.getFeaturedItems(locale, slugs)
+  return apiGet('/menu/tags', z.array(dishTagSchema), { locale })
 }

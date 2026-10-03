@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import redirects from '@/content/redirects.json'
+import fallbackRedirects from '@/content/redirects.json'
+import { apiUrl } from '@/lib/api/client'
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/i18n/config'
 
 // ADR-004 names the required set: CSP, HSTS, Referrer-Policy, Permissions-Policy
@@ -15,26 +16,72 @@ import { DEFAULT_LOCALE, LOCALES } from '@/lib/i18n/config'
 // on branch pages (frame-src) and data: image URIs. It is UNVERIFIED against real
 // pages, because no page exists yet — the very next task renders the first one,
 // so a mistake here surfaces immediately rather than in production.
-const CSP = [
-  "default-src 'self'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  "object-src 'none'",
-  "img-src 'self' data: https:",
-  "font-src 'self'",
-  "style-src 'self' 'unsafe-inline'",
-  "script-src 'self' 'unsafe-inline'",
-  // google/maps: branch map embeds. youtube-nocookie: the hero background
-  // film (components/sections/hero-video.tsx). Without the youtube entry the
-  // iframe is blocked with no error anywhere except the console.
-  'frame-src https://www.google.com https://maps.google.com https://www.youtube-nocookie.com',
-  "connect-src 'self'",
-  'upgrade-insecure-requests',
-].join('; ')
+export type TrackingSettings = {
+  ga4_id?: string | null
+  gtm_id?: string | null
+  meta_pixel_id?: string | null
+  tiktok_pixel_id?: string | null
+  snap_pixel_id?: string | null
+  custom_head?: string | null
+  custom_body_start?: string | null
+  custom_body_end?: string | null
+  extra_script_domains?: string[]
+}
+
+/**
+ * The Content-Security-Policy, widened only for the trackers the admin has
+ * switched on (Settings → Tracking & scripts) and the extra domains they list.
+ */
+export function buildCsp(tracking: TrackingSettings = {}): string {
+  const script = ["'self'", "'unsafe-inline'"]
+  // React dev mode rebuilds call stacks with eval(); production never uses it,
+  // so the live site's policy stays eval-free.
+  if (process.env.NODE_ENV === 'development') script.push("'unsafe-eval'")
+  const connect = ["'self'"]
+  const frame = ['https://www.google.com', 'https://maps.google.com', 'https://www.youtube-nocookie.com']
+
+  if (tracking.gtm_id || tracking.ga4_id) {
+    script.push('https://www.googletagmanager.com')
+    connect.push('https://www.google-analytics.com', 'https://*.google-analytics.com', 'https://*.analytics.google.com', 'https://www.googletagmanager.com')
+    frame.push('https://www.googletagmanager.com')
+  }
+  if (tracking.meta_pixel_id) {
+    script.push('https://connect.facebook.net')
+    connect.push('https://www.facebook.com', 'https://connect.facebook.net')
+  }
+  if (tracking.tiktok_pixel_id) {
+    script.push('https://analytics.tiktok.com')
+    connect.push('https://analytics.tiktok.com')
+  }
+  if (tracking.snap_pixel_id) {
+    script.push('https://sc-static.net')
+    connect.push('https://tr.snapchat.com', 'https://tr-shadow.snapchat.com')
+  }
+  for (const origin of tracking.extra_script_domains ?? []) {
+    if (/^https:\/\/[a-z0-9.*-]+(:\d+)?$/i.test(origin)) {
+      script.push(origin)
+      connect.push(origin)
+      frame.push(origin)
+    }
+  }
+
+  return [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    "object-src 'none'",
+    "img-src 'self' data: https:",
+    "font-src 'self'",
+    "style-src 'self' 'unsafe-inline'",
+    `script-src ${[...new Set(script)].join(' ')}`,
+    `frame-src ${[...new Set(frame)].join(' ')}`,
+    `connect-src ${[...new Set(connect)].join(' ')}`,
+    'upgrade-insecure-requests',
+  ].join('; ')
+}
 
 const SECURITY_HEADERS: Record<string, string> = {
-  'Content-Security-Policy': CSP,
   'Permissions-Policy': 'camera=(), microphone=(), payment=(), geolocation=()',
   'X-Content-Type-Options': 'nosniff',
   // DENY, not SAMEORIGIN: the CSP set beside this declares
@@ -86,15 +133,62 @@ export function buildRedirectMap(rows: RedirectRow[]): Map<string, RedirectRow> 
   return new Map(safe.map((r) => [r.from, r] as const))
 }
 
-const REDIRECT_MAP = buildRedirectMap(redirects as RedirectRow[])
+/**
+ * Redirects (Pages → Redirects) and tracking settings, fetched from the API at
+ * most once a minute per server process. The proxy runs before rendering, so
+ * 'use cache' is not available here; a stale minute is the price of not
+ * calling the API on every request. The bundled fixture covers an outage.
+ */
+const TTL_MS = 60_000
+let cached: { at: number; redirects: Map<string, RedirectRow>; csp: string } | null = null
 
-export function proxy(request: NextRequest): NextResponse {
+async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: string }> {
+  if (cached && Date.now() - cached.at < TTL_MS) return cached
+
+  const get = async (path: string) => {
+    const response = await fetch(apiUrl(path), {
+      headers: { Accept: 'application/json', ...(process.env.LARIO_API_KEY ? { 'X-Lario-Key': process.env.LARIO_API_KEY } : {}) },
+      signal: AbortSignal.timeout(3000),
+    })
+    if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`)
+    return (await response.json()).data
+  }
+
+  const [redirects, settings] = await Promise.all([
+    get('/redirects').catch(() => null) as Promise<Omit<RedirectRow, 'is_active'>[] | null>,
+    get('/settings').catch(() => null) as Promise<{ tracking?: TrackingSettings } | null>,
+  ])
+
+  cached = {
+    at: Date.now(),
+    redirects: buildRedirectMap(
+      redirects ? redirects.map((row) => ({ ...row, is_active: true })) : (fallbackRedirects as RedirectRow[]),
+    ),
+    csp: buildCsp(settings?.tracking),
+  }
+  return cached
+}
+
+/** For tests: forget the cached rules. */
+export function resetSiteRules(): void {
+  cached = null
+}
+
+export async function proxy(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl
+  const rules = await siteRules()
+  const withHeaders = (response: NextResponse) => withSecurityHeaders(response, rules.csp)
 
-  const redirect = REDIRECT_MAP.get(pathname)
+  // Redirect paths are language-free: "/old" also covers "/ar/old".
+  const arabic = pathname === '/ar' || pathname.startsWith('/ar/')
+  const bare = arabic ? pathname.slice(3) || '/' : pathname
+  const redirect = rules.redirects.get(bare)
   if (redirect) {
+    if (/^https?:\/\//i.test(redirect.to)) {
+      return withHeaders(NextResponse.redirect(redirect.to, redirect.status))
+    }
     const url = request.nextUrl.clone()
-    url.pathname = redirect.to
+    url.pathname = arabic ? `/ar${redirect.to === '/' ? '' : redirect.to}` : redirect.to
     return withHeaders(NextResponse.redirect(url, redirect.status))
   }
 
@@ -115,7 +209,8 @@ export function proxy(request: NextRequest): NextResponse {
   return withHeaders(NextResponse.next())
 }
 
-function withHeaders(response: NextResponse): NextResponse {
+function withSecurityHeaders(response: NextResponse, csp: string): NextResponse {
+  response.headers.set('Content-Security-Policy', csp)
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
     response.headers.set(key, value)
   }

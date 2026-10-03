@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SectionList } from '@/components/sections/section-list'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { DishCard } from '@/components/menu/dish-card'
@@ -6,25 +7,28 @@ import { Container } from '@/components/ui/container'
 import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
 import { getMenuItem } from '@/lib/api/menu'
-import { getMenuItems as getMenuItemsImpl } from '@/lib/api/menu.impl'
+import { z } from 'zod'
+import { apiGet } from '@/lib/api/client'
 import { getSettings } from '@/lib/api/settings'
 import { getDictionary, interpolate } from '@/lib/i18n/dictionaries'
-import { DEFAULT_LOCALE, isLocale, localePath } from '@/lib/i18n/config'
+import { isLocale, localePath } from '@/lib/i18n/config'
 import { formatCalories, formatPrice } from '@/lib/format'
 import { absoluteUrl } from '@/content/seo-defaults'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { breadcrumbJsonLd, menuItemJsonLd } from '@/lib/seo/json-ld'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 
-/**
- * All 89, from the pure impl: `cacheTag` and `cacheLife` need a real request
- * context and there is none at build time.
- */
-export function generateStaticParams() {
-  return getMenuItemsImpl(DEFAULT_LOCALE).map((item) => ({
-    category: item.category.slug,
-    dish: item.slug,
-  }))
+/** Every visible dish is prerendered; one added later renders on first visit. */
+export async function generateStaticParams() {
+  const items = await apiGet(
+    '/menu/items',
+    z.array(z.object({ slug: z.string(), category: z.object({ slug: z.string() }) })),
+    { untagged: true },
+  ).catch(() => [])
+
+  return items.length > 0
+    ? items.map((item) => ({ category: item.category.slug, dish: item.slug }))
+    : [{ category: '__none__', dish: '__none__' }]
 }
 
 export async function generateMetadata({
@@ -336,6 +340,7 @@ export default async function DishPage({
           __html: JSON.stringify(breadcrumbJsonLd(crumbs)),
         }}
       />
+      <SectionList sections={item.sections} locale={locale} dict={dict} settings={settings} />
     </main>
   )
 }

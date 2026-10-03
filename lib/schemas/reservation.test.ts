@@ -25,9 +25,10 @@ describe('reservationSchema', () => {
     expect(() => reservationSchema.parse(valid)).not.toThrow()
   })
 
-  it('rejects an unknown branch', () => {
+  // Which branches exist is the server's call (422 from Laravel); the client only requires one.
+  it('rejects a missing branch', () => {
     expect(() =>
-      reservationSchema.parse({ ...valid, branch_slug: 'jeddah' }),
+      reservationSchema.parse({ ...valid, branch_slug: '' }),
     ).toThrow()
   })
 

@@ -13,6 +13,8 @@ import { formatPhone } from '@/lib/format'
 import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
+import type { ApiMenuItem } from '@/lib/api/menus'
+import { fallbackDrawer, fallbackHeader, toNavItems } from '@/lib/nav'
 import type { Branch, Settings } from '@/lib/schemas'
 
 /**
@@ -45,11 +47,14 @@ import type { Branch, Settings } from '@/lib/schemas'
 export function SiteHeader({
   branches,
   settings,
+  menus,
   locale,
   dict,
 }: {
   branches: Branch[]
   settings: Settings
+  /** Admin menus by handle; "header" and "drawer" are used here. */
+  menus: Record<string, ApiMenuItem[]>
   locale: Locale
   dict: Dictionary
 }) {
@@ -145,11 +150,8 @@ export function SiteHeader({
           dict={dict}
           siteName={settings.site_name}
           reserveHref={reserveHref}
-          branches={branches.map((branch) => ({
-            slug: branch.slug,
-            name: branch.name,
-            url: localePath(locale, branch.url),
-          }))}
+          items={menus.header ? toNavItems(menus.header, locale, 'header') : fallbackHeader(dict, locale, branches)}
+          drawerItems={menus.drawer ? toNavItems(menus.drawer, locale, 'drawer') : fallbackDrawer(dict)}
         />
 
         {/* The switcher rides with the Reserve button in the end column, NOT in

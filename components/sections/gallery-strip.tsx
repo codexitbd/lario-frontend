@@ -1,9 +1,8 @@
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import { SectionHeader } from '@/components/ui/section-header'
 import { readImageList, readText, type Bag } from '@/components/sections/content'
-import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 
 /**
@@ -38,7 +37,6 @@ export function GalleryStrip({
   const images = readImageList(payload, 'images')
   if (images.length === 0) return null
 
-  const href = readText(payload, 'cta_href') || '/branches'
   const frames = images.map((src, index) => ({
     src,
     shot: SHOTS[index] ?? 'Interior frame.',
@@ -82,9 +80,7 @@ export function GalleryStrip({
       </div>
 
       <Container className="lr-reveal mt-16 flex justify-center">
-        <Cta href={localePath(locale, href)} variant="outline">
-          {readText(content, 'cta_label')}
-        </Cta>
+        <SectionCta payload={payload} locale={locale} fallback={readText(payload, 'cta_href') || null} label={readText(content, 'cta_label')} variant="outline" />
       </Container>
     </section>
   )

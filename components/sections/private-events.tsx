@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import { z } from 'zod'
 import { ForkKnifeIcon } from '@phosphor-icons/react/ssr'
 import { Container } from '@/components/ui/container'
-import { Cta } from '@/components/ui/cta'
+import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import {
   eventCardSchema,
@@ -11,7 +11,6 @@ import {
   statSchema,
   type Bag,
 } from '@/components/sections/content'
-import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 
@@ -50,7 +49,6 @@ export function PrivateEvents({
   const { payload, content } = section
   const cards = readList(content, 'cards', eventCardSchema)
   const stats = readList(payload, 'stats', statSchema)
-  const href = z.string().safeParse(payload.cta_href).data ?? '/reservation'
   const units: Record<string, string> = dict.sections.privateEvents.stats
 
   return (
@@ -136,7 +134,7 @@ export function PrivateEvents({
                         {stat.value}
                       </span>
                       <span className="text-[0.625rem] tracking-[0.2em] text-gold/85 uppercase">
-                        {units[stat.key] ?? ''}
+                        {stat.label ?? units[stat.key ?? ''] ?? ''}
                       </span>
                     </p>
                   ) : null}
@@ -157,9 +155,7 @@ export function PrivateEvents({
         </ul>
 
         <div className="lr-reveal mt-14 flex justify-center">
-          <Cta href={localePath(locale, href)} variant="outline">
-            {readText(content, 'cta_label')}
-          </Cta>
+          <SectionCta payload={payload} locale={locale} fallback={z.string().safeParse(payload.cta_href).data ?? '/reservation'} label={readText(content, 'cta_label')} variant="outline" />
         </div>
       </Container>
     </section>
