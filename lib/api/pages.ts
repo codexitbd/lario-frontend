@@ -19,7 +19,7 @@ const text = (section: PageSection | undefined, key: string): string => {
 }
 
 /**
- * A CMS page. `heading` and `body` are lifted from its first "Page header" and
+ * A CMS page. `heading`, `body` and `image` are lifted from its first "Page header" and
  * "Text" components, so the purpose-built pages (/menu, /contact,
  * /reservation) keep their designed layouts while the admin edits the words.
  */
@@ -41,6 +41,7 @@ export async function getPage(
     ...page,
     heading: text(hero, 'heading') || page.title,
     body: text(body, 'body'),
+    image: typeof hero?.payload.image === 'string' ? hero.payload.image : null,
   }
 }
 

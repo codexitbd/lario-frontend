@@ -6,6 +6,7 @@ import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
 import {
   eventCardSchema,
+  readImage,
   readList,
   readText,
   statSchema,
@@ -57,7 +58,7 @@ export function PrivateEvents({
           is pulled back up through, so the two values move together. */}
       <div className="relative isolate overflow-hidden pt-24 pb-56 md:pt-32 md:pb-80">
         <Figure
-          src={null}
+          src={readImage(payload, 'background_image')}
           slot="home.private-events"
           alt=""
           shot="A table set for a private party, mid-service."
@@ -110,7 +111,7 @@ export function PrivateEvents({
                 style={{ '--i': index } as CSSProperties}
               >
                 <Figure
-                  src={null}
+                  src={card.image || null}
                   slot={`home.events.${index}`}
                   alt=""
                   shot={card.title}

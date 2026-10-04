@@ -65,6 +65,7 @@ export type IconPoint = z.infer<typeof iconPointSchema>
 export const eventCardSchema = z.object({
   title: z.string().min(1),
   body: z.string().min(1),
+  image: z.string().nullable().optional(),
 })
 export type EventCard = z.infer<typeof eventCardSchema>
 

@@ -119,7 +119,7 @@ export default async function ContactPage({
     <main id="main-content">
       <section className="relative isolate flex min-h-[72vh] flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-24">
         <Figure
-          src={null}
+          src={page.image ?? null}
           slot="contact.hero"
           alt=""
           shot="The entrance at dusk, lights on, doors open."

@@ -51,6 +51,8 @@ export const pageSchema = z.object({
   title: z.string().min(1),
   heading: z.string(),
   body: z.string(),
+  // Background photo of the first "Page header" component (lib/api/pages.ts).
+  image: z.string().nullable().optional(),
   // 'menu' is the /menu landing page. It is a page row like any other so the
   // menu index gets an editable SEO record from the start, which the brief
   // requires of every resource built in Phases 1-3.

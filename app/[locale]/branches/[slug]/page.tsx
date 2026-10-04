@@ -227,7 +227,7 @@ export default async function BranchPage({
             style={{ '--i': 1 } as React.CSSProperties}
           >
             <Figure
-              src={null}
+              src={branch.story_image ?? null}
               slot={`branch.${branch.slug}.story`}
               alt=""
               shot={`${branch.name}. A second frame of the room: the entrance or the terrace.`}

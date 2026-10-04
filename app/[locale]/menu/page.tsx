@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { CategoryNav } from '@/components/menu/category-nav'
 import { MenuBrowser } from '@/components/menu/menu-browser'
 import { VisitBlock } from '@/components/menu/visit-block'
+import { readImage } from '@/components/sections/content'
 import { Container } from '@/components/ui/container'
 import { Figure } from '@/components/ui/figure'
 import { getBranches } from '@/lib/api/branches'
@@ -67,6 +68,9 @@ export default async function MenuPage({
 
   if (!page) notFound()
 
+  // Photos below the menu are set on the page's "Full menu" component.
+  const photos = page.sections.find((section) => section.type === 'menu_browser')?.payload ?? {}
+
   const crumbs = [
     { name: settings.site_name, url: absoluteUrl(locale, '/') },
     { name: page.heading, url: absoluteUrl(locale, '/menu') },
@@ -79,7 +83,7 @@ export default async function MenuPage({
           second 100dvh curtain in front of it is a toll, not a welcome. */}
       <section className="relative isolate flex min-h-[58vh] flex-col justify-end overflow-hidden pt-32 pb-16 md:min-h-[64vh] md:pb-20">
         <Figure
-          src={null}
+          src={page.image ?? null}
           slot="menu.hero"
           alt=""
           shot="Wide appetite shot. One dish, close, in service light."
@@ -149,7 +153,7 @@ export default async function MenuPage({
       {/* Full-bleed break, as the reference sets between the card and the
           closing block. Decorative: it carries no information the page needs. */}
       <Figure
-        src={null}
+        src={readImage(photos, 'band_image')}
         slot="menu.band"
         alt=""
         shot="Cinematic wide. The kitchen mid-service."
@@ -158,6 +162,8 @@ export default async function MenuPage({
       />
 
       <VisitBlock
+        image={readImage(photos, 'visit_image')}
+        insetImage={readImage(photos, 'visit_inset_image')}
         branches={branches}
         settings={settings}
         locale={locale}

@@ -24,11 +24,15 @@ import type { Branch, Settings } from '@/lib/schemas'
  * flattened into a single set that would be wrong for one of them.
  */
 export function VisitBlock({
+  image = null,
+  insetImage = null,
   branches,
   settings,
   locale,
   dict,
 }: {
+  image?: string | null
+  insetImage?: string | null
   branches: Branch[]
   settings: Settings
   locale: Locale
@@ -43,7 +47,7 @@ export function VisitBlock({
           <div className="lr-focus relative">
             {/* Arch: square at the base, semicircular at the head. */}
             <Figure
-              src={null}
+              src={image}
               slot="menu.visit"
               alt=""
               shot="The dining room, from the entrance."
@@ -56,7 +60,7 @@ export function VisitBlock({
             />
             {/* The overlapping inset, offset past the arch's lower corner. */}
             <Figure
-              src={null}
+              src={insetImage}
               slot="menu.visit.inset"
               alt=""
               shot="Plating at the pass."
