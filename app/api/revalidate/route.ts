@@ -70,8 +70,11 @@ export async function POST(request: Request): Promise<Response> {
     )
   }
 
+  // `{ expire: 0 }`, not 'max': 'max' is stale-while-revalidate, so the first
+  // visit after an admin save would still get the old page. A webhook means
+  // "this changed now" — the next request must wait for fresh data.
   for (const tag of tags) {
-    revalidateTag(tag, 'max')
+    revalidateTag(tag, { expire: 0 })
   }
 
   return Response.json({ revalidated: tags.length })
