@@ -35,8 +35,8 @@ describe('POST /api/revalidate', () => {
     )
     expect(response.status).toBe(200)
     expect(await response.json()).toEqual({ revalidated: 2 })
-    expect(revalidateTag).toHaveBeenCalledWith('menu', 'max')
-    expect(revalidateTag).toHaveBeenCalledWith('menu-item:carbonara', 'max')
+    expect(revalidateTag).toHaveBeenCalledWith('menu', { expire: 0 })
+    expect(revalidateTag).toHaveBeenCalledWith('menu-item:carbonara', { expire: 0 })
   })
 
   it('rejects a bad signature with 401', async () => {
