@@ -307,7 +307,7 @@ function Room({
         <Figure
           src={branch.hero_image}
           slot={`branch.${branch.slug}`}
-          alt=""
+          alt={branch.hero_image_alt ?? ''}
           shot={`${branch.name}. Entrance or exterior.`}
           sizes="(min-width: 768px) 45vw, 100vw"
           className="relative aspect-[5/4] w-full [border-radius:999px_999px_0_0]"

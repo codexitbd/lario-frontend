@@ -20,7 +20,7 @@ export function EventList({ section, locale }: { section: { content: Bag }; loca
             <li key={event.slug}>
               <Link href={localePath(locale, event.url)} className="group grid gap-6 py-8 md:grid-cols-[14rem_1fr] md:items-center">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Figure src={event.cover} alt="" shot={event.title} sizes="(min-width: 768px) 14rem, 100vw" className="absolute inset-0" />
+                  <Figure src={event.cover} alt={event.cover_alt ?? ''} shot={event.title} sizes="(min-width: 768px) 14rem, 100vw" className="absolute inset-0" />
                 </div>
                 <div>
                   {event.starts_at ? <p className="text-sm text-gold">{formatDateTime(event.starts_at, locale)}{event.branch?.name ? ` · ${event.branch.name}` : ''}</p> : null}

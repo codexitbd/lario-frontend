@@ -74,7 +74,7 @@ export function DishCard({
         <span className="lr-plate relative block w-full overflow-hidden">
           <Figure
             src={item.image}
-            alt=""
+            alt={item.image_alt ?? ''}
             shot={item.name}
             sizes="(min-width: 1024px) 26rem, (min-width: 640px) 44vw, 90vw"
             className="relative aspect-[4/5] w-full"

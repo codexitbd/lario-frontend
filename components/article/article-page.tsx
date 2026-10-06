@@ -15,6 +15,7 @@ export function ArticlePage({
   kicker,
   lede,
   cover,
+  coverAlt,
   body,
   sections,
   jsonLd,
@@ -26,6 +27,7 @@ export function ArticlePage({
   kicker: string | null
   lede: string | null
   cover: string | null
+  coverAlt?: string | null
   body: string
   sections: PageSection[]
   jsonLd: object
@@ -46,7 +48,7 @@ export function ArticlePage({
         <div className="bg-ink">
           <Container>
             <div className="relative aspect-[16/9] overflow-hidden">
-              <Figure src={cover} alt="" shot={title} sizes="(min-width: 1400px) 1400px, 100vw" priority className="absolute inset-0" />
+              <Figure src={cover} alt={coverAlt ?? ''} shot={title} sizes="(min-width: 1400px) 1400px, 100vw" priority className="absolute inset-0" />
             </div>
           </Container>
         </div>

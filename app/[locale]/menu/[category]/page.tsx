@@ -80,7 +80,7 @@ export default async function CategoryPage({
       <section className="relative isolate flex min-h-[62vh] flex-col justify-end overflow-hidden pt-32 pb-14 md:min-h-[68vh] md:pb-20">
         <Figure
           src={found.image}
-          alt=""
+          alt={found.image_alt ?? ''}
           shot={found.name}
           sizes="100vw"
           priority

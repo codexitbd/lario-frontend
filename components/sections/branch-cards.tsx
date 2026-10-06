@@ -76,7 +76,7 @@ export function BranchCards({
               <Figure
                 src={branch.hero_image}
                 slot={`branch.${branch.slug}`}
-                alt=""
+                alt={branch.hero_image_alt ?? ''}
                 shot={`${branch.name}. Entrance or exterior.`}
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 className="absolute inset-0 -z-20 opacity-0 transition-opacity duration-700 ease-brand group-hover:opacity-100"

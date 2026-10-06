@@ -37,8 +37,10 @@ export function GalleryStrip({
   const images = readImageList(payload, 'images')
   if (images.length === 0) return null
 
-  const frames = images.map((src, index) => ({
-    src,
+  const frames = images.map((image, index) => ({
+    src: image?.url ?? null,
+    alt: image?.alt || (SHOTS[index] ?? 'Interior frame.'),
+    caption: image?.caption ?? null,
     shot: SHOTS[index] ?? 'Interior frame.',
     slot: `home.gallery.${index % 6}`,
     key: `${index}`,
@@ -68,11 +70,16 @@ export function GalleryStrip({
                 <Figure
                   src={frame.src}
                   slot={frame.slot}
-                  alt={frame.src ? frame.shot : ''}
+                  alt={frame.src ? frame.alt : ''}
                   shot={frame.shot}
                   sizes="(min-width: 768px) 22rem, 16rem"
                   className="relative aspect-[4/3] w-full"
                 />
+                {frame.caption ? (
+                  <figcaption className="mt-3 text-[0.6875rem] tracking-[0.24em] text-ivory-dim uppercase">
+                    {frame.caption}
+                  </figcaption>
+                ) : null}
               </figure>
             )),
           )}

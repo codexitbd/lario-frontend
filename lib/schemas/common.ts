@@ -46,6 +46,15 @@ export const imageUrlSchema = z.union([
     ),
 ])
 
+// A gallery photo with its admin-written alt text and caption. Bare URL strings
+// (the pre-alt-text API shape and the static fixtures) normalise to the same
+// shape with empty alt, so either backend version renders.
+export const galleryImageSchema = z.union([
+  imageUrlSchema.transform((url) => ({ url, alt: '', caption: null })),
+  z.object({ url: imageUrlSchema, alt: z.string(), caption: z.string().nullable() }),
+])
+export type GalleryImage = z.infer<typeof galleryImageSchema>
+
 export const categoryRefSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),

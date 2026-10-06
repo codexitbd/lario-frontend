@@ -306,7 +306,7 @@ export function ReservationBook({
                     <Figure
                       src={room.hero_image}
                       slot={`branch.${room.slug}`}
-                      alt=""
+                      alt={room.hero_image_alt ?? ''}
                       shot={`${room.name}. Entrance or exterior.`}
                       sizes="(min-width: 768px) 45vw, 100vw"
                       className="absolute inset-0 -z-20"

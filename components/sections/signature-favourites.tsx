@@ -107,7 +107,7 @@ function Card({
     >
       <Figure
         src={item.image}
-        alt=""
+        alt={item.image_alt ?? ''}
         shot={item.name}
         sizes={SIZES}
         className="absolute inset-0 -z-10"

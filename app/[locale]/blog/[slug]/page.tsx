@@ -39,6 +39,7 @@ export default async function PostPage({ params }: { params: Params }) {
       kicker={[post.published_at ? formatDate(post.published_at, locale) : null, post.author?.name].filter(Boolean).join(' · ') || null}
       lede={post.excerpt}
       cover={post.cover}
+      coverAlt={post.cover_alt}
       body={post.body}
       sections={post.sections}
       jsonLd={{

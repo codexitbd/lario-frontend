@@ -163,7 +163,7 @@ export default async function DishPage({
             <div className="lr-focus relative [grid-area:plate]">
               <Figure
                 src={item.image}
-                alt={item.name}
+                alt={item.image_alt ?? item.name}
                 shot={item.name}
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 priority

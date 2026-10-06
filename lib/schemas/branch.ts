@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { imageUrlSchema, seoSchema } from '@/lib/schemas/common'
+import { galleryImageSchema, imageUrlSchema, seoSchema } from '@/lib/schemas/common'
 import { menuItemCardSchema } from '@/lib/schemas/menu'
 
 export const openingHourSchema = z.object({
@@ -32,7 +32,10 @@ export const branchSchema = z.object({
   google_place_id: z.string().nullable(),
   hero_image: imageUrlSchema.nullable(),
   story_image: imageUrlSchema.nullable().optional(),
-  gallery: z.array(imageUrlSchema),
+  // Admin-written alt text; null means none was written and the image stays decorative.
+  hero_image_alt: z.string().nullish(),
+  story_image_alt: z.string().nullish(),
+  gallery: z.array(galleryImageSchema),
   facilities: z.array(
     z.object({ slug: z.string(), label: z.string(), icon: z.string().nullable().optional() }),
   ),

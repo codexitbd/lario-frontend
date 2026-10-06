@@ -16,7 +16,7 @@ export function TeamGrid({ section }: { section: { content: Bag } }) {
           {members.map((member) => (
             <li key={member.slug}>
               <div className="relative aspect-[4/5] overflow-hidden">
-                <Figure src={member.photo} alt={member.name} shot={member.name} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" />
+                <Figure src={member.photo} alt={member.photo_alt ?? member.name} shot={member.name} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" />
               </div>
               <h3 className="lr-display mt-5 text-2xl">{member.name}</h3>
               {member.role ? <p className="mt-1 text-sm text-gold-ink">{member.role}</p> : null}

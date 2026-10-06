@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { type Locale, localePath } from '@/lib/i18n/config'
 import { branchSchema } from '@/lib/schemas/branch'
+import { galleryImageSchema, type GalleryImage } from '@/lib/schemas/common'
 import { testimonialSchema } from '@/lib/schemas/page'
 
 /**
@@ -43,9 +44,12 @@ export function readNestedImage(bag: Bag, path: [string, string]): string | null
   return parsed.data[inner]?.image ?? null
 }
 
-/** A nullable list of image URLs, as `gallery_strip.payload.images` supplies it. */
-export function readImageList(bag: Bag, key: string): (string | null)[] {
-  const parsed = z.array(z.string().nullable()).safeParse(bag[key])
+/**
+ * `gallery_strip.payload.images`: photos with alt text and caption, or `null`
+ * slots while the client's photography is missing.
+ */
+export function readImageList(bag: Bag, key: string): (GalleryImage | null)[] {
+  const parsed = z.array(galleryImageSchema.nullable()).safeParse(bag[key])
   return parsed.success ? parsed.data : []
 }
 

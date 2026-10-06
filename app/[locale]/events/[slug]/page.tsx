@@ -39,6 +39,7 @@ export default async function EventPage({ params }: { params: Params }) {
       kicker={[event.starts_at ? formatDateTime(event.starts_at, locale) : null, event.branch?.name].filter(Boolean).join(' · ') || null}
       lede={event.summary}
       cover={event.cover}
+      coverAlt={event.cover_alt}
       body={event.body}
       sections={event.sections}
       jsonLd={{

@@ -31,6 +31,7 @@ export const menuItemCardSchema = z.object({
   currency: z.string().length(3),
   calories: z.number().int().nonnegative().nullable(),
   image: imageUrlSchema.nullable(),
+  image_alt: z.string().nullish(),
   // Tag keys come from the admin (Menu → Dish tags); DIETARY_TAGS lists the seeded ones.
   dietary_tags: z.array(z.string()),
   is_available: z.boolean(),
@@ -61,6 +62,7 @@ export const menuCategorySchema = z.object({
   description: z.string().nullable(),
   intro_content: z.string().min(1, 'category intro copy is the ranking asset'),
   image: imageUrlSchema.nullable(),
+  image_alt: z.string().nullish(),
   item_count: z.number().int().nonnegative(),
   url: z.string().startsWith('/'),
   seo: seoSchema,

@@ -18,7 +18,7 @@ export function CategoryGrid({ section, locale }: { section: { content: Bag }; l
           {categories.map((category) => (
             <li key={category.slug}>
               <Link href={localePath(locale, category.url)} className="group relative block aspect-[4/3] overflow-hidden">
-                <Figure src={category.image} alt="" shot={category.name} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" imageClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.05]" />
+                <Figure src={category.image} alt={category.image_alt ?? ''} shot={category.name} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" imageClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.05]" />
                 <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
                 <span className="absolute inset-x-6 bottom-6 flex items-baseline justify-between gap-4 text-ivory">
                   <span className="lr-display text-2xl">{category.name}</span>

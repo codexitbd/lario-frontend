@@ -127,7 +127,7 @@ export default async function BranchPage({
         <Figure
           src={branch.hero_image}
           slot={`branch.${branch.slug}`}
-          alt=""
+          alt={branch.hero_image_alt ?? ''}
           shot={`${branch.name}. The room in evening light.`}
           sizes="100vw"
           priority
@@ -229,7 +229,7 @@ export default async function BranchPage({
             <Figure
               src={branch.story_image ?? null}
               slot={`branch.${branch.slug}.story`}
-              alt=""
+              alt={branch.story_image_alt ?? ''}
               shot={`${branch.name}. A second frame of the room: the entrance or the terrace.`}
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="relative aspect-[4/5] w-full [border-radius:999px_999px_0_0]"
@@ -280,16 +280,23 @@ export default async function BranchPage({
             <SectionHeader heading={dict.branches.gallery} align="start" />
             <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {branch.gallery.map((image, index) => (
-                <li key={image} className={index % 5 === 0 ? 'sm:col-span-2' : ''}>
-                  <a href={image} target="_blank" rel="noreferrer">
-                    <Figure
-                      src={image}
-                      alt=""
-                      shot={branch.name}
-                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
-                      className="lr-plate relative aspect-[4/3] w-full"
-                    />
-                  </a>
+                <li key={image.url} className={index % 5 === 0 ? 'sm:col-span-2' : ''}>
+                  <figure>
+                    <a href={image.url} target="_blank" rel="noreferrer">
+                      <Figure
+                        src={image.url}
+                        alt={image.alt || `${branch.name} — ${index + 1}`}
+                        shot={branch.name}
+                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                        className="lr-plate relative aspect-[4/3] w-full"
+                      />
+                    </a>
+                    {image.caption ? (
+                      <figcaption className="mt-3 text-[0.6875rem] tracking-[0.24em] text-ivory-dim uppercase">
+                        {image.caption}
+                      </figcaption>
+                    ) : null}
+                  </figure>
                 </li>
               ))}
             </ul>

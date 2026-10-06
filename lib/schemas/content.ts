@@ -8,6 +8,7 @@ export const teamMemberSchema = z.object({
   role: z.string().nullable(),
   bio: z.string().nullable(),
   photo: imageUrlSchema.nullable(),
+  photo_alt: z.string().nullish(),
 })
 export type TeamMember = z.infer<typeof teamMemberSchema>
 
@@ -18,6 +19,7 @@ export const postCardSchema = z.object({
   title: z.string(),
   excerpt: z.string().nullable(),
   cover: imageUrlSchema.nullable(),
+  cover_alt: z.string().nullish(),
   published_at: z.string().nullable(),
   category: ref.nullable(),
   author: teamMemberSchema.nullable(),
@@ -37,6 +39,7 @@ export const eventCardSchema = z.object({
   title: z.string(),
   summary: z.string().nullable(),
   cover: imageUrlSchema.nullable(),
+  cover_alt: z.string().nullish(),
   starts_at: z.string().nullable(),
   ends_at: z.string().nullable(),
   branch: ref.nullable(),
