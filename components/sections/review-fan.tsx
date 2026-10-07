@@ -46,7 +46,7 @@ import type { Testimonial } from '@/lib/schemas'
  * focusable, so nothing is hidden from the keyboard that the arrows do not
  * reach, and a visually hidden live line announces whose review is centred.
  */
-const AUTOPLAY_MS = 7000
+const AUTOPLAY_MS = 1000
 /** Cards further out than this on either side are hidden; the wrap happens there. */
 const WINGS = 2
 
@@ -116,7 +116,7 @@ export function ReviewFan({
         {items[index].author_name}
       </p>
 
-      <ul className="lr-fan-stage relative mt-12 h-[30rem] md:mt-16 md:h-[34rem]">
+      <ul className="lr-fan-stage relative mt-12 h-120 md:mt-16 md:h-136">
         {items.map((item, slide) => {
           // Signed distance from the centre, shortest way round the ring.
           let position = (slide - index + count) % count
@@ -142,7 +142,7 @@ export function ReviewFan({
                   '--lr-fan-r': centre ? '0deg' : odd ? '2.5deg' : '-2.5deg',
                 } as CSSProperties
               }
-              className="lr-fan-card group absolute start-1/2 top-1/2 bg-ink text-ivory data-active:bg-bone data-active:text-ink data-active:shadow-[0_32px_64px_-24px_var(--color-scrim)] data-far:pointer-events-none data-far:opacity-0 not-data-active:cursor-pointer"
+              className="lr-fan-card group absolute inset-s-1/2 top-1/2 bg-ink text-ivory data-active:bg-bone data-active:text-ink data-active:shadow-[0_32px_64px_-24px_var(--color-scrim)] data-far:pointer-events-none data-far:opacity-0 not-data-active:cursor-pointer"
             >
               <span
                 aria-hidden="true"

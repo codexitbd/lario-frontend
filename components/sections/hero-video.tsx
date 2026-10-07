@@ -1,6 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+// How long YouTube's start/resume overlay stays up after PLAYING, plus margin.
+// Measured at ~4s; see the state effect below.
+const OVERLAY_MS = 5000
 
 /**
  * The hero's background film.
@@ -26,8 +30,8 @@ export function HeroVideo({
   title: string
 }) {
   const [mounted, setMounted] = useState(false)
-  const [loaded, setLoaded] = useState(false)
   const [ready, setReady] = useState(false)
+  const frame = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -45,35 +49,75 @@ export function HeroVideo({
     return () => window.clearTimeout(timer)
   }, [])
 
-  // `onLoad` fires when the player document is ready, which is BEFORE the first
-  // frame of video is painted. Fading in on it shows a black player for a beat.
+  // The film is shown only while the player is steadily playing, and the
+  // player tells us its state over postMessage (`enablejsapi=1`).
   //
-  // The delay is 3400ms, and the exact number matters. `controls=0` suppresses
-  // the control BAR but YouTube still paints its large centred transport
-  // overlay (previous / pause / next) for roughly three seconds at the start of
-  // playback, then fades it out on its own. Revealing at 900ms landed inside
-  // that window, so every visitor saw player chrome flash across the hero;
-  // measured in-browser, controls were up at 0s and gone by 6s. The scale crop
-  // that hides the bottom bar cannot help here, because a centred overlay stays
-  // centred at any scale.
+  // `controls=0` does not remove YouTube's centred transport overlay. Measured
+  // in-browser: the player paints a pause button (plus title and "More
+  // videos") every time playback starts or RESUMES — first play, after any
+  // buffering stall, after a seek — and fades it out about four seconds later.
+  // A fixed reveal delay only covers the first start, which is why the
+  // controls still surfaced mid-film. So: hide the moment the player leaves
+  // PLAYING, and reveal only once it has been playing past that window. While
+  // hidden, the poster photograph underneath is the hero.
   //
-  // Nothing is lost by waiting: the poster photograph is the LCP element and it
-  // simply holds the frame a beat longer before the crossfade.
+  // `loop=1` is gone on purpose. YouTube's loop requires `playlist=<id>`, and a
+  // playlist player adds previous / next buttons to that same overlay. We loop
+  // by hand on ENDED instead.
   useEffect(() => {
-    if (!mounted || !loaded) return
-    const timer = window.setTimeout(() => setReady(true), 3400)
-    return () => window.clearTimeout(timer)
-  }, [mounted, loaded])
+    if (!mounted) return
+    const win = () => frame.current?.contentWindow
+    const send = (msg: object) =>
+      win()?.postMessage(JSON.stringify({ ...msg, id: 1, channel: 'widget' }), '*')
+
+    // The player only reports state after it hears 'listening', and ignores it
+    // until it has booted, so knock until it answers.
+    let heard = false
+    const knock = window.setInterval(() => send({ event: 'listening' }), 250)
+    let reveal: number | undefined
+    let playing = false
+
+    const onMessage = (e: MessageEvent) => {
+      if (e.source !== win() || typeof e.data !== 'string') return
+      let state: unknown
+      try {
+        state = JSON.parse(e.data)?.info?.playerState
+      } catch {
+        return
+      }
+      if (!heard) {
+        heard = true
+        window.clearInterval(knock)
+      }
+      if (typeof state !== 'number') return
+
+      if (state === 1) {
+        if (!playing) reveal = window.setTimeout(() => setReady(true), OVERLAY_MS)
+        playing = true
+        return
+      }
+      playing = false
+      window.clearTimeout(reveal)
+      setReady(false)
+      if (state === 0) {
+        send({ event: 'command', func: 'seekTo', args: [0, true] })
+        send({ event: 'command', func: 'playVideo', args: [] })
+      }
+    }
+
+    window.addEventListener('message', onMessage)
+    return () => {
+      window.removeEventListener('message', onMessage)
+      window.clearInterval(knock)
+      window.clearTimeout(reveal)
+    }
+  }, [mounted])
 
   if (!mounted) return null
 
-  // loop needs `playlist` set to the same id; without it the video plays once
-  // and stops on a still frame with the YouTube end-screen over it.
   const params = new URLSearchParams({
     autoplay: '1',
     mute: '1',
-    loop: '1',
-    playlist: videoId,
     controls: '0',
     playsinline: '1',
     modestbranding: '1',
@@ -81,13 +125,17 @@ export function HeroVideo({
     disablekb: '1',
     fs: '0',
     iv_load_policy: '3',
+    enablejsapi: '1',
+    origin: window.location.origin,
   })
 
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden transition-opacity duration-700 ease-brand ${
-        ready ? 'opacity-100' : 'opacity-0'
+      // Fade in slowly, but drop out fast: the overlay paints the instant a
+      // stall ends, so a slow fade-out would let it show through.
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden transition-opacity ease-brand ${
+        ready ? 'opacity-100 duration-700' : 'opacity-0 duration-150'
       }`}
     >
       {/*
@@ -111,7 +159,7 @@ export function HeroVideo({
         tabIndex={-1}
         allow="autoplay; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"
-        onLoad={() => setLoaded(true)}
+        ref={frame}
         className="absolute top-1/2 left-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 scale-[1.4] border-0"
       />
     </div>
