@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image, { getImageProps } from 'next/image'
 import { placeholderFor } from '@/lib/placeholders'
 
 /**
@@ -15,9 +15,14 @@ import { placeholderFor } from '@/lib/placeholders'
  * size, or `absolute inset-0`. Positioning is not baked in: a hardcoded
  * `relative` collides unpredictably with a caller's `absolute` and the element
  * silently collapses to zero height with `next/image fill` inside it.
+ *
+ * `mobileSrc` is an optional phone crop (admin "phone photo"): below
+ * `desktopFrom` px the browser loads it instead of `src` (art direction).
  */
 export function Figure({
   src,
+  mobileSrc = null,
+  desktopFrom = 768,
   alt,
   shot,
   slot,
@@ -28,6 +33,9 @@ export function Figure({
   labelPosition = 'center',
 }: {
   src: string | null
+  mobileSrc?: string | null
+  /** Viewport width (px) from which `src` replaces `mobileSrc`. */
+  desktopFrom?: number
   alt: string
   /** The brief for the photographer, in client language, not a filename. */
   shot: string
@@ -41,6 +49,27 @@ export function Figure({
   labelPosition?: 'center' | 'bottom'
 }) {
   const resolved = src ?? placeholderFor(slot)
+
+  if (resolved && mobileSrc && mobileSrc !== resolved) {
+    const common = { alt, fill: true, sizes, priority }
+    const {
+      props: { srcSet: desktop },
+    } = getImageProps({ ...common, src: resolved })
+    const { props: mobile } = getImageProps({ ...common, src: mobileSrc })
+
+    return (
+      <div className={`overflow-hidden bg-emerald ${className}`}>
+        <picture>
+          <source
+            media={`(min-width: ${desktopFrom}px)`}
+            srcSet={desktop}
+            sizes={sizes}
+          />
+          <img {...mobile} alt={alt} className={`object-cover ${imageClassName}`} />
+        </picture>
+      </div>
+    )
+  }
 
   if (resolved) {
     return (

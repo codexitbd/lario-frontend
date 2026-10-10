@@ -141,6 +141,7 @@ export function SiteHeader({
         <Wordmark
           locale={locale}
           siteName={settings.site_name}
+          src={settings.branding.logo_light}
           priority
           className="h-12 md:h-[3.25rem]"
         />
@@ -149,6 +150,7 @@ export function SiteHeader({
           locale={locale}
           dict={dict}
           siteName={settings.site_name}
+          logo={settings.branding.logo_light}
           reserveHref={reserveHref}
           items={menus.header ? toNavItems(menus.header, locale, 'header') : fallbackHeader(dict, locale, branches)}
           drawerItems={menus.drawer ? toNavItems(menus.drawer, locale, 'drawer') : fallbackDrawer(dict)}

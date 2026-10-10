@@ -304,7 +304,7 @@ export function ReservationBook({
                       className="peer sr-only"
                     />
                     <Figure
-                      src={room.hero_image}
+                      src={room.card_image ?? room.hero_image}
                       slot={`branch.${room.slug}`}
                       alt={room.hero_image_alt ?? ''}
                       shot={`${room.name}. Entrance or exterior.`}

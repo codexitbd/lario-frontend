@@ -250,7 +250,8 @@ export function SiteFooter({
         <div className="flex flex-col-reverse gap-8 border-t border-ivory/10 pt-5 md:flex-row md:items-end md:justify-between md:gap-12">
           <div className="h-[clamp(5rem,9vw,8.5rem)] shrink-0 overflow-hidden">
             <Image
-              src={goldenLogo}
+              src={settings.branding.logo_light ?? goldenLogo}
+              {...(settings.branding.logo_light ? { width: 1300, height: 635 } : {})}
               alt=""
               aria-hidden="true"
               sizes="44rem"

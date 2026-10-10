@@ -126,6 +126,7 @@ export default async function BranchPage({
       <section className="relative isolate flex min-h-[82vh] flex-col justify-end overflow-hidden pt-32 pb-16 md:min-h-[88vh] md:pb-24">
         <Figure
           src={branch.hero_image}
+          mobileSrc={branch.hero_mobile_image}
           slot={`branch.${branch.slug}`}
           alt={branch.hero_image_alt ?? ''}
           shot={`${branch.name}. The room in evening light.`}

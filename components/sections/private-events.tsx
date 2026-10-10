@@ -59,6 +59,7 @@ export function PrivateEvents({
       <div className="relative isolate overflow-hidden pt-24 pb-56 md:pt-32 md:pb-80">
         <Figure
           src={readImage(payload, 'background_image')}
+          mobileSrc={readImage(payload, 'mobile_background_image')}
           slot="home.private-events"
           alt=""
           shot="A table set for a private party, mid-service."

@@ -60,6 +60,7 @@ export function Hero({
     <section className="relative isolate flex min-h-[100dvh] flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-20">
       <Figure
         src={background}
+        mobileSrc={readImage(payload, 'mobile_background_image')}
         slot={HERO_SLOT}
         alt=""
         shot="Wide hero. The room and the fire, evening service."

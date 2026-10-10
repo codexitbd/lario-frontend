@@ -22,7 +22,7 @@ export function PageHero({
     <section className="relative isolate overflow-hidden bg-ink pt-36 pb-16 text-ivory md:pt-44 md:pb-20">
       {image ? (
         <>
-          <Figure src={image} alt="" shot={heading} sizes="100vw" priority className="absolute inset-0 -z-20" />
+          <Figure src={image} mobileSrc={readImage(payload, 'mobile_image')} alt="" shot={heading} sizes="100vw" priority className="absolute inset-0 -z-20" />
           <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
         </>
       ) : null}

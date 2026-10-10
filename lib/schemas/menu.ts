@@ -51,6 +51,8 @@ export const menuItemSchema = menuItemCardSchema.extend({
   ingredients_note: z.string().nullable(),
   preparation_note: z.string().nullable(),
   allergens: z.array(z.string()),
+  // Square photo for the dish page; the API falls back to `image`.
+  detail_image: imageUrlSchema.nullish(),
   seo: seoSchema,
   related: z.array(menuItemCardSchema),
 })
@@ -63,6 +65,9 @@ export const menuCategorySchema = z.object({
   intro_content: z.string().min(1, 'category intro copy is the ranking asset'),
   image: imageUrlSchema.nullable(),
   image_alt: z.string().nullish(),
+  // Phone header photo and grid card photo; the API falls back to `image`.
+  mobile_image: imageUrlSchema.nullish(),
+  card_image: imageUrlSchema.nullish(),
   item_count: z.number().int().nonnegative(),
   url: z.string().startsWith('/'),
   seo: seoSchema,

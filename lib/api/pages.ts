@@ -42,6 +42,7 @@ export async function getPage(
     heading: text(hero, 'heading') || page.title,
     body: text(body, 'body'),
     image: typeof hero?.payload.image === 'string' ? hero.payload.image : null,
+    mobile_image: typeof hero?.payload.mobile_image === 'string' ? hero.payload.mobile_image : null,
   }
 }
 

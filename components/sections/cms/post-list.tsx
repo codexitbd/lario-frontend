@@ -21,7 +21,7 @@ export function PostList({ section, locale }: { section: { content: Bag; payload
             <li key={post.slug}>
               <Link href={localePath(locale, post.url)} className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Figure src={post.cover} alt={post.cover_alt ?? ''} shot={post.title} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" imageClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.04]" />
+                  <Figure src={post.card_image ?? post.cover} alt={post.cover_alt ?? ''} shot={post.title} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0" imageClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.04]" />
                 </div>
                 {post.published_at ? <p className="mt-5 text-sm text-ink-soft">{formatDate(post.published_at, locale)}</p> : null}
                 <h3 className="lr-display mt-2 text-2xl leading-snug group-hover:text-gold-ink">{post.title}</h3>
