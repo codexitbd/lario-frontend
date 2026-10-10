@@ -126,6 +126,8 @@ export function WhyLario({
           <div className="relative mt-12 aspect-[4/3] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:-z-10 lg:mt-0 lg:aspect-auto lg:w-[38vw]">
             <Figure
               src={image}
+              mobileSrc={readImage(payload, 'mobile_image')}
+              desktopFrom={1024}
               slot="home.why-lario"
               alt=""
               shot={SHOT}

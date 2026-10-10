@@ -20,6 +20,8 @@ export const postCardSchema = z.object({
   excerpt: z.string().nullable(),
   cover: imageUrlSchema.nullable(),
   cover_alt: z.string().nullish(),
+  // 4:3 list card photo; the API falls back to `cover`.
+  card_image: imageUrlSchema.nullish(),
   published_at: z.string().nullable(),
   category: ref.nullable(),
   author: teamMemberSchema.nullable(),
@@ -40,6 +42,8 @@ export const eventCardSchema = z.object({
   summary: z.string().nullable(),
   cover: imageUrlSchema.nullable(),
   cover_alt: z.string().nullish(),
+  // 4:3 list card photo; the API falls back to `cover`.
+  card_image: imageUrlSchema.nullish(),
   starts_at: z.string().nullable(),
   ends_at: z.string().nullable(),
   branch: ref.nullable(),

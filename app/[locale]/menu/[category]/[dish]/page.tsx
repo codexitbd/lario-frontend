@@ -162,7 +162,7 @@ export default async function DishPage({
           <div className="mt-12 grid items-start gap-x-20 gap-y-8 [grid-template-areas:'identity''plate''detail'] lg:grid-cols-[5fr_6fr] lg:grid-rows-[auto_1fr] lg:[grid-template-areas:'plate_identity''plate_detail']">
             <div className="lr-focus relative [grid-area:plate]">
               <Figure
-                src={item.image}
+                src={item.detail_image ?? item.image}
                 alt={item.image_alt ?? item.name}
                 shot={item.name}
                 sizes="(min-width: 1024px) 42vw, 100vw"

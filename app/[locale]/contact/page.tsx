@@ -120,6 +120,7 @@ export default async function ContactPage({
       <section className="relative isolate flex min-h-[72vh] flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-24">
         <Figure
           src={page.image ?? null}
+          mobileSrc={page.mobile_image}
           slot="contact.hero"
           alt=""
           shot="The entrance at dusk, lights on, doors open."
@@ -305,7 +306,7 @@ function Room({
           frame. Reuses the branch frame the homepage panels show on hover. */}
       <div className="lr-focus relative">
         <Figure
-          src={branch.hero_image}
+          src={branch.card_image ?? branch.hero_image}
           slot={`branch.${branch.slug}`}
           alt={branch.hero_image_alt ?? ''}
           shot={`${branch.name}. Entrance or exterior.`}

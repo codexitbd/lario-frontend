@@ -44,6 +44,7 @@ export function SiteNav({
   locale,
   dict,
   siteName,
+  logo,
   reserveHref,
   items,
   drawerItems,
@@ -51,6 +52,8 @@ export function SiteNav({
   locale: Locale
   dict: Dictionary
   siteName: string
+  /** Admin logo for dark grounds; null keeps the bundled one. */
+  logo?: string | null
   reserveHref: string
   /** The "header" menu, already localised. */
   items: NavItem[]
@@ -209,6 +212,7 @@ export function SiteNav({
             <Wordmark
               locale={locale}
               siteName={siteName}
+              src={logo}
               onClick={hide}
               className="h-11"
             />

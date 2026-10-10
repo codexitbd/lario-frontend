@@ -26,10 +26,14 @@ import type { Locale } from '@/lib/i18n/config'
  * rendered height is transparent padding. That is left alone: it gives the mark
  * optical breathing room against a tight header bar, and cropping the asset
  * would mean shipping a third file.
+ *
+ * `src` is the admin upload (Settings → Branding). When set it replaces the
+ * bundled file; width/height only hint the ratio, the real ratio wins on load.
  */
 export function Wordmark({
   locale,
   siteName,
+  src = null,
   tone = 'dark',
   className = '',
   priority = false,
@@ -37,6 +41,7 @@ export function Wordmark({
 }: {
   locale: Locale
   siteName: string
+  src?: string | null
   /** The ground the mark sits ON: `dark` takes the gold lockup, `light` the
       full-colour one. */
   tone?: 'dark' | 'light'
@@ -56,7 +61,8 @@ export function Wordmark({
       className={`inline-block shrink-0 transition-opacity duration-500 ease-brand hover:opacity-80 ${className}`}
     >
       <Image
-        src={tone === 'light' ? originalLogo : goldenLogo}
+        src={src ?? (tone === 'light' ? originalLogo : goldenLogo)}
+        {...(src ? { width: 600, height: 293 } : {})}
         alt={siteName}
         priority={priority}
         sizes="200px"

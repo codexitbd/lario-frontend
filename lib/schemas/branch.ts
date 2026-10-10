@@ -34,6 +34,9 @@ export const branchSchema = z.object({
   story_image: imageUrlSchema.nullable().optional(),
   // Admin-written alt text; null means none was written and the image stays decorative.
   hero_image_alt: z.string().nullish(),
+  // Phone hero and the 5:4 card (contact, reservation picker); the API falls back to `hero_image`.
+  hero_mobile_image: imageUrlSchema.nullish(),
+  card_image: imageUrlSchema.nullish(),
   story_image_alt: z.string().nullish(),
   gallery: z.array(galleryImageSchema),
   facilities: z.array(

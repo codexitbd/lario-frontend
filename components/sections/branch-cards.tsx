@@ -75,6 +75,8 @@ export function BranchCards({
             >
               <Figure
                 src={branch.hero_image}
+                mobileSrc={branch.card_image}
+                desktopFrom={1024}
                 slot={`branch.${branch.slug}`}
                 alt={branch.hero_image_alt ?? ''}
                 shot={`${branch.name}. Entrance or exterior.`}

@@ -84,6 +84,7 @@ export default async function MenuPage({
       <section className="relative isolate flex min-h-[58vh] flex-col justify-end overflow-hidden pt-32 pb-16 md:min-h-[64vh] md:pb-20">
         <Figure
           src={page.image ?? null}
+          mobileSrc={page.mobile_image}
           slot="menu.hero"
           alt=""
           shot="Wide appetite shot. One dish, close, in service light."
@@ -154,6 +155,7 @@ export default async function MenuPage({
           closing block. Decorative: it carries no information the page needs. */}
       <Figure
         src={readImage(photos, 'band_image')}
+        mobileSrc={readImage(photos, 'band_mobile_image')}
         slot="menu.band"
         alt=""
         shot="Cinematic wide. The kitchen mid-service."
