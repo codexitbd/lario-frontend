@@ -190,5 +190,24 @@
     "faqEyebrow": "Before you come",
     "faqHeading": "Frequently asked",
     "faqBody": "For anything else, call the room directly."
+  },
+  "journal": {
+    "readStory": "Read the story",
+    "minutes": "{count} min read",
+    "by": "By {name}",
+    "moreStories": "More from the journal",
+    "allStories": "All stories",
+    "empty": "The first stories are being written. Check back soon."
+  },
+  "gallery": {
+    "photos": "{count} photographs",
+    "albums": "Albums",
+    "open": "Open photograph: {alt}",
+    "viewer": "Photograph viewer",
+    "close": "Close",
+    "previous": "Previous photograph",
+    "next": "Next photograph",
+    "position": "{current} of {total}",
+    "empty": "Photographs from the rooms are on their way."
   }
 }

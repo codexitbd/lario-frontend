@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { imageUrlSchema, seoSchema } from '@/lib/schemas/common'
+import { galleryImageSchema, imageUrlSchema, seoSchema } from '@/lib/schemas/common'
 import { pageSectionSchema } from '@/lib/schemas/page'
 
 export const teamMemberSchema = z.object({
@@ -35,6 +35,14 @@ export const postSchema = postCardSchema.extend({
   sections: z.array(pageSectionSchema).default([]),
 })
 export type Post = z.infer<typeof postSchema>
+
+export const galleryAlbumSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string().nullable(),
+  images: z.array(galleryImageSchema),
+})
+export type GalleryAlbum = z.infer<typeof galleryAlbumSchema>
 
 export const eventCardSchema = z.object({
   slug: z.string(),

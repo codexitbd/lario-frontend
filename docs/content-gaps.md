@@ -3,6 +3,22 @@
 Per Section 8 of the quotation, content is client-supplied. This list goes out
 every week until it is empty.
 
+**Since 2026-10-04 every item below is filled in the admin panel**
+(`https://larioadmin.dtechonline.dev/admin` on staging), not in code. The
+fixture files named further down were imported into the CMS and are no longer
+read by the site. Photo sizes per upload slot:
+`lario-backend/docs/IMAGE-SIZES.md`. Where each gap is entered:
+
+| Gap | Admin |
+|---|---|
+| 1, 2, 3, 4, 9, 11, 12 | Menu → Dishes / Menu categories (prices, calories, dish tags, EN/AR text) |
+| 5 | Restaurant → Branches → story |
+| 6 | Content → Testimonials (Google reviews import daily once Settings → Integrations has a Places API key) |
+| 7 | Pages → `privacy-policy`, `terms-and-conditions` |
+| 8 | the photo slots on Pages, Branches, Cuisines, Gallery albums |
+| 10 | Settings → Branding → Default social share image |
+| 13 | Pages → Site texts (and the Newsletter component's copy) |
+
 | # | Gap | Status | Raised |
 |---|---|---|---|
 | 1 | Desserts and drinks — no photography, no dish list | Open | 2026-09-18 |
@@ -14,7 +30,7 @@ every week until it is empty.
 | 7 | Privacy policy and terms copy | Open | 2026-09-18 |
 | 8 | Interior and atmosphere photography — 14 named shots, see the shoot list below | Open | 2026-09-18 |
 | 9 | Argentina Style Asado calorie value — flagged in quotation | Open | 2026-09-18 |
-| 10 | Default social-card OG image — no asset exists; `DEFAULT_OG_IMAGE` is `null` until one is supplied | Open | 2026-09-18 |
+| 10 | Default social-card OG image — no asset exists; `seo.og.image` falls back to `null` until one is uploaded in Settings → Branding | Open | 2026-09-18 |
 | 11 | `short_description` now MIRRORS the long `description` on all 89 dishes, in both locales, so the menu cards read properly. The descriptions happen to be card-length already (47-130 characters), but they were written as dish-page copy. Tighter card-specific lines — roughly 10-14 words — would let the two fields do different jobs. Not blocking. | Open | 2026-09-20 |
 | 12 | `ingredients_note` and `preparation_note` are null on **all 89 dishes**. The dish page's "about this dish" band is now reserved for this prose and therefore renders on NO dish at all today; allergens moved inline into the hero. Supplying two or three lines per dish turns the band on and gives each dish page unique copy worth ranking. | Open | 2026-09-20 |
 
@@ -22,25 +38,22 @@ every week until it is empty.
 
 ## Gap 8 — the shoot list
 
-Fourteen images the homepage and branch pages are built around. None exist, so
-every one of them is still `null` in `content/home.json` /
-`content/branches.json`. The filenames below are the paths the fixtures will
-point at once the files land under `public/`.
+Fourteen images the homepage and branch pages are built around. None exist yet.
+The filenames below name the shots; they were the planned `public/` paths
+during the fixture phase and now simply identify each frame.
 
 **Stand-ins are rendering in the meantime.** `lib/placeholders.ts` maps each
 slot to an Unsplash frame, and `components/ui/figure.tsx` falls back to it when
-the fixture field is null. The fixtures themselves were deliberately NOT
-edited: they are the executable specification the Laravel developer builds
-against, and a third-party URL in them would assert that La Rio owns a
-photograph it does not.
+the API returns no image for that slot. No stock URL is stored in the CMS, so
+nothing asserts that La Rio owns a photograph it does not.
 
 The three cuisine cards are the exception — they use La Rio's own dish
-photography, which already exists in the repo, rather than stock.
+photography, imported into the CMS.
 
-**To hand over:** drop the real files under `public/images/`, set the matching
-fixture fields, then delete `lib/placeholders.ts` and the `remotePatterns`
-entry in `next.config.ts`. Nothing else changes; no component reads either one
-directly.
+**To hand over:** upload each photo to its slot in the admin (sizes in
+`lario-backend/docs/IMAGE-SIZES.md`). Once every slot has a real photo, delete
+`lib/placeholders.ts` and the Unsplash `remotePatterns` entry in
+`next.config.ts`. No component reads either one directly.
 
 **Homepage — `/images/home/`**
 

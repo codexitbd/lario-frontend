@@ -36,7 +36,7 @@ export default async function EventPage({ params }: { params: Params }) {
       dict={dict}
       settings={settings}
       title={event.title}
-      kicker={[event.starts_at ? formatDateTime(event.starts_at, locale) : null, event.branch?.name].filter(Boolean).join(' · ') || null}
+      meta={[event.starts_at ? formatDateTime(event.starts_at, locale) : null, event.branch?.name].filter((item): item is string => Boolean(item))}
       lede={event.summary}
       cover={event.cover}
       coverAlt={event.cover_alt}

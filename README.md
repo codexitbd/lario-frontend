@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# La Rio — website
 
-## Getting Started
+Next.js 16 + TypeScript + Tailwind 4. The public, bilingual (English / Arabic,
+RTL) website for La Rio Restaurant. All content comes from the Laravel API in
+`../lario-backend`; the client edits it in that admin panel.
 
-First, run the development server:
+## Setup
 
 ```bash
+cp .env.example .env    # LARIO_BACKEND_URL, LARIO_SITE_URL, LARIO_REVALIDATE_SECRET, LARIO_API_KEY
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The backend address can also be set once in `lario.config.ts`.
+`LARIO_REVALIDATE_SECRET` and `LARIO_API_KEY` must match the backend's `.env`.
+`npm run dev` trusts Laravel Herd's local certificate, for a `*.test` backend.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test            # vitest
+npm run lint
+npm run typecheck
+npm run build       # prerenders every page against the live API
+npm start
+```
 
-## Learn More
+## How it fits together
 
-To learn more about Next.js, take a look at the following resources:
+- Pages read the API through `lib/api/client.ts`, validated by the Zod schemas
+  in `lib/schemas/`, cached with `'use cache'` and tagged with the cache tags
+  the API names.
+- The backend calls `POST /api/revalidate` (HMAC-signed) when content changes;
+  the affected pages refresh on the next request.
+- Forms post to `app/api/{reservations,contacts,newsletter}`, which forward to
+  Laravel.
+- `proxy.ts` sets security headers (CSP follows the admin's tracking settings),
+  serves English unprefixed and Arabic at `/ar`, and applies the admin's
+  redirects.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `../lario-web-CLAUDE.md` — design system, conventions, known gaps
+- `PRODUCT.md` — users, purpose, design principles
+- `design/` — reference images and notes
+- `docs/content-gaps.md` — content the client still owes
+- `../lario-docs/` — brief, decisions, schema, API contract, status

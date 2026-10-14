@@ -14,10 +14,10 @@ import { z } from 'zod'
 
 /**
  * Any page the admin builds (Pages → New page) lives here, at /{slug}.
- * /menu, /contact and /reservation keep their purpose-built routes; the
+ * /menu, /contact, /reservation, /blog and /gallery keep their purpose-built routes; the
  * homepage is app/[locale]/page.tsx.
  */
-const OWN_ROUTES = new Set(['menu', 'contact', 'reservation'])
+const OWN_ROUTES = new Set(['menu', 'contact', 'reservation', 'blog', 'gallery'])
 
 type Params = Promise<{ locale: string; slug: string[] }>
 

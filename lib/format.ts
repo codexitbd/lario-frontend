@@ -113,3 +113,9 @@ export function formatPhone(e164: string | null | undefined): string {
   const national = digits.slice(3)
   return `+966 ${national.slice(0, 2)} ${national.slice(2, 5)} ${national.slice(5)}`
 }
+
+/** Minutes to read an HTML body at 200 words a minute, never less than one. */
+export function readingMinutes(html: string): number {
+  const words = html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.ceil(words / 200))
+}
