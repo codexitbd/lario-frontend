@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Container } from '@/components/ui/container'
+import { RowEndMarker } from '@/components/menu/row-end-marker'
 import { localePath } from '@/lib/i18n/config'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
@@ -52,9 +53,14 @@ export function CategoryNav({
         {heading ?? dict.menu.browseCourses}
       </h2>
 
-      <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-10">
+      {/* The rule between courses is drawn per item, so the gap is halved
+          on both sides of it. */}
+      <RowEndMarker className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-4 md:gap-x-5">
         {categories.map((category) => (
-          <li key={category.slug}>
+          <li
+            key={category.slug}
+            className="flex items-baseline gap-x-4 md:gap-x-5 last:[&>[aria-hidden]]:invisible data-row-end:[&>[aria-hidden]]:invisible"
+          >
             <Link
               href={localePath(locale, category.url)}
               className="group flex items-baseline gap-2 text-[0.8125rem] tracking-[0.18em] text-ink uppercase transition-colors duration-300 hover:text-gold-ink"
@@ -66,9 +72,12 @@ export function CategoryNav({
                 {category.item_count}
               </span>
             </Link>
+            <span aria-hidden="true" className="text-gold-ink/50">
+              |
+            </span>
           </li>
         ))}
-      </ul>
+      </RowEndMarker>
     </Container>
   )
 }
