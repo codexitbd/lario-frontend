@@ -73,6 +73,14 @@ export const eventCardSchema = z.object({
 })
 export type EventCard = z.infer<typeof eventCardSchema>
 
+// The Story component's smaller photos (admin "Smaller photos").
+export const storyRoomSchema = z.object({
+  title: z.string().min(1),
+  caption: z.string().optional().default(''),
+  image: z.string().nullable().optional(),
+})
+export type StoryRoom = z.infer<typeof storyRoomSchema>
+
 export const faqItemSchema = z.object({
   q: z.string().min(1),
   a: z.string().min(1),

@@ -40,6 +40,10 @@ export const PLACEHOLDERS = {
   'home.why-lario': unsplash('1543007630-9710e4a00a20', 900, 1200),
   'home.why-lario.secondary': unsplash('1552566626-52f8b828add9', 1200, 900),
   'home.chef-story': unsplash('1551218808-94e220e084d2', 1100, 1400),
+  // The story's two smaller photos, until the admin sets them: the rooms'
+  // own frames, shown small.
+  'home.chef-story.room.0': unsplash('1559925393-8be0ec4767c8', 900, 1125),
+  'home.chef-story.room.1': unsplash('1537047902294-62a40c20a6ae', 900, 1125),
   'home.private-events': unsplash('1414235077428-338989a2e8c0', 2000, 1200),
 
   'home.events.0': unsplash('1550966871-3ed3cdb5ed0c', 900, 1200),

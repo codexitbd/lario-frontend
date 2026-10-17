@@ -168,7 +168,11 @@
           "subheading": "Al Narjis opened first; Al Yasmin followed four years later, built for longer, slower dinners.",
           "body": "La Rio started with a simple idea: put the grill at the centre of the room instead of hiding it in the back. Our kitchens draw on Argentine asado technique, Italian pasta and pizza craft, and Turkish charcoal cooking, and our cooks move between all three rather than staying fenced into one. The result is a menu that shares a fire more than it shares a single country's habits.",
           "cta_label": "Meet Us at Al Narjis",
-          "secondary_cta_label": "Meet Us at Al Yasmin"
+          "secondary_cta_label": "Meet Us at Al Yasmin",
+          "rooms": [
+            { "title": "La Rio Al Narjis", "caption": "Our first table in Riyadh" },
+            { "title": "La Rio Al Yasmin", "caption": "Quieter rooms, the same fire" }
+          ]
         },
         "ar": {
           "eyebrow": "قصتنا",
@@ -176,7 +180,11 @@
           "subheading": "افتُتح فرع النرجس أولاً، ثم تبعه فرع الياسمين بعد أربع سنوات، وصُمم لعشاءات أطول وأكثر تمهلاً.",
           "body": "بدأ لا ريو بفكرة بسيطة: وضع الشواية في قلب الصالة بدلاً من إخفائها في الخلف. تعتمد مطابخنا على تقنية الأسادو الأرجنتينية، وحرفية الباستا والبيتزا الإيطالية، وطهي الفحم التركي، وينتقل طهاتنا بين المطابخ الثلاثة بدل الالتزام بواحد فقط. والنتيجة قائمة تشترك في نار واحدة أكثر مما تشترك في عادات بلد واحد.",
           "cta_label": "زورونا في النرجس",
-          "secondary_cta_label": "زورونا في الياسمين"
+          "secondary_cta_label": "زورونا في الياسمين",
+          "rooms": [
+            { "title": "لا ريو النرجس", "caption": "مائدتنا الأولى في الرياض" },
+            { "title": "لا ريو الياسمين", "caption": "قاعات أهدأ، والنار ذاتها" }
+          ]
         }
       }
     },
