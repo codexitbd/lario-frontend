@@ -28,8 +28,8 @@ export async function generateMetadata({
 }
 
 /**
- * /reservation. A scrolling book: opening band here, then the four chapters
- * and the progress rail in the island. Design:
+ * /reservation. The opening band here, then the book in the island, one step
+ * at a time with Back and Next, as in the header's pop-up. Design:
  * docs/superpowers/specs/2026-10-01-reservation-page-design.md.
  *
  * Statically prerendered. The island reads `?branch=` with useSearchParams,
@@ -100,14 +100,20 @@ export default async function ReservationPage({
 
       {/* The fallback holds the book's rough height so the footer does not
           jump up on the server render. */}
-      <Suspense fallback={<div aria-hidden="true" className="min-h-[60vh]" />}>
-        <ReservationBook
-          branches={branches}
-          settings={settings.reservations}
-          locale={locale}
-          dict={dict}
-        />
-      </Suspense>
+      <Container className="pb-24 md:pb-32">
+        <div className="max-w-4xl">
+          <Suspense
+            fallback={<div aria-hidden="true" className="min-h-[60vh]" />}
+          >
+            <ReservationBook
+              branches={branches}
+              settings={settings.reservations}
+              locale={locale}
+              dict={dict}
+            />
+          </Suspense>
+        </div>
+      </Container>
 
       <script
         type="application/ld+json"

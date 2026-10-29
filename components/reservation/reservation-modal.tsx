@@ -46,7 +46,7 @@ export function ReserveLink({
 }
 
 /**
- * The booking pop-up: the reservation book one step at a time, on bone (the
+ * The booking pop-up: the reservation book, on bone (the
  * book's dark tokens are re-pointed in globals.css, `.lr-reserve`), in a native
  * <dialog> (focus trap, Escape and inertness come from the browser, as in the
  * drawer and the gallery viewer). The book mounts on first open, so pages that
@@ -108,7 +108,7 @@ export function ReservationModal({
           // The book reads ?branch= on the client, which wants a boundary.
           <Suspense>
             <ReservationBook
-              steps
+              tone="light"
               branches={branches}
               settings={settings}
               locale={locale}

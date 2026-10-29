@@ -126,7 +126,6 @@
       "outdoor": "Outdoors",
       "private": "Private room"
     },
-    "progress": "Booking progress",
     "chapterExtras": "Good to know",
     "askExtras": "Anything we should know?",
     "letUsKnow": "Please let us know if you have",
@@ -142,8 +141,8 @@
     "chooseBranchFirst": "Choose a branch to see its times.",
     "chooseDateFirst": "Choose a date to see the times.",
     "noTimes": "No times left that day. Choose another date.",
-    "qrNote": "Show this code when you arrive.",
-    "qrAlt": "QR code for reservation {reference}",
+    "qrNote": "Scan to visit our socials.",
+    "qrAlt": "La Rio socials QR code",
     "download": "Download your token"
   },
   "branch": {

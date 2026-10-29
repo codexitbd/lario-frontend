@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import fallbackRedirects from '@/content/redirects.json'
 import { apiUrl } from '@/lib/api/client'
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/i18n/config'
+import { type Maintenance, maintenancePage } from '@/lib/maintenance'
 
 // ADR-004 names the required set: CSP, HSTS, Referrer-Policy, Permissions-Policy
 // and X-Content-Type-Options.
@@ -143,9 +144,19 @@ export function buildRedirectMap(rows: RedirectRow[]): Map<string, RedirectRow> 
  * calling the API on every request. The bundled fixture covers an outage.
  */
 const TTL_MS = 60_000
-let cached: { at: number; redirects: Map<string, RedirectRow>; csp: string } | null = null
+type SiteRules = { at: number; redirects: Map<string, RedirectRow>; csp: string; maintenance: Maintenance | null }
+let cached: SiteRules | null = null
 
-async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: string }> {
+type SiteSettings = {
+  site_name?: string
+  contact?: { phone?: string | null }
+  branding?: { logo_light?: string | null; logo?: string | null }
+  maintenance?: { enabled?: boolean; message?: string | null }
+  tracking?: TrackingSettings
+  reservations?: { recaptcha_site_key?: string | null }
+}
+
+async function siteRules(): Promise<SiteRules> {
   if (cached && Date.now() - cached.at < TTL_MS) return cached
 
   const get = async (path: string) => {
@@ -157,9 +168,11 @@ async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: 
     return (await response.json()).data
   }
 
-  const [redirects, settings] = await Promise.all([
+  const [redirects, settings, arabic] = await Promise.all([
     get('/redirects').catch(() => null) as Promise<Omit<RedirectRow, 'is_active'>[] | null>,
-    get('/settings').catch(() => null) as Promise<{ tracking?: TrackingSettings; reservations?: { recaptcha_site_key?: string | null } } | null>,
+    get('/settings').catch(() => null) as Promise<SiteSettings | null>,
+    // The maintenance message in Arabic; the rest of the rules are language-free.
+    get('/settings?locale=ar').catch(() => null) as Promise<SiteSettings | null>,
   ])
 
   cached = {
@@ -168,6 +181,14 @@ async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: 
       redirects ? redirects.map((row) => ({ ...row, is_active: true })) : (fallbackRedirects as RedirectRow[]),
     ),
     csp: buildCsp(settings?.tracking, Boolean(settings?.reservations?.recaptcha_site_key)),
+    maintenance: settings?.maintenance?.enabled
+      ? {
+          siteName: settings.site_name ?? 'La Rio',
+          logo: settings.branding?.logo_light ?? settings.branding?.logo ?? null,
+          phone: settings.contact?.phone ?? null,
+          message: { en: settings.maintenance.message ?? null, ar: arabic?.maintenance?.message ?? null },
+        }
+      : null,
   }
   return cached
 }
@@ -181,6 +202,18 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl
   const rules = await siteRules()
   const withHeaders = (response: NextResponse) => withSecurityHeaders(response, rules.csp)
+
+  // Settings → General → Maintenance mode. 503 + Retry-After tells search
+  // engines the outage is temporary. Staff who opened a draft preview from the
+  // admin carry the preview cookie and still see the site behind it.
+  if (rules.maintenance && !request.cookies.has('__prerender_bypass')) {
+    return withHeaders(
+      new NextResponse(maintenancePage(rules.maintenance), {
+        status: 503,
+        headers: { 'Content-Type': 'text/html; charset=utf-8', 'Retry-After': '3600', 'Cache-Control': 'no-store' },
+      }),
+    )
+  }
 
   // Redirect paths are language-free: "/old" also covers "/ar/old".
   const arabic = pathname === '/ar' || pathname.startsWith('/ar/')

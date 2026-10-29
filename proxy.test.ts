@@ -135,3 +135,38 @@ describe('admin-driven rules', () => {
     expect(arabic.headers.get('location')).toBe('https://lario.sa/ar/menu/grill/adana')
   })
 })
+
+describe('maintenance mode', () => {
+  const respond = (data: unknown) => ({ ok: true, status: 200, json: async () => ({ data }) })
+  const maintenance = (enabled: boolean) =>
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => url.includes('/redirects')
+      ? respond([])
+      : respond({
+          site_name: 'La Rio',
+          contact: { phone: '+966112345678' },
+          maintenance: { enabled, message: url.includes('locale=ar') ? 'نعود قريباً <b>' : 'Back soon <b>' },
+        })))
+
+  it('answers every page with a 503 maintenance page in both languages', async () => {
+    maintenance(true)
+    const response = await proxy(request('/ar/menu'))
+    const html = await response.text()
+
+    expect(response.status).toBe(503)
+    expect(response.headers.get('Retry-After')).toBe('3600')
+    expect(html).toContain('Back soon &#60;b&#62;')
+    expect(html).toContain('نعود قريباً')
+    expect(html).toContain('tel:+966112345678')
+  })
+
+  it('lets staff with a preview cookie through, and stays out of the way when off', async () => {
+    maintenance(true)
+    const preview = request('/menu')
+    preview.cookies.set('__prerender_bypass', 'x')
+    expect((await proxy(preview)).status).toBe(200)
+
+    resetSiteRules()
+    maintenance(false)
+    expect((await proxy(request('/menu'))).status).toBe(200)
+  })
+})

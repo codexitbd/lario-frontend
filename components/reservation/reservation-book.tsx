@@ -6,7 +6,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type CSSProperties,
   type FormEvent,
   type ReactNode,
 } from 'react'
@@ -21,7 +20,6 @@ import {
 } from '@phosphor-icons/react/ssr'
 import { Recaptcha } from '@/components/reservation/recaptcha'
 import { Ticket, type Received } from '@/components/reservation/ticket'
-import { Container } from '@/components/ui/container'
 import { Figure } from '@/components/ui/figure'
 import { formatClock, formatDay, formatMonth } from '@/lib/format'
 import { groupOpeningHours } from '@/lib/hours'
@@ -53,9 +51,9 @@ import type { Branch, Settings } from '@/lib/schemas'
  * and the ticket that is both the review step and the success state. Design:
  * docs/superpowers/specs/2026-10-01-reservation-page-design.md.
  *
- * Two readings of the same book. On /reservation the chapters run top to
- * bottom beside a progress rail. With `steps` (the header's pop-up, client
- * request 2026-10-29) one chapter shows at a time and Next checks it first.
+ * One chapter at a time, with Back and Next, on /reservation and in the
+ * header's pop-up alike (client request 2026-10-29); Next checks the chapter
+ * before moving on. The pop-up sets it on bone (`tone="light"`).
  *
  * With a single active branch there is nothing to choose, so the Room chapter
  * is left out and that branch is the booking's. Dates are the next "Dates
@@ -85,14 +83,14 @@ export function ReservationBook({
   locale,
   dict,
   settings,
-  steps = false,
+  tone = 'dark',
 }: {
   branches: Branch[]
   locale: Locale
   dict: Dictionary
   settings: Settings['reservations']
-  /** One chapter at a time, for the pop-up. */
-  steps?: boolean
+  /** The ground it sits on: the page is dark, the pop-up light. */
+  tone?: 'dark' | 'light'
 }) {
   const id = useId()
   const initialBranch = useSearchParams().get('branch')
@@ -126,8 +124,8 @@ export function ReservationBook({
     [settings.days_ahead],
   )
 
-  // Ids are prefixed in the pop-up: /reservation may hold both books at once.
-  const anchor = (step: Step) => (steps ? `${id}-${step}` : step)
+  // Prefixed: /reservation may hold the page's book and the pop-up's at once.
+  const anchor = (step: Step) => `${id}-${step}`
 
   const patch = (next: Partial<BookState>) =>
     setState((current) => ({ ...current, ...next }))
@@ -138,70 +136,30 @@ export function ReservationBook({
       party_size: Math.min(20, Math.max(1, current.party_size + delta)),
     }))
 
-  const complete = useMemo(
-    () =>
-      Object.fromEntries(
-        CHAPTERS.map((chapter) => [
-          chapter,
-          Object.keys(chapterIssues(state, chapter, locale)).length === 0,
-        ]),
-      ) as Record<Chapter, boolean>,
-    [state, locale],
-  )
-
   const branch = branches.find((b) => b.slug === state.branch_slug) ?? null
   const slots = timeSlots(branch, state.date, every, noticeMinutes)
 
-  // The rail follows the chapter nearest the top of the viewport.
+  // Each new question takes focus so a screen reader hears it.
+  // Keyed on the step itself, not a first-run flag: React's development
+  // double-run would otherwise move focus (and the page) on load.
+  const shown = useRef(`${active}:${status}`)
   useEffect(() => {
-    if (steps) return
-    const sections = order
-      .map((key) => document.getElementById(key))
-      .filter((el): el is HTMLElement => el !== null)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActive(visible[0].target.id as Step)
-      },
-      { rootMargin: '-35% 0px -55% 0px' },
-    )
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- the chapters are fixed for the book's life
-  }, [steps])
-
-  // In steps, each new question takes focus so a screen reader hears it.
-  const opened = useRef(false)
-  useEffect(() => {
-    if (!steps) return
-    if (!opened.current) {
-      opened.current = true
-      return
-    }
+    if (shown.current === `${active}:${status}`) return
+    shown.current = `${active}:${status}`
     document
       .getElementById(`${anchor(active)}-title`)
       ?.focus({ preventScroll: true })
     document.getElementById(anchor(active))?.scrollIntoView({ block: 'start' })
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- anchor is derived from steps and id
-  }, [active, status, steps])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- anchor is derived from id
+  }, [active, status])
 
   const error = (field: string) => issues[field]?.[0]
   const describe = (field: string) =>
     error(field) ? `${id}-${field}-error` : undefined
 
-  function goTo(target: Step) {
-    if (steps) {
-      setActive(target)
-      return
-    }
-    const section = document.getElementById(anchor(target))
-    section?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    section?.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true })
-  }
+  const goTo = (target: Step) => setActive(target)
 
-  /** Steps: check this chapter, then move on. */
+  /** Check this chapter, then move on. */
   function next() {
     if (active === 'review') return
     const own = chapterIssues(state, active, locale)
@@ -220,7 +178,7 @@ export function ReservationBook({
     event.preventDefault()
     if (status === 'sending') return
     // Enter in a field of an earlier step means Next, not send.
-    if (steps && active !== 'review') {
+    if (active !== 'review') {
       next()
       return
     }
@@ -290,7 +248,7 @@ export function ReservationBook({
   }
   const activeIndex = order.indexOf(active)
   const number = (key: Step) => `0${order.indexOf(key) + 1}`
-  const frame = { compact: steps, anchor }
+  const frame = { anchor }
 
   const chapters: Record<Chapter, () => ReactNode> = {
     room: () => (
@@ -311,7 +269,7 @@ export function ReservationBook({
           {branches.map((room) => (
             <label
               key={room.slug}
-              className={`lr-dark group relative isolate flex cursor-pointer flex-col justify-end overflow-hidden p-8 ${steps ? 'min-h-[16rem]' : 'min-h-[22rem] md:min-h-[28rem]'}`}
+              className={`lr-dark group relative isolate flex cursor-pointer flex-col justify-end overflow-hidden p-8 min-h-[16rem]`}
             >
               <input
                 type="radio"
@@ -795,7 +753,7 @@ export function ReservationBook({
             key={captchaRound}
             siteKey={siteKey}
             locale={locale}
-            theme={steps ? 'light' : 'dark'}
+            theme={tone}
             onToken={(token) => patch({ captcha_token: token })}
           />
           <FieldError
@@ -804,158 +762,73 @@ export function ReservationBook({
           />
         </div>
       ) : null}
-      {!done && !steps ? (
-        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-          {submitButton}
-          {alert}
-        </div>
-      ) : null}
     </ChapterFrame>
   )
 
   const stepButton =
     'inline-flex min-h-11 items-center gap-2 text-[0.75rem] font-medium tracking-[0.16em] uppercase transition-colors duration-300 ease-brand disabled:opacity-40'
 
-  if (steps) {
-    return (
-      <form onSubmit={onSubmit} noValidate className="min-w-0">
-        {done ? null : (
-          <p className="flex items-center justify-between border-b border-ivory/10 pb-3 text-[0.75rem] tracking-[0.16em] uppercase">
-            <span className="text-gold tabular-nums">
-              {interpolate(dict.reservation.stepOf, {
-                step: `0${activeIndex + 1}`,
-                total: `0${order.length}`,
-              })}
-            </span>
-            <span className="text-ivory">{labels[active]}</span>
-          </p>
-        )}
-        {done || active === 'review' ? review : chapters[active]()}
-        {done ? null : (
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-ivory/10 pt-6">
-            {activeIndex > 0 ? (
-              <button
-                type="button"
-                onClick={back}
-                disabled={sending}
-                className={`${stepButton} text-ivory-dim hover:text-ivory`}
-              >
-                <ArrowLeftIcon
-                  aria-hidden="true"
-                  className="size-4 rtl:rotate-180"
-                />
-                {dict.actions.back}
-              </button>
-            ) : (
-              <span />
-            )}
-            {active === 'review' ? (
-              <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-3">
-                {alert}
-                {submitButton}
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={next}
-                className={`${stepButton} border border-gold/60 px-7 py-3 text-gold hover:border-gold hover:bg-gold/10`}
-              >
-                {dict.actions.next}
-                <ArrowRightIcon
-                  aria-hidden="true"
-                  className="size-4 rtl:rotate-180"
-                />
-              </button>
-            )}
-          </div>
-        )}
-      </form>
-    )
-  }
-
   return (
-    <Container
-      className={
-        done
-          ? 'pb-24 md:pb-32'
-          : 'pb-24 md:pb-32 lg:grid lg:grid-cols-[10rem_1fr] lg:gap-16'
-      }
-    >
-      {/* The rail. One nav, two renderings: a sticky column from lg, a slim
-          bar pinned under the header below it. The nav itself is sticky:
-          a sticky child cannot leave a parent that is exactly its own height.
-          Numerals are the stepper position spec §9 requires, not decoration.
-          Once the request is received the book is over, so the rail and the
-          filled chapters go with it and only the ticket remains. */}
+    <form onSubmit={onSubmit} noValidate className="min-w-0">
       {done ? null : (
-        <nav
-          aria-label={dict.reservation.progress}
-          className="sticky top-20 z-10 lg:top-32 lg:self-start"
-        >
-          <ol className="hidden lg:flex lg:flex-col lg:gap-6">
-            {order.map((key, index) => {
-              const finished = key !== 'review' && complete[key]
-              const current = key === active
-              return (
-                <li key={key}>
-                  <a
-                    href={`#${key}`}
-                    aria-current={current ? 'step' : undefined}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      goTo(key)
-                    }}
-                    className={`group flex items-baseline gap-3 transition-colors duration-300 ease-brand hover:text-gold ${current ? 'text-ivory' : 'text-ivory-dim/70'}`}
-                  >
-                    <span
-                      className={`lr-display text-2xl tabular-nums transition-colors duration-500 ease-brand ${current ? 'text-gold' : ''}`}
-                    >
-                      0{index + 1}
-                    </span>
-                    <span className="text-[0.75rem] tracking-[0.16em] uppercase">
-                      {labels[key]}
-                    </span>
-                    {finished ? (
-                      <CheckIcon
-                        aria-hidden="true"
-                        weight="bold"
-                        className="size-3 text-gold"
-                      />
-                    ) : null}
-                  </a>
-                </li>
-              )
+        <p className="flex items-center justify-between border-b border-ivory/10 pb-3 text-[0.75rem] tracking-[0.16em] uppercase">
+          <span className="text-gold tabular-nums">
+            {interpolate(dict.reservation.stepOf, {
+              step: `0${activeIndex + 1}`,
+              total: `0${order.length}`,
             })}
-          </ol>
-          <p className="-mx-5 flex items-center justify-between border-b border-ivory/10 bg-ink/95 px-5 py-3 text-[0.75rem] tracking-[0.16em] uppercase backdrop-blur-sm sm:-mx-8 sm:px-8 lg:hidden">
-            <span className="text-gold">
-              {interpolate(dict.reservation.stepOf, {
-                step: `0${activeIndex + 1}`,
-                total: `0${order.length}`,
-              })}
-            </span>
-            <span className="text-ivory">{labels[active]}</span>
-          </p>
-        </nav>
+          </span>
+          <span className="text-ivory">{labels[active]}</span>
+        </p>
       )}
-
-      <form onSubmit={onSubmit} noValidate className="min-w-0">
-        {done
-          ? null
-          : order.map((key) => (key === 'review' ? null : chapters[key]()))}
-        {review}
-      </form>
-    </Container>
+      {done || active === 'review' ? review : chapters[active]()}
+      {done ? null : (
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-ivory/10 pt-6">
+          {activeIndex > 0 ? (
+            <button
+              type="button"
+              onClick={back}
+              disabled={sending}
+              className={`${stepButton} text-ivory-dim hover:text-ivory`}
+            >
+              <ArrowLeftIcon
+                aria-hidden="true"
+                className="size-4 rtl:rotate-180"
+              />
+              {dict.actions.back}
+            </button>
+          ) : (
+            <span />
+          )}
+          {active === 'review' ? (
+            <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-3">
+              {alert}
+              {submitButton}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={next}
+              className={`${stepButton} border border-gold/60 px-7 py-3 text-gold hover:border-gold hover:bg-gold/10`}
+            >
+              {dict.actions.next}
+              <ArrowRightIcon
+                aria-hidden="true"
+                className="size-4 rtl:rotate-180"
+              />
+            </button>
+          )}
+        </div>
+      )}
+    </form>
   )
 }
 
 /** A chapter: anchor target, numeral, question, optional chapter-level
-    error line (for fields with no single input, like the room radios).
-    `compact` is the pop-up's: tighter, and no scroll-driven entrance. */
+    error line (for fields with no single input, like the room radios). */
 function ChapterFrame({
   step,
   anchor,
-  compact,
   number,
   title,
   error,
@@ -964,7 +837,6 @@ function ChapterFrame({
 }: {
   step: Step
   anchor: (step: Step) => string
-  compact: boolean
   number: string
   title: string
   error?: string
@@ -976,11 +848,8 @@ function ChapterFrame({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={
-        compact
-          ? 'scroll-mt-4 pt-8'
-          : 'scroll-mt-28 border-t border-ivory/10 py-14 first:border-t-0 first:pt-4 md:py-20 lg:scroll-mt-32'
-      }
+      // Clears the site header on /reservation and the pop-up's own bar.
+      className="scroll-mt-28 pt-8"
     >
       <p
         aria-hidden="true"
@@ -991,17 +860,12 @@ function ChapterFrame({
       <h2
         id={`${id}-title`}
         tabIndex={-1}
-        className={`lr-display mt-2 leading-[1.1] text-ivory focus:outline-none ${compact ? 'text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)]' : 'lr-unmask text-[clamp(1.75rem,1.2rem+2vw,2.75rem)]'}`}
+        className="lr-display mt-2 text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] leading-[1.1] text-ivory focus:outline-none"
       >
         {title}
       </h2>
       <FieldError id={errorId} message={error} className="mt-3 text-sm" />
-      <div
-        className={compact ? 'mt-8' : 'lr-reveal mt-10'}
-        style={compact ? undefined : ({ '--i': 1 } as CSSProperties)}
-      >
-        {children}
-      </div>
+      <div className="mt-8">{children}</div>
     </section>
   )
 }
