@@ -10,7 +10,7 @@
     "chef": "Our Chef",
     "gallery": "Gallery",
     "events": "Events",
-    "blog": "Journal",
+    "blog": "Blog",
     "comingSoon": "Coming soon",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -88,7 +88,7 @@
     "time": "Time",
     "occasion": "Occasion",
     "seating": "Seating preference",
-    "notes": "Anything we should know?",
+    "notes": "Anything else?",
     "consent": "I agree to be contacted about this request.",
     "successTitle": "Request received",
     "successBody": "Your reference is {reference}. The branch will contact you to confirm your table.",
@@ -126,7 +126,25 @@
       "outdoor": "Outdoors",
       "private": "Private room"
     },
-    "progress": "Booking progress"
+    "progress": "Booking progress",
+    "chapterExtras": "Good to know",
+    "askExtras": "Anything we should know?",
+    "letUsKnow": "Please let us know if you have",
+    "hasAllergies": "Allergies or dietary needs",
+    "hasOccasion": "A special occasion",
+    "allergies": "Tell us about the allergies or dietary needs",
+    "birthday": "Your birthday (optional)",
+    "birthdayHint": "Month and day only, so we can mark it.",
+    "birthMonth": "Month",
+    "birthDay": "Day",
+    "birthdayShort": "Birthday",
+    "today": "Today",
+    "chooseBranchFirst": "Choose a branch to see its times.",
+    "chooseDateFirst": "Choose a date to see the times.",
+    "noTimes": "No times left that day. Choose another date.",
+    "qrNote": "Show this code when you arrive.",
+    "qrAlt": "QR code for reservation {reference}",
+    "download": "Download your token"
   },
   "branch": {
     "openingHours": "Opening hours",
@@ -192,10 +210,10 @@
     "faqBody": "For anything else, call the room directly."
   },
   "journal": {
-    "readStory": "Read the story",
+    "readStory": "Read more",
     "minutes": "{count} min read",
     "by": "By {name}",
-    "moreStories": "More from the journal",
+    "moreStories": "More from the blog",
     "allStories": "All stories",
     "empty": "The first stories are being written. Check back soon."
   },

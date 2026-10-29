@@ -32,7 +32,7 @@ export type TrackingSettings = {
  * The Content-Security-Policy, widened only for the trackers the admin has
  * switched on (Settings → Tracking & scripts) and the extra domains they list.
  */
-export function buildCsp(tracking: TrackingSettings = {}): string {
+export function buildCsp(tracking: TrackingSettings = {}, recaptcha = false): string {
   const script = ["'self'", "'unsafe-inline'"]
   // React dev mode rebuilds call stacks with eval(); production never uses it,
   // so the live site's policy stays eval-free.
@@ -57,6 +57,9 @@ export function buildCsp(tracking: TrackingSettings = {}): string {
     script.push('https://sc-static.net')
     connect.push('https://tr.snapchat.com', 'https://tr-shadow.snapchat.com')
   }
+  // The reservation form's "I'm not a robot" box, once its keys are set.
+  // Its iframe is on www.google.com, which frame-src already allows.
+  if (recaptcha) script.push('https://www.google.com', 'https://www.gstatic.com')
   for (const origin of tracking.extra_script_domains ?? []) {
     if (/^https:\/\/[a-z0-9.*-]+(:\d+)?$/i.test(origin)) {
       script.push(origin)
@@ -156,7 +159,7 @@ async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: 
 
   const [redirects, settings] = await Promise.all([
     get('/redirects').catch(() => null) as Promise<Omit<RedirectRow, 'is_active'>[] | null>,
-    get('/settings').catch(() => null) as Promise<{ tracking?: TrackingSettings } | null>,
+    get('/settings').catch(() => null) as Promise<{ tracking?: TrackingSettings; reservations?: { recaptcha_site_key?: string | null } } | null>,
   ])
 
   cached = {
@@ -164,7 +167,7 @@ async function siteRules(): Promise<{ redirects: Map<string, RedirectRow>; csp: 
     redirects: buildRedirectMap(
       redirects ? redirects.map((row) => ({ ...row, is_active: true })) : (fallbackRedirects as RedirectRow[]),
     ),
-    csp: buildCsp(settings?.tracking),
+    csp: buildCsp(settings?.tracking, Boolean(settings?.reservations?.recaptcha_site_key)),
   }
   return cached
 }

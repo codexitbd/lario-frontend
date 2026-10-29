@@ -1,4 +1,4 @@
-import { PostSpread } from '@/components/journal/post-card'
+import { PostGrid } from '@/components/journal/post-card'
 import { SectionList } from '@/components/sections/section-list'
 import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { Container } from '@/components/ui/container'
@@ -16,7 +16,7 @@ import type { PageSection, PostCard, Settings, TeamMember } from '@/lib/schemas'
  * the cover straddling the dark and bone grounds so the page turns on the
  * photograph, then a single reading column on bone (`.lr-prose` in globals.css:
  * a Bodoni drop cap in Latin, pull quotes, a 65ch measure). Posts close on two
- * more stories laid out like the journal itself.
+ * more stories laid out like the blog itself. Every post photograph is 16:9.
  */
 export function ArticlePage({
   locale,
@@ -96,7 +96,7 @@ export function ArticlePage({
       {cover ? (
         <div className="bg-[linear-gradient(to_bottom,var(--color-ink)_50%,var(--color-bone)_50%)]">
           <Container>
-            <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]">
+            <div className="relative aspect-video overflow-hidden">
               <Figure src={cover} alt={coverAlt ?? ''} shot={title} sizes="(min-width: 1400px) 1304px, 100vw" priority className="absolute inset-0" />
             </div>
           </Container>
@@ -120,7 +120,7 @@ export function ArticlePage({
                 </Cta>
               ) : null}
             </div>
-            <PostSpread posts={related} locale={locale} tone="dark" />
+            <PostGrid posts={related} locale={locale} tone="dark" readMore={dict.journal.readStory} />
           </Container>
         </section>
       ) : null}

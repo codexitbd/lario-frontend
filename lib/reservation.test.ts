@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import {
+  bookableDates,
   chapterIssues,
-  dateBounds,
   firstChapterWithIssues,
   hoursForDate,
   initialState,
+  timeSlots,
   toPayload,
   toReservedFor,
   type BookState,
@@ -64,6 +65,10 @@ describe('initialState', () => {
     expect(initialState('al-yasmin', SLUGS).branch_slug).toBe('al-yasmin')
   })
 
+  it('chooses a lone branch: there is nothing to ask', () => {
+    expect(initialState(null, ['narjis']).branch_slug).toBe('narjis')
+  })
+
   it('ignores an unknown or missing branch', () => {
     expect(initialState('foo', SLUGS).branch_slug).toBe('')
     expect(initialState(null).branch_slug).toBe('')
@@ -89,6 +94,27 @@ describe('toPayload', () => {
     )
     expect(payload.guest_phone).toBe('+966512345678')
     expect(payload.whatsapp).toBe('+966512345678')
+  })
+
+  it('sends allergies and the occasion only while their box is ticked, and the birthday as numbers', () => {
+    const extras = {
+      ...filled(),
+      allergies: ' Peanuts ',
+      occasion: 'birthday' as const,
+      birth_month: '3',
+      birth_day: '14',
+      captcha_token: 'tok',
+    }
+    expect(toPayload(extras, 'en')).toMatchObject({
+      allergies: undefined,
+      occasion: undefined,
+      birth_month: 3,
+      birth_day: 14,
+      captcha_token: 'tok',
+    })
+    expect(
+      toPayload({ ...extras, has_allergies: true, has_occasion: true }, 'en'),
+    ).toMatchObject({ allergies: 'Peanuts', occasion: 'birthday' })
   })
 
   it('sends optional fields as undefined when empty, and the locale', () => {
@@ -124,21 +150,35 @@ describe('chapterIssues', () => {
     const issues = chapterIssues(past, 'when', 'en')
     expect(Object.keys(issues)).toEqual(['reserved_for'])
     expect(issues.reserved_for[0]).toBe(
-      'Choose a time later than now, within the next 90 days.',
+      'Choose one of the dates and times offered.',
     )
     expect(chapterIssues(past, 'details', 'en')).toEqual({})
   })
 
   it('accepts a late dinner on the last date the picker offers', () => {
-    // The picker's max is a calendar day; the rule is 90 x 24h from now. The
-    // last offered day must be valid at any time of that day, not only before
-    // the current time of day.
-    const last = { ...filled(), date: dateBounds().max, time: '23:30' }
+    const last = {
+      ...filled(),
+      date: bookableDates(10).at(-1)!,
+      time: '23:30',
+    }
     expect(chapterIssues(last, 'when', 'en')).toEqual({})
   })
 
+  it('wants a whole birthday that exists, and owns it in the extras chapter', () => {
+    const half = { ...filled(), birth_month: '2' }
+    expect(Object.keys(chapterIssues(half, 'extras', 'en'))).toEqual([
+      'birth_day',
+    ])
+    expect(
+      chapterIssues({ ...half, birth_day: '30' }, 'extras', 'en').birth_day,
+    ).toBeDefined()
+    expect(chapterIssues({ ...half, birth_day: '29' }, 'extras', 'en')).toEqual(
+      {},
+    )
+  })
+
   it('a complete state has no issues in any chapter', () => {
-    for (const chapter of ['room', 'when', 'details'] as const) {
+    for (const chapter of ['room', 'when', 'details', 'extras'] as const) {
       expect(chapterIssues(filled(), chapter, 'en')).toEqual({})
     }
   })
@@ -154,12 +194,51 @@ describe('firstChapterWithIssues', () => {
   })
 })
 
-describe('dateBounds', () => {
-  it('runs from today to the last whole day inside ninety days, in Riyadh', () => {
+describe('bookableDates', () => {
+  it('offers the set number of days, today first, in Riyadh', () => {
     // 2026-10-01T22:30Z is already 2026-10-02 in Riyadh (UTC+3).
-    const bounds = dateBounds(new Date('2026-10-01T22:30:00Z'))
-    expect(bounds.min).toBe('2026-10-02')
-    expect(bounds.max).toBe('2026-12-30')
+    const dates = bookableDates(10, new Date('2026-10-01T22:30:00Z'))
+    expect(dates).toHaveLength(10)
+    expect(dates[0]).toBe('2026-10-02')
+    expect(dates.at(-1)).toBe('2026-10-11')
+  })
+})
+
+describe('timeSlots', () => {
+  const branch = {
+    opening_hours: week({
+      5: { opens_at: '13:00', closes_at: '01:00' },
+      2: { opens_at: null, closes_at: null, is_closed: true },
+    }),
+  }
+  // Riyadh 2026-10-04 09:00, a Sunday morning.
+  const morning = new Date('2026-10-04T06:00:00Z')
+
+  it('runs from opening up to, not at, closing, every n minutes', () => {
+    const slots = timeSlots(branch, '2026-10-04', 30, 60, morning)
+    expect(slots[0]).toBe('12:00')
+    expect(slots.at(-1)).toBe('23:00')
+    expect(slots).toHaveLength(23)
+    expect(timeSlots(branch, '2026-10-04', 15, 60, morning).at(-1)).toBe(
+      '23:15',
+    )
+  })
+
+  it('runs past midnight for a late service, onto the next day', () => {
+    // 2026-10-09 is a Friday, 13:00 to 01:00.
+    const slots = timeSlots(branch, '2026-10-09', 30, 60, morning)
+    expect(slots.at(-1)).toBe('24:30')
+    expect(toReservedFor('2026-10-09', '24:30')).toBe(
+      '2026-10-10T00:30:00+03:00',
+    )
+  })
+
+  it('drops what is inside the minimum notice, and offers nothing on a closed day', () => {
+    // Riyadh 19:10: with an hour's notice, 20:30 is the first slot.
+    const evening = new Date('2026-10-04T16:10:00Z')
+    expect(timeSlots(branch, '2026-10-04', 30, 60, evening)[0]).toBe('20:30')
+    expect(timeSlots(branch, '2026-10-06', 30, 60, morning)).toEqual([])
+    expect(timeSlots(null, '2026-10-04', 30, 60, morning)).toEqual([])
   })
 })
 

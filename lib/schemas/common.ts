@@ -124,6 +124,10 @@ export const settingsSchema = z.object({
       max_party_size: z.number().int(),
       days_ahead: z.number().int(),
       min_notice_minutes: z.number().int(),
+      slot_minutes: z.number().int().positive(),
+      /** What the header "Reserve a Table" button does. */
+      button_action: z.enum(['page', 'modal']),
+      recaptcha_site_key: z.string().nullable(),
       disabled_message: z.string().nullable(),
     })
     .partial()

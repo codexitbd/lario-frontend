@@ -14,34 +14,58 @@ export const OCCASIONS = [
   'other',
 ] as const
 
-export const reservationSchema = z.object({
-  branch_slug: z.string().min(1),
-  guest_name: z.string().min(2).max(120),
-  guest_email: z.email(),
-  guest_phone: z.string().regex(E164, 'phone must be E.164, e.g. +966512345678'),
-  whatsapp: z.string().regex(E164).nullish(),
-  party_size: z.number().int().min(1).max(20),
-  // An explicit UTC offset is REQUIRED, not optional. Date.parse() on a naive
-  // datetime resolves against the SERVER PROCESS's local timezone — not
-  // Asia/Riyadh and not the guest's device. Verified: "2026-10-04T20:30:00"
-  // parsed under TZ=Asia/Dhaka yields 17:30 Riyadh, a three-hour error.
-  // 02-database-schema.md names this exact failure: "A reservation landing three
-  // hours off is the kind of bug that surfaces in front of the client."
-  // The Laravel Form Request must enforce the same thing — a bare `date` rule
-  // will NOT reproduce this.
-  reserved_for: z
-    .iso.datetime({ offset: true })
-    .refine((value) => Date.parse(value) > Date.now(), 'must be in the future')
-    .refine(
-      (value) => Date.parse(value) <= Date.now() + NINETY_DAYS_MS,
-      'must be within 90 days',
-    ),
-  occasion: z.enum(OCCASIONS).nullish(),
-  seating_preference: z.enum(SEATING_PREFERENCES).nullish(),
-  notes: z.string().max(1000).nullish(),
-  consent: z.literal(true),
-  locale: localeSchema,
-})
+export const reservationSchema = z
+  .object({
+    branch_slug: z.string().min(1),
+    guest_name: z.string().min(2).max(120),
+    guest_email: z.email(),
+    guest_phone: z
+      .string()
+      .regex(E164, 'phone must be E.164, e.g. +966512345678'),
+    whatsapp: z.string().regex(E164).nullish(),
+    party_size: z.number().int().min(1).max(20),
+    // An explicit UTC offset is REQUIRED, not optional. Date.parse() on a naive
+    // datetime resolves against the SERVER PROCESS's local timezone — not
+    // Asia/Riyadh and not the guest's device. Verified: "2026-10-04T20:30:00"
+    // parsed under TZ=Asia/Dhaka yields 17:30 Riyadh, a three-hour error.
+    // 02-database-schema.md names this exact failure: "A reservation landing three
+    // hours off is the kind of bug that surfaces in front of the client."
+    // The Laravel Form Request must enforce the same thing — a bare `date` rule
+    // will NOT reproduce this.
+    reserved_for: z.iso
+      .datetime({ offset: true })
+      .refine(
+        (value) => Date.parse(value) > Date.now(),
+        'must be in the future',
+      )
+      .refine(
+        (value) => Date.parse(value) <= Date.now() + NINETY_DAYS_MS,
+        'must be within 90 days',
+      ),
+    occasion: z.enum(OCCASIONS).nullish(),
+    seating_preference: z.enum(SEATING_PREFERENCES).nullish(),
+    allergies: z.string().max(500).nullish(),
+    birth_month: z.number().int().min(1).max(12).nullish(),
+    birth_day: z.number().int().min(1).max(31).nullish(),
+    notes: z.string().max(1000).nullish(),
+    consent: z.literal(true),
+    locale: localeSchema,
+    // The "I'm not a robot" token. Only Laravel can check it, and only when the
+    // admin has set the reCAPTCHA keys.
+    captcha_token: z.string().nullish(),
+  })
+  .refine(
+    // Both or neither, and a real day: 2024 is a leap year, so 29 Feb passes.
+    ({ birth_month: month, birth_day: day }) =>
+      !month && !day
+        ? true
+        : Boolean(
+            month &&
+            day &&
+            day <= new Date(Date.UTC(2024, month, 0)).getUTCDate(),
+          ),
+    { path: ['birth_day'] },
+  )
 export type ReservationInput = z.infer<typeof reservationSchema>
 
 export const contactSchema = z.object({
@@ -92,9 +116,13 @@ export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
       'Enter a valid phone number including the country code, for example +966512345678.',
     whatsapp: 'Enter a valid WhatsApp number including the country code.',
     party_size: 'Choose a party size between 1 and 20 guests.',
-    reserved_for: 'Choose a time later than now, within the next 90 days.',
+    reserved_for: 'Choose one of the dates and times offered.',
     occasion: 'Choose one of the listed occasions.',
     seating_preference: 'Choose one of the listed seating options.',
+    allergies: 'Allergies must be under 500 characters.',
+    birth_month: 'Choose both the month and the day of your birthday.',
+    birth_day: 'Choose both the month and the day of your birthday.',
+    captcha_token: "Please tick “I'm not a robot”.",
     notes: 'Notes must be under 1000 characters.',
     consent: 'Please agree to be contacted about this request.',
     message: 'Enter a message between 10 and 2000 characters.',
@@ -112,9 +140,13 @@ export const VALIDATION_MESSAGES: Record<Locale, Record<string, string>> = {
     guest_phone: 'أدخل رقم هاتف صحيحاً مع رمز الدولة، مثل ‎+966512345678.',
     whatsapp: 'أدخل رقم واتساب صحيحاً مع رمز الدولة.',
     party_size: 'اختر عدد ضيوف بين 1 و20.',
-    reserved_for: 'اختر وقتاً لاحقاً للآن، خلال التسعين يوماً القادمة.',
+    reserved_for: 'اختر أحد التواريخ والأوقات المتاحة.',
     occasion: 'اختر إحدى المناسبات المتاحة.',
     seating_preference: 'اختر أحد خيارات الجلوس المتاحة.',
+    allergies: 'يجب ألا تتجاوز ملاحظات الحساسية 500 حرف.',
+    birth_month: 'اختر شهر ويوم ميلادك معاً.',
+    birth_day: 'اختر شهر ويوم ميلادك معاً.',
+    captcha_token: 'يرجى تأكيد «أنا لست روبوت».',
     notes: 'يجب ألا تتجاوز الملاحظات 1000 حرف.',
     consent: 'يرجى الموافقة على التواصل معك بخصوص هذا الطلب.',
     message: 'أدخل رسالة بين 10 و2000 حرف.',

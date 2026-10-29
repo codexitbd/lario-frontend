@@ -27,11 +27,18 @@ export function ReservationFormSection({
       <Container>
         <CmsHeader content={section.content} className="mb-14" />
         {paused ? (
-          <p className="mx-auto max-w-[52ch] text-center text-lg text-ivory-dim">{settings?.reservations.disabled_message}</p>
+          <p className="mx-auto max-w-[52ch] text-center text-lg text-ivory-dim">
+            {settings?.reservations.disabled_message}
+          </p>
         ) : (
           // ReservationBook reads ?branch= on the client; Suspense keeps the page static.
           <Suspense>
-            <ReservationBook branches={branches} locale={locale} dict={dict} />
+            <ReservationBook
+              branches={branches}
+              settings={settings?.reservations ?? {}}
+              locale={locale}
+              dict={dict}
+            />
           </Suspense>
         )}
       </Container>

@@ -7,6 +7,7 @@ import { CaretDownIcon, ListIcon, XIcon } from '@phosphor-icons/react/ssr'
 import { type NavItem, isActivePath } from '@/lib/nav'
 import { LocaleSwitch } from '@/components/layout/locale-switch'
 import { Wordmark } from '@/components/layout/wordmark'
+import { ReserveLink } from '@/components/reservation/reservation-modal'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 
@@ -294,13 +295,13 @@ export function SiteNav({
             </ul>
           </nav>
 
-          <Link
+          <ReserveLink
             href={reserveHref}
-            onClick={hide}
+            onOpen={hide}
             className="mt-10 mb-2 inline-flex items-center justify-center bg-ivory px-8 py-4 text-[0.8125rem] font-medium tracking-[0.16em] text-ink uppercase transition-colors duration-300 ease-brand hover:bg-gold-pale"
           >
             {dict.actions.reserve}
-          </Link>
+          </ReserveLink>
         </div>
       </dialog>
     </>

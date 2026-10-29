@@ -101,7 +101,12 @@ export default async function ReservationPage({
       {/* The fallback holds the book's rough height so the footer does not
           jump up on the server render. */}
       <Suspense fallback={<div aria-hidden="true" className="min-h-[60vh]" />}>
-        <ReservationBook branches={branches} locale={locale} dict={dict} />
+        <ReservationBook
+          branches={branches}
+          settings={settings.reservations}
+          locale={locale}
+          dict={dict}
+        />
       </Suspense>
 
       <script

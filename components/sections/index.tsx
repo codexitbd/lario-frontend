@@ -60,7 +60,7 @@ export function renderSection(
     case 'why_lario':
       return <WhyLario section={section} locale={locale} />
     case 'chef_story':
-      return <ChefStory section={section} locale={locale} />
+      return <ChefStory section={section} />
     case 'branch_cards':
       return <BranchCards section={section} locale={locale} dict={dict} />
     case 'private_events':

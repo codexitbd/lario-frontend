@@ -111,6 +111,8 @@ describe('admin-driven rules', () => {
 
   it('opens the CSP only for trackers that are switched on', () => {
     expect(buildCsp({})).not.toContain('googletagmanager')
+    expect(buildCsp({})).not.toContain('gstatic')
+    expect(buildCsp({}, true)).toMatch(/script-src [^;]*https:\/\/www\.gstatic\.com/)
     const csp = buildCsp({ gtm_id: 'GTM-ABC1234', meta_pixel_id: '123', extra_script_domains: ['https://cdn.example.com', 'http://insecure.example'] })
     expect(csp).toMatch(/script-src [^;]*https:\/\/www\.googletagmanager\.com/)
     expect(csp).toMatch(/script-src [^;]*https:\/\/connect\.facebook\.net/)

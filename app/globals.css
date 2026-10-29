@@ -553,115 +553,6 @@ html[dir="rtl"] .lr-fan {
     color 500ms var(--ease-brand);
 }
 
-/* Our story (components/sections/chef-story.tsx). Two scroll films, no JS.
-
-   .lr-hearth   the photograph opens from a centred slit to the full bleed as it
-                rises, the picture settling from oversize inside the opening.
-                Done by the time the frame is centred in the viewport.
-   .lr-telling  the story inks in word by word. The paragraph owns a named view
-                timeline; each word's slice of it comes from --p (its position,
-                0 to 1, set in the markup), so the fill runs in reading order in
-                both scripts and line breaks never matter.
-
-   The resting state is the finished frame: nothing here sets a clip, scale or
-   colour outside the guarded block. */
-@keyframes lr-hearth-open {
-  from {
-    clip-path: inset(9% 40% 9% 40%);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes lr-hearth-settle {
-  from {
-    transform: scale(1.22);
-  }
-  to {
-    transform: none;
-  }
-}
-
-@keyframes lr-ink-in {
-  from {
-    color: color-mix(in srgb, var(--color-ink) 16%, var(--color-bone));
-  }
-  to {
-    color: var(--color-ink);
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .lr-hearth {
-      animation: lr-hearth-open linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 48%;
-    }
-
-    .lr-hearth img {
-      animation: lr-hearth-settle linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 52%;
-    }
-
-    .lr-telling {
-      view-timeline: --lr-telling block;
-    }
-
-    .lr-telling > span {
-      animation: lr-ink-in linear both;
-      animation-timeline: --lr-telling;
-      animation-range: cover calc(8% + var(--p) * 36%) cover
-        calc(16% + var(--p) * 36%);
-    }
-  }
-}
-
-/* The two rooms drift past the kitchen at their own depths. Each sets its
-   travel with --lr-from / --lr-to, so one keyframe serves both. */
-@keyframes lr-float {
-  from {
-    transform: translateY(var(--lr-from, 3rem));
-  }
-  to {
-    transform: translateY(var(--lr-to, -3rem));
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .lr-float {
-      animation: lr-float linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
-  }
-}
-
-/* A gold Bodoni initial opens the telling, Latin only as in .lr-prose: Arabic
-   letters join, so a detached initial would break the first word. */
-html:not([dir="rtl"]) .lr-telling::first-letter {
-  float: inline-start;
-  margin-block-start: 0.06em;
-  margin-inline-end: 0.12em;
-  font-size: 3.4em;
-  line-height: 0.82;
-  color: var(--color-gold-ink);
-}
-
-@media (max-width: 639px) {
-  @keyframes lr-hearth-open {
-    from {
-      clip-path: inset(6% 20% 6% 20%);
-    }
-    to {
-      clip-path: inset(0 0 0 0);
-    }
-  }
-}
-
 /* Cards reveal their copy on hover. The row collapses to 0fr rather than to
    opacity 0, so the title sits on the base of the card at rest and is lifted by
    the description arriving, as in reference 01-intro-hover — an invisible
@@ -997,12 +888,41 @@ html[dir="rtl"] .lr-prose blockquote {
 /* The viewer (components/gallery/gallery-viewer.tsx). A native <dialog>, so
    focus trapping, Escape and inertness come from the browser. The page behind
    stops scrolling while it is open. */
-html:has(.lr-lightbox[open]) {
+html:has(.lr-lightbox[open]),
+html:has(.lr-reserve[open]) {
   overflow: hidden;
 }
 
 .lr-lightbox::backdrop {
   background: var(--color-scrim);
+}
+
+/* The booking pop-up (components/reservation/reservation-modal.tsx) is the
+   LIGHT reading of the reservation book, at client request 2026-10-29. The
+   book is written in the dark-ground tokens; inside the pop-up they point at
+   their bone-ground partners, so one component serves both grounds. `.lr-dark`
+   (the branch photo cards) takes the dark set back: its text sits on a photo.
+   The page behind stays in view, blurred, under a light veil. */
+.lr-reserve {
+  /* Light scrollbar and native pickers. */
+  color-scheme: light;
+  --color-ivory: var(--color-ink);
+  --color-ivory-dim: var(--color-ink-soft);
+  --color-gold: var(--color-gold-ink);
+  --color-gold-pale: var(--color-gold-ink);
+}
+
+.lr-reserve .lr-dark {
+  --color-ivory: var(--color-bone);
+  --color-ivory-dim: #bfb9ac;
+  --color-gold: #e8b860;
+  --color-gold-pale: #f3dcae;
+}
+
+.lr-reserve::backdrop {
+  background: color-mix(in oklab, var(--color-scrim) 25%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 @keyframes lr-fade {
@@ -1023,7 +943,8 @@ html:has(.lr-lightbox[open]) {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .lr-lightbox[open] {
+  .lr-lightbox[open],
+  .lr-reserve[open] {
     animation: lr-fade 360ms var(--ease-brand) both;
   }
 

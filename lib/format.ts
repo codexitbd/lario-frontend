@@ -81,6 +81,31 @@ export function formatWeekday(
   }).format(date)
 }
 
+/** A YYYY-MM-DD calendar day as a picker chip reads it: "Sat", "1 Nov". */
+export function formatDay(
+  date: string,
+  locale: Locale,
+): { weekday: string; day: string } {
+  const at = new Date(`${date}T12:00:00Z`)
+  const format = (options: Intl.DateTimeFormatOptions) =>
+    new Intl.DateTimeFormat(intlLocale(locale), {
+      timeZone: 'UTC',
+      ...options,
+    }).format(at)
+  return {
+    weekday: format({ weekday: 'short' }),
+    day: format({ day: 'numeric', month: 'short' }),
+  }
+}
+
+/** Month `1`-`12` by name, for the birthday picker. */
+export function formatMonth(month: number, locale: Locale): string {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    timeZone: 'UTC',
+    month: 'long',
+  }).format(new Date(Date.UTC(2024, month - 1, 1)))
+}
+
 export function formatClock(time: string, locale: Locale): string {
   const [hours = '0', minutes = '0'] = time.split(':')
   const date = new Date(Date.UTC(2000, 0, 1, Number(hours), Number(minutes)))
@@ -116,6 +141,9 @@ export function formatPhone(e164: string | null | undefined): string {
 
 /** Minutes to read an HTML body at 200 words a minute, never less than one. */
 export function readingMinutes(html: string): number {
-  const words = html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length
+  const words = html
+    .replace(/<[^>]*>/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length
   return Math.max(1, Math.ceil(words / 200))
 }
