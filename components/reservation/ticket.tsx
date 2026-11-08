@@ -127,7 +127,7 @@ export function Ticket({
           className="flex items-start justify-between gap-6 border-b border-gold-ink/20 pb-6"
         >
           <div>
-            <p className="text-[0.6875rem] tracking-[0.18em] text-gold-ink uppercase">
+            <p className="text-xs tracking-[0.18em] text-gold-ink uppercase">
               {dict.reservation.reference}
             </p>
             <p
@@ -172,7 +172,7 @@ export function Ticket({
               height={128}
               className="size-24 bg-white sm:size-32"
             />
-            <figcaption className="mt-2 max-w-32 text-[0.6875rem] leading-snug text-ink-soft">
+            <figcaption className="mt-2 max-w-32 text-xs leading-snug text-ink-soft">
               {dict.reservation.qrNote}
             </figcaption>
           </figure>
@@ -181,7 +181,7 @@ export function Ticket({
       <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-[auto_1fr_auto]">
         {lines.map((line) => (
           <div key={line.label} className="contents">
-            <dt className="text-[0.6875rem] tracking-[0.18em] text-ink-soft uppercase sm:pt-1">
+            <dt className="text-xs tracking-[0.18em] text-ink-soft uppercase sm:pt-1">
               {line.label}
             </dt>
             <dd
@@ -194,7 +194,7 @@ export function Ticket({
                 <button
                   type="button"
                   onClick={() => onEdit(line.chapter)}
-                  className="text-[0.6875rem] tracking-[0.16em] text-gold-ink uppercase underline-offset-4 hover:underline"
+                  className="text-xs tracking-[0.16em] text-gold-ink uppercase underline-offset-4 hover:underline"
                 >
                   {dict.reservation.edit}
                 </button>

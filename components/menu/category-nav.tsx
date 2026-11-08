@@ -47,7 +47,7 @@ export function CategoryNav({
         className={
           headingHidden
             ? 'sr-only'
-            : 'text-center text-[0.6875rem] tracking-[0.28em] text-gold-ink uppercase'
+            : 'text-center text-xs tracking-[0.28em] text-gold-ink uppercase'
         }
       >
         {heading ?? dict.menu.browseCourses}
@@ -68,7 +68,7 @@ export function CategoryNav({
               <span className="border-b border-transparent pb-1 transition-colors duration-300 group-hover:border-gold-ink/60">
                 {category.name}
               </span>
-              <span className="text-[0.625rem] text-ink-soft transition-colors duration-300 group-hover:text-gold-ink/70">
+              <span className="text-xs text-ink-soft transition-colors duration-300 group-hover:text-gold-ink/70">
                 {category.item_count}
               </span>
             </Link>

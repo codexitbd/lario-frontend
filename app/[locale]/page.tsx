@@ -8,7 +8,7 @@ import { getSettings } from '@/lib/api/settings'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { isLocale } from '@/lib/i18n/config'
 import { buildMetadata } from '@/lib/seo/metadata'
-import { faqJsonLd, restaurantJsonLd } from '@/lib/seo/json-ld'
+import { faqJsonLd, restaurantJsonLd, restaurantSettingsFields } from '@/lib/seo/json-ld'
 
 export async function generateMetadata({
   params,
@@ -66,6 +66,7 @@ export default async function HomePage({
               url: home.seo.canonical,
               image: home.seo.og.image,
               branches,
+              ...restaurantSettingsFields(settings, locale),
             }),
           ),
         }}

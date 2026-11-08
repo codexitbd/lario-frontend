@@ -76,7 +76,7 @@ export function VisitBlock({
 
             <dl className="mt-12 flex flex-col gap-10">
               <div>
-                <dt className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+                <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                   {dict.branch.openingHours}
                 </dt>
                 <dd className="mt-4 flex flex-col gap-3">
@@ -101,7 +101,7 @@ export function VisitBlock({
               </div>
 
               <div>
-                <dt className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+                <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                   {dict.nav.contact}
                 </dt>
                 <dd className="mt-4 flex flex-col gap-1 text-sm text-ink-soft">
@@ -122,7 +122,7 @@ export function VisitBlock({
               </div>
 
               <div>
-                <dt className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+                <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                   {dict.nav.branches}
                 </dt>
                 <dd className="mt-4 flex flex-col gap-3 text-sm text-ink-soft">
@@ -133,8 +133,8 @@ export function VisitBlock({
                         <a
                           href={branch.google_maps_url}
                           target="_blank"
-                          rel="noreferrer"
-                          className="ms-3 inline-flex min-h-6 items-center border-b border-gold-ink/40 pb-0.5 text-[0.625rem] tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
+                          rel="noopener noreferrer"
+                          className="ms-3 inline-flex min-h-6 items-center border-b border-gold-ink/40 pb-0.5 text-xs tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
                         >
                           {dict.branch.getDirections}
                         </a>

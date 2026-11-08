@@ -7,7 +7,41 @@ import { useEffect, useRef, useState } from 'react'
 const OVERLAY_MS = 5000
 
 /**
- * The hero's background film.
+ * The hero's film from an uploaded file (QA round 2, A-08). The YouTube embed
+ * below made guests watch the still photograph for seconds while the player
+ * booted, and iPhones in Low Power Mode refuse to autoplay it at all. A plain
+ * <video> is in the server HTML, so it starts loading with the document and
+ * plays as soon as it has a frame; the photograph underneath (the admin is
+ * asked to use the film's first frame) covers the gap. Autoplay is native, so
+ * the one thing JavaScript does here is honour `prefers-reduced-motion`.
+ */
+export function HeroFilm({ mp4, webm }: { mp4: string; webm: string | null }) {
+  const film = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) film.current?.pause()
+  }, [])
+
+  return (
+    <video
+      ref={film}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      tabIndex={-1}
+      className="pointer-events-none absolute inset-0 -z-10 size-full object-cover"
+    >
+      {webm ? <source src={webm} type="video/webm" /> : null}
+      <source src={mp4} type="video/mp4" />
+    </video>
+  )
+}
+
+/**
+ * The hero's background film from YouTube, when no file is uploaded.
  *
  * Deliberately NOT part of first paint. Mobile PageSpeed 95+ and LCP under 1.5s
  * are milestone acceptance criteria, and a YouTube embed pulls several hundred

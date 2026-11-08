@@ -34,12 +34,16 @@ import type { Locale } from '@/lib/i18n/config'
  *   the ledger   the four points set large in Bodoni, one to a row, on
  *                hairlines. Hover a row and a gold line draws across it from the
  *                start edge (`.lr-why-row`, globals.css).
- *   the slab     ONE photograph, the full height of the section, bleeding off
- *                the end edge with the house inset frame. The frame warms to
- *                gold whenever a ledger row is hovered, so the claim and the
- *                room answer each other. That link is the whole reason the
- *                frame here has a hover state when static frames elsewhere do
- *                not.
+ *   the slab     ONE photograph beside the ledger, with the house inset frame.
+ *                The frame warms to gold whenever a ledger row is hovered, so
+ *                the claim and the room answer each other. That link is the
+ *                whole reason the frame here has a hover state when static
+ *                frames elsewhere do not.
+ *
+ * The slab used to bleed off the end edge of the screen. The client asked for
+ * both columns inside the page container (QA round 2, A-06): on a 1920px
+ * screen the bleed left the copy centred and a wide empty band on the start
+ * side.
  *
  * Ink ground, not emerald. "Not over-coloured" was the brief, and a flat brand
  * field is exactly what the design system warns against as a default; emerald
@@ -55,13 +59,12 @@ import type { Locale } from '@/lib/i18n/config'
  * carried. One frame shown with conviction beats two floating ones, and the
  * off-contract read goes with it.
  *
- * ONE Figure for both layouts. Below lg it is in flow between the header and
- * the ledger at 4:3; at lg it goes absolute against the section (Container and
- * the copy column are unpositioned, so the section is its containing block) and
- * becomes the slab. The first cut rendered two Figures, one `hidden lg:block`,
- * on the assumption that display:none would spare the phone the request. It
- * does not: an <img> in a hidden subtree still loads, only CSS backgrounds are
- * skipped, and the phone was fetching the photograph twice at two sizes.
+ * ONE Figure for both layouts, placed by named grid areas: below lg the photo
+ * sits in flow between the header and the ledger at 4:3, at lg it takes the end
+ * column at the full height of the copy. The first cut rendered two Figures,
+ * one `hidden lg:block`, on the assumption that display:none would spare the
+ * phone the request. It does not: an <img> in a hidden subtree still loads, and
+ * the phone was fetching the photograph twice at two sizes.
  */
 const ICONS: Record<string, Icon> = {
   flame: FlameIcon,
@@ -111,35 +114,36 @@ export function WhyLario({
 
   return (
     <section className="lr-why relative isolate overflow-hidden bg-ink py-24 md:py-32 lg:py-36">
-      <Container>
-        <div className="lg:w-[55%] xl:w-[52%]">
-          <SectionHeader
-            eyebrow={readText(content, 'eyebrow')}
-            heading={readText(content, 'heading')}
-            subheading={readText(content, 'subheading')}
-            treatment="kicker"
-            align="start"
+      <Container className="grid [grid-template-areas:'head'_'photo'_'body'] lg:grid-cols-2 lg:gap-x-16 lg:[grid-template-areas:'head_photo'_'body_photo'] xl:gap-x-24">
+        <SectionHeader
+          eyebrow={readText(content, 'eyebrow')}
+          heading={readText(content, 'heading')}
+          subheading={readText(content, 'subheading')}
+          treatment="kicker"
+          align="start"
+          className="[grid-area:head]"
+        />
+
+        {/* The photograph: in flow below lg, the end column at lg. See the
+            note above on why it is one element. */}
+        <div className="relative mt-12 aspect-[4/3] w-full [grid-area:photo] lg:mt-0 lg:aspect-auto lg:min-h-[28rem]">
+          <Figure
+            src={image}
+            mobileSrc={readImage(payload, 'mobile_image')}
+            desktopFrom={1024}
+            slot="home.why-lario"
+            alt=""
+            shot={SHOT}
+            sizes="(min-width: 87.5rem) 41rem, (min-width: 64rem) 45vw, 100vw"
+            className="lr-focus absolute inset-0"
           />
+          <span
+            aria-hidden="true"
+            className="lr-why-frame pointer-events-none absolute inset-3 border border-ivory/25 transition-colors duration-700 ease-brand lg:inset-4"
+          />
+        </div>
 
-          {/* The photograph: in flow here below lg, the full-height slab off
-              the end edge at lg. See the note above on why it is one element. */}
-          <div className="relative mt-12 aspect-[4/3] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:-z-10 lg:mt-0 lg:aspect-auto lg:w-[38vw]">
-            <Figure
-              src={image}
-              mobileSrc={readImage(payload, 'mobile_image')}
-              desktopFrom={1024}
-              slot="home.why-lario"
-              alt=""
-              shot={SHOT}
-              sizes="(min-width: 64rem) 38vw, 100vw"
-              className="lr-focus absolute inset-0"
-            />
-            <span
-              aria-hidden="true"
-              className="lr-why-frame pointer-events-none absolute inset-3 border border-ivory/25 transition-colors duration-700 ease-brand lg:inset-4"
-            />
-          </div>
-
+        <div className="[grid-area:body]">
           {ledger}
 
           <SectionCta

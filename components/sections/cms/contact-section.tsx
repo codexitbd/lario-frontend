@@ -34,7 +34,7 @@ export function ContactSection({
               <div><dt className="text-ivory-dim">{dict.footer.callUs}</dt><dd><a href={`tel:${contact.phone}`} className="text-lg hover:text-gold"><bdi dir="ltr">{formatPhone(contact.phone)}</bdi></a></dd></div>
             ) : null}
             {contact?.whatsapp ? (
-              <div><dt className="text-ivory-dim">{dict.footer.whatsapp}</dt><dd><a href={`https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noreferrer" className="text-lg hover:text-gold"><bdi dir="ltr">{formatPhone(contact.whatsapp)}</bdi></a></dd></div>
+              <div><dt className="text-ivory-dim">{dict.footer.whatsapp}</dt><dd><a href={`https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-lg hover:text-gold"><bdi dir="ltr">{formatPhone(contact.whatsapp)}</bdi></a></dd></div>
             ) : null}
             {contact?.email ? (
               <div><dt className="text-ivory-dim">{dict.footer.emailUs}</dt><dd><a href={`mailto:${contact.email}`} className="text-lg hover:text-gold">{contact.email}</a></dd></div>

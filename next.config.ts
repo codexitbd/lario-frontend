@@ -5,6 +5,8 @@ const media = new URL(MEDIA_ORIGIN)
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  // No "X-Powered-By: Next.js" on every response (QA round 2, B-17).
+  poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
     // A local backend (Herd, *.test) resolves to 127.0.0.1, which next/image

@@ -101,7 +101,7 @@ export function BranchCards({
                 className="absolute inset-0 -z-10 bg-[radial-gradient(78%_68%_at_50%_50%,color-mix(in_srgb,var(--color-ink)_72%,transparent)_0%,transparent_82%)] opacity-0 transition-opacity duration-700 group-hover:opacity-100"
               />
 
-              <p className="text-[0.6875rem] tracking-[0.24em] text-gold uppercase">
+              <p className="text-xs tracking-[0.24em] text-gold uppercase">
                 {branch.tagline}
               </p>
 
@@ -118,7 +118,7 @@ export function BranchCards({
                 {branch.address}
               </p>
 
-              <h4 className="mt-9 text-[0.6875rem] tracking-[0.2em] text-ivory uppercase">
+              <h4 className="mt-9 text-xs tracking-[0.2em] text-ivory uppercase">
                 {dict.branch.openingHours}
               </h4>
               <dl className="mt-3 flex flex-col gap-1 text-sm text-ivory-dim">
@@ -134,7 +134,7 @@ export function BranchCards({
                 <a
                   href={branch.google_maps_url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="mt-9 border-b border-gold/40 pb-1 text-[0.8125rem] font-medium tracking-[0.16em] text-gold uppercase transition-colors duration-300 hover:border-gold hover:text-gold-pale"
                 >
                   {dict.branch.getDirections}

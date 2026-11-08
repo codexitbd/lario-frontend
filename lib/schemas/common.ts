@@ -67,6 +67,7 @@ export const settingsSchema = z.object({
   // Every contact value is optional in the admin; an empty field renders nothing.
   contact: z.object({
     phone: z.string().nullable(),
+    landline: z.string().nullish(),
     whatsapp: z.string().nullable(),
     email: z.email().nullable(),
     address: z.string().nullable().optional(),

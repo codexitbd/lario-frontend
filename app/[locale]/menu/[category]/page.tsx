@@ -95,7 +95,7 @@ export default async function CategoryPage({
         <Container className="relative">
           <nav
             aria-label="Breadcrumb"
-            className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+            className="text-xs tracking-[0.2em] text-ivory-dim uppercase"
           >
             <ol className="flex flex-wrap items-center gap-3">
               <li>

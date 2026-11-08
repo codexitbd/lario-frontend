@@ -68,7 +68,7 @@ function Detail({
 }) {
   return (
     <div>
-      <dt className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+      <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
         {label}
       </dt>
       <dd className="mt-4 text-base leading-relaxed text-ink-soft">
@@ -121,7 +121,7 @@ export default async function DishPage({
         <Container>
           <nav
             aria-label="Breadcrumb"
-            className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+            className="text-xs tracking-[0.2em] text-ivory-dim uppercase"
           >
             <ol className="flex flex-wrap items-center gap-3">
               <li>
@@ -178,7 +178,7 @@ export default async function DishPage({
             <div className="lr-reveal [grid-area:identity]">
               <Link
                 href={localePath(locale, `/menu/${category}`)}
-                className="inline-flex min-h-6 items-center text-[0.6875rem] tracking-[0.24em] text-gold uppercase transition-colors duration-300 ease-brand hover:text-gold-pale"
+                className="inline-flex min-h-6 items-center text-xs tracking-[0.24em] text-gold uppercase transition-colors duration-300 ease-brand hover:text-gold-pale"
               >
                 {item.category.name}
               </Link>
@@ -234,7 +234,7 @@ export default async function DishPage({
                   {item.dietary_tags.map((tag) => (
                     <li
                       key={tag}
-                      className="border border-gold/30 px-3 py-1.5 text-[0.625rem] tracking-[0.16em] text-gold/90 uppercase"
+                      className="border border-gold/30 px-3 py-1.5 text-xs tracking-[0.16em] text-gold/90 uppercase"
                     >
                       {dict.menu.tags[
                         tag as keyof Dictionary['menu']['tags']
@@ -249,8 +249,8 @@ export default async function DishPage({
                   dietary tags would flatten the difference between "this dish
                   IS vegetarian" and "this dish CONTAINS dairy". */}
               {item.allergens.length > 0 ? (
-                <p className="mt-5 text-sm text-ivory-dim/80">
-                  <span className="text-ivory-dim/60">
+                <p className="mt-5 text-sm text-ivory-dim">
+                  <span className="text-ivory-dim">
                     {dict.menu.contains}:{' '}
                   </span>
                   {item.allergens

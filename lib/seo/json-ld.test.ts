@@ -189,6 +189,29 @@ describe('restaurantJsonLd', () => {
     })
   })
 
+  it('carries the settings fields, with the logo standing in for a missing image', () => {
+    const ld = restaurantJsonLd({
+      name: 'La Rio',
+      description: 'd',
+      url: 'https://lario.sa/',
+      image: null,
+      branches: [],
+      telephone: '+966114422294',
+      logo: 'https://lario.sa/logo.png',
+      sameAs: ['https://instagram.com/lario'],
+      menuUrl: 'https://lario.sa/menu',
+      reserveUrl: 'https://lario.sa/reservation',
+    })
+    expect(ld).toMatchObject({
+      image: 'https://lario.sa/logo.png',
+      logo: 'https://lario.sa/logo.png',
+      telephone: '+966114422294',
+      sameAs: ['https://instagram.com/lario'],
+      hasMenu: 'https://lario.sa/menu',
+      acceptsReservations: 'https://lario.sa/reservation',
+    })
+  })
+
   it('emits no potentialAction without a reservation page', () => {
     const ld = restaurantJsonLd({
       name: 'La Rio',

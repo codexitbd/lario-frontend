@@ -107,7 +107,7 @@ export function Figure({
             trailing full stop jumps to the front of the line. */}
         <span
           dir="ltr"
-          className="max-w-[22ch] text-[0.6875rem] leading-relaxed tracking-[0.18em] text-gold/70 uppercase"
+          className="max-w-[22ch] text-xs leading-relaxed tracking-[0.18em] text-gold/70 uppercase"
         >
           {shot}
         </span>

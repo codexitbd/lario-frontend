@@ -58,14 +58,19 @@ export function generateStaticParams() {
 /** Site-wide head tags from the admin: favicon, home-screen icon, search verification. */
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const settings = await getSettings(isLocale(locale) ? locale : DEFAULT_LOCALE)
+  const lang = isLocale(locale) ? locale : DEFAULT_LOCALE
+  const [settings, dict] = await Promise.all([getSettings(lang), getDictionary(lang)])
   const { favicon, apple_touch_icon: apple } = settings.branding
 
   return {
     metadataBase: new URL(SITE_URL),
+    // Every page sets its own title from the API, so this default only ever
+    // shows on a 404, whose page bailed out before setting one (QA round 2, B-04).
+    title: `${dict.notFound.title}${settings.seo_defaults.title_suffix}`,
     icons: {
       ...(favicon ? { icon: favicon } : {}),
-      ...(apple ? { apple } : {}),
+      // public/apple-touch-icon.png until the admin uploads one.
+      apple: apple ?? '/apple-touch-icon.png',
     },
     verification: {
       ...(settings.seo_defaults.google_verification ? { google: settings.seo_defaults.google_verification } : {}),

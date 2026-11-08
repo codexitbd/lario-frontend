@@ -89,7 +89,7 @@ export function OpenNow({
               : 'text-gold'
             : light
               ? 'text-ink-soft'
-              : 'text-ivory-dim/70'
+              : 'text-ivory-dim'
         }
       >
         {label}

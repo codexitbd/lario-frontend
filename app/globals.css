@@ -602,9 +602,18 @@ html[dir="rtl"] .lr-fan {
   --lr-fav-narrow: calc((100% - var(--lr-fav-h)) / 3);
 }
 
+/* Below lg: one whole card per view on a phone, two from sm, always equal
+   widths. The track's gap matches the strip's padding, so a neighbour starts
+   exactly past the screen edge instead of peeking in cut off (QA round 2, A-05). */
 .lr-fav-track > li {
-  flex: 0 0 min(78%, 22rem);
+  flex: 0 0 100%;
   transition: flex-basis 700ms var(--ease-brand);
+}
+
+@media (min-width: 40rem) {
+  .lr-fav-track > li {
+    flex-basis: calc((100% - 2rem) / 2);
+  }
 }
 
 @media (min-width: 64rem) {
@@ -897,12 +906,14 @@ html:has(.lr-reserve[open]) {
   background: var(--color-scrim);
 }
 
-/* The booking pop-up (components/reservation/reservation-modal.tsx) is the
-   LIGHT reading of the reservation book, at client request 2026-10-29. The
-   book is written in the dark-ground tokens; inside the pop-up they point at
-   their bone-ground partners, so one component serves both grounds. `.lr-dark`
-   (the branch photo cards) takes the dark set back: its text sits on a photo.
-   The page behind stays in view, blurred, under a light veil. */
+/* The reservation book on white: the pop-up
+   (components/reservation/reservation-modal.tsx) and the book's band on
+   /reservation and the CMS reservation component, at client request (2026-10-29,
+   white rather than bone since QA round 2, A-10). The book is written in the
+   dark-ground tokens; inside `.lr-reserve` they point at their light-ground
+   partners, so one component serves both grounds. `.lr-dark` (the branch photo
+   cards) takes the dark set back: its text sits on a photo. Behind the pop-up
+   the page stays in view, blurred, under a light veil. */
 .lr-reserve {
   /* Light scrollbar and native pickers. */
   color-scheme: light;

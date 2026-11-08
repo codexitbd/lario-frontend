@@ -85,7 +85,7 @@ export function DishCard({
             className="pointer-events-none absolute inset-4 border border-ivory/35 transition-colors duration-500 ease-brand group-hover:border-gold/80"
           />
           {!item.is_available ? (
-            <span className="absolute inset-x-0 bottom-0 bg-ink/85 py-2.5 text-center text-[0.625rem] tracking-[0.2em] text-gold uppercase">
+            <span className="absolute inset-x-0 bottom-0 bg-ink/85 py-2.5 text-center text-xs tracking-[0.2em] text-gold uppercase">
               {dict.menu.unavailable}
             </span>
           ) : null}
@@ -96,7 +96,7 @@ export function DishCard({
         </h3>
 
         {item.short_description ? (
-          <p className="mt-2 max-w-[38ch] text-[0.8125rem] leading-relaxed text-ivory-dim/85">
+          <p className="mt-2 max-w-[38ch] text-[0.8125rem] leading-relaxed text-ivory-dim">
             {item.short_description}
           </p>
         ) : null}
@@ -108,14 +108,14 @@ export function DishCard({
             {formatPrice(item.price, item.currency, locale)}
           </span>
           {item.calories !== null ? (
-            <span className="text-[0.6875rem] tracking-[0.1em] text-ivory-dim/70 uppercase">
+            <span className="text-xs tracking-[0.1em] text-ivory-dim uppercase">
               {formatCalories(item.calories, locale)} {dict.menu.calories}
             </span>
           ) : null}
         </span>
 
         {tags.length > 0 ? (
-          <span className="mt-1.5 block text-[0.6875rem] tracking-[0.1em] text-gold/60 uppercase">
+          <span className="mt-1.5 block text-xs tracking-[0.1em] text-gold/60 uppercase">
             {tags.join(', ')}
           </span>
         ) : null}

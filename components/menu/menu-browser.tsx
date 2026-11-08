@@ -27,12 +27,12 @@ import type { MenuCategory, MenuItemCard } from '@/lib/schemas'
  * Search, dietary and price filtering over the whole menu, plus the grid it
  * produces. The one interactive part of /menu.
  *
- * The controls are COLLAPSED behind a single button. Browsing by course is the
- * common path and sits above this, always visible; search and filters are the
- * rarer, deliberate act, and three rows of chips parked permanently between the
- * courses and the food made the page read as a search tool rather than a menu.
- * A link that arrives already filtered opens the panel by itself, so nobody
- * meets a short list with no visible reason for it.
+ * The search box is always visible; the dietary and price chips are COLLAPSED
+ * behind a single button. Browsing by course is the common path and sits above
+ * this; filtering is the rarer, deliberate act, and rows of chips parked
+ * permanently between the courses and the food made the page read as a search
+ * tool rather than a menu. A link that arrives with a chip set opens the panel
+ * by itself, so nobody meets a short list with no visible reason for it.
  *
  * Filtering is CLIENT-SIDE on purpose. Reading `searchParams` on the server
  * would make the route dynamic, and this page has 89 dish photographs and a
@@ -109,7 +109,7 @@ export function MenuBrowser({
   // shut on a plain visit, open on a link that arrives filtered. Deriving it
   // rather than syncing state in an effect keeps this at one render.
   const [toggled, setToggled] = useState<boolean | null>(null)
-  const open = toggled ?? filtered
+  const open = toggled ?? (diet !== null || band !== null)
 
   const write = useCallback((next: Filters) => {
     const qs = toSearchParams(next)
@@ -164,7 +164,7 @@ export function MenuBrowser({
 
   // Chips sit on bone, so gold drops to --color-gold-ink to hold contrast.
   const chip = (active: boolean) =>
-    `border px-5 py-2.5 text-[0.6875rem] tracking-[0.18em] uppercase transition-colors duration-300 ease-brand ${
+    `border px-5 py-2.5 text-xs tracking-[0.18em] uppercase transition-colors duration-300 ease-brand ${
       active
         ? 'border-gold-ink bg-gold-ink/10 text-ink'
         : 'border-ink/20 text-ink-soft hover:border-gold-ink/60 hover:text-gold-ink'
@@ -180,13 +180,33 @@ export function MenuBrowser({
       <section className="bg-bone pt-12 pb-14 md:pb-20">
         <Container>
           <div className="flex flex-col items-center gap-5">
+            {/* Search stays out of the panel (QA round 2, B-20): the intro
+                tells guests to search for a dish, so the box has to be there. */}
+            <div className="w-full max-w-3xl">
+              <label className="relative block w-full">
+                <span className="sr-only">
+                  {dict.menu.searchPlaceholder}
+                </span>
+                <MagnifyingGlassIcon
+                  aria-hidden="true"
+                  className="pointer-events-none absolute start-0 top-1/2 size-5 -translate-y-1/2 text-gold-ink"
+                />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(event) => patch({ query: event.target.value })}
+                  placeholder={dict.menu.searchPlaceholder}
+                  className="w-full border-b border-ink/25 bg-transparent py-4 ps-9 text-center text-lg text-ink transition-colors duration-300 placeholder:text-ink-soft/70 focus:border-gold-ink focus:outline-none"
+                />
+              </label>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <button
                 type="button"
                 onClick={() => setToggled(!open)}
                 aria-expanded={open}
                 aria-controls="menu-filters"
-                className="flex items-center gap-2.5 border border-ink/25 px-6 py-3 text-[0.6875rem] tracking-[0.2em] text-ink uppercase transition-colors duration-300 ease-brand hover:border-gold-ink hover:text-gold-ink"
+                className="flex items-center gap-2.5 border border-ink/25 px-6 py-3 text-xs tracking-[0.2em] text-ink uppercase transition-colors duration-300 ease-brand hover:border-gold-ink hover:text-gold-ink"
               >
                 <SlidersHorizontalIcon aria-hidden="true" className="size-4" />
                 {dict.menu.filters}
@@ -200,7 +220,7 @@ export function MenuBrowser({
                   <button
                     type="button"
                     onClick={clear}
-                    className="inline-flex items-center gap-1.5 border-b border-gold-ink/40 pb-0.5 text-[0.6875rem] tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
+                    className="inline-flex items-center gap-1.5 border-b border-gold-ink/40 pb-0.5 text-xs tracking-[0.18em] text-gold-ink uppercase transition-colors duration-300 hover:border-gold-ink hover:text-ink"
                   >
                     <XIcon aria-hidden="true" className="size-3" />
                     {dict.menu.clearFilters}
@@ -222,22 +242,6 @@ export function MenuBrowser({
             >
               <div className="overflow-hidden">
                 <div className="mx-auto flex max-w-3xl flex-col items-center gap-7 pt-8">
-                  <label className="relative block w-full">
-                    <span className="sr-only">
-                      {dict.menu.searchPlaceholder}
-                    </span>
-                    <MagnifyingGlassIcon
-                      aria-hidden="true"
-                      className="pointer-events-none absolute start-0 top-1/2 size-5 -translate-y-1/2 text-gold-ink"
-                    />
-                    <input
-                      type="search"
-                      value={query}
-                      onChange={(event) => patch({ query: event.target.value })}
-                      placeholder={dict.menu.searchPlaceholder}
-                      className="w-full border-b border-ink/25 bg-transparent py-4 ps-9 text-center text-lg text-ink transition-colors duration-300 placeholder:text-ink-soft/70 focus:border-gold-ink focus:outline-none"
-                    />
-                  </label>
 
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     <button

@@ -11,13 +11,15 @@ import {
 } from '@/components/sections/content'
 
 /**
- * Reference 01-intro: a bone ground, a centred statement, and three tall
+ * Reference 01-intro: a white ground, a centred statement, and three tall
  * portrait cards with an inset hairline frame, the cuisine named across the
  * bottom, its description arriving on hover behind a gold glow.
  *
  * The first light section on the page. The reference alternates light and dark
  * grounds and that rhythm is the design — see the note at the top of
- * globals.css before changing it.
+ * globals.css before changing it. White rather than bone, and tight padding
+ * (40px phone, 64px desktop), at client request (QA round 2, A-04); the teeth
+ * at the top of signature-favourites carry the same white.
  *
  * The cards are deliberately not links. Cuisine is not a route — the menu
  * taxonomy is course-based (decision D6), so there is no /italian page to point
@@ -38,7 +40,7 @@ export function Intro({ section }: { section: { payload: Bag; content: Bag } }) 
   const cards = readList(content, 'cards', cuisineCardSchema)
 
   return (
-    <section className="relative bg-bone py-28 md:py-44">
+    <section className="relative bg-white py-10 md:py-16">
       <Container>
         <SectionHeader
           eyebrow={readText(content, 'eyebrow')}
@@ -49,7 +51,7 @@ export function Intro({ section }: { section: { payload: Bag; content: Bag } }) 
           tone="light"
         />
 
-        <ul className="mt-16 grid gap-6 md:mt-20 md:grid-cols-3 lg:gap-8">
+        <ul className="mt-10 grid gap-6 md:mt-12 md:grid-cols-3 lg:gap-8">
           {cards.map((card, index) => (
             <li
               key={card.key}

@@ -23,9 +23,9 @@ export function ReservationFormSection({
   const paused = settings?.reservations.enabled === false
 
   return (
-    <section className="bg-ink pt-8 pb-24 text-ivory md:pb-32">
+    <section className="lr-reserve bg-white pt-16 pb-24 text-ink md:pb-32">
       <Container>
-        <CmsHeader content={section.content} className="mb-14" />
+        <CmsHeader content={section.content} tone="light" className="mb-14" />
         {paused ? (
           <p className="mx-auto max-w-[52ch] text-center text-lg text-ivory-dim">
             {settings?.reservations.disabled_message}

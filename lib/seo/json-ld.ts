@@ -1,6 +1,7 @@
 import { formatCalories } from '@/lib/format'
 import type { Locale } from '@/lib/i18n/config'
-import type { Branch, MenuItem } from '@/lib/schemas'
+import type { Branch, MenuItem, Settings } from '@/lib/schemas'
+import { absoluteUrl } from '@/content/seo-defaults'
 
 export function breadcrumbJsonLd(crumbs: { name: string; url: string }[]) {
   return {
@@ -108,6 +109,18 @@ export function localBusinessJsonLd(branch: Branch) {
   }
 }
 
+/** The site-wide Restaurant fields that come from Settings, for restaurantJsonLd. */
+export function restaurantSettingsFields(settings: Settings, locale: Locale) {
+  return {
+    telephone: settings.contact.landline ?? settings.contact.phone,
+    // English paths carry no locale prefix, which is what a file in public/ needs.
+    logo: settings.branding.logo ?? absoluteUrl('en', '/original-logo.png'),
+    sameAs: settings.socials.map((social) => social.url),
+    menuUrl: absoluteUrl(locale, '/menu'),
+    reserveUrl: absoluteUrl(locale, '/reservation'),
+  }
+}
+
 export function restaurantJsonLd(input: {
   name: string
   description: string
@@ -122,18 +135,32 @@ export function restaurantJsonLd(input: {
       type for "you can book here". No Reservation entity is ever emitted:
       on a static page that would assert a booking that does not exist. */
   reserveUrl?: string
+  /** The rest of QA round 2 B-14, all from Settings. No priceRange: there is
+      no admin field for it, and inventing one is a price claim. */
+  telephone?: string | null
+  logo?: string | null
+  sameAs?: string[]
+  menuUrl?: string
 }) {
+  // Google wants an image on a Restaurant; until the share image exists the
+  // logo stands in rather than dropping the property.
+  const image = input.image ?? input.logo
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
     name: input.name,
     description: input.description,
     url: input.url,
-    ...(input.image ? { image: input.image } : {}),
+    ...(image ? { image } : {}),
+    ...(input.logo ? { logo: input.logo } : {}),
+    ...(input.telephone ? { telephone: input.telephone } : {}),
+    ...(input.sameAs?.length ? { sameAs: input.sameAs } : {}),
+    ...(input.menuUrl ? { hasMenu: input.menuUrl } : {}),
     servesCuisine: ['Italian', 'Turkish', 'Argentinian'],
     location: input.branches.map((branch) => localBusinessJsonLd(branch)),
     ...(input.reserveUrl
       ? {
+          acceptsReservations: input.reserveUrl,
           potentialAction: {
             '@type': 'ReserveAction',
             target: input.reserveUrl,

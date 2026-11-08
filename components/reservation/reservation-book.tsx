@@ -53,7 +53,9 @@ import type { Branch, Settings } from '@/lib/schemas'
  *
  * One chapter at a time, with Back and Next, on /reservation and in the
  * header's pop-up alike (client request 2026-10-29); Next checks the chapter
- * before moving on. The pop-up sets it on bone (`tone="light"`).
+ * before moving on. Both sit on white, black text, a solid gold Next and
+ * green for whatever is selected (client request, QA round 2 A-10); the
+ * `.lr-reserve` wrapper in globals.css re-points the dark-ground tokens.
  *
  * With a single active branch there is nothing to choose, so the Room chapter
  * is left out and that branch is the booking's. Dates are the next "Dates
@@ -70,11 +72,11 @@ type Issues = Record<string, string[]>
 type Step = Chapter | 'review'
 
 const LABEL =
-  'block text-[0.6875rem] tracking-[0.18em] text-ivory-dim/70 uppercase'
+  'block text-xs tracking-[0.18em] text-ivory-dim uppercase'
 const INPUT =
   'mt-2 w-full border-b border-ivory/25 bg-transparent py-3 text-base text-ivory transition-colors duration-300 ease-brand placeholder:text-ivory-dim/40 focus:border-gold focus:outline-none aria-invalid:border-gold-pale disabled:opacity-60 [&>option]:bg-bone [&>option]:text-ink'
 const TAB =
-  'cursor-pointer border border-ivory/20 px-5 py-2.5 text-sm text-ivory-dim transition-colors duration-300 ease-brand hover:border-ivory/50 has-[:checked]:border-gold has-[:checked]:text-ivory has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold'
+  'cursor-pointer border border-ivory/20 px-5 py-2.5 text-sm text-ivory-dim transition-colors duration-300 ease-brand hover:border-ivory/50 has-[:checked]:border-emerald has-[:checked]:bg-emerald has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold'
 const CHIP = `${TAB} flex flex-col items-center px-2 text-center has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-35 has-[:disabled]:hover:border-ivory/20`
 const GRID_CHIPS = 'mt-3 grid gap-2'
 
@@ -83,13 +85,13 @@ export function ReservationBook({
   locale,
   dict,
   settings,
-  tone = 'dark',
+  tone = 'light',
 }: {
   branches: Branch[]
   locale: Locale
   dict: Dictionary
   settings: Settings['reservations']
-  /** The ground it sits on: the page is dark, the pop-up light. */
+  /** The ground it sits on; both the page and the pop-up are light now. */
   tone?: 'dark' | 'light'
 }) {
   const id = useId()
@@ -353,7 +355,7 @@ export function ReservationBook({
                       disabled={sending || !open}
                       className="sr-only"
                     />
-                    <span className="text-[0.6875rem] tracking-[0.12em] uppercase">
+                    <span className="text-xs tracking-[0.12em] uppercase">
                       {index === 0 ? dict.reservation.today : day.weekday}
                     </span>
                     <span className="lr-display mt-0.5 text-base whitespace-nowrap">
@@ -556,7 +558,7 @@ export function ReservationBook({
                     <CheckIcon
                       aria-hidden="true"
                       weight="bold"
-                      className="hidden size-3 text-gold peer-checked:block"
+                      className="hidden size-3 peer-checked:block"
                     />
                     {label}
                   </label>
@@ -653,7 +655,7 @@ export function ReservationBook({
               </div>
               <p
                 id={`${id}-birthday-hint`}
-                className="mt-2 text-[0.75rem] text-ivory-dim/70"
+                className="mt-2 text-[0.75rem] text-ivory-dim"
               >
                 {dict.reservation.birthdayHint}
               </p>
@@ -711,7 +713,7 @@ export function ReservationBook({
     <button
       type="submit"
       disabled={sending}
-      className="inline-flex items-center gap-3 border border-gold/60 px-8 py-4 text-[0.8125rem] font-medium tracking-[0.16em] text-gold uppercase transition-[background-color,border-color,color,transform] duration-300 ease-brand hover:border-gold hover:bg-gold/10 active:translate-y-px disabled:opacity-60"
+      className="inline-flex items-center gap-3 bg-gold-deep text-ink hover:brightness-110 px-8 py-4 text-[0.8125rem] font-medium tracking-[0.16em] uppercase transition-[filter,transform] duration-300 ease-brand active:translate-y-px disabled:opacity-60"
     >
       {dict.reservation.requestTable}
       {sending ? (
@@ -769,7 +771,7 @@ export function ReservationBook({
     'inline-flex min-h-11 items-center gap-2 text-[0.75rem] font-medium tracking-[0.16em] uppercase transition-colors duration-300 ease-brand disabled:opacity-40'
 
   return (
-    <form onSubmit={onSubmit} noValidate className="min-w-0">
+    <form method="post" onSubmit={onSubmit} noValidate className="min-w-0">
       {done ? null : (
         <p className="flex items-center justify-between border-b border-ivory/10 pb-3 text-[0.75rem] tracking-[0.16em] uppercase">
           <span className="text-gold tabular-nums">
@@ -809,7 +811,7 @@ export function ReservationBook({
             <button
               type="button"
               onClick={next}
-              className={`${stepButton} border border-gold/60 px-7 py-3 text-gold hover:border-gold hover:bg-gold/10`}
+              className={`${stepButton} bg-gold-deep text-ink hover:brightness-110 px-7 py-3`}
             >
               {dict.actions.next}
               <ArrowRightIcon
@@ -897,7 +899,7 @@ function Field({
 function FieldError({
   id,
   message,
-  className = 'mt-2 text-[0.75rem]',
+  className = 'mt-2 text-sm',
 }: {
   id?: string
   message?: string
@@ -970,7 +972,7 @@ function HoursHint({
   return (
     <p
       id={id}
-      className="mt-2 min-h-5 text-[0.75rem] leading-relaxed text-ivory-dim/70"
+      className="mt-2 min-h-5 text-[0.75rem] leading-relaxed text-ivory-dim"
     >
       {hint && branch
         ? hint.open

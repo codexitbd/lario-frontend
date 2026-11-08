@@ -28,7 +28,7 @@ export function PageHero({
       ) : null}
       <Container>
         {payload.show_breadcrumbs !== false ? (
-          <nav aria-label="Breadcrumb" className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase">
+          <nav aria-label="Breadcrumb" className="text-xs tracking-[0.2em] text-ivory-dim uppercase">
             <ol className="flex items-center gap-3">
               <li>
                 <Link href={localePath(locale, '/')} className="transition-colors duration-300 hover:text-gold">

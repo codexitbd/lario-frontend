@@ -11,7 +11,11 @@ import { getDictionary } from '@/lib/i18n/dictionaries'
 import { isLocale, localePath } from '@/lib/i18n/config'
 import { absoluteUrl } from '@/content/seo-defaults'
 import { buildMetadata } from '@/lib/seo/metadata'
-import { breadcrumbJsonLd, restaurantJsonLd } from '@/lib/seo/json-ld'
+import {
+  breadcrumbJsonLd,
+  restaurantJsonLd,
+  restaurantSettingsFields,
+} from '@/lib/seo/json-ld'
 
 const PAGE_SLUG = 'reservation'
 
@@ -68,7 +72,7 @@ export default async function ReservationPage({
         <Container>
           <nav
             aria-label="Breadcrumb"
-            className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+            className="text-xs tracking-[0.2em] text-ivory-dim uppercase"
           >
             <ol className="flex items-center gap-3">
               <li>
@@ -98,22 +102,26 @@ export default async function ReservationPage({
         </Container>
       </section>
 
-      {/* The fallback holds the book's rough height so the footer does not
-          jump up on the server render. */}
-      <Container className="pb-24 md:pb-32">
-        <div className="max-w-4xl">
-          <Suspense
-            fallback={<div aria-hidden="true" className="min-h-[60vh]" />}
-          >
-            <ReservationBook
-              branches={branches}
-              settings={settings.reservations}
-              locale={locale}
-              dict={dict}
-            />
-          </Suspense>
-        </div>
-      </Container>
+      {/* The book on white, as in the pop-up (QA round 2, A-10). The opening
+          band stays dark so the fixed header keeps its ground. The fallback
+          holds the book's rough height so the footer does not jump up on the
+          server render. */}
+      <div className="lr-reserve bg-white text-ink">
+        <Container className="pt-12 pb-24 md:pt-16 md:pb-32">
+          <div className="max-w-4xl">
+            <Suspense
+              fallback={<div aria-hidden="true" className="min-h-[60vh]" />}
+            >
+              <ReservationBook
+                branches={branches}
+                settings={settings.reservations}
+                locale={locale}
+                dict={dict}
+              />
+            </Suspense>
+          </div>
+        </Container>
+      </div>
 
       <script
         type="application/ld+json"
@@ -131,6 +139,7 @@ export default async function ReservationPage({
               url: absoluteUrl(locale, '/'),
               image: page.seo.og.image,
               branches,
+              ...restaurantSettingsFields(settings, locale),
               reserveUrl: page.seo.canonical,
             }),
           ),

@@ -43,7 +43,7 @@ type FieldName =
 type Errors = Partial<Record<FieldName, string>>
 
 const LABEL =
-  'block text-[0.6875rem] tracking-[0.18em] text-ivory-dim/70 uppercase'
+  'block text-xs tracking-[0.18em] text-ivory-dim uppercase'
 const INPUT =
   'mt-2 w-full border-b border-ivory/25 bg-transparent py-3 text-base text-ivory transition-colors duration-300 ease-brand placeholder:text-ivory-dim/40 focus:border-gold focus:outline-none aria-invalid:border-gold-pale disabled:opacity-60'
 
@@ -176,7 +176,7 @@ export function ContactForm({
   const sending = status === 'sending'
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-8 md:grid-cols-2 md:gap-x-10">
+    <form method="post" onSubmit={onSubmit} className="grid gap-8 md:grid-cols-2 md:gap-x-10">
       <Field
         id={`${id}-name`}
         label={dict.reservation.name}

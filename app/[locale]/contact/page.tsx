@@ -9,6 +9,7 @@ import {
 } from '@phosphor-icons/react/ssr'
 import type { Icon } from '@phosphor-icons/react'
 import { ContactForm } from '@/components/contact/contact-form'
+import { BranchMap } from '@/components/contact/branch-map'
 import { OpenNow } from '@/components/layout/open-now'
 import { Container } from '@/components/ui/container'
 import { Figure } from '@/components/ui/figure'
@@ -48,10 +49,12 @@ export async function generateMetadata({
  *    the three direct channels (call, WhatsApp, email) as large ruled rows on
  *    the end side. Someone who opens a restaurant's contact page wants a
  *    number to tap, so the numbers are the hero, not a form.
- * 2. THE ROOMS. A bone band with both branches side by side: photograph,
+ * 2. THE ROOMS. A bone band with the branches side by side: photograph,
  *    name, whether it is serving right now, address and directions, the
  *    week's hours, facilities and the room's own phone, WhatsApp and email.
- *    Every line is fixture data; nothing here is decorative copy.
+ *    Every line is API data; nothing here is decorative copy. With a single
+ *    branch the second column is its map, so the band never runs half empty
+ *    (QA round 2, A-09).
  * 3. THE LETTER. A dark band with the message form beside a sticky
  *    introduction, and one line sending table bookings to /reservation so the
  *    form does not become a second, slower booking path.
@@ -138,7 +141,7 @@ export default async function ContactPage({
           <div>
             <nav
               aria-label="Breadcrumb"
-              className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+              className="text-xs tracking-[0.2em] text-ivory-dim uppercase"
             >
               <ol className="flex items-center gap-3">
                 <li>
@@ -180,7 +183,7 @@ export default async function ContactPage({
                 <a
                   href={channel.href}
                   target={channel.external ? '_blank' : undefined}
-                  rel={channel.external ? 'noreferrer' : undefined}
+                  rel={channel.external ? 'noopener noreferrer' : undefined}
                   className="group relative flex items-center gap-5 py-5 transition-colors duration-300 ease-brand hover:text-gold-pale"
                 >
                   <channel.icon
@@ -224,7 +227,7 @@ export default async function ContactPage({
           />
 
           {/* Two rooms, one hairline between them. Stacked on a phone with the
-              hairline turned horizontal. */}
+              hairline turned horizontal. One room stands beside its map. */}
           <div className="mt-14 grid md:mt-20 md:grid-cols-2">
             {branches.map((branch, index) => (
               <Room
@@ -239,6 +242,13 @@ export default async function ContactPage({
                 }
               />
             ))}
+            {branches.length === 1 ? (
+              <BranchMap
+                branch={branches[0]}
+                locale={locale}
+                className="mt-14 aspect-[4/3] md:mt-0 md:aspect-auto md:min-h-[28rem]"
+              />
+            ) : null}
           </div>
         </Container>
       </section>
@@ -348,7 +358,7 @@ function Room({
         <a
           href={branch.google_maps_url}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className={`${QUIET} mt-4 gap-2 text-[0.75rem] tracking-[0.16em] uppercase`}
         >
           {dict.branch.getDirections}
@@ -385,7 +395,7 @@ function Room({
             <a
               href={`https://wa.me/${branch.whatsapp.replace(/\D/g, '')}`}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className={QUIET}
             >
               {dict.footer.whatsapp}

@@ -46,7 +46,7 @@ export function ReserveLink({
 }
 
 /**
- * The booking pop-up: the reservation book, on bone (the
+ * The booking pop-up: the reservation book, on white (the
  * book's dark tokens are re-pointed in globals.css, `.lr-reserve`), in a native
  * <dialog> (focus trap, Escape and inertness come from the browser, as in the
  * drawer and the gallery viewer). The book mounts on first open, so pages that
@@ -81,9 +81,9 @@ export function ReservationModal({
       id={DIALOG_ID}
       ref={dialog}
       aria-labelledby={`${DIALOG_ID}-title`}
-      className="lr-reserve m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain bg-bone p-0 text-ink shadow-2xl md:m-auto md:h-auto md:max-h-[92dvh] md:max-w-3xl md:border md:border-gold-ink/20"
+      className="lr-reserve m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain bg-white p-0 text-ink shadow-2xl md:m-auto md:h-auto md:max-h-[92dvh] md:max-w-3xl md:border md:border-gold-ink/20"
     >
-      <div className="sticky top-0 z-10 flex items-center justify-between gap-6 border-b border-ink/10 bg-bone/95 px-5 py-4 backdrop-blur-sm sm:px-8">
+      <div className="sticky top-0 z-10 flex items-center justify-between gap-6 border-b border-ink/10 bg-white/95 px-5 py-4 backdrop-blur-sm sm:px-8">
         <h2
           id={`${DIALOG_ID}-title`}
           className="text-[0.75rem] font-medium tracking-[0.18em] text-gold-ink uppercase"

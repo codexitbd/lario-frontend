@@ -15,6 +15,7 @@ import type { Icon } from '@phosphor-icons/react'
 import { OpenNow } from '@/components/layout/open-now'
 import { DishCard } from '@/components/menu/dish-card'
 import { Faq } from '@/components/sections/faq'
+import { BranchMap } from '@/components/contact/branch-map'
 import { Container } from '@/components/ui/container'
 import { Cta } from '@/components/ui/cta'
 import { Figure } from '@/components/ui/figure'
@@ -144,7 +145,7 @@ export default async function BranchPage({
         <Container>
           <nav
             aria-label="Breadcrumb"
-            className="lr-hero-in text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+            className="lr-hero-in text-xs tracking-[0.2em] text-ivory-dim uppercase"
           >
             <ol className="flex flex-wrap items-center gap-3">
               <li>
@@ -196,7 +197,7 @@ export default async function BranchPage({
               <a
                 href={branch.google_maps_url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className={QUIET_DARK}
               >
                 {dict.branch.getDirections}
@@ -283,7 +284,7 @@ export default async function BranchPage({
               {branch.gallery.map((image, index) => (
                 <li key={image.url} className={index % 5 === 0 ? 'sm:col-span-2' : ''}>
                   <figure>
-                    <a href={image.url} target="_blank" rel="noreferrer">
+                    <a href={image.url} target="_blank" rel="noopener noreferrer">
                       <Figure
                         src={image.url}
                         alt={image.alt || `${branch.name} — ${index + 1}`}
@@ -293,7 +294,7 @@ export default async function BranchPage({
                       />
                     </a>
                     {image.caption ? (
-                      <figcaption className="mt-3 text-[0.6875rem] tracking-[0.24em] text-ivory-dim uppercase">
+                      <figcaption className="mt-3 text-xs tracking-[0.24em] text-ivory-dim uppercase">
                         {image.caption}
                       </figcaption>
                     ) : null}
@@ -311,7 +312,7 @@ export default async function BranchPage({
           <SectionHeader heading={dict.menu.visitUs} tone="light" align="start" />
           <div className="mt-12 grid gap-14 lg:grid-cols-12 lg:gap-20">
             <div className="lr-reveal lg:col-span-5">
-              <p className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+              <p className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                 {dict.branches.address}
               </p>
               <p className="lr-display mt-3 max-w-[22ch] text-2xl leading-[1.2] text-ink">
@@ -326,7 +327,7 @@ export default async function BranchPage({
                 <a
                   href={branch.google_maps_url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className={`${QUIET_LIGHT} mt-6`}
                 >
                   {dict.branch.getDirections}
@@ -351,7 +352,7 @@ export default async function BranchPage({
                     <a
                       href={`https://wa.me/${branch.whatsapp.replace(/\D/g, '')}`}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="text-ink-soft transition-colors duration-300 hover:text-gold-ink"
                     >
                       {dict.footer.whatsapp}
@@ -373,7 +374,7 @@ export default async function BranchPage({
               className="lr-reveal lg:col-span-7"
               style={{ '--i': 1 } as React.CSSProperties}
             >
-              <p className="text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+              <p className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                 {dict.branch.openingHours}
               </p>
               <dl className="mt-3 flex flex-col divide-y divide-ink/10">
@@ -394,7 +395,7 @@ export default async function BranchPage({
 
               {branch.facilities.length > 0 ? (
                 <>
-                  <p className="mt-12 text-[0.6875rem] tracking-[0.24em] text-gold-ink uppercase">
+                  <p className="mt-12 text-xs tracking-[0.24em] text-gold-ink uppercase">
                     {dict.branch.facilities}
                   </p>
                   <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
@@ -419,6 +420,11 @@ export default async function BranchPage({
               ) : null}
             </div>
           </div>
+          <BranchMap
+            branch={branch}
+            locale={locale}
+            className="lr-reveal mt-14 aspect-[4/3] md:aspect-[16/7]"
+          />
         </Container>
       </section>
 

@@ -54,6 +54,7 @@ describe('security headers', () => {
     const csp = response.headers.get('Content-Security-Policy')
     expect(csp).toContain("default-src 'self'")
     expect(csp).toContain('frame-src https://www.google.com https://maps.google.com')
+    expect(csp).toMatch(/media-src 'self' https?:\/\/\S+/)
     expect(response.headers.get('Permissions-Policy')).toBe(
       'camera=(), microphone=(), payment=(), geolocation=()',
     )

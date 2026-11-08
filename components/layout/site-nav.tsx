@@ -3,11 +3,12 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { CaretDownIcon, ListIcon, XIcon } from '@phosphor-icons/react/ssr'
+import { CaretDownIcon, ListIcon, PhoneIcon, XIcon } from '@phosphor-icons/react/ssr'
 import { type NavItem, isActivePath } from '@/lib/nav'
 import { LocaleSwitch } from '@/components/layout/locale-switch'
 import { Wordmark } from '@/components/layout/wordmark'
 import { ReserveLink } from '@/components/reservation/reservation-modal'
+import { formatPhone } from '@/lib/format'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 
@@ -47,6 +48,7 @@ export function SiteNav({
   siteName,
   logo,
   reserveHref,
+  phones = [],
   items,
   drawerItems,
 }: {
@@ -56,6 +58,8 @@ export function SiteNav({
   /** Admin logo for dark grounds; null keeps the bundled one. */
   logo?: string | null
   reserveHref: string
+  /** Mobile and landline, shown under Reserve in the drawer; nulls are skipped. */
+  phones?: (string | null | undefined)[]
   /** The "header" menu, already localised. */
   items: NavItem[]
   /** Extra drawer entries (the "drawer" menu), typically "coming soon" ones. */
@@ -247,7 +251,7 @@ export function SiteNav({
                       <span aria-disabled="true" className="flex items-baseline justify-between py-5">
                         <span className="lr-display text-2xl text-ivory-dim/50">{item.label}</span>
                         {item.comingSoon ? (
-                          <span className="text-[0.5625rem] tracking-[0.18em] text-gold/50 uppercase">{dict.nav.comingSoon}</span>
+                          <span className="text-xs tracking-[0.18em] text-gold/50 uppercase">{dict.nav.comingSoon}</span>
                         ) : null}
                       </span>
                     </li>
@@ -302,6 +306,20 @@ export function SiteNav({
           >
             {dict.actions.reserve}
           </ReserveLink>
+
+          <ul className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-1 text-sm text-ivory-dim">
+            {phones.filter(Boolean).map((phone) => (
+              <li key={phone}>
+                <a
+                  href={`tel:${phone}`}
+                  className="inline-flex min-h-11 items-center gap-2 transition-colors duration-300 hover:text-gold"
+                >
+                  <PhoneIcon aria-hidden="true" weight="light" className="size-4 text-gold" />
+                  <bdi dir="ltr">{formatPhone(phone)}</bdi>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </dialog>
     </>

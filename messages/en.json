@@ -186,7 +186,7 @@
   },
   "contact": {
     "findUs": "Find us",
-    "findUsBody": "Two rooms in Riyadh. Each takes its own calls and bookings.",
+    "findUsBody": "Call the restaurant directly for bookings and questions.",
     "writeHeading": "Write to us",
     "writeBody": "Allergies, private rooms, group dinners, or anything on the menu.",
     "forTable": "Looking for a table?",
@@ -226,5 +226,10 @@
     "next": "Next photograph",
     "position": "{current} of {total}",
     "empty": "Photographs from the rooms are on their way."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "heading": "This page is not on the menu",
+    "body": "The link may be old or mistyped. Start again from the home page, browse the menu, or book a table."
   }
 }

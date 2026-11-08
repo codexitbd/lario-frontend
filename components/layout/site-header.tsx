@@ -1,4 +1,8 @@
-import { EnvelopeSimpleIcon, PhoneIcon } from '@phosphor-icons/react/ssr'
+import {
+  DeviceMobileIcon,
+  EnvelopeSimpleIcon,
+  PhoneIcon,
+} from '@phosphor-icons/react/ssr'
 import { HeaderShell } from '@/components/layout/header-shell'
 import { LocaleSwitch } from '@/components/layout/locale-switch'
 import { SiteNav } from '@/components/layout/site-nav'
@@ -84,19 +88,32 @@ export function SiteHeader({
           (it is hidden below lg), and a keyframe cannot animate height from
           `auto` to zero. */}
         <div className="lr-chrome-strip hidden overflow-hidden border-b border-ivory/10 lg:block">
-          <Container className="flex h-full items-center justify-end text-[0.6875rem] tracking-[0.14em] text-ivory-dim uppercase">
+          <Container className="flex h-full items-center justify-end text-xs tracking-[0.14em] text-ivory-dim uppercase">
             <p className="flex items-center gap-7">
               <a
                 href={`tel:${settings.contact.phone}`}
                 className="inline-flex min-h-11 items-center gap-2 transition-colors duration-300 hover:text-gold"
               >
-                <PhoneIcon
+                <DeviceMobileIcon
                   aria-hidden="true"
                   className="size-4 shrink-0 text-gold"
                   weight="light"
                 />
                 <bdi dir="ltr">{formatPhone(settings.contact.phone)}</bdi>
               </a>
+              {settings.contact.landline ? (
+                <a
+                  href={`tel:${settings.contact.landline}`}
+                  className="inline-flex min-h-11 items-center gap-2 transition-colors duration-300 hover:text-gold"
+                >
+                  <PhoneIcon
+                    aria-hidden="true"
+                    className="size-4 shrink-0 text-gold"
+                    weight="light"
+                  />
+                  <bdi dir="ltr">{formatPhone(settings.contact.landline)}</bdi>
+                </a>
+              ) : null}
               <a
                 href={`mailto:${settings.contact.email}`}
                 className="inline-flex min-h-11 items-center gap-2 normal-case transition-colors duration-300 hover:text-gold"
@@ -132,6 +149,7 @@ export function SiteHeader({
             siteName={settings.site_name}
             logo={settings.branding.logo_light}
             reserveHref={reserveHref}
+            phones={[settings.contact.phone, settings.contact.landline]}
             items={
               menus.header
                 ? toNavItems(menus.header, locale, 'header')

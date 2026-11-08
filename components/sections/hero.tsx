@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import { Container } from '@/components/ui/container'
 import { SectionCta } from '@/components/sections/section-cta'
 import { Figure } from '@/components/ui/figure'
-import { HeroVideo } from '@/components/sections/hero-video'
+import { HeroFilm, HeroVideo } from '@/components/sections/hero-video'
 import { readImage, readText, type Bag } from '@/components/sections/content'
 import { PLACEHOLDER_HERO_VIDEO, placeholderFor } from '@/lib/placeholders'
 import type { Locale } from '@/lib/i18n/config'
@@ -55,6 +55,8 @@ export function Hero({
   // `payload.video` is the contract's own field (03-api-contract.md). Null
   // until the client supplies their film, so a stand-in stands in.
   const videoId = readText(payload, 'video') || PLACEHOLDER_HERO_VIDEO
+  // An uploaded file wins: it starts with the page, YouTube does not.
+  const videoFile = readText(payload, 'video_mp4')
 
   return (
     <section className="relative isolate flex min-h-[100dvh] flex-col justify-end overflow-hidden pt-32 pb-16 md:pb-20">
@@ -70,7 +72,11 @@ export function Hero({
         className="lr-hero-plate absolute inset-0 -z-20"
       />
 
-      {videoId ? <HeroVideo videoId={videoId} title={heading} /> : null}
+      {videoFile ? (
+        <HeroFilm mp4={videoFile} webm={readText(payload, 'video_webm') || null} />
+      ) : videoId ? (
+        <HeroVideo videoId={videoId} title={heading} />
+      ) : null}
 
       {hasPhoto ? (
         <span
@@ -87,7 +93,7 @@ export function Hero({
       <Container className="relative">
         {eyebrow ? (
           <p
-            className="lr-hero-in text-[0.6875rem] tracking-[0.24em] text-gold uppercase"
+            className="lr-hero-in text-xs tracking-[0.24em] text-gold uppercase"
             style={{ '--d': 150 } as CSSProperties}
           >
             {eyebrow}

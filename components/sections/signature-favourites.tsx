@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react/ssr'
 import { Container } from '@/components/ui/container'
@@ -45,8 +45,8 @@ import type { MenuItemCard } from '@/lib/schemas'
  *                 the only state the track's transform transitions in
  *   the accordion CSS `:has()`, gated to `phase === 'rest'`, so pointer travel
  *                 across four cards costs no React render at all
- *   autoplay      paused by pointer and by focus anywhere in the section, and
- *                 off entirely under `prefers-reduced-motion` or below `lg`
+ *   autoplay      paused by pointer, touch and focus anywhere in the section,
+ *                 and off entirely under `prefers-reduced-motion`
  *
  * The loop rotates flex `order` rather than translating an ever-growing track,
  * and it holds ONE card of lead-in: card `i` sits at position `(i - head + 1)
@@ -72,7 +72,9 @@ import type { MenuItemCard } from '@/lib/schemas'
  * Below `lg` none of it applies: `order` and the transform are both inside the
  * lg media query, so the strip is a native scroll-snap row of all eight square
  * cards in fixture order, which is the same idea driven by the thumb. The arrows
- * hide there for the same reason.
+ * hide there for the same reason. Autoplay there (QA round 2, A-07) scrolls the
+ * row by one card and rewinds to the first at the end; a touch pauses it, since
+ * a touch fires pointerenter and its release pointerleave.
  *
  * The arrows are the WCAG 2.2.2 control. They and focus-follow both keep working
  * under `prefers-reduced-motion`, where only autoplay stops: that preference
@@ -85,8 +87,8 @@ const DWELL_MS = 4200
 // the slide off a frame early and snap it to the end.
 const SLIDE_MS = 960
 
-/** Rest 25vw, open 45vw, and a square tile on the scroll-snap row below lg. */
-const SIZES = '(min-width: 64rem) 45vw, (min-width: 30rem) 22rem, 78vw'
+/** Rest 25vw, open 45vw; one or two square tiles a view on the row below lg. */
+const SIZES = '(min-width: 64rem) 45vw, (min-width: 40rem) 50vw, 100vw'
 
 function Card({
   item,
@@ -126,7 +128,7 @@ function Card({
       />
 
       <span className="relative w-full px-7 pb-8 text-start lg:px-8 lg:pb-9">
-        <span className="block text-[0.625rem] tracking-[0.22em] text-gold uppercase">
+        <span className="block text-xs tracking-[0.22em] text-gold uppercase">
           {item.category.name}
         </span>
         {/* cqi, so the name grows with the card as the accordion opens it and
@@ -140,7 +142,7 @@ function Card({
             <span className="lr-display mt-4 block text-lg text-gold">
               {formatPrice(item.price, item.currency, locale)}
             </span>
-            <span className="mt-4 block border-b border-gold/40 pb-1 text-[0.6875rem] tracking-[0.18em] text-gold uppercase transition-colors duration-300 group-hover:border-gold">
+            <span className="mt-4 block border-b border-gold/40 pb-1 text-xs tracking-[0.18em] text-gold uppercase transition-colors duration-300 group-hover:border-gold">
               {viewLabel}
             </span>
           </span>
@@ -183,6 +185,7 @@ export function SignatureFavourites({
   // measured the conditions for; the effect below settles them on mount.
   const [narrow, setNarrow] = useState(true)
   const [reduced, setReduced] = useState(true)
+  const strip = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const queries = [
@@ -201,6 +204,26 @@ export function SignatureFavourites({
   useEffect(() => {
     if (narrow || reduced || paused || count <= VISIBLE) return
     const timer = window.setInterval(() => setPhase('next'), DWELL_MS)
+    return () => window.clearInterval(timer)
+  }, [narrow, reduced, paused, count])
+
+  // The scroll-snap row below lg. scrollLeft runs negative in RTL, so the end
+  // test uses its magnitude and the step takes the row's direction; 0 is the
+  // start edge in both.
+  useEffect(() => {
+    if (!narrow || reduced || paused || count < 2) return
+    const timer = window.setInterval(() => {
+      const row = strip.current
+      const card = row?.querySelector('li')
+      if (!row || !card) return
+      if (Math.abs(row.scrollLeft) + row.clientWidth >= row.scrollWidth - 4) {
+        row.scrollTo({ left: 0, behavior: 'smooth' })
+        return
+      }
+      const gap = parseFloat(getComputedStyle(card.parentElement!).columnGap) || 0
+      const sign = getComputedStyle(row).direction === 'rtl' ? -1 : 1
+      row.scrollBy({ left: sign * (card.offsetWidth + gap), behavior: 'smooth' })
+    }, DWELL_MS)
     return () => window.clearInterval(timer)
   }, [narrow, reduced, paused, count])
 
@@ -271,11 +294,11 @@ export function SignatureFavourites({
       onBlurCapture={() => setPaused(false)}
     >
       {/* Serrated edge carried down from the intro section above (reference
-          01-intro-bottom), in that section's bone so the teeth read against
+          01-intro-bottom), in that section's white so the teeth read against
           this one's ink. The backdrop drifts behind it on scroll. */}
       <span
         aria-hidden="true"
-        className="lr-teeth pointer-events-none absolute inset-x-0 top-0 z-10 h-4 bg-bone"
+        className="lr-teeth pointer-events-none absolute inset-x-0 top-0 z-10 h-4 bg-white"
       />
       <span
         aria-hidden="true"
@@ -341,12 +364,13 @@ export function SignatureFavourites({
           view slides the strip sideways and desyncs it from the transform.
           Below lg the scroll container is the point, so there it stays auto. */}
       <div
-        className="lr-fav-strip lr-plate mt-14 snap-x snap-mandatory overflow-x-auto overflow-y-hidden px-5 sm:px-8 lg:mt-20 lg:snap-none lg:overflow-clip lg:px-0"
+        ref={strip}
+        className="lr-fav-strip lr-plate mt-14 snap-x snap-mandatory scroll-px-5 overflow-x-auto overflow-y-hidden px-5 [scrollbar-width:none] sm:scroll-px-8 sm:px-8 lg:mt-20 lg:snap-none lg:overflow-clip lg:px-0"
       >
         <ul
           data-motion={phase}
           style={{ '--lr-fav-step': step } as CSSProperties}
-          className="lr-fav-track flex items-start gap-4 lg:h-full lg:items-stretch lg:gap-0"
+          className="lr-fav-track flex items-start gap-5 sm:gap-8 lg:h-full lg:items-stretch lg:gap-0"
         >
           {items.map((item, index) => (
             <li
@@ -356,7 +380,7 @@ export function SignatureFavourites({
                   '--lr-fav-order': (index - head + 1 + count) % count,
                 } as CSSProperties
               }
-              className="@container relative aspect-square snap-center lg:aspect-auto"
+              className="@container relative aspect-square snap-start lg:aspect-auto"
             >
               <Card
                 item={item}
@@ -370,7 +394,7 @@ export function SignatureFavourites({
       </div>
 
       <Container className="lr-reveal mt-16 flex justify-center">
-        <SectionCta payload={payload} locale={locale} fallback="/menu" label={readText(content, 'cta_label')} variant="outline" />
+        <SectionCta payload={payload} locale={locale} fallback="/menu" label={readText(content, 'cta_label')} variant="solid" />
       </Container>
     </section>
   )

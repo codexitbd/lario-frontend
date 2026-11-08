@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import fallbackRedirects from '@/content/redirects.json'
 import { apiUrl } from '@/lib/api/client'
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/i18n/config'
+import { MEDIA_ORIGIN } from '@/lario.config'
 import { type Maintenance, maintenancePage } from '@/lib/maintenance'
 
 // ADR-004 names the required set: CSP, HSTS, Referrer-Policy, Permissions-Policy
@@ -76,6 +77,8 @@ export function buildCsp(tracking: TrackingSettings = {}, recaptcha = false): st
     "frame-ancestors 'none'",
     "object-src 'none'",
     "img-src 'self' data: https:",
+    // The hero film is an admin upload on the backend's /storage.
+    `media-src 'self' ${MEDIA_ORIGIN}`,
     "font-src 'self'",
     "style-src 'self' 'unsafe-inline'",
     `script-src ${[...new Set(script)].join(' ')}`,

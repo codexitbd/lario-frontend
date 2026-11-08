@@ -83,7 +83,7 @@ export function PrivateEvents({
             />
 
             {readText(content, 'eyebrow') ? (
-              <p className="mt-6 text-[0.6875rem] tracking-[0.24em] text-gold uppercase">
+              <p className="mt-6 text-xs tracking-[0.24em] text-gold uppercase">
                 {readText(content, 'eyebrow')}
               </p>
             ) : null}
@@ -135,7 +135,7 @@ export function PrivateEvents({
                       <span className="lr-display text-[clamp(2.25rem,1.6rem+1.6vw,3.25rem)] leading-none text-gold">
                         {stat.value}
                       </span>
-                      <span className="text-[0.625rem] tracking-[0.2em] text-gold/85 uppercase">
+                      <span className="text-xs tracking-[0.2em] text-gold/85 uppercase">
                         {stat.label ?? units[stat.key ?? ''] ?? ''}
                       </span>
                     </p>

@@ -165,7 +165,7 @@ export function SiteFooter({
                 <a
                   href={`https://wa.me/${(settings.contact.whatsapp ?? '').replace(/\D/g, '')}`}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className={DIM}
                 >
                   {dict.footer.whatsapp}
@@ -192,7 +192,7 @@ export function SiteFooter({
                       <a
                         href={url}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="flex size-10 items-center justify-center text-ivory-dim transition-colors duration-300 ease-brand hover:text-gold"
                       >
                         <span className="sr-only">{name}</span>
@@ -234,7 +234,7 @@ export function SiteFooter({
                       <a
                         href={branch.google_maps_url}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className={`${DIM} text-[0.8125rem]`}
                       >
                         {dict.branch.getDirections}
@@ -253,14 +253,14 @@ export function SiteFooter({
               <li key={item.id}>
                 <Link
                   href={item.href!}
-                  className={`${LINK} text-[0.6875rem] tracking-[0.14em] text-ivory-dim/70 uppercase`}
+                  className={`${LINK} text-xs tracking-[0.14em] text-ivory-dim uppercase`}
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="text-[0.6875rem] tracking-[0.14em] text-ivory-dim/60 uppercase">
+          <p className="text-xs tracking-[0.14em] text-ivory-dim uppercase">
             {settings.copyright ?? <>&copy; {settings.site_name}. {dict.footer.rights}</>}
           </p>
         </div>

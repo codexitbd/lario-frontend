@@ -76,7 +76,7 @@ export function GalleryStrip({
                   className="relative aspect-[4/3] w-full"
                 />
                 {frame.caption ? (
-                  <figcaption className="mt-3 text-[0.6875rem] tracking-[0.24em] text-ivory-dim uppercase">
+                  <figcaption className="mt-3 text-xs tracking-[0.24em] text-ivory-dim uppercase">
                     {frame.caption}
                   </figcaption>
                 ) : null}

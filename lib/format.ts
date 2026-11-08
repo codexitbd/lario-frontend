@@ -30,6 +30,11 @@ export function formatPrice(
   }).format(amount as Intl.StringNumericLiteral)
 }
 
+/** A plain count in the locale's numerals, for "{count} dishes" in admin copy. */
+export function formatCount(count: number, locale: Locale): string {
+  return new Intl.NumberFormat(intlLocale(locale)).format(count)
+}
+
 export function formatCalories(calories: number, locale: Locale): string {
   return new Intl.NumberFormat(intlLocale(locale)).format(calories)
 }

@@ -53,7 +53,7 @@ export function SectionHeader({
           // side is the most saturated AI section-scaffold there is; the label
           // alone still does the job on the four sections that keep it.
           <p
-            className={`text-[0.6875rem] tracking-[0.24em] uppercase ${accent}`}
+            className={`text-xs tracking-[0.24em] uppercase ${accent}`}
           >
             {eyebrow}
           </p>

@@ -85,10 +85,10 @@ export function NewsletterForm({
   const sending = status === 'sending'
 
   return (
-    <form onSubmit={onSubmit} noValidate={false} className="mt-5 max-w-md">
+    <form method="post" onSubmit={onSubmit} noValidate={false} className="mt-5 max-w-md">
       <label
         htmlFor={id}
-        className="block text-[0.6875rem] tracking-[0.18em] text-ivory-dim/70 uppercase"
+        className="block text-xs tracking-[0.18em] text-ivory-dim uppercase"
       >
         {dict.footer.newsletterLabel}
       </label>
@@ -128,7 +128,7 @@ export function NewsletterForm({
 
       <p
         id={`${id}-note`}
-        className="mt-2 text-[0.75rem] leading-relaxed text-ivory-dim/60"
+        className="mt-2 text-[0.75rem] leading-relaxed text-ivory-dim"
       >
         {dict.footer.newsletterConsent}
       </p>

@@ -13,11 +13,24 @@ import { getPage } from '@/lib/api/pages'
 import { getSettings } from '@/lib/api/settings'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { isLocale, localePath } from '@/lib/i18n/config'
+import type { Locale } from '@/lib/i18n/config'
+import { formatCount } from '@/lib/format'
 import { absoluteUrl } from '@/content/seo-defaults'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
 
 const PAGE_SLUG = 'menu'
+
+/**
+ * The admin writes "{count} halal dishes" and the page fills in how many are
+ * published, so the intro and the meta description never go stale as dishes
+ * are added (QA round 2, B-06).
+ */
+function withCount<T>(value: T, count: number, locale: Locale): T {
+  // ponytail: a string replace over the serialised value covers title,
+  // description and og in one go; a count never contains a JSON quote.
+  return JSON.parse(JSON.stringify(value).replaceAll('{count}', formatCount(count, locale)))
+}
 
 export async function generateMetadata({
   params,
@@ -26,10 +39,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   if (!isLocale(locale)) return {}
-  const page = await getPage(locale, PAGE_SLUG)
+  const [page, items] = await Promise.all([getPage(locale, PAGE_SLUG), getMenuItems(locale)])
   if (!page) return {}
-  // Verbatim from the API's seo object, like every other page.
-  return buildMetadata(page.seo)
+  // Verbatim from the API's seo object, like every other page, bar {count}.
+  return buildMetadata(withCount(page.seo, items.length, locale))
 }
 
 /**
@@ -101,7 +114,7 @@ export default async function MenuPage({
         <Container className="relative flex flex-col items-center text-center">
           <nav
             aria-label="Breadcrumb"
-            className="text-[0.6875rem] tracking-[0.2em] text-ivory-dim uppercase"
+            className="text-xs tracking-[0.2em] text-ivory-dim uppercase"
           >
             <ol className="flex items-center gap-3">
               <li>
@@ -137,7 +150,7 @@ export default async function MenuPage({
           {/* The fixture's body copy is sanitised HTML from the CMS. */}
           <div
             className="mx-auto max-w-[62ch] text-center text-base leading-relaxed text-ink-soft md:text-lg [&_p]:mt-4 [&_p:first-child]:mt-0"
-            dangerouslySetInnerHTML={{ __html: page.body }}
+            dangerouslySetInnerHTML={{ __html: withCount(page.body, items.length, locale) }}
           />
         </Container>
 
