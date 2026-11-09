@@ -20,12 +20,16 @@ import type { MenuItemCard } from '@/lib/schemas'
  * now takes the treatment the mosaic reserved for its hero tile — the plate
  * full-bleed, the naming laid over its base.
  *
- * Four 16:9 cards tile the full width at 25% each. Every dish photo is 16:9
- * (QA round 2), so the hover accordion that opened a card to a square is gone.
+ * Three cards tile the full width at a third each. Hover one and it opens to a
+ * TRUE 16:9 (every dish photo is 16:9, QA round 2) while its two neighbours
+ * give up the difference. The 16:9 is exact rather than eyeballed because the
+ * open width is derived from the strip height, `--lr-fav-h` in globals.css;
+ * that is also why the height is clamped at both ends.
  *
- * The carousel advances ONE card at a time, not a page of four: the track slides
- * by exactly 25% every few seconds, so one dish enters at the trailing edge and
- * one leaves at the leading edge while the middle two only shift. Eight dishes
+ * The carousel advances ONE card at a time, not a page of three: the track
+ * slides by exactly a third every few seconds, so one dish enters at the
+ * trailing edge and one leaves at the leading edge while the middle one only
+ * shifts. Eight dishes
  * feed four slots (D8 amended again — see the spec), which is what makes the
  * rotation carry new information instead of shuffling the same four.
  *
@@ -34,17 +38,20 @@ import type { MenuItemCard } from '@/lib/schemas'
  * stepped advance has to know which step it is on, stop on hover, and follow
  * keyboard focus. Nothing static is nested inside it.
  *
- * The two mechanisms are kept from fighting each other:
+ * The three mechanisms are kept from fighting each other:
  *
  *   the slide     runs only while `phase` is 'next' or 'prev', which is also
  *                 the only state the track's transform transitions in
+ *   the accordion CSS `:has()`, gated to `phase === 'rest'`, so pointer travel
+ *                 across the cards costs no React render at all
  *   autoplay      paused by pointer, touch and focus anywhere in the section,
  *                 and off entirely under `prefers-reduced-motion`
  *
  * The loop rotates flex `order` rather than translating an ever-growing track,
  * and it holds ONE card of lead-in: card `i` sits at position `(i - head + 1)
  * mod 8`, the strip rests translated one card left, so position 0 waits off the
- * LEADING edge, 1-4 are the four on screen and 5-7 wait off the trailing edge.
+ * LEADING edge, 1-3 are the three on screen and the rest wait off the trailing
+ * edge.
  *
  * That lead-in is what makes the arrows symmetrical. Travel in either direction
  * is a single commit: 'next' translates to two cards, 'prev' to none, and
@@ -74,14 +81,14 @@ import type { MenuItemCard } from '@/lib/schemas'
  * means do not move things AT the reader, not refuse to move when the reader
  * asks. They land instantly there rather than sliding.
  */
-const VISIBLE = 4
+const VISIBLE = 3
 const DWELL_MS = 4200
 // A shade longer than the CSS transition it lands, so timer drift can never cut
 // the slide off a frame early and snap it to the end.
 const SLIDE_MS = 960
 
-/** Four a view at lg, two from sm, one on a phone. */
-const SIZES = '(min-width: 64rem) 25vw, (min-width: 40rem) 50vw, 100vw'
+/** Rest a third, open about 53vw at lg; two from sm, one on a phone. */
+const SIZES = '(min-width: 64rem) 54vw, (min-width: 40rem) 50vw, 100vw'
 
 function Card({
   item,
@@ -120,14 +127,15 @@ function Card({
         className="pointer-events-none absolute inset-4 border border-ivory/35 transition-colors duration-500 ease-brand group-hover:border-gold/80"
       />
 
-      <span className="relative w-full px-7 pb-7">
+      <span className="relative w-full px-7 pb-7 lg:px-8 lg:pb-9">
         <span className="block text-xs tracking-[0.22em] text-gold uppercase">
           {item.category.name}
         </span>
-        {/* cqi, so the name scales with the card: about 20px on a desktop
-            quarter or a phone, larger on a tablet's half. The li is the query
+        {/* cqi, so the name grows with the card as the accordion opens it and
+            there is nothing to transition: about 18px on a squeezed neighbour,
+            34px on the open card, 20px on a phone. The li is the query
             container. */}
-        <span className="lr-display mt-2 block text-[clamp(1.125rem,6cqi,2.125rem)] leading-[1.12] text-ivory">
+        <span className="lr-display mt-2 block text-[clamp(1.125rem,4.6cqi,2.125rem)] leading-[1.12] text-ivory">
           {item.name}
         </span>
         <span className="lr-hover-copy grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-500 ease-brand group-hover:grid-rows-[1fr] group-hover:opacity-100">
@@ -363,26 +371,28 @@ export function SignatureFavourites({
         <ul
           data-motion={phase}
           style={{ '--lr-fav-step': step } as CSSProperties}
-          className="lr-fav-track flex items-start gap-5 sm:gap-8 lg:gap-0"
+          className="lr-fav-track flex items-start gap-5 sm:gap-8 lg:h-full lg:items-stretch lg:gap-0"
         >
-          {items.map((item, index) => (
-            <li
-              key={item.slug}
-              style={
-                {
-                  '--lr-fav-order': (index - head + 1 + count) % count,
-                } as CSSProperties
-              }
-              className="@container relative aspect-video snap-start"
-            >
-              <Card
-                item={item}
-                locale={locale}
-                viewLabel={dict.actions.viewDetails}
-                onFocus={() => follow(index)}
-              />
-            </li>
-          ))}
+          {items.map((item, index) => {
+            const position = (index - head + 1 + count) % count
+            return (
+              <li
+                key={item.slug}
+                style={{ '--lr-fav-order': position } as CSSProperties}
+                // Off screen at lg (the lead-in, and the cards waiting past the
+                // trailing edge): out of the accordion and the pointer's way.
+                data-off={position === 0 || position > VISIBLE ? '' : undefined}
+                className="@container relative aspect-video snap-start lg:aspect-auto"
+              >
+                <Card
+                  item={item}
+                  locale={locale}
+                  viewLabel={dict.actions.viewDetails}
+                  onFocus={() => follow(index)}
+                />
+              </li>
+            )
+          })}
         </ul>
       </div>
 
