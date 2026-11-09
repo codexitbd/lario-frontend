@@ -314,7 +314,7 @@ export default async function DishPage({
               })}
             </h2>
 
-            <ul className="mt-12 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-12 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
               {item.related.map((related) => (
                 <DishCard
                   key={related.slug}
