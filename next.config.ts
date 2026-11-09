@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // One level, so every image uses it. 100 because the client wants no
+    // visible compression: this resize is the only time a photo is re-saved
+    // (the API hands over the uploaded file itself).
+    qualities: [100],
     // A local backend (Herd, *.test) resolves to 127.0.0.1, which next/image
     // refuses by default. Production serves media from a public host.
     dangerouslyAllowLocalIP: process.env.NODE_ENV !== 'production',

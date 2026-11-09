@@ -20,13 +20,8 @@ import type { MenuItemCard } from '@/lib/schemas'
  * now takes the treatment the mosaic reserved for its hero tile — the plate
  * full-bleed, the naming laid over its base.
  *
- * Four cards tile the full width at 25% each. Hover one and it opens to a TRUE
- * square while its three neighbours give up the difference. The square is exact
- * rather than eyeballed because the expanded width and the strip height are the
- * same custom property, `--lr-fav-h` in globals.css; that is also why the
- * height is clamped at both ends, since an uncapped one would outgrow the
- * viewport on a wide monitor and an unfloored one leaves the three squeezed
- * neighbours under ~170px at 1024, with nowhere for a dish name to wrap.
+ * Four 16:9 cards tile the full width at 25% each. Every dish photo is 16:9
+ * (QA round 2), so the hover accordion that opened a card to a square is gone.
  *
  * The carousel advances ONE card at a time, not a page of four: the track slides
  * by exactly 25% every few seconds, so one dish enters at the trailing edge and
@@ -39,12 +34,10 @@ import type { MenuItemCard } from '@/lib/schemas'
  * stepped advance has to know which step it is on, stop on hover, and follow
  * keyboard focus. Nothing static is nested inside it.
  *
- * The three mechanisms are kept from fighting each other:
+ * The two mechanisms are kept from fighting each other:
  *
  *   the slide     runs only while `phase` is 'next' or 'prev', which is also
  *                 the only state the track's transform transitions in
- *   the accordion CSS `:has()`, gated to `phase === 'rest'`, so pointer travel
- *                 across four cards costs no React render at all
  *   autoplay      paused by pointer, touch and focus anywhere in the section,
  *                 and off entirely under `prefers-reduced-motion`
  *
@@ -70,7 +63,7 @@ import type { MenuItemCard } from '@/lib/schemas'
  * eight DOM nodes instead of twelve, and nothing is hidden from a screen reader.
  *
  * Below `lg` none of it applies: `order` and the transform are both inside the
- * lg media query, so the strip is a native scroll-snap row of all eight square
+ * lg media query, so the strip is a native scroll-snap row of all eight 16:9
  * cards in fixture order, which is the same idea driven by the thumb. The arrows
  * hide there for the same reason. Autoplay there (QA round 2, A-07) scrolls the
  * row by one card and rewinds to the first at the end; a touch pauses it, since
@@ -87,8 +80,8 @@ const DWELL_MS = 4200
 // the slide off a frame early and snap it to the end.
 const SLIDE_MS = 960
 
-/** Rest 25vw, open 45vw; one or two square tiles a view on the row below lg. */
-const SIZES = '(min-width: 64rem) 45vw, (min-width: 40rem) 50vw, 100vw'
+/** Four a view at lg, two from sm, one on a phone. */
+const SIZES = '(min-width: 64rem) 25vw, (min-width: 40rem) 50vw, 100vw'
 
 function Card({
   item,
@@ -127,14 +120,14 @@ function Card({
         className="pointer-events-none absolute inset-4 border border-ivory/35 transition-colors duration-500 ease-brand group-hover:border-gold/80"
       />
 
-      <span className="relative w-full px-7 pb-8 text-start lg:px-8 lg:pb-9">
+      <span className="relative w-full px-7 pb-7">
         <span className="block text-xs tracking-[0.22em] text-gold uppercase">
           {item.category.name}
         </span>
-        {/* cqi, so the name grows with the card as the accordion opens it and
-            there is nothing to transition: 18px on a squeezed neighbour, 34px
-            on the open square. The li is the query container. */}
-        <span className="lr-display mt-2 block text-[clamp(1rem,4.6cqi,2.125rem)] leading-[1.12] text-ivory">
+        {/* cqi, so the name scales with the card: about 20px on a desktop
+            quarter or a phone, larger on a tablet's half. The li is the query
+            container. */}
+        <span className="lr-display mt-2 block text-[clamp(1.125rem,6cqi,2.125rem)] leading-[1.12] text-ivory">
           {item.name}
         </span>
         <span className="lr-hover-copy grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-500 ease-brand group-hover:grid-rows-[1fr] group-hover:opacity-100">
@@ -370,7 +363,7 @@ export function SignatureFavourites({
         <ul
           data-motion={phase}
           style={{ '--lr-fav-step': step } as CSSProperties}
-          className="lr-fav-track flex items-start gap-5 sm:gap-8 lg:h-full lg:items-stretch lg:gap-0"
+          className="lr-fav-track flex items-start gap-5 sm:gap-8 lg:gap-0"
         >
           {items.map((item, index) => (
             <li
@@ -380,7 +373,7 @@ export function SignatureFavourites({
                   '--lr-fav-order': (index - head + 1 + count) % count,
                 } as CSSProperties
               }
-              className="@container relative aspect-square snap-start lg:aspect-auto"
+              className="@container relative aspect-video snap-start"
             >
               <Card
                 item={item}

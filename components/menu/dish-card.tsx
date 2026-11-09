@@ -77,7 +77,7 @@ export function DishCard({
             alt={item.image_alt ?? ''}
             shot={item.name}
             sizes="(min-width: 1024px) 26rem, (min-width: 640px) 44vw, 90vw"
-            className="relative aspect-[4/5] w-full"
+            className="relative aspect-video w-full"
             imageClassName="transition-transform duration-[1200ms] ease-brand group-hover:scale-[1.04]"
           />
           <span

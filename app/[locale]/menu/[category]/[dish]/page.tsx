@@ -167,7 +167,7 @@ export default async function DishPage({
                 shot={item.name}
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 priority
-                className="relative aspect-square w-full"
+                className="relative aspect-video w-full"
               />
               <span
                 aria-hidden="true"

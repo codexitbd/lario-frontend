@@ -570,13 +570,8 @@ html[dir="rtl"] .lr-fan {
 /* ---------------------------------------------------------------------------
    Signature favourites (components/sections/signature-favourites.tsx).
 
-   Four cards tile the full width at 25% each; hovering one opens it to a true
-   square and its three neighbours give up the difference. The square is exact
-   rather than eyeballed because the strip HEIGHT and the open card's WIDTH are
-   the same custom property. Clamped at both ends on purpose: uncapped, the
-   section grows taller than the viewport on a wide monitor; unfloored, the three
-   squeezed neighbours fall under ~170px at 1024 and a dish name has nowhere to
-   wrap.
+   Four 16:9 cards tile the full width at 25% each (QA round 2: every dish
+   photo is 16:9, so the hover accordion that opened a card to a square is gone).
 
    The carousel rotates the cards' flex `order` and translates the track by at
    most one card, rather than translating an ever-longer track. It rests ONE card
@@ -587,27 +582,18 @@ html[dir="rtl"] .lr-fan {
 
    Percentages, not container units, for everything horizontal. The track is a
    block-level flex container, so its width IS the strip width and 25% of it is
-   exactly one card — which is what keeps the four on screen tiling the strip
-   whatever step the carousel is on. `--lr-fav-h` is the one length that cannot
-   be a percentage, since a percentage height resolves against the parent's
-   height rather than its width, so it is vw; the scrollbar makes vw a few px
-   wider than the strip, which shifts the proportion slightly and leaves the 1:1
-   exact, because height and open width read the same property.
+   exactly one card, which keeps the four on screen tiling the strip whatever
+   step the carousel is on. Each card's height follows from its 16:9 ratio.
 
    The card's own `container-type` (Tailwind `@container` on each li) is what
-   lets the dish name scale in cqi as the accordion opens it.
+   lets the dish name scale in cqi with the card.
 --------------------------------------------------------------------------- */
-.lr-fav-strip {
-  --lr-fav-h: clamp(30rem, 45vw, 44rem);
-  --lr-fav-narrow: calc((100% - var(--lr-fav-h)) / 3);
-}
 
 /* Below lg: one whole card per view on a phone, two from sm, always equal
    widths. The track's gap matches the strip's padding, so a neighbour starts
    exactly past the screen edge instead of peeking in cut off (QA round 2, A-05). */
 .lr-fav-track > li {
   flex: 0 0 100%;
-  transition: flex-basis 700ms var(--ease-brand);
 }
 
 @media (min-width: 40rem) {
@@ -617,10 +603,6 @@ html[dir="rtl"] .lr-fan {
 }
 
 @media (min-width: 64rem) {
-  .lr-fav-strip {
-    height: var(--lr-fav-h);
-  }
-
   .lr-fav-track > li {
     flex-basis: 25%;
     /* Held here rather than set inline, so the scroll-snap row below lg keeps
@@ -628,25 +610,10 @@ html[dir="rtl"] .lr-fan {
     order: var(--lr-fav-order, 0);
   }
 
-  /* At rest the track sits one card in, so a card waits off the leading edge for
-     the previous arrow. That offset has to be the LEAD-IN CARD'S OWN WIDTH, not
-     a flat 25%: the accordion squeezes every card including that one, and a
-     fixed 25% then stops landing on a card boundary and drags the whole strip
-     about 100px left, clipping the first card on screen. Defining the offset AS
-     the lead-in's width keeps the two in agreement by construction. Measured in
-     the browser, not reasoned about. */
+  /* At rest the track sits one card in, so a card waits off the leading edge
+     for the previous arrow. */
   .lr-fav-track {
-    --lr-fav-lead: 25%;
     transform: translateX(calc(var(--lr-fav-step, 1) * -25%));
-  }
-
-  .lr-fav-track[data-motion="rest"] {
-    transform: translateX(calc(-1 * var(--lr-fav-lead)));
-  }
-
-  .lr-fav-track[data-motion="rest"]:has(a:hover),
-  .lr-fav-track[data-motion="rest"]:has(a:focus-visible) {
-    --lr-fav-lead: var(--lr-fav-narrow);
   }
 
   /* Transitioned ONLY while the carousel is mid-advance, which is what makes
@@ -660,35 +627,9 @@ html[dir="rtl"] .lr-fan {
   }
 
   /* RTL lays the track out from the other edge, so the travel flips with it —
-     the same treatment .lr-marquee-track gets, and for the same reason. Both
-     states are spelled out: `html[dir="rtl"] .lr-fav-track` already outweighs
-     the LTR rest rule, so without an RTL rest rule of its own the strip would
-     lose its lead-in offset in Arabic. */
+     the same treatment .lr-marquee-track gets, and for the same reason. */
   html[dir="rtl"] .lr-fav-track {
     transform: translateX(calc(var(--lr-fav-step, 1) * 25%));
-  }
-
-  html[dir="rtl"] .lr-fav-track[data-motion="rest"] {
-    transform: translateX(var(--lr-fav-lead));
-  }
-
-  /* The accordion. Driven by :has() rather than React state so pointer travel
-     across four cards costs no render, and held to `rest` so it cannot fight a
-     slide already in flight.
-
-     The two rules TIE at (0,3,2) and the open one wins on source order, so it
-     has to stay second. Do not "clarify" the squeeze rule's argument to
-     `:has(> li a:hover)`: the child combinator inside adds a type selector, the
-     rule reaches (0,3,3), and it then beats the open rule — every card squeezes,
-     the hovered one included, and the accordion silently stops working. */
-  .lr-fav-track[data-motion="rest"]:has(a:hover) > li,
-  .lr-fav-track[data-motion="rest"]:has(a:focus-visible) > li {
-    flex-basis: var(--lr-fav-narrow);
-  }
-
-  .lr-fav-track[data-motion="rest"] > li:has(a:hover),
-  .lr-fav-track[data-motion="rest"] > li:has(a:focus-visible) {
-    flex-basis: var(--lr-fav-h);
   }
 }
 
