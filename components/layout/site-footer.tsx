@@ -15,6 +15,7 @@ import {
 import type { Icon } from '@phosphor-icons/react'
 import type { ReactNode } from 'react'
 import goldenLogo from '@/public/golden-logo.png'
+import { BranchMap } from '@/components/contact/branch-map'
 import { NewsletterForm } from '@/components/layout/newsletter-form'
 import { OpenNow } from '@/components/layout/open-now'
 import { Container } from '@/components/ui/container'
@@ -49,7 +50,11 @@ import type { Branch, Settings } from '@/lib/schemas'
  *
  * Each room still reports whether it is serving RIGHT NOW (open-now.tsx). The
  * address and the per-day hours table live on the branch page the room's name
- * links to; the footer keeps the live state, the phone and directions.
+ * links to; the footer keeps the live state, the phone, directions and, since
+ * QA round 2 (2026-11-09, client request), a map under each room.
+ *
+ * The ground is La Rio green (emerald), not ink, at client request on the same
+ * day. The ivory-dim and gold text clear AA on it (about 5:1).
  */
 // Platforms the admin can pick (Settings → General → Social media); any other
 // falls back to a globe.
@@ -107,7 +112,7 @@ export function SiteFooter({
   const legal = (menus.footer_legal ? toNavItems(menus.footer_legal, locale, 'legal') : fallback(LEGAL_NAV, dict.footer)).filter((item) => item.href)
 
   return (
-    <footer className="overflow-hidden border-t border-gold/20 bg-ink text-ivory">
+    <footer className="overflow-hidden border-t border-gold/20 bg-emerald text-ivory">
       <Container>
         {/* Mobile: newsletter, then Explore and Get in touch two-up, then
             Visit us full width. md: newsletter across, three columns under.
@@ -241,6 +246,11 @@ export function SiteFooter({
                       </a>
                     ) : null}
                   </div>
+                  <BranchMap
+                    branch={branch}
+                    locale={locale}
+                    className="mt-4 aspect-[16/10]"
+                  />
                 </li>
               ))}
             </ul>
