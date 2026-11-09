@@ -74,7 +74,7 @@ export function NewsletterForm({
     return (
       <p
         role="status"
-        className="mt-5 flex items-start gap-3 text-sm leading-relaxed text-gold"
+        className="mt-5 flex items-start gap-3 text-base md:text-sm leading-relaxed text-gold"
       >
         <CheckIcon aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
         {dict.footer.newsletterSuccess}

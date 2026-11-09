@@ -249,7 +249,7 @@ export default async function DishPage({
                   dietary tags would flatten the difference between "this dish
                   IS vegetarian" and "this dish CONTAINS dairy". */}
               {item.allergens.length > 0 ? (
-                <p className="mt-5 text-sm text-ivory-dim">
+                <p className="mt-5 text-base md:text-sm text-ivory-dim">
                   <span className="text-ivory-dim">
                     {dict.menu.contains}:{' '}
                   </span>

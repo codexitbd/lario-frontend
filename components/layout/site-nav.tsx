@@ -307,7 +307,7 @@ export function SiteNav({
             {dict.actions.reserve}
           </ReserveLink>
 
-          <ul className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-1 text-sm text-ivory-dim">
+          <ul className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-1 text-base md:text-sm text-ivory-dim">
             {phones.filter(Boolean).map((phone) => (
               <li key={phone}>
                 <a

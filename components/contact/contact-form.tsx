@@ -309,7 +309,7 @@ export function ContactForm({
             />
           )}
         </button>
-        <p role="alert" aria-live="polite" className="text-sm text-gold-pale">
+        <p role="alert" aria-live="polite" className="text-base md:text-sm text-gold-pale">
           {status === 'error' ? notice : ''}
         </p>
       </div>

@@ -82,7 +82,7 @@ function Column({
   return (
     <div className={className}>
       <h2 className="lr-display text-lg text-gold italic">{title}</h2>
-      <div className="mt-3 text-sm">{children}</div>
+      <div className="mt-3 text-base md:text-sm">{children}</div>
     </div>
   )
 }
@@ -134,7 +134,7 @@ export function SiteFooter({
             >
               {dict.footer.newsletterTitle}
             </h2>
-            <p className="mt-2 max-w-[44ch] text-sm leading-relaxed text-pretty text-ivory-dim">
+            <p className="mt-2 max-w-[44ch] text-base md:text-sm leading-relaxed text-pretty text-ivory-dim">
               {dict.footer.newsletterBody}
             </p>
             <NewsletterForm locale={locale} dict={dict} />
@@ -235,7 +235,7 @@ export function SiteFooter({
                         href={branch.google_maps_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${DIM} text-[0.8125rem]`}
+                        className={`${DIM} text-base md:text-sm`}
                       >
                         {dict.branch.getDirections}
                       </a>

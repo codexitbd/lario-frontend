@@ -305,7 +305,7 @@ export function ReservationBook({
               <span className="lr-display text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-[1.1] text-ivory">
                 {room.name}
               </span>
-              <span className="mt-3 flex flex-col gap-0.5 text-sm text-ivory-dim">
+              <span className="mt-3 flex flex-col gap-0.5 text-base md:text-sm text-ivory-dim">
                 {groupOpeningHours(
                   room.opening_hours,
                   locale,
@@ -394,7 +394,7 @@ export function ReservationBook({
                 ))}
               </div>
             ) : (
-              <p className="mt-3 text-sm text-ivory-dim">
+              <p className="mt-3 text-base md:text-sm text-ivory-dim">
                 {!branch
                   ? dict.reservation.chooseBranchFirst
                   : !state.date
@@ -503,7 +503,7 @@ export function ReservationBook({
           ))}
 
           <div className="md:col-span-2">
-            <label className="flex cursor-pointer items-start gap-3 text-sm text-ivory-dim">
+            <label className="flex cursor-pointer items-start gap-3 text-base md:text-sm text-ivory-dim">
               <input
                 type="checkbox"
                 name="consent"
@@ -727,7 +727,7 @@ export function ReservationBook({
     </button>
   )
   const alert = (
-    <p role="alert" aria-live="polite" className="text-sm text-gold-pale">
+    <p role="alert" aria-live="polite" className="text-base md:text-sm text-gold-pale">
       {status === 'error' ? notice : ''}
     </p>
   )

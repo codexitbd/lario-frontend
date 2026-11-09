@@ -146,7 +146,7 @@ export function PrivateEvents({
                   </h3>
 
                   <div className="lr-hover-copy grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-500 ease-brand group-hover:grid-rows-[1fr] group-hover:opacity-100">
-                    <p className="max-w-[32ch] overflow-hidden text-sm leading-relaxed text-ivory-dim">
+                    <p className="max-w-[32ch] overflow-hidden text-base md:text-sm leading-relaxed text-ivory-dim">
                       <span className="mt-4 block">{card.body}</span>
                     </p>
                   </div>

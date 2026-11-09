@@ -96,7 +96,7 @@ export function DishCard({
         </h3>
 
         {item.short_description ? (
-          <p className="mt-2 max-w-[38ch] text-[0.8125rem] leading-relaxed text-ivory-dim">
+          <p className="mt-2 max-w-[38ch] text-base md:text-sm leading-relaxed text-ivory-dim">
             {item.short_description}
           </p>
         ) : null}

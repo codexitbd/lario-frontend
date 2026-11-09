@@ -136,7 +136,7 @@ export function Ticket({
             >
               {received.reference}
             </p>
-            <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-ink-soft">
+            <p className="mt-4 max-w-[44ch] text-base md:text-sm leading-relaxed text-ink-soft">
               {interpolate(dict.reservation.successBody, {
                 reference: received.reference,
               })}
@@ -185,7 +185,7 @@ export function Ticket({
               {line.label}
             </dt>
             <dd
-              className={`break-words ${line.display ? 'lr-display text-xl text-ink' : 'text-sm text-ink-soft'}`}
+              className={`break-words ${line.display ? 'lr-display text-xl text-ink' : 'text-base md:text-sm text-ink-soft'}`}
             >
               <bdi>{line.value}</bdi>
             </dd>

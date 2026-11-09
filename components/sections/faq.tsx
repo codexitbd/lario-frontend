@@ -59,7 +59,7 @@ export function Faq({ section }: { section: { content: Bag } }) {
                     className="mt-1 size-4 shrink-0 text-gold-ink transition-transform duration-300 ease-brand group-open:rotate-180"
                   />
                 </summary>
-                <p className="pb-7 pe-10 text-sm leading-relaxed text-ink-soft md:text-base">
+                <p className="pb-7 pe-10 text-base leading-relaxed text-ink-soft">
                   {item.a}
                 </p>
               </details>

@@ -29,7 +29,7 @@ export function ContactSection({
       <Container className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
         <div>
           <CmsHeader content={section.content} className="!items-start !text-start" />
-          <dl className="mt-10 space-y-6 text-sm">
+          <dl className="mt-10 space-y-6 text-base md:text-sm">
             {contact?.phone ? (
               <div><dt className="text-ivory-dim">{dict.footer.callUs}</dt><dd><a href={`tel:${contact.phone}`} className="text-lg hover:text-gold"><bdi dir="ltr">{formatPhone(contact.phone)}</bdi></a></dd></div>
             ) : null}

@@ -114,14 +114,14 @@ export function BranchCards({
                 </Link>
               </h3>
 
-              <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-ivory-dim">
+              <p className="mt-5 max-w-[34ch] text-base md:text-sm leading-relaxed text-ivory-dim">
                 {branch.address}
               </p>
 
               <h4 className="mt-9 text-xs tracking-[0.2em] text-ivory uppercase">
                 {dict.branch.openingHours}
               </h4>
-              <dl className="mt-3 flex flex-col gap-1 text-sm text-ivory-dim">
+              <dl className="mt-3 flex flex-col gap-1 text-base md:text-sm text-ivory-dim">
                 {schedule.map((group) => (
                   <div key={group.days} className="flex justify-center gap-3">
                     <dt className="text-ivory">{group.days}</dt>

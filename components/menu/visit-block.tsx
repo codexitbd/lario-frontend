@@ -81,7 +81,7 @@ export function VisitBlock({
                 </dt>
                 <dd className="mt-4 flex flex-col gap-3">
                   {branches.map((branch) => (
-                    <span key={branch.slug} className="block text-sm">
+                    <span key={branch.slug} className="block text-base md:text-sm">
                       <span className="text-ink">{branch.name}</span>
                       {groupOpeningHours(
                         branch.opening_hours,
@@ -104,7 +104,7 @@ export function VisitBlock({
                 <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                   {dict.nav.contact}
                 </dt>
-                <dd className="mt-4 flex flex-col gap-1 text-sm text-ink-soft">
+                <dd className="mt-4 flex flex-col gap-1 text-base md:text-sm text-ink-soft">
                   <a
                     href={`mailto:${settings.contact.email}`}
                     className="transition-colors duration-300 hover:text-gold-ink"
@@ -125,7 +125,7 @@ export function VisitBlock({
                 <dt className="text-xs tracking-[0.24em] text-gold-ink uppercase">
                   {dict.nav.branches}
                 </dt>
-                <dd className="mt-4 flex flex-col gap-3 text-sm text-ink-soft">
+                <dd className="mt-4 flex flex-col gap-3 text-base md:text-sm text-ink-soft">
                   {branches.map((branch) => (
                     <span key={branch.slug} className="block">
                       {branch.address}

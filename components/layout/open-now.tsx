@@ -68,7 +68,7 @@ export function OpenNow({
       : dict.footer.closedToday
 
   return (
-    <p className="flex min-h-6 items-center gap-2.5 text-[0.8125rem]">
+    <p className="flex min-h-6 items-center gap-2.5 text-base md:text-sm">
       <span
         aria-hidden="true"
         className={`size-1.5 shrink-0 rounded-full ${

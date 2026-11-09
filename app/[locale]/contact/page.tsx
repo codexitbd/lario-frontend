@@ -263,7 +263,7 @@ export default async function ContactPage({
               {dict.contact.writeBody}
             </p>
             <p
-              className="lr-reveal mt-10 text-sm text-ivory-dim"
+              className="lr-reveal mt-10 text-base md:text-sm text-ivory-dim"
               style={{ '--i': 1 } as React.CSSProperties}
             >
               {dict.contact.forTable}
@@ -350,7 +350,7 @@ function Room({
         {branch.address}
       </p>
       {branch.directions_note ? (
-        <p className="mt-2 max-w-[40ch] text-sm leading-relaxed text-pretty text-ink-soft">
+        <p className="mt-2 max-w-[40ch] text-base md:text-sm leading-relaxed text-pretty text-ink-soft">
           {branch.directions_note}
         </p>
       ) : null}
@@ -369,7 +369,7 @@ function Room({
         </a>
       ) : null}
 
-      <dl className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 border-t border-gold-ink/20 pt-6 text-sm">
+      <dl className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 border-t border-gold-ink/20 pt-6 text-base md:text-sm">
         {schedule.map((group) => (
           <div key={group.days} className="contents">
             <dt className="text-ink">{group.days}</dt>
@@ -379,12 +379,12 @@ function Room({
       </dl>
 
       {branch.facilities.length > 0 ? (
-        <p className="mt-5 text-sm leading-relaxed text-ink-soft">
+        <p className="mt-5 text-base md:text-sm leading-relaxed text-ink-soft">
           {branch.facilities.map((facility) => facility.label).join(', ')}
         </p>
       ) : null}
 
-      <ul className="mt-6 flex flex-wrap gap-x-7 gap-y-2 text-sm">
+      <ul className="mt-6 flex flex-wrap gap-x-7 gap-y-2 text-base md:text-sm">
         <li>
           <a href={`tel:${branch.phone}`} className={QUIET}>
             <bdi dir="ltr">{formatPhone(branch.phone)}</bdi>
