@@ -98,11 +98,13 @@ export function localBusinessJsonLd(branch: Branch) {
       addressCountry: 'SA',
     },
     telephone: branch.phone,
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: branch.coordinates.latitude,
-      longitude: branch.coordinates.longitude,
-    },
+    ...(branch.coordinates && {
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: branch.coordinates.latitude,
+        longitude: branch.coordinates.longitude,
+      },
+    }),
     openingHours: branch.schema_opening_hours,
     servesCuisine: ['Italian', 'Turkish', 'Argentinian'],
     hasMap: branch.google_maps_url,

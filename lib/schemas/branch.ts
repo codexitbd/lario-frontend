@@ -25,7 +25,8 @@ export const branchSchema = z.object({
   // reservation notification is sent to; a null here means a 201 with nobody
   // told, in the one flow the client is paying for.
   email: z.email(),
-  coordinates: z.object({ latitude: z.number(), longitude: z.number() }),
+  // Null when the admin left them blank and the Maps link had none; the map hides.
+  coordinates: z.object({ latitude: z.number(), longitude: z.number() }).nullable(),
   // Nullable, matching the column. The branch page hides the directions link
   // when it is absent rather than constructing a URL from coordinates.
   google_maps_url: z.url().nullable(),
